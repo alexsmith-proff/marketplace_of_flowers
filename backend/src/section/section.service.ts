@@ -19,7 +19,8 @@ export class SectionService {
   async findAll(): Promise<SectionEntity[]> {
     return await this.sectionRepository.find({
       relations:{
-        text_sections: true
+        text_sections: true,
+        img_sections: true        
       }
     })
   }

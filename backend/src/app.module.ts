@@ -1,3 +1,4 @@
+import { ImgSectionEntity } from './imgsection/entities/imgsection.entity';
 import { TextSectionEntity } from './textsection/entities/textsection.entity';
 import { SectionEntity } from './section/entities/section.entity';
 import { MenuEntity } from './menu/entities/menu.entity';
@@ -18,6 +19,7 @@ import { SubmenuItemModule } from './submenuitem/submenuitem.module';
 import { MenuItemModule } from './menuitem/menuitem.module';
 import { SectionModule } from './section/section.module';
 import { TextSectionModule } from './textsection/textsection.module';
+import { ImgSectionModule } from './imgsection/imgsection.module';
 
 @Module({
   imports: [
@@ -35,7 +37,7 @@ import { TextSectionModule } from './textsection/textsection.module';
         username: configService.get<string>('TYPEORM_USERNAME'),
         password: configService.get<string>('TYPEORM_PASSWORD'),
         database: configService.get<string>('TYPEORM_DATABASE'),
-        entities: [UserEntity, MenuEntity, MenuItemEntity, SubmenuItemEntity, SectionEntity, TextSectionEntity],
+        entities: [UserEntity, MenuEntity, MenuItemEntity, SubmenuItemEntity, SectionEntity, TextSectionEntity, ImgSectionEntity],
         synchronize: true,        
       })
     }),
@@ -46,7 +48,7 @@ import { TextSectionModule } from './textsection/textsection.module';
       playground: true 
     }),
   
-    UserModule, AuthModule, MenuModule, MenuItemModule, SubmenuItemModule, SectionModule, TextSectionModule],
+    UserModule, AuthModule, MenuModule, MenuItemModule, SubmenuItemModule, SectionModule, TextSectionModule, ImgSectionModule],
   controllers: [AppController],
   providers: [AppService],
 })

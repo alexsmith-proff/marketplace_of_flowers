@@ -2,6 +2,20 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+input CreateImgSectionInput {
+  """filename ImgSection"""
+  filename: String!
+
+  """name ImgSection"""
+  name: String!
+
+  """section_id ImgSection"""
+  section_id: Float!
+
+  """slug ImgSection"""
+  slug: String!
+}
+
 input CreateMenuInput {
   """Name"""
   name: String!
@@ -60,6 +74,23 @@ A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date
 """
 scalar DateTime
 
+type ImgSectionEntity {
+  """filename ImgSection"""
+  filename: String!
+
+  """id ImgSection"""
+  id: ID!
+
+  """name ImgSection"""
+  name: String!
+
+  """section_ref ImgSection"""
+  section_ref: SectionEntity!
+
+  """slug ImgSection"""
+  slug: String!
+}
+
 type MenuEntity {
   createdAt: DateTime!
 
@@ -88,15 +119,18 @@ type MenuItemEntity {
 }
 
 type Mutation {
+  createImgSection(createImgSectionInput: CreateImgSectionInput!): ImgSectionEntity!
   createMenu(createMenuInput: CreateMenuInput!): MenuEntity!
   createMenuItem(createMenuItemInput: CreateMenuItemInput!): MenuItemEntity!
   createSection(createSectionInput: CreateSectionInput!): SectionEntity!
   createSubmenuItem(createSubmenuItemInput: CreateSubmenuItemInput!): SubmenuItemEntity!
   createTextSection(createTextSectionInput: CreateTextSectionInput!): TextSectionEntity!
+  removeImgSection(id: Int!): ImgSectionEntity!
   removeMenu(id: Int!): MenuItemEntity!
   removeSection(id: Int!): SectionEntity!
   removeSubmenuItem(id: Int!): SubmenuItemEntity!
-  removeTextsection(id: Int!): TextSectionEntity!
+  removeTextSection(id: Int!): TextSectionEntity!
+  updateImgSection(updateImgSectionInput: UpdateImgSectionInput!): ImgSectionEntity!
   updateMenu(updateMenuItemInput: UpdateMenuItemInput!): MenuItemEntity!
   updateSection(updateSectionInput: UpdateSectionInput!): SectionEntity!
   updateSubmenuItem(updateSubmenuItemInput: UpdateSubmenuItemInput!): SubmenuItemEntity!
@@ -104,20 +138,24 @@ type Mutation {
 }
 
 type Query {
+  getAllImgSection: [ImgSectionEntity!]!
   getAllMenuItem: [MenuItemEntity!]!
   getAllMenus: [MenuEntity!]!
   getAllSections: [SectionEntity!]!
   getAllSubmenuItems: [SubmenuItemEntity!]!
+  getAllTextSection: [TextSectionEntity!]!
+  getImgSectionByID(id: Int!): ImgSectionEntity!
   getMenuByID(id: Int!): MenuEntity!
   getMenuItemByID(id: Int!): MenuItemEntity!
   getSectionById(id: Int!): SectionEntity!
   getSubmenuItemById(id: Int!): SubmenuItemEntity!
-  textsection(id: Int!): TextSectionEntity!
+  getTextSectionByID(id: Int!): TextSectionEntity!
 }
 
 type SectionEntity {
   """id section"""
   id: ID!
+  img_sections: [ImgSectionEntity!]!
 
   """name section"""
   name: String!
@@ -150,6 +188,23 @@ type TextSectionEntity {
 
   """text TextSection"""
   text: String!
+}
+
+input UpdateImgSectionInput {
+  """filename ImgSection"""
+  filename: String
+
+  """id ImgSection"""
+  id: Float!
+
+  """name ImgSection"""
+  name: String
+
+  """section_id ImgSection"""
+  section_id: Float
+
+  """slug ImgSection"""
+  slug: String
 }
 
 input UpdateMenuItemInput {

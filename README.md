@@ -14,3 +14,4 @@ $ npm install
 ## Contact
 
 - Telegram - [@alexsmith_proff](http://t.me/@alexsmith_proff)
+- Email - alexsmith_proff@mail.ru

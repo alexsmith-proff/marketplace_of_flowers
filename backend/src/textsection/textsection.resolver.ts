@@ -13,12 +13,12 @@ export class TextSectionResolver {
     return this.textSectionService.create(createTextSectionInput);
   }
 
-  @Query(() => [TextSectionEntity], { name: 'textsection' })
+  @Query(() => [TextSectionEntity], { name: 'getAllTextSection' })
   findAll() {
     return this.textSectionService.findAll();
   }
 
-  @Query(() => TextSectionEntity, { name: 'textsection' })
+  @Query(() => TextSectionEntity, { name: 'getTextSectionByID' })
   findOne(@Args('id', { type: () => Int }) id: number) {
     return this.textSectionService.findOne(id);
   }
@@ -29,7 +29,7 @@ export class TextSectionResolver {
   }
 
   @Mutation(() => TextSectionEntity)
-  removeTextsection(@Args('id', { type: () => Int }) id: number) {
+  removeTextSection(@Args('id', { type: () => Int }) id: number) {
     return this.textSectionService.remove(id);
   }
 }
