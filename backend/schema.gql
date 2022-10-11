@@ -1,0 +1,125 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+input CreateMenuInput {
+  """Name"""
+  name: String!
+}
+
+input CreateMenuItemInput {
+  """link menuitem)"""
+  link: String
+
+  """name menuitem)"""
+  name: String!
+}
+
+input CreateSubmenuItemInput {
+  """link submenuitem)"""
+  link: String
+
+  """serial menu ID)"""
+  menuitem_id: Float
+
+  """name submenuitem)"""
+  name: String!
+
+  """Serial number)"""
+  serial_number: Int
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+type MenuEntity {
+  createdAt: DateTime!
+
+  """id munu"""
+  id: ID!
+  item: [MenuItemEntity!]!
+
+  """This is name menu"""
+  name: String!
+  updatedAt: DateTime!
+}
+
+type MenuItemEntity {
+  createdAt: DateTime!
+
+  """id menuitem"""
+  id: ID!
+  link: String!
+  menu: MenuEntity!
+
+  """This is name menuitem"""
+  name: String!
+  serial_number: Float!
+  submenuitems: [SubmenuItemEntity!]!
+  updatedAt: DateTime!
+}
+
+type Mutation {
+  createMenu(createMenuInput: CreateMenuInput!): MenuEntity!
+  createMenuItem(createMenuItemInput: CreateMenuItemInput!): MenuItemEntity!
+  createSubmenuItem(createSubmenuItemInput: CreateSubmenuItemInput!): SubmenuItemEntity!
+  removeMenu(id: Int!): MenuItemEntity!
+  removeSubmenuItem(id: Int!): SubmenuItemEntity!
+  updateMenu(updateMenuItemInput: UpdateMenuItemInput!): MenuItemEntity!
+  updateSubmenuItem(updateSubmenuItemInput: UpdateSubmenuItemInput!): SubmenuItemEntity!
+}
+
+type Query {
+  getAllMenuItem: [MenuItemEntity!]!
+  getAllMenus: [MenuEntity!]!
+  getAllSubmenuItems: [SubmenuItemEntity!]!
+  getMenuByID(id: Int!): MenuEntity!
+  getMenuItemByID(id: Int!): MenuItemEntity!
+  getSubmenuItemById(id: Int!): SubmenuItemEntity!
+}
+
+type SubmenuItemEntity {
+  createdAt: DateTime!
+  id: ID!
+  link: String!
+  menuitem: MenuItemEntity!
+  name: String!
+  serial_number: Float!
+  updatedAt: DateTime!
+}
+
+input UpdateMenuItemInput {
+  """ID menuitem)"""
+  id: Int!
+
+  """name menuitem)"""
+  link: String
+
+  """Serial menu ID)"""
+  menu_id: Float
+
+  """name menuitem)"""
+  name: String
+
+  """serial number)"""
+  serial_number: Int
+}
+
+input UpdateSubmenuItemInput {
+  """ID submenuitem)"""
+  id: Int!
+
+  """link submenuitem)"""
+  link: String
+
+  """Serial menu ID)"""
+  menuitem_id: Float
+
+  """name submenuitem)"""
+  name: String
+
+  """serial number)"""
+  serial_number: Int
+}
