@@ -1,3 +1,5 @@
+import { TextSectionEntity } from './textsection/entities/textsection.entity';
+import { SectionEntity } from './section/entities/section.entity';
 import { MenuEntity } from './menu/entities/menu.entity';
 import { MenuItemEntity } from './menuitem/entities/menuitem.entity';
 import { SubmenuItemEntity } from './submenuitem/entities/submenuitem.entity';
@@ -14,6 +16,8 @@ import { GraphQLModule } from '@nestjs/graphql';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { SubmenuItemModule } from './submenuitem/submenuitem.module';
 import { MenuItemModule } from './menuitem/menuitem.module';
+import { SectionModule } from './section/section.module';
+import { TextSectionModule } from './textsection/textsection.module';
 
 @Module({
   imports: [
@@ -31,7 +35,7 @@ import { MenuItemModule } from './menuitem/menuitem.module';
         username: configService.get<string>('TYPEORM_USERNAME'),
         password: configService.get<string>('TYPEORM_PASSWORD'),
         database: configService.get<string>('TYPEORM_DATABASE'),
-        entities: [UserEntity, MenuEntity, MenuItemEntity, SubmenuItemEntity],
+        entities: [UserEntity, MenuEntity, MenuItemEntity, SubmenuItemEntity, SectionEntity, TextSectionEntity],
         synchronize: true,        
       })
     }),
@@ -42,7 +46,7 @@ import { MenuItemModule } from './menuitem/menuitem.module';
       playground: true 
     }),
   
-    UserModule, AuthModule, MenuModule, MenuItemModule, SubmenuItemModule],
+    UserModule, AuthModule, MenuModule, MenuItemModule, SubmenuItemModule, SectionModule, TextSectionModule],
   controllers: [AppController],
   providers: [AppService],
 })

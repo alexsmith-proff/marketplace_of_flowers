@@ -12,10 +12,7 @@ export class SubmenuItemService {
     private readonly submenuItemRepository: Repository<SubmenuItemEntity>
   ) {}
   async create(createSubmenuItemInput: CreateSubmenuItemInput): Promise<SubmenuItemEntity> {
-    
-    
     const newSubMenu = {...createSubmenuItemInput,  menuitem: { id: createSubmenuItemInput.menuitem_id } }
-    console.log(newSubMenu);
     return this.submenuItemRepository.save(newSubMenu)
   }
 

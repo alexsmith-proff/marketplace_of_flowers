@@ -13,10 +13,7 @@ export class MenuItemService {
     ) {}
 
   async create(createMenuItemInput: CreateMenuItemInput): Promise<MenuItemEntity> {
-    const newMenuItem = {...createMenuItemInput}
-    console.log(newMenuItem);
-    
-    return await this.menuItemRepository.save({...createMenuItemInput})
+    return await this.menuItemRepository.save({...createMenuItemInput, menu: {id: createMenuItemInput.menu_id }})
   }
 
   async findAll(): Promise<MenuItemEntity[]> {
