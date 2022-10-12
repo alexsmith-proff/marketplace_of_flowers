@@ -1,6 +1,5 @@
-import { TextSectionEntity } from './../../textsection/entities/textsection.entity';
-import { ImgSectionEntity } from './../../imgsection/entities/imgsection.entity';
 import { ObjectType, Field, ID } from '@nestjs/graphql';
+import { ElementEntity } from 'src/element/entities/element.entity';
 import { Column, Entity, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
 
 @ObjectType()
@@ -18,12 +17,7 @@ export class SectionEntity {
   @Column()
   slug: string
 
-  @Field(() => [TextSectionEntity])
-  @OneToMany(() => TextSectionEntity, textsection => textsection.section_ref)
-  text_sections: TextSectionEntity[]
-
-  @Field(() => [ImgSectionEntity])
-  @OneToMany(() => ImgSectionEntity, imgsection => imgsection.section_ref)
-  img_sections: ImgSectionEntity[]
-
+  @Field(() => [ElementEntity])
+  @OneToMany(() => ElementEntity, element => element.section_ref)
+  elements: ElementEntity[]
 }

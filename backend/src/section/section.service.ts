@@ -1,9 +1,9 @@
 import { SectionEntity } from './entities/section.entity';
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
 import { CreateSectionInput } from './dto/create-section.input';
 import { UpdateSectionInput } from './dto/update-section.input';
+import { Repository } from 'typeorm';
 
 @Injectable()
 export class SectionService {
@@ -19,8 +19,7 @@ export class SectionService {
   async findAll(): Promise<SectionEntity[]> {
     return await this.sectionRepository.find({
       relations:{
-        text_sections: true,
-        img_sections: true        
+        elements: true,
       }
     })
   }
@@ -31,7 +30,7 @@ export class SectionService {
         id
       },
       relations: {
-        text_sections: true
+        elements: true
       }
       
     })

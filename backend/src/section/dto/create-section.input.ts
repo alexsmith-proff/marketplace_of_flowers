@@ -1,4 +1,4 @@
-import { InputType, Int, Field } from '@nestjs/graphql';
+import { InputType, Field } from '@nestjs/graphql';
 
 @InputType()
 export class CreateSectionInput {
@@ -7,5 +7,4 @@ export class CreateSectionInput {
 
   @Field(() => String, { description: 'slug section' })
   slug: string;
-
 }

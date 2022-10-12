@@ -33,7 +33,7 @@ Password: root
 ## GraphQL
 Follow the link http://localhost:5000/graphql
 
-####Create menu
+##### Create menu
 
 ```bash
 mutation CreateMenu {
@@ -46,7 +46,7 @@ mutation CreateMenu {
 }
 ```
 
-####Get all menus
+##### Get all menus
 
 ```bash
 query GetAllMenu{
@@ -63,7 +63,7 @@ query GetAllMenu{
 }
 ```
 
-####Get menu by ID
+##### Get menu by ID
 
 ```bash
 query GetMenuByID{
@@ -74,7 +74,7 @@ query GetMenuByID{
 }
 ```
 
-####Update menu
+##### Update menu
 
 ```bash
 mutation UpdateMenu{
@@ -90,7 +90,7 @@ mutation UpdateMenu{
 }
 ```
 
-####Delete menu
+##### Delete menu
 
 ```bash
 mutation DeleteMenu{

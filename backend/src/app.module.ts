@@ -1,6 +1,7 @@
-import { ImgSectionEntity } from './imgsection/entities/imgsection.entity';
-import { TextSectionEntity } from './textsection/entities/textsection.entity';
 import { SectionEntity } from './section/entities/section.entity';
+import { ImgElementEntity } from './imgelement/entities/imgelement.entity';
+import { TextElementEntity } from './textelement/entities/textelement.entity';
+import { ElementEntity } from './element/entities/element.entity';
 import { MenuEntity } from './menu/entities/menu.entity';
 import { MenuItemEntity } from './menuitem/entities/menuitem.entity';
 import { SubmenuItemEntity } from './submenuitem/entities/submenuitem.entity';
@@ -17,9 +18,10 @@ import { GraphQLModule } from '@nestjs/graphql';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { SubmenuItemModule } from './submenuitem/submenuitem.module';
 import { MenuItemModule } from './menuitem/menuitem.module';
+import { ElementModule } from './element/element.module';
+import { TextElementModule } from './textelement/textelement.module';
+import { ImgElementModule } from './imgelement/imgelement.module';
 import { SectionModule } from './section/section.module';
-import { TextSectionModule } from './textsection/textsection.module';
-import { ImgSectionModule } from './imgsection/imgsection.module';
 
 @Module({
   imports: [
@@ -37,7 +39,7 @@ import { ImgSectionModule } from './imgsection/imgsection.module';
         username: configService.get<string>('TYPEORM_USERNAME'),
         password: configService.get<string>('TYPEORM_PASSWORD'),
         database: configService.get<string>('TYPEORM_DATABASE'),
-        entities: [UserEntity, MenuEntity, MenuItemEntity, SubmenuItemEntity, SectionEntity, TextSectionEntity, ImgSectionEntity],
+        entities: [UserEntity, MenuEntity, MenuItemEntity, SubmenuItemEntity, SectionEntity, ElementEntity, TextElementEntity, ImgElementEntity],
         synchronize: true,        
       })
     }),
@@ -48,7 +50,7 @@ import { ImgSectionModule } from './imgsection/imgsection.module';
       playground: true 
     }),
   
-    UserModule, AuthModule, MenuModule, MenuItemModule, SubmenuItemModule, SectionModule, TextSectionModule, ImgSectionModule],
+    UserModule, AuthModule, MenuModule, MenuItemModule, SubmenuItemModule, SectionModule, ElementModule, TextElementModule, ImgElementModule],
   controllers: [AppController],
   providers: [AppService],
 })

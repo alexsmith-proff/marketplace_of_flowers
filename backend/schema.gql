@@ -2,17 +2,26 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
-input CreateImgSectionInput {
-  """filename ImgSection"""
-  filename: String!
-
-  """name ImgSection"""
+input CreateElementInput {
+  """name element"""
   name: String!
-
-  """section_id ImgSection"""
   section_id: Float!
 
-  """slug ImgSection"""
+  """slug element"""
+  slug: String!
+}
+
+input CreateImgElementInput {
+  """element_id ImgElement"""
+  element_id: Float!
+
+  """filename ImgElement"""
+  filename: String!
+
+  """name ImgElement"""
+  name: String!
+
+  """slug ImgElement"""
   slug: String!
 }
 
@@ -57,15 +66,16 @@ input CreateSubmenuItemInput {
   serial_number: Int
 }
 
-input CreateTextSectionInput {
-  """name TextSection"""
-  name: String!
-  section_id: Float!
+input CreateTextElementInput {
+  element_id: Float!
 
-  """slug TextSection"""
+  """name TextElement"""
+  name: String!
+
+  """slug TextElement"""
   slug: String!
 
-  """text TextSection"""
+  """text TextElement"""
   text: String!
 }
 
@@ -74,20 +84,34 @@ A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date
 """
 scalar DateTime
 
-type ImgSectionEntity {
-  """filename ImgSection"""
-  filename: String!
-
-  """id ImgSection"""
+type ElementEntity {
+  """id element"""
   id: ID!
+  img_elements: [ImgElementEntity!]!
 
-  """name ImgSection"""
+  """name element"""
   name: String!
-
-  """section_ref ImgSection"""
   section_ref: SectionEntity!
 
-  """slug ImgSection"""
+  """slug element"""
+  slug: String!
+  text_elements: [TextElementEntity!]!
+}
+
+type ImgElementEntity {
+  """element_ref ImgElement"""
+  element_ref: ElementEntity!
+
+  """filename ImgElement"""
+  filename: String!
+
+  """id ImgElement"""
+  id: ID!
+
+  """name ImgElement"""
+  name: String!
+
+  """slug ImgElement"""
   slug: String!
 }
 
@@ -119,50 +143,55 @@ type MenuItemEntity {
 }
 
 type Mutation {
-  createImgSection(createImgSectionInput: CreateImgSectionInput!): ImgSectionEntity!
+  createElement(createElementInput: CreateElementInput!): ElementEntity!
+  createImgElement(createImgElementInput: CreateImgElementInput!): ImgElementEntity!
   createMenu(createMenuInput: CreateMenuInput!): MenuEntity!
   createMenuItem(createMenuItemInput: CreateMenuItemInput!): MenuItemEntity!
   createSection(createSectionInput: CreateSectionInput!): SectionEntity!
   createSubmenuItem(createSubmenuItemInput: CreateSubmenuItemInput!): SubmenuItemEntity!
-  createTextSection(createTextSectionInput: CreateTextSectionInput!): TextSectionEntity!
-  removeImgSection(id: Int!): ImgSectionEntity!
+  createTextElement(createTextElementInput: CreateTextElementInput!): TextElementEntity!
+  removeElement(id: Int!): ElementEntity!
+  removeImgElement(id: Int!): ImgElementEntity!
   removeMenu(id: Int!): MenuItemEntity!
   removeSection(id: Int!): SectionEntity!
   removeSubmenuItem(id: Int!): SubmenuItemEntity!
-  removeTextSection(id: Int!): TextSectionEntity!
-  updateImgSection(updateImgSectionInput: UpdateImgSectionInput!): ImgSectionEntity!
+  removeTextElement(id: Int!): TextElementEntity!
+  updateElement(updateElementInput: UpdateElementInput!): ElementEntity!
+  updateImgElement(updateImgElementInput: UpdateImgElementInput!): ImgElementEntity!
   updateMenu(updateMenuItemInput: UpdateMenuItemInput!): MenuItemEntity!
   updateSection(updateSectionInput: UpdateSectionInput!): SectionEntity!
   updateSubmenuItem(updateSubmenuItemInput: UpdateSubmenuItemInput!): SubmenuItemEntity!
-  updateTextSection(updateTextSectionInput: UpdateTextSectionInput!): TextSectionEntity!
+  updateTextElement(updateTextElementInput: UpdateTextElementInput!): TextElementEntity!
 }
 
 type Query {
-  getAllImgSection: [ImgSectionEntity!]!
+  getAllElements: [ElementEntity!]!
+  getAllImgElement: [ImgElementEntity!]!
   getAllMenuItem: [MenuItemEntity!]!
   getAllMenus: [MenuEntity!]!
   getAllSections: [SectionEntity!]!
   getAllSubmenuItems: [SubmenuItemEntity!]!
-  getAllTextSection: [TextSectionEntity!]!
-  getImgSectionByID(id: Int!): ImgSectionEntity!
+  getAllTextElement: [TextElementEntity!]!
+  getElementById(id: Int!): ElementEntity!
+  getImgElementByID(id: Int!): ImgElementEntity!
   getMenuByID(id: Int!): MenuEntity!
   getMenuItemByID(id: Int!): MenuItemEntity!
   getSectionById(id: Int!): SectionEntity!
   getSubmenuItemById(id: Int!): SubmenuItemEntity!
-  getTextSectionByID(id: Int!): TextSectionEntity!
+  getTextElementByID(id: Int!): TextElementEntity!
 }
 
 type SectionEntity {
+  elements: [ElementEntity!]!
+
   """id section"""
   id: ID!
-  img_sections: [ImgSectionEntity!]!
 
   """name section"""
   name: String!
 
   """slug section"""
   slug: String!
-  text_sections: [TextSectionEntity!]!
 }
 
 type SubmenuItemEntity {
@@ -175,35 +204,47 @@ type SubmenuItemEntity {
   updatedAt: DateTime!
 }
 
-type TextSectionEntity {
-  """id TextSection"""
+type TextElementEntity {
+  element_ref: ElementEntity!
+
+  """id TextElement"""
   id: ID!
 
-  """name TextSection"""
+  """name TextElement"""
   name: String!
-  section_ref: SectionEntity!
 
-  """slug TextSection"""
+  """slug TextElement"""
   slug: String!
 
-  """text TextSection"""
+  """text TextElement"""
   text: String!
 }
 
-input UpdateImgSectionInput {
-  """filename ImgSection"""
-  filename: String
-
-  """id ImgSection"""
+input UpdateElementInput {
   id: Float!
 
-  """name ImgSection"""
-  name: String
-
-  """section_id ImgSection"""
+  """name element"""
+  name: String!
   section_id: Float
 
-  """slug ImgSection"""
+  """slug element"""
+  slug: String!
+}
+
+input UpdateImgElementInput {
+  """element_id ImgElement"""
+  element_id: Float
+
+  """filename ImgElement"""
+  filename: String
+
+  """id ImgElement"""
+  id: Float!
+
+  """name ImgElement"""
+  name: String
+
+  """slug ImgElement"""
   slug: String
 }
 
@@ -251,17 +292,18 @@ input UpdateSubmenuItemInput {
   serial_number: Int
 }
 
-input UpdateTextSectionInput {
-  """name TextSection"""
+input UpdateTextElementInput {
+  element_id: Float
+
+  """name TextElement"""
   id: Float!
 
-  """name TextSection"""
+  """name TextElement"""
   name: String
-  section_id: Float
 
-  """slug TextSection"""
+  """slug TextElement"""
   slug: String
 
-  """text TextSection"""
+  """text TextElement"""
   text: String
 }
