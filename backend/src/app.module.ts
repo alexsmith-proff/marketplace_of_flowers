@@ -1,27 +1,27 @@
-import { SectionEntity } from './section/entities/section.entity';
-import { ImgElementEntity } from './imgelement/entities/imgelement.entity';
-import { TextElementEntity } from './textelement/entities/textelement.entity';
-import { ElementEntity } from './element/entities/element.entity';
+import { ConfigModule, ConfigService } from '@nestjs/config';
+import { UserEntity } from './user/entities/user.entity';
 import { MenuEntity } from './menu/entities/menu.entity';
 import { MenuItemEntity } from './menuitem/entities/menuitem.entity';
 import { SubmenuItemEntity } from './submenuitem/entities/submenuitem.entity';
-import { Module } from '@nestjs/common';
+import { SectionEntity } from './section/entities/section.entity';
+import { ElementEntity } from './element/entities/element.entity';
+import { TextElementEntity } from './textelement/entities/textelement.entity';
+import { ImgElementEntity } from './imgelement/entities/imgelement.entity';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
+import { Module } from '@nestjs/common';
 import { UserModule } from './user/user.module';
 import { AuthModule } from './auth/auth.module';
-import { ConfigModule, ConfigService } from '@nestjs/config';
-import { TypeOrmModule } from '@nestjs/typeorm';
-import { UserEntity } from './user/entities/user.entity';
 import { MenuModule } from './menu/menu.module';
-import { GraphQLModule } from '@nestjs/graphql';
-import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
-import { SubmenuItemModule } from './submenuitem/submenuitem.module';
 import { MenuItemModule } from './menuitem/menuitem.module';
+import { SubmenuItemModule } from './submenuitem/submenuitem.module';
+import { SectionModule } from './section/section.module';
 import { ElementModule } from './element/element.module';
 import { TextElementModule } from './textelement/textelement.module';
 import { ImgElementModule } from './imgelement/imgelement.module';
-import { SectionModule } from './section/section.module';
+import { TypeOrmModule } from '@nestjs/typeorm';
+import { GraphQLModule } from '@nestjs/graphql';
+import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 
 @Module({
   imports: [

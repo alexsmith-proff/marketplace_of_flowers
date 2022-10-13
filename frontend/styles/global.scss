@@ -1,0 +1,39 @@
+body{
+    margin: 0;
+    padding: 0;
+    font-family: 'Manrope', sans-serif;
+}
+.container{
+    max-width: 1160px;
+    margin: 0 auto;
+    padding: 0 10px;
+	// background-color: #eee;
+}
+ul,
+ol,
+li,
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	margin: 0;
+}
+
+ul,li{
+	display: block;
+	margin: 0;
+	padding: 0;
+}
+li {
+	list-style: none;
+}
+a {
+	text-decoration: none;
+}
+button:active, button:focus {
+	outline: none;
+	border: 0;
+}
