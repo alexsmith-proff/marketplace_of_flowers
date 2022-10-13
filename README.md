@@ -9,6 +9,9 @@ NestJS/Next.js/TypeScript, GraphQL, PostgreSQL
 ```bash
 $ cd backend
 $ npm install
+$ cd ..
+$ cd frontend
+$ npm install
 ```
 
 ## Contact
