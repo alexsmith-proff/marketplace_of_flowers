@@ -1,49 +1,50 @@
+import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
-import React from 'react';
 import { IconContext } from "react-icons";
-import { AiOutlineFundProjectionScreen, AiOutlineMenuUnfold, AiOutlineRead, AiOutlineAudit } from "react-icons/ai";
+import { AiOutlineFundProjectionScreen, AiOutlineMenuUnfold, AiOutlineRead, AiOutlineTeam } from "react-icons/ai";
 import { TbNewSection } from "react-icons/tb";
 import { IoSettingsOutline } from "react-icons/io5";
 
 import s from './SidebarAdmin.module.scss'
 
 interface SidebarAdminProps {
+    itemNum: number
 }
 const sidebarItems = [
     {
         name: 'Главная',
         ico: <AiOutlineFundProjectionScreen />,
-        link: '/main'
+        link: '/admin'
     },
     {
         name: 'Меню',
         ico: <AiOutlineMenuUnfold />,
-        link: '/menu'
+        link: '/admin/menu'
     },
     {
         name: 'Каталог',
         ico: <AiOutlineRead />,
-        link: '/catalog'
+        link: '/admin/catalog'
     },
     {
         name: 'Секции',
         ico: <TbNewSection />,
-        link: '/sections'
+        link: '/admin/sections'
     },
     {
         name: 'Покупатели',
-        ico: <AiOutlineAudit />,
-        link: '/buyers'
+        ico: <AiOutlineTeam />,
+        link: '/admin/buyers'
     },
     {
         name: 'Настройки',
         ico: <IoSettingsOutline />,
-        link: '/settings'
+        link: '/admin/settings'
     },
 ]
 
-const SidebarAdmin = ({ }: SidebarAdminProps) => {
+const SidebarAdmin = ({ itemNum }: SidebarAdminProps) => {
     return (
         <div className={s.sidebar}>
             <div className={s.sidebarTop}>
@@ -56,7 +57,7 @@ const SidebarAdmin = ({ }: SidebarAdminProps) => {
                 <ul className="list">
                     {
                         sidebarItems.map((item, index) => (
-                            <li className={s.item} key={index}>
+                            <li className={index==itemNum ? (s.item + ' ' + s.active) : s.item} key={index}>
                                 <Link href={item.link}>
                                     <a className={s.link}>
                                         <div className={s.nameItem}>{item.name}</div>

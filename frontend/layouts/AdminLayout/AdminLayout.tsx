@@ -1,17 +1,23 @@
-﻿import React from 'react';
+﻿import React, { FC } from 'react';
 import HeaderAdmin from '../../components/admin/HeaderAdmin/HeaderAdmin';
+import SidebarAdmin from '../../components/admin/SidebarAdmin/SidebarAdmin';
 
 import s from './AdminLayout.module.scss'
 
 interface AdminLayoutProps {
+    sidebarItemNum: number
     children: React.ReactNode
 }
 
-const AdminLayout = ({ children }: AdminLayoutProps) => {
+const AdminLayout: FC<AdminLayoutProps> = ({ children, sidebarItemNum }: AdminLayoutProps) => {
     return (
-        <>
-            {children}
-        </>
+        <div className={s.wrap}>
+            <SidebarAdmin itemNum={sidebarItemNum}  />
+            <div className={s.right}>
+                <HeaderAdmin />
+                {children}
+            </div>
+        </div>
     );
 };
 

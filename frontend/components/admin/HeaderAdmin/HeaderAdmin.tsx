@@ -17,7 +17,7 @@ const HeaderAdmin = ({ }: HeaderAdminProps) => {
                 </div>
                 <Link href="/">
                     <a>
-                        <AiOutlineExport size={35} />
+                        <AiOutlineExport size={30} />
                     </a>
                 </Link>
             </div>
