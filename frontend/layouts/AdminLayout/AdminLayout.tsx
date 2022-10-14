@@ -12,10 +12,10 @@ interface AdminLayoutProps {
 const AdminLayout: FC<AdminLayoutProps> = ({ children, sidebarItemNum }: AdminLayoutProps) => {
     return (
         <div className={s.wrap}>
-            <SidebarAdmin itemNum={sidebarItemNum}  />
+            <SidebarAdmin itemNum={sidebarItemNum} />
             <div className={s.right}>
-                <HeaderAdmin />
-                {children}
+                <HeaderAdmin />    
+                    {children}
             </div>
         </div>
     );

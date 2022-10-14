@@ -8,9 +8,11 @@ interface AdminPanelSettingsProps { }
 
 const AdminPanelSettings: FC<AdminPanelSettingsProps> = () => {
   return (
-    <AdminLayout sidebarItemNum={5}>
-      <ContentAdminSettings />
-    </AdminLayout>
+    // <div className={s.wrap}>
+      <AdminLayout sidebarItemNum={5}>
+        <ContentAdminSettings />
+      </AdminLayout>
+    // </div>
   )
 }
 
