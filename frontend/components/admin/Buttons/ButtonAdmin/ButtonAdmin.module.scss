@@ -1,0 +1,11 @@
+.button{
+    display: inline-block;
+    border: 1px solid #000;
+    border-radius: 5px;
+    padding: 3px 7px;
+    cursor: pointer;
+    transition: .3s;
+    &:hover{
+        background-color: rgb(198, 198, 255);
+    }
+}

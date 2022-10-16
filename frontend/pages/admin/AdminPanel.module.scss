@@ -1,12 +1,12 @@
-.wrap{
+.wrap {
     height: 100vh;
 }
-.content{
+
+.content {
     background-color: rgb(245, 245, 245);
-    height: calc(100vh - 200px);  
+    height: calc(100vh - 200px);
     // height: 500px;
     // height: 75%;
     padding: 30px;
     overflow-y: scroll;
-    position: static;
 }

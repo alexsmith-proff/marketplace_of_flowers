@@ -1,0 +1,20 @@
+.top {
+    display: flex;
+    align-items: center;
+    margin-bottom: 40px;
+}
+
+.dropdown {
+    margin-right: 5px;
+    select {
+        font-size: 16px;
+    }
+}
+
+.ButtonAdminEdit {
+    margin-right: 15px;
+}
+
+.ButtonAdminSelect {
+    margin-right: 30px;
+}

@@ -1,0 +1,46 @@
+.menuList{
+    display: inline-block;
+    box-shadow: 1px 1px 44px 1px rgba(0, 0, 0, 0.2);
+    border: 1px solid #000;
+    width: 220px;
+    height: 500px;
+}
+.topSection{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: rgb(198, 198, 255);
+    padding: 0px 10px;
+    border-bottom: 1px solid #000;
+}
+.icons{
+    display: flex;
+    // justify-content: end;
+    align-items: center;
+    // padding: 0px 10px;
+    // border-bottom: 1px solid #000;
+}
+.createBtn, .deleteBtn{
+    padding: 7px 3px;
+    cursor: pointer;
+    &:hover{
+        color: rgb(76, 76, 250);
+    }
+}
+.deleteBtn.disabled{
+    color: rgb(153, 153, 153);
+}
+
+.list{
+    // padding: 5px;
+}
+.item{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 13px 10px;
+    cursor: pointer;
+    &:hover{
+        background-color: rgb(224, 224, 253);
+    }
+}

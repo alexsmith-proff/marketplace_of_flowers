@@ -1,23 +1,20 @@
 .wrap{
-    width: 15rem;
-    padding: 20px 0;
-    // background-color: rgb(233, 228, 253);
     display: flex;
     flex-direction: column;
     align-items: center;
     border-radius: 20px;
     position: absolute;
-    top: 10px;
+    top: 8px;
     right: 10px;
 }
 .time, .date{
     color: #000;
 }
 .time{
-    font-size: 44px;
+    font-size: 20px;
     font-weight: bold;
-    margin-bottom: 10px;
+    margin-bottom: 5px;
 }
 .date{
-    font-size: 14px;
+    font-size: 12px;
 }
