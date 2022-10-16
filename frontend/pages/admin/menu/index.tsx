@@ -9,7 +9,7 @@ interface AdminPanelMenuProps { }
 const AdminPanelMenu: FC<AdminPanelMenuProps> = ({ }) => {
   return (
     <div className={s.wrap}>
-      <AdminLayout sidebarItemNum={0}>
+      <AdminLayout sidebarItemNum={1}>
         <ContentAdminTitle title="Меню" />
         <div className={s.content}>
           <ContentAdminMenu />
