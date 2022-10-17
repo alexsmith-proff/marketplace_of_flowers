@@ -9,11 +9,13 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@apollo/client": "^3.7.0",
     "@reduxjs/toolkit": "^1.8.1",
     "@types/react-router-dom": "^5.3.3",
     "axios": "^0.27.2",
     "date-and-time": "^2.4.1",
     "dateformat": "^5.0.3",
+    "graphql": "^16.6.0",
     "next": "12.1.5",
     "react": "18.0.0",
     "react-dom": "18.0.0",

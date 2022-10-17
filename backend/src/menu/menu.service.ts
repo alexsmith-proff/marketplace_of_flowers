@@ -1,3 +1,4 @@
+import { SubmenuItemEntity } from './../submenuitem/entities/submenuitem.entity';
 import { MenuEntity } from './entities/menu.entity';
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -16,10 +17,10 @@ export class MenuService {
     return await this.menuRepository.save({...createMenuInput})
   }
 
-  async findAll(): Promise<MenuEntity[]> {
+  async findAll() {
     return await this.menuRepository.find({
       relations: {
-        item: true
+        item: true,
       }
     })
   }
