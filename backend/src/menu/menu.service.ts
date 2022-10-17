@@ -19,9 +19,9 @@ export class MenuService {
 
   async findAll() {
     return await this.menuRepository.find({
-      relations: {
-        item: true,
-      }
+      // relations: {
+      //   item: true,
+      // }
     })
   }
 

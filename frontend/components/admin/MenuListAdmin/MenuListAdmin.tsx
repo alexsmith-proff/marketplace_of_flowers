@@ -6,15 +6,19 @@ import { MdDeleteOutline } from "react-icons/md";
 import s from "./MenuListAdmin.module.scss";
 
 interface MenuListAdminProps {
+  title: string,
   menuItems: any[];
 }
 
-const MenuListAdmin = ({ menuItems }: MenuListAdminProps) => {
+const MenuListAdmin = ({ title, menuItems }: MenuListAdminProps) => {
   const [deleteBtnEnable, stDeleteBtnEnable] = useState<boolean>(false);
+  console.log('title', title);
+  console.log('menuItems', menuItems);
+  
   return (
     <div className={s.menuList}>
       <div className={s.topSection}>
-        <div className={s.title}>Меню в шапке</div>
+        <div className={s.title}>{title}</div>
         <div className={s.icons}>
           <div className={s.createBtn}>
             <BiAddToQueue size={20} />
@@ -29,10 +33,12 @@ const MenuListAdmin = ({ menuItems }: MenuListAdminProps) => {
         </div>
       </div>
       <ul className={s.list}>
-        {menuItems.map((item, index) => (
-          <li className={s.item} key={index}>
-            {item}
-            <div className={s.hasChildren}><AiOutlineRight /></div>
+        {menuItems && menuItems.map((item, index) => (
+          <li className={s.item} key={item.id}>
+            {item.name}
+            <div className={s.hasChildren}>
+              <AiOutlineRight />
+            </div>
           </li>
         ))}
       </ul>

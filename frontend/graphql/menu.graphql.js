@@ -25,6 +25,11 @@ query GetMenuByID($id: Int!) {
     getMenuByID(id: $id) {
       id
       name
+      item{
+        id
+        name
+        link
+      }
   }
 }
 `

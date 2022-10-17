@@ -5,18 +5,19 @@
 }
 
 .dropdown {
-    margin-right: 5px;
+    margin-right: 10px;
     
     select {
         font-size: 16px;
         padding: 5px;
         border-radius: 5px;
+        width: 220px;
         cursor: pointer;
     }
 }
 
 .ButtonAdminEdit {
-    margin-right: 15px;
+    margin-right: 20px;
 }
 
 .ButtonAdminSelect {

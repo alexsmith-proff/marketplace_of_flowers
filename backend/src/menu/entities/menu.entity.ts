@@ -1,6 +1,6 @@
 import { MenuItemEntity } from './../../menuitem/entities/menuitem.entity';
 import { ObjectType, Field, ID } from '@nestjs/graphql';
-import { CreateDateColumn, OneToMany, UpdateDateColumn } from 'typeorm';
+import { CreateDateColumn, JoinTable, OneToMany, UpdateDateColumn } from 'typeorm';
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
 @ObjectType()
@@ -15,7 +15,7 @@ export class MenuEntity {
   name: String
 
   @Field(() => [MenuItemEntity])
-  @OneToMany(() => MenuItemEntity, menuitem => menuitem.menu)
+  @OneToMany(() => MenuItemEntity, menuitem => menuitem.menu, {eager: true})
   item: MenuItemEntity[]
 
   @Field(() => Date)

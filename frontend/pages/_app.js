@@ -1,8 +1,8 @@
 import { Provider } from "react-redux";
 import { store } from "../redux/store";
 
-import { ApolloProvider } from '@apollo/client';
-import client from '../util/apollo-client'
+import { ApolloProvider } from "@apollo/client";
+import client from "../util/apollo-client";
 
 import "../styles/global.scss";
 
