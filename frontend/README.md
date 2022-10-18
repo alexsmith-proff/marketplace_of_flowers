@@ -16,13 +16,10 @@ $ npm install
 ```bash
 # development
 $ npm run dev
-
-# build mode
-$ npm run build
-
-# start mode
-$ npm run startd
 ```
+
+Follow the link http://localhost:3000 in a browser
+To access the admin panel follow the link http://localhost:3000/admin
 
 ## Contact
 

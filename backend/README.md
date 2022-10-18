@@ -7,6 +7,13 @@ NestJS/TypeScript, GraphQL, PostgreSQL
 
 ## Installation
 
+##### PostgreSQL
+Install PostgreSQL https://www.postgresql.org/download/ 
+Create database "marketplace-flowers"
+Set the password "root" in the Login/Groupe Roles - postgres
+
+##### NPM
+
 ```bash
 $ npm install
 ```
@@ -14,21 +21,8 @@ $ npm install
 ## Running the app
 
 ```bash
-# development
-$ npm run start
-
-# watch mode
 $ npm run start:dev
-
-# production mode
-$ npm run start:prod
 ```
-
-## PostgreSQL
-
-Install PostgreSQL https://www.postgresql.org/download/
-Create database "marketplace-flowers"
-Password: root
 
 ## GraphQL
 Follow the link http://localhost:5000/graphql
