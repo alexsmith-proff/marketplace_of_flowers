@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import ButtonAdmin from "../Buttons/ButtonAdmin/ButtonAdmin";
 import ButtonAdminEdit from "../Buttons/ButtonAdminEdit/ButtonAdminEdit";
 import MenuListAdmin from "../MenuListAdmin/MenuListAdmin";
@@ -6,6 +6,7 @@ import { GET_ALL_MENU, GET_MENU_BY_ID } from "../../../graphql/menu.graphql";
 
 import s from "./ContentAdminMenu.module.scss";
 import { useLazyQuery, useQuery } from "@apollo/client";
+import InputAdminMenu from "../Inputs/InputMenu/InputAdminMenu";
 
 const menuItems = [
   "Пункт 1",
@@ -19,50 +20,58 @@ interface IMenuBase {
   id: number;
   name: string;
 }
-interface IMenu extends IMenuBase {}
+interface IMenu extends IMenuBase { }
 interface IMenuItem extends IMenuBase {
   link: string;
 }
+interface ContentAdminMenuProps { }
 
-interface ContentAdminMenuProps {}
 
-const ContentAdminMenu = ({}: ContentAdminMenuProps) => {
+const ContentAdminMenu = ({ }: ContentAdminMenuProps) => {
   const menus = useQuery(GET_ALL_MENU);
-  const [getMenuItems, { loading, error, data }] = useLazyQuery(GET_MENU_BY_ID)    
-  // const { loading, error, data } = useQuery(GET_MENU_BY_ID, {
-  //   variables: { id: 1 },
-  // });
+  const [getMenuItems, { loading, error, data }] = useLazyQuery(GET_MENU_BY_ID)
+
+
+  const editMenuRef = useRef(null)
 
   const [menuArr, setMenuArr] = useState<IMenu[]>(null);
-  const [menuIndex, setMenuIndex] = useState<number>(1);
+  const [currentIndexMenu, setCurrentIndexMenu] = useState<number>(0);
   const [menuItemArr, setMenuItemArr] = useState<IMenuItem[]>(null);
+  const [editMenuActive, setEditMenuActive] = useState<boolean>(false)
+
+
+
 
   console.log("ContentAdminMenu render");
 
-  const handleChangeComboBox = (e: React.ChangeEvent<HTMLSelectElement>) => { 
-    console.log('id = ', e.target.value);
-    setMenuIndex(Number(e.target.value))
-    
+  const handleChangeComboBox = (e: React.ChangeEvent<HTMLSelectElement>) => {
     getMenuItems({
       variables: {
-        id: Number(e.target.value)
+        id: +menuArr[Number(e.target.value)].id
       }
     })
-    // console.log("menuItem = ", data);
+    setCurrentIndexMenu(Number(e.target.value))
   };
+
+
+
+  useEffect(() => {
+    console.log("useEffectSTART render");
+    getMenuItems({
+      variables: {
+        id: 1
+      }
+    })
+  }, []);
 
   useEffect(() => {
     console.log("useEffect render");
     if (menus.data) {
-      // console.log('menus.data.getAllMenus', menus.data.getAllMenus)
       setMenuArr(menus.data.getAllMenus);
     }
     if (data) {
-      console.log('data.getMenuByID', data.getMenuByID)
       setMenuItemArr(data.getMenuByID.item);
     }
-    console.log('data', data);
-    
   }, [menus, data]);
 
   return (
@@ -76,21 +85,25 @@ const ContentAdminMenu = ({}: ContentAdminMenuProps) => {
           >
             {menuArr &&
               menuArr.map((item, index) => (
-                <option key={item.id} value={item.id}>
+                <option key={item.id} value={index}>
                   {item.name}
                 </option>
               ))}
           </select>
+          {
+            menuArr != null && menuArr.length > 0 && <InputAdminMenu inputActive={editMenuActive} inputRef={editMenuRef} initTitle={menuArr[currentIndexMenu].name} />
+          }
+
         </div>
         <div className={s.ButtonAdminEdit}>
-          <ButtonAdminEdit />
+          <ButtonAdminEdit editActive={editMenuActive} setEditActive={setEditMenuActive} URef={editMenuRef} />
         </div>
-        {/* <div className={s.ButtonAdminSelect}>
-          <ButtonAdmin>Выбрать</ButtonAdmin>
-        </div> */}
         <ButtonAdmin>Создать меню</ButtonAdmin>
       </div>
-      <MenuListAdmin title={menuArr ? menuArr[menuIndex - 1].name : ''} menuItems={menuItemArr} />
+      {
+        menuArr != null && menuArr.length > 0 && <MenuListAdmin title={menuArr[currentIndexMenu].name} menuItems={menuItemArr} />
+      }
+
     </>
   );
 };

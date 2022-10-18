@@ -3,4 +3,7 @@
     border-radius: 5px;
     border: 1px solid #000;
     cursor: pointer;
+    &.active{
+        background-color: rgb(198, 198, 255);
+    }
 }

@@ -1,0 +1,13 @@
+.edit{
+    width: 287px;
+    font-size: 16px;
+    padding: 5px;
+    border-radius: 5px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: none;
+    &.active{
+        display: inline;
+    }
+}

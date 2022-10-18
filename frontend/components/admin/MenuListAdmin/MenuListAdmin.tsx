@@ -12,8 +12,6 @@ interface MenuListAdminProps {
 
 const MenuListAdmin = ({ title, menuItems }: MenuListAdminProps) => {
   const [deleteBtnEnable, stDeleteBtnEnable] = useState<boolean>(false);
-  console.log('title', title);
-  console.log('menuItems', menuItems);
   
   return (
     <div className={s.menuList}>

@@ -20,6 +20,8 @@ export class MenuResolver {
 
   @Query(() => MenuEntity, { name: 'getMenuByID' })
   findOne(@Args('id', { type: () => Int }) id: number) {
+    console.log('id = ', id);
+    
     return this.menuService.findOne(id);
   }
 

@@ -1,14 +1,23 @@
-import React, { FC } from "react";
+import React, { Dispatch, FC, MutableRefObject, SetStateAction } from "react";
 import { RiEdit2Line } from 'react-icons/ri';
 
 import s from "./ButtonAdminEdit.module.scss";
 
-interface ButtonAdminEditProps {}
+interface ButtonAdminEditProps {
+  editActive: boolean
+  setEditActive: Dispatch<SetStateAction<boolean>>
+  URef?: any
 
-const ButtonAdminEdit: FC<ButtonAdminEditProps> = ({  }) => {
+}
+
+const ButtonAdminEdit: FC<ButtonAdminEditProps> = ({ editActive, setEditActive, URef }) => {
+  async function handleButtonClick() {
+    await setEditActive(prev => !prev)
+    if (URef.current) {URef.current.focus()}
+  }
   return (
-    <div className={s.button}>
-        <RiEdit2Line size={13}/>
+    <div className={editActive ? (s.button + ' ' + s.active): s.button} onClick={handleButtonClick}>
+        <RiEdit2Line size={17}/>
     </div>
   );
 };
