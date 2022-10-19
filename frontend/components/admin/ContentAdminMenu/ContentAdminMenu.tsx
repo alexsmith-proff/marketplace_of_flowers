@@ -30,7 +30,7 @@ interface ContentAdminMenuProps { }
 const ContentAdminMenu = ({ }: ContentAdminMenuProps) => {
   const menus = useQuery(GET_ALL_MENU);
   const [getMenuItems, { loading, error, data }] = useLazyQuery(GET_MENU_BY_ID)
-  // const [updateMenuName, dataUpdateMenuName] = useMutation(UPDATE_MENU)
+  const [updateMenuName, dataUpdateMenuName] = useMutation(UPDATE_MENU)
 
 
   const editMenuRef = useRef(null)
@@ -39,8 +39,6 @@ const ContentAdminMenu = ({ }: ContentAdminMenuProps) => {
   const [currentIndexMenu, setCurrentIndexMenu] = useState<number>(0);
   const [menuItemArr, setMenuItemArr] = useState<IMenuItem[]>(null);
   const [editMenuActive, setEditMenuActive] = useState<boolean>(false)
-
-
 
 
   console.log("ContentAdminMenu render");
@@ -58,12 +56,16 @@ const ContentAdminMenu = ({ }: ContentAdminMenuProps) => {
     console.log('id =====', menuArr[currentIndexMenu].id);
     console.log('name =====', editMenuRef.current.value);
     
-    // updateMenuName({
-    //   variables: {
-    //     id: 1,
-    //     name: "editMenuRef_current_value"
-    //   }
-    // })
+    updateMenuName({
+      variables: {
+        updateMenuInput: {
+          id: +menuArr[currentIndexMenu].id,
+          name: editMenuRef.current.value
+        }
+        
+      }
+    })
+    setEditMenuActive(false)
   }
 
 

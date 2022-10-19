@@ -18,26 +18,9 @@ const InputAdminMenu: FC<InputAdminMenuProps> = ({
   initTitle,
   inputConfirm,
 }) => {
-  const [createMenuName, {data, loading, error}] = useMutation(CREATE_MENU);
-  const m = useQuery(GET_ALL_MENU);
-
-  console.log('m', m.data);
-
   const handleEditChange = (e) => {
     console.log(inputRef.current.value);
   };
-
-  function inputConfirm_() {
-    console.log('sdfkkjhhhhhh');
-    
-     createMenuName({
-      variables: {
-        name: "zzzzzzz"
-      }
-    });
-  };
-
-  
 
   useEffect(() => {
     inputRef.current.value = initTitle;
@@ -45,7 +28,7 @@ const InputAdminMenu: FC<InputAdminMenuProps> = ({
   return (
     <div className={inputActive ? s.edit + " " + s.active : s.edit}>
       <input ref={inputRef} type="text" onChange={handleEditChange} />
-      <div className={s.btn} onClick={inputConfirm_}>
+      <div className={s.btn} onClick={inputConfirm}>
         <AiOutlineCheck size={20} />
       </div>
     </div>
