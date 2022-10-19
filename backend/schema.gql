@@ -152,13 +152,15 @@ type Mutation {
   createTextElement(createTextElementInput: CreateTextElementInput!): TextElementEntity!
   removeElement(id: Int!): ElementEntity!
   removeImgElement(id: Int!): ImgElementEntity!
-  removeMenu(id: Int!): MenuItemEntity!
+  removeMenu(id: Int!): MenuEntity!
+  removeMenuItem(id: Int!): MenuItemEntity!
   removeSection(id: Int!): SectionEntity!
   removeSubmenuItem(id: Int!): SubmenuItemEntity!
   removeTextElement(id: Int!): TextElementEntity!
   updateElement(updateElementInput: UpdateElementInput!): ElementEntity!
   updateImgElement(updateImgElementInput: UpdateImgElementInput!): ImgElementEntity!
-  updateMenu(updateMenuItemInput: UpdateMenuItemInput!): MenuItemEntity!
+  updateMenu(updateMenuInput: UpdateMenuInput!): MenuEntity!
+  updateMenuItem(updateMenuItemInput: UpdateMenuItemInput!): MenuItemEntity!
   updateSection(updateSectionInput: UpdateSectionInput!): SectionEntity!
   updateSubmenuItem(updateSubmenuItemInput: UpdateSubmenuItemInput!): SubmenuItemEntity!
   updateTextElement(updateTextElementInput: UpdateTextElementInput!): TextElementEntity!
@@ -246,6 +248,13 @@ input UpdateImgElementInput {
 
   """slug ImgElement"""
   slug: String
+}
+
+input UpdateMenuInput {
+  id: Int!
+
+  """Name"""
+  name: String!
 }
 
 input UpdateMenuItemInput {

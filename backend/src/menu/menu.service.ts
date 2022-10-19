@@ -37,6 +37,8 @@ export class MenuService {
   }
 
   async update(id: number, updateMenuInput: UpdateMenuInput): Promise<MenuEntity> {
+    console.log('updateMenu');
+    
     await this.menuRepository.update(id, updateMenuInput)
     return await this.findOne(id)
   }

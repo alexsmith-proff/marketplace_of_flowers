@@ -2,10 +2,10 @@ import React, { useEffect, useRef, useState } from "react";
 import ButtonAdmin from "../Buttons/ButtonAdmin/ButtonAdmin";
 import ButtonAdminEdit from "../Buttons/ButtonAdminEdit/ButtonAdminEdit";
 import MenuListAdmin from "../MenuListAdmin/MenuListAdmin";
-import { GET_ALL_MENU, GET_MENU_BY_ID } from "../../../graphql/menu.graphql";
+import { GET_ALL_MENU, GET_MENU_BY_ID, UPDATE_MENU } from "../../../graphql/menu.graphql";
 
 import s from "./ContentAdminMenu.module.scss";
-import { useLazyQuery, useQuery } from "@apollo/client";
+import { useLazyQuery, useMutation, useQuery } from "@apollo/client";
 import InputAdminMenu from "../Inputs/InputMenu/InputAdminMenu";
 
 const menuItems = [
@@ -30,6 +30,7 @@ interface ContentAdminMenuProps { }
 const ContentAdminMenu = ({ }: ContentAdminMenuProps) => {
   const menus = useQuery(GET_ALL_MENU);
   const [getMenuItems, { loading, error, data }] = useLazyQuery(GET_MENU_BY_ID)
+  // const [updateMenuName, dataUpdateMenuName] = useMutation(UPDATE_MENU)
 
 
   const editMenuRef = useRef(null)
@@ -52,6 +53,18 @@ const ContentAdminMenu = ({ }: ContentAdminMenuProps) => {
     })
     setCurrentIndexMenu(Number(e.target.value))
   };
+
+  const handleEditUpdateMenuName = () => {
+    console.log('id =====', menuArr[currentIndexMenu].id);
+    console.log('name =====', editMenuRef.current.value);
+    
+    // updateMenuName({
+    //   variables: {
+    //     id: 1,
+    //     name: "editMenuRef_current_value"
+    //   }
+    // })
+  }
 
 
 
@@ -91,7 +104,7 @@ const ContentAdminMenu = ({ }: ContentAdminMenuProps) => {
               ))}
           </select>
           {
-            menuArr != null && menuArr.length > 0 && <InputAdminMenu inputActive={editMenuActive} inputRef={editMenuRef} initTitle={menuArr[currentIndexMenu].name} />
+            menuArr != null && menuArr.length > 0 && <InputAdminMenu inputActive={editMenuActive} inputRef={editMenuRef} initTitle={menuArr[currentIndexMenu].name} inputConfirm={handleEditUpdateMenuName} />
           }
 
         </div>

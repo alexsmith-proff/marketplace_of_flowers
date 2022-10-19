@@ -24,12 +24,12 @@ export class MenuItemResolver {
   }
 
   @Mutation(() => MenuItemEntity)
-  updateMenu(@Args('updateMenuItemInput') updateMenuItemInput: UpdateMenuItemInput) {
+  updateMenuItem(@Args('updateMenuItemInput') updateMenuItemInput: UpdateMenuItemInput) {
     return this.menuItemService.update(updateMenuItemInput.id, updateMenuItemInput);
   }
 
   @Mutation(() => MenuItemEntity)
-  removeMenu(@Args('id', { type: () => Int }) id: number) {
+  removeMenuItem(@Args('id', { type: () => Int }) id: number) {
     return this.menuItemService.remove(id);
   }
 }

@@ -1,13 +1,33 @@
-.edit{
-    width: 287px;
-    font-size: 16px;
-    padding: 5px;
-    border-radius: 5px;
-    position: absolute;
-    top: 0;
-    left: 0;
+.edit {
     display: none;
-    &.active{
+    input {
+        width: 287px;
+        font-size: 16px;
+        padding: 5px;
+        border-radius: 5px;
+        position: absolute;
+        top: 0;
+        left: 0;
+    }
+    &.active {
         display: inline;
     }
+}
+
+.btn {
+    position: absolute;
+    top: 0px;
+    right: 0px;
+    height: 100%;
+    color: rgb(147, 147, 255);
+    margin-right: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    transition: .3s;
+    &:hover{
+        color: #5f53a8;
+    }
+
 }
