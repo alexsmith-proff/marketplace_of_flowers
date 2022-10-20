@@ -24,11 +24,11 @@ export class MenuItemEntity {
   link: string
 
   @Field(() => MenuEntity)
-  @ManyToOne(() => MenuEntity, menu => menu.item)
+  @ManyToOne(() => MenuEntity, menu => menu.item, {onDelete: 'CASCADE'})
   menu: MenuEntity
 
   @Field(() => [SubmenuItemEntity])
-  @OneToMany(() => SubmenuItemEntity, submenuitem => submenuitem.menuitem, {eager: true})
+  @OneToMany(() => SubmenuItemEntity, submenuitem => submenuitem.menuitem, {eager: true, cascade: true})
   submenuitems: SubmenuItemEntity[]
 
   @Field(() => Date)

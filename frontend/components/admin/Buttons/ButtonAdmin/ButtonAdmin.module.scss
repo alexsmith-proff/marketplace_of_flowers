@@ -21,7 +21,10 @@
         justify-items: center;
         align-items: center;
     }
-    &.active{
+    &.active, &.active:hover{
         background-color: rgb(198, 198, 255);
+    }
+    &:hover{
+        background-color: #e9ebff;
     }
 }

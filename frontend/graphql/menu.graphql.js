@@ -1,6 +1,6 @@
 import { gql } from "@apollo/client"
 
-export const CREATE_MENU = gql`
+export const CREATE_MENUNAME = gql`
 mutation CreateMenu($createMenuInput: CreateMenuInput!) {
   createMenu(createMenuInput: $createMenuInput) {
         id
@@ -9,9 +9,18 @@ mutation CreateMenu($createMenuInput: CreateMenuInput!) {
 }
 `
 
-export const UPDATE_MENU = gql`
+export const UPDATE_MENUNAME = gql`
 mutation UpdateMenu($updateMenuInput: UpdateMenuInput!) {
   updateMenu(updateMenuInput: $updateMenuInput) {
+        id
+        name
+    }
+}
+`
+
+export const DELETE_MENUNAME = gql`
+mutation RemoveMenu($id: Int!) {
+  removeMenu(id: $id) {
         id
         name
     }

@@ -15,7 +15,7 @@ export class MenuEntity {
   name: String
 
   @Field(() => [MenuItemEntity])
-  @OneToMany(() => MenuItemEntity, menuitem => menuitem.menu, {eager: true})
+  @OneToMany(() => MenuItemEntity, menuitem => menuitem.menu, {eager: true, cascade: true})
   item: MenuItemEntity[]
 
   @Field(() => Date)

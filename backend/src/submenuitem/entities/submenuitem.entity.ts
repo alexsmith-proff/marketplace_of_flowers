@@ -22,7 +22,7 @@ export class SubmenuItemEntity {
   link: string
 
   @Field(() => MenuItemEntity)
-  @ManyToOne(() => MenuItemEntity, menuitem => menuitem.submenuitems)
+  @ManyToOne(() => MenuItemEntity, menuitem => menuitem.submenuitems, {onDelete: 'CASCADE'})
   @JoinColumn({name: 'menuitem_id'})
   menuitem: MenuItemEntity
 
