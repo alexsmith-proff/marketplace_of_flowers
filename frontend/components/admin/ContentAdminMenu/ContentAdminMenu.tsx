@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { RiEdit2Line } from 'react-icons/ri';
-import { AiOutlinePlus } from 'react-icons/ai';
+import { AiOutlinePlus, AiOutlineDelete } from 'react-icons/ai';
 import ButtonAdmin from "../Buttons/ButtonAdmin/ButtonAdmin";
 import MenuListAdmin from "../MenuListAdmin/MenuListAdmin";
 import { GET_ALL_MENU, GET_MENU_BY_ID, UPDATE_MENU, CREATE_MENU } from "../../../graphql/menu.graphql";
@@ -136,8 +136,12 @@ const ContentAdminMenu = ({ }: ContentAdminMenuProps) => {
         <div className={s.ButtonAdminEdit}>
           <ButtonAdmin typeBtn={AdminButtonType.Ico} editVisible={editMenuUpdateActive} setEditActive={setEditMenuUpdateActive} URef={editUpdateMenuRef} Ico={<RiEdit2Line />} />
         </div>
-        <ButtonAdmin typeBtn={AdminButtonType.Ico} editVisible={editMenuCreateActive} setEditActive={setEditMenuCreateActive} URef={editCreateMenuRef} Ico={<AiOutlinePlus />}>Создать меню</ButtonAdmin>
-
+        <div className={s.ButtonAdminEdit}>
+          <ButtonAdmin typeBtn={AdminButtonType.Ico} editVisible={editMenuCreateActive} setEditActive={setEditMenuCreateActive} URef={editCreateMenuRef} Ico={<AiOutlinePlus />}>Создать меню</ButtonAdmin>
+        </div>
+        <div className={s.ButtonAdminEdit}>
+          <ButtonAdmin typeBtn={AdminButtonType.Ico} editVisible={editMenuCreateActive} setEditActive={setEditMenuCreateActive} URef={editCreateMenuRef} Ico={<AiOutlineDelete />}>Создать меню</ButtonAdmin>
+        </div>
       </div>
       {
         menuArr != null && menuArr.length > 0 && <MenuListAdmin title={menuArr[currentIndexMenu].name} menuItems={menuItemArr} />
