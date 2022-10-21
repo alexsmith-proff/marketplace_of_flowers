@@ -26,6 +26,12 @@
         border: 1px solid #000;
         padding: 3px;
     }
+    &.disabled  {
+        color: rgb(177, 177, 177);
+    }
+    &.disabled:hover{
+        background-color: transparent;
+    }
     &.active,
     &.active:hover {
         background-color: rgb(198, 198, 255);

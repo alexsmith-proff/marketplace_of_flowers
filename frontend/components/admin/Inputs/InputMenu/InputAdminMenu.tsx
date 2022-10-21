@@ -1,7 +1,5 @@
-import { useMutation, useQuery } from "@apollo/client";
 import React, { FC, useEffect } from "react";
 import { AiOutlineCheck } from "react-icons/ai";
-import { CREATE_MENU, UPDATE_MENU, GET_ALL_MENU } from "../../../../graphql/menu.graphql";
 
 import s from "./InputAdminMenu.module.scss";
 

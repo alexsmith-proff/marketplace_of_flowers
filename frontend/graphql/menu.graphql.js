@@ -1,6 +1,6 @@
 import { gql } from "@apollo/client"
 
-export const CREATE_MENUNAME = gql`
+export const CREATE_MENU_NAME = gql`
 mutation CreateMenu($createMenuInput: CreateMenuInput!) {
   createMenu(createMenuInput: $createMenuInput) {
         id
@@ -9,7 +9,7 @@ mutation CreateMenu($createMenuInput: CreateMenuInput!) {
 }
 `
 
-export const UPDATE_MENUNAME = gql`
+export const UPDATE_MENU_NAME = gql`
 mutation UpdateMenu($updateMenuInput: UpdateMenuInput!) {
   updateMenu(updateMenuInput: $updateMenuInput) {
         id
@@ -18,7 +18,7 @@ mutation UpdateMenu($updateMenuInput: UpdateMenuInput!) {
 }
 `
 
-export const DELETE_MENUNAME = gql`
+export const DELETE_MENU_NAME = gql`
 mutation RemoveMenu($id: Int!) {
   removeMenu(id: $id) {
         id
@@ -36,8 +36,6 @@ query GetAllMenu {
 }
 `
 
-
-
 export const GET_MENU_BY_ID = gql`
 query GetMenuByID($id: Int!) {
     getMenuByID(id: $id) {
@@ -52,4 +50,31 @@ query GetMenuByID($id: Int!) {
 }
 `
 
+
+export const CREATE_MENU_ITEM_NAME = gql`
+mutation CreateMenuItem($createMenuItemInput: CreateMenuItemInput!) {
+  createMenuItem(createMenuItemInput: $createMenuItemInput) {
+        id
+        name
+    }
+}
+`
+
+export const UPDATE_MENU_ITEM_NAME = gql`
+mutation UpdateMenuItem($updateMenuItemInput: UpdateMenuItemInput!) {
+  updateMenuItem(updateMenuItemInput: $updateMenuItemInput) {
+        id
+        name
+    }
+}
+`
+
+export const DELETE_MENU_ITEM_NAME = gql`
+mutation RemoveMenuItem($id: Int!) {
+  removeMenuItem(id: $id) {
+        id
+        name
+    }
+}
+`
 

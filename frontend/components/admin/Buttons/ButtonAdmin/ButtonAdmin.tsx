@@ -10,6 +10,7 @@ import s from "./ButtonAdmin.module.scss";
 interface ButtonAdminProps {
   typeBtn: AdminButtonType;
   functionalBtn: AdminButtonFunctional;
+  enabled?: boolean
   border: boolean
   editVisible?: boolean;
   setEditActive?: Dispatch<SetStateAction<boolean>>;
@@ -25,6 +26,7 @@ interface ButtonAdminProps {
 const ButtonAdmin: FC<ButtonAdminProps> = ({
   typeBtn,
   functionalBtn,
+  enabled = true,
   border,
   editVisible,
   setEditActive,
@@ -37,19 +39,21 @@ const ButtonAdmin: FC<ButtonAdminProps> = ({
   children,
 }) => {
   async function handleButtonClick() {
-    if (functionalBtn == AdminButtonFunctional.Standard) {
-      // popup confirm
-      clickBtn()
-    }
-    if (functionalBtn == AdminButtonFunctional.ToggleVisibleEdit) {
-      if (typeBtn == AdminButtonType.Text) {
-        await setEditActive(true);
+    if (enabled) {
+      if (functionalBtn == AdminButtonFunctional.Standard) {
+        // popup confirm
+        clickBtn()
       }
-      if (typeBtn == AdminButtonType.Ico) {
-        await setEditActive((prev) => !prev);
-      }
-      if (URef.current) {
-        URef.current.focus();
+      if (functionalBtn == AdminButtonFunctional.ToggleVisibleEdit) {
+        if (typeBtn == AdminButtonType.Text) {
+          await setEditActive(true);
+        }
+        if (typeBtn == AdminButtonType.Ico) {
+          await setEditActive((prev) => !prev);
+        }
+        if (URef.current) {
+          URef.current.focus();
+        }
       }
     }
   }
@@ -63,7 +67,7 @@ const ButtonAdmin: FC<ButtonAdminProps> = ({
       )}
       {typeBtn == AdminButtonType.Ico && (
         <div
-          className={(editVisible ? s.buttonIco + ' ' + s.active : s.buttonIco) + (border ? ' ' + s.border : '')}
+          className={(editVisible ? s.buttonIco + ' ' + s.active : s.buttonIco) + (border ? ' ' + s.border : '') + (enabled ? '' : ' ' + s.disabled)}
           onClick={handleButtonClick}
         >
           <IconContext.Provider value={{ size: String(sizeIco) }}>
