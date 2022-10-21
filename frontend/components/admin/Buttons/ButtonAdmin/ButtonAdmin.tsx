@@ -10,26 +10,30 @@ import s from "./ButtonAdmin.module.scss";
 interface ButtonAdminProps {
   typeBtn: AdminButtonType;
   functionalBtn: AdminButtonFunctional;
+  border: boolean
   editVisible?: boolean;
   setEditActive?: Dispatch<SetStateAction<boolean>>;
   URef?: any;
   confirm?: boolean;
   confirmTitle?: string;
   clickBtn?: () => void;
-  Ico?: any;
+  ico?: any;
+  sizeIco?: number
   children?: React.ReactNode;
 }
 
 const ButtonAdmin: FC<ButtonAdminProps> = ({
   typeBtn,
   functionalBtn,
+  border,
   editVisible,
   setEditActive,
   URef,
   confirm,
   confirmTitle,
   clickBtn,
-  Ico,
+  ico,
+  sizeIco,
   children,
 }) => {
   async function handleButtonClick() {
@@ -53,17 +57,17 @@ const ButtonAdmin: FC<ButtonAdminProps> = ({
   return (
     <>
       {typeBtn == AdminButtonType.Text && (
-        <div className={s.buttonText} onClick={handleButtonClick}>
+        <div className={s.buttonText + border ? ' ' + s.border : ''} onClick={handleButtonClick}>
           {children}
         </div>
       )}
       {typeBtn == AdminButtonType.Ico && (
         <div
-          className={editVisible ? s.buttonIco + " " + s.active : s.buttonIco}
+          className={(editVisible ? s.buttonIco + ' ' + s.active : s.buttonIco) + (border ? ' ' + s.border : '')}
           onClick={handleButtonClick}
         >
-          <IconContext.Provider value={{ size: "22px" }}>
-            <div>{Ico}</div>
+          <IconContext.Provider value={{ size: String(sizeIco) }}>
+            <div>{ico}</div>
           </IconContext.Provider>
         </div>
       )}

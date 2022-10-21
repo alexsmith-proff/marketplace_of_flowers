@@ -1,6 +1,8 @@
 import React, { useEffect, useRef, useState } from "react";
 import { RiEdit2Line } from 'react-icons/ri';
 import { AiOutlinePlus, AiOutlineDelete } from 'react-icons/ai';
+import { MdDeleteOutline } from 'react-icons/md';
+
 import ButtonAdmin from "../Buttons/ButtonAdmin/ButtonAdmin";
 import MenuListAdmin from "../MenuListAdmin/MenuListAdmin";
 import { GET_ALL_MENU, GET_MENU_BY_ID, CREATE_MENUNAME, UPDATE_MENUNAME, DELETE_MENUNAME } from "../../../graphql/menu.graphql";
@@ -31,7 +33,7 @@ interface ContentAdminMenuProps { }
 
 const ContentAdminMenu = ({ }: ContentAdminMenuProps) => {
   const menus = useQuery(GET_ALL_MENU);
-  const [getMenuItems, { loading, error, data }] = useLazyQuery(GET_MENU_BY_ID)
+  const [getMenuItems, { loading, error, data: dataMenu }] = useLazyQuery(GET_MENU_BY_ID)
   const [createMenuName, dataCreateMenuName] = useMutation(CREATE_MENUNAME)
   const [updateMenuName, dataUpdateMenuName] = useMutation(UPDATE_MENUNAME)
   const [deleteMenuName, dataDeleteMenuName] = useMutation(DELETE_MENUNAME)
@@ -89,8 +91,6 @@ const ContentAdminMenu = ({ }: ContentAdminMenuProps) => {
     setEditMenuUpdateActive(false)
   }
   const handleDeleteMenuName = () => {
-    console.log('menuArr[currentIndexMenu].id', menuArr[currentIndexMenu].id);
-    
     deleteMenuName({
       variables: {
         id: +menuArr[currentIndexMenu].id
@@ -101,7 +101,7 @@ const ContentAdminMenu = ({ }: ContentAdminMenuProps) => {
         }
       ]
     })
-    setCurrentIndexMenu(1)
+    setCurrentIndexMenu(0)
   }
 
 
@@ -120,10 +120,10 @@ const ContentAdminMenu = ({ }: ContentAdminMenuProps) => {
     if (menus.data) {
       setMenuArr(menus.data.getAllMenus);
     }
-    if (data) {
-      setMenuItemArr(data.getMenuByID.item);
+    if (dataMenu) {
+      setMenuItemArr(dataMenu.getMenuByID.item);
     }
-  }, [menus, data]);
+  }, [menus, dataMenu]);
 
   return (
     <>
@@ -150,13 +150,13 @@ const ContentAdminMenu = ({ }: ContentAdminMenuProps) => {
           <InputAdminMenu inputActive={editMenuCreateActive} inputRef={editCreateMenuRef} initTitle="" inputConfirm={handleEditCreateMenuName} />
         </div>
         <div className={s.ButtonAdminEdit}>
-          <ButtonAdmin typeBtn={AdminButtonType.Ico} functionalBtn={AdminButtonFunctional.ToggleVisibleEdit} editVisible={editMenuUpdateActive} setEditActive={setEditMenuUpdateActive} URef={editUpdateMenuRef} Ico={<RiEdit2Line />} />
+          <ButtonAdmin typeBtn={AdminButtonType.Ico} functionalBtn={AdminButtonFunctional.ToggleVisibleEdit} border={true} editVisible={editMenuUpdateActive} setEditActive={setEditMenuUpdateActive} URef={editUpdateMenuRef} ico={<RiEdit2Line />} sizeIco={22} />
         </div>
         <div className={s.ButtonAdminEdit}>
-          <ButtonAdmin typeBtn={AdminButtonType.Ico} functionalBtn={AdminButtonFunctional.ToggleVisibleEdit} editVisible={editMenuCreateActive} setEditActive={setEditMenuCreateActive} URef={editCreateMenuRef} Ico={<AiOutlinePlus />} />
+          <ButtonAdmin typeBtn={AdminButtonType.Ico} functionalBtn={AdminButtonFunctional.ToggleVisibleEdit} border={true} editVisible={editMenuCreateActive} setEditActive={setEditMenuCreateActive} URef={editCreateMenuRef} ico={<AiOutlinePlus />} sizeIco={22} />
         </div>
         <div className={s.ButtonAdminEdit}>
-          <ButtonAdmin typeBtn={AdminButtonType.Ico} functionalBtn={AdminButtonFunctional.Standard} clickBtn={handleDeleteMenuName} Ico={<AiOutlineDelete />} />
+          <ButtonAdmin typeBtn={AdminButtonType.Ico} functionalBtn={AdminButtonFunctional.Standard} border={true} clickBtn={handleDeleteMenuName} ico={<MdDeleteOutline />} sizeIco={22} />
         </div>
       </div>
       {
