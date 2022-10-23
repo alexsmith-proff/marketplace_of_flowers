@@ -17,11 +17,15 @@ export class SubmenuItemService {
   }
 
   async findAll(): Promise<SubmenuItemEntity[]> {
-    return await this.submenuItemRepository.find({
-      relations: {
-        menuitem: true
-      }
-    })
+    // return await this.submenuItemRepository.find({
+    //   relations: {
+    //     menuitem: true
+    //   }
+    // })
+    const treeCategoriesWithRelations = await this.submenuItemRepository.manager.getTreeRepository(SubmenuItemEntity).findTrees()
+    // console.log('d = ', d);
+    
+    return treeCategoriesWithRelations 
   }
 
   async findOne(id: number): Promise<SubmenuItemEntity> {

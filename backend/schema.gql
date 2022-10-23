@@ -203,6 +203,8 @@ type SubmenuItemEntity {
   menuitem: MenuItemEntity!
   name: String!
   serial_number: Float!
+  submenuitem: SubmenuItemEntity!
+  submenuitems: [SubmenuItemEntity!]!
   updatedAt: DateTime!
 }
 

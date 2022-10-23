@@ -10,19 +10,27 @@ import { Repository } from 'typeorm';
 export class MenuService {
   constructor(
     @InjectRepository(MenuEntity)
-    private readonly menuRepository: Repository<MenuEntity>
+    private readonly menuRepository: Repository<MenuEntity>,
+    @InjectRepository(SubmenuItemEntity)
+    private readonly submenuItemRepository: Repository<SubmenuItemEntity>
     ) {}
 
   async create(createMenuInput: CreateMenuInput): Promise<MenuEntity> {
     return await this.menuRepository.save({...createMenuInput})
   }
 
-  async findAll() {
-    return await this.menuRepository.find({
-      // relations: {
-      //   item: true,
-      // }
-    })
+  async findAll(): Promise<MenuEntity[]> {
+    // await this.submenuItemRepository.manager.getTreeRepository(SubmenuItemEntity).findTrees({
+    //   relations: ["submenuitem"]
+    // })
+    const menu = await this.menuRepository.find()
+    console.log('menu', menu);
+    
+    return menu
+    // const treeCategoriesWithRelations = await this.menuRepository.manager.getTreeRepository(MenuEntity).findTrees()
+    // console.log('treeCategoriesWithRelations = ', treeCategoriesWithRelations);
+    
+    // return treeCategoriesWithRelations 
   }
 
   async findOne(id: number): Promise<MenuEntity> {
