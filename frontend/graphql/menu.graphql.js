@@ -44,7 +44,14 @@ query GetMenuByID($id: Int!) {
       item{
         id
         name
+        serial_number
         link
+        submenuitems{
+          id
+          name
+          serial_number
+          link
+        }
       }
   }
 }

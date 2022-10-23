@@ -4,7 +4,7 @@ import { AiOutlinePlus, AiOutlineDelete } from 'react-icons/ai';
 import { MdDeleteOutline } from 'react-icons/md';
 
 import ButtonAdmin from "../Buttons/ButtonAdmin/ButtonAdmin";
-import MenuListAdmin from "../MenuListAdmin/MenuListAdmin";
+import MenuItemListAdmin from "../MenuItemListAdmin/MenuItemListAdmin";
 import { GET_ALL_MENU, GET_MENU_BY_ID, CREATE_MENU_NAME, UPDATE_MENU_NAME, DELETE_MENU_NAME } from "../../../graphql/menu.graphql";
 
 import s from "./ContentAdminMenu.module.scss";
@@ -154,7 +154,7 @@ const ContentAdminMenu = ({ }: ContentAdminMenuProps) => {
         </div>
       </div>
       {
-        menuArr != null && menuArr.length > 0 && <MenuListAdmin title={menuArr[currentIndexMenu].name} menuId={menuArr[currentIndexMenu].id}/>
+        menuArr != null && menuArr.length > 0 && <MenuItemListAdmin title={menuArr[currentIndexMenu].name} menuId={menuArr[currentIndexMenu].id}/>
       }
 
     </>

@@ -1,6 +1,7 @@
 import React, { FC } from 'react'
 import ContentAdminSettings from '../../../components/admin/ContentAdminSettings/ContentAdminSettings'
 import AdminLayout from '../../../layouts/AdminLayout/AdminLayout'
+// import AdminLayout from '../../../layouts'
 
 import s from './AdminPanelSettings.module.scss'
 

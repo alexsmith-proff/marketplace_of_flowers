@@ -1,0 +1,53 @@
+.menuList {
+    display: inline-block;
+    box-shadow: 1px 1px 44px 1px rgba(0, 0, 0, 0.25);
+    border: 1px solid #000;
+    width: 320px;
+    height: 500px;
+    position: relative;
+}
+.topSection {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: rgb(198, 198, 255);
+    padding: 0px 10px;
+    border-bottom: 1px solid #000;
+}
+.icons {
+    display: flex;
+    // justify-content: end;
+    align-items: center;
+    // padding: 0px 10px;
+    // border-bottom: 1px solid #000;
+}
+.createBtn,
+.deleteBtn {
+    padding: 7px 1px;
+    cursor: pointer;
+    &:hover {
+        color: rgb(76, 76, 250);
+    }
+}
+.deleteBtn.disabled {
+    color: rgb(153, 153, 153);
+}
+.input {
+    position: relative;
+    top: 0;
+    left: 0;
+}
+
+.item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 13px 10px;
+    border-bottom: 1px solid rgb(196, 196, 196);
+    cursor: pointer;
+
+    &.active,
+    &:hover {
+        background-color: rgb(224, 224, 253);
+    }
+}
