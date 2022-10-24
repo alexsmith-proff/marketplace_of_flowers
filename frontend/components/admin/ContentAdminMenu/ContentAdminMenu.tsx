@@ -75,6 +75,9 @@ const ContentAdminMenu = ({ }: ContentAdminMenuProps) => {
     setCurrentIndexMenuItem(null)
     setCurrentIndexSubMenuItem(null)
     setCurrentIndexSubMenuItemTwo(null)
+
+    setSubMenuItemActive(false)
+    setSubMenuItemTwoActive(false)
     getMenuItems({
       variables: {
         id: +menuArr[Number(e.target.value)].id
@@ -174,6 +177,7 @@ const ContentAdminMenu = ({ }: ContentAdminMenuProps) => {
     })
   }
   const handleEditDeleteMenuItemName = (index) => {
+    setCurrentIndexSubMenuItemTwo(null)
     setCurrentIndexSubMenuItem(null)
     setSubMenuItemActive(false)
     setSubMenuItemTwoActive(false)
@@ -216,7 +220,9 @@ const ContentAdminMenu = ({ }: ContentAdminMenuProps) => {
     })
   }
   const handleEditDeleteSubMenuItemName = (index) => {
-    console.log('index', index);
+    setCurrentIndexSubMenuItemTwo(null)
+    setSubMenuItemTwoActive(false)
+    
     deleteSubMenuItemName({
       variables: {
         id: +menus.data.getAllMenus[currentIndexMenu].items[currentIndexMenuItem].submenuitems[index].id
@@ -234,7 +240,7 @@ const ContentAdminMenu = ({ }: ContentAdminMenuProps) => {
       variables: {
         createSubmenuItemTwoInput: {
           name: name,
-          menu_id: +menus.data.getAllMenus[currentIndexMenu].items[currentIndexMenuItem].submenuitems[currentIndexSubmenuItem].id
+          menuitem_id: +menus.data.getAllMenus[currentIndexMenu].items[currentIndexMenuItem].submenuitems[currentIndexSubmenuItem].id
         }
       },
       refetchQueries: [
@@ -328,10 +334,10 @@ const ContentAdminMenu = ({ }: ContentAdminMenuProps) => {
           menuArr != null && menuArr.length > 0 &&
           <>
             {
-              currentIndexMenu != null &&
+              menuItemActive &&
               <MenuListAdmin
                 visible={menuItemActive}
-                title={'title 1'}
+                title={menus.data.getAllMenus[currentIndexMenu].name}
                 itemArr={menus.data.getAllMenus[currentIndexMenu].items}
                 clickToItem={clickToItemMenuItem}
                 createItemName={handleEditCreateMenuItemName}
@@ -340,10 +346,10 @@ const ContentAdminMenu = ({ }: ContentAdminMenuProps) => {
               />
             }
             {
-              currentIndexMenuItem != null &&
+              submenuItemActive &&
               <MenuListAdmin
                 visible={submenuItemActive}
-                title={'title 2'}
+                title={menus.data.getAllMenus[currentIndexMenu].items[currentIndexMenuItem].name}
                 clickToItem={clickToItemSubMenuItem}
                 itemArr={menus.data.getAllMenus[currentIndexMenu].items[currentIndexMenuItem].submenuitems}
                 createItemName={handleEditCreateSubMenuItemName}
@@ -352,10 +358,11 @@ const ContentAdminMenu = ({ }: ContentAdminMenuProps) => {
               />
             }
             {
-              currentIndexSubmenuItem != null &&
+              // currentIndexSubmenuItem != null &&
+              submenuItemTwoActive &&
               <MenuListAdmin
                 visible={submenuItemTwoActive}
-                title={'title 3'}
+                title={menus.data.getAllMenus[currentIndexMenu].items[currentIndexMenuItem].submenuitems[currentIndexSubmenuItem].name}
                 clickToItem={clickToItemSubMenuItemTwo}
                 itemArr={menus.data.getAllMenus[currentIndexMenu].items[currentIndexMenuItem].submenuitems[currentIndexSubmenuItem].submenuitems}
                 createItemName={handleEditCreateSubMenuItemTwoName}

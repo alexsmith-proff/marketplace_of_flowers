@@ -16,17 +16,20 @@ const InputAdminMenu: FC<InputAdminMenuProps> = ({
   initTitle,
   inputConfirm,
 }) => {
-  const handleEditChange = (e) => {
-    console.log(inputRef.current.value);
-  };
+  const validate = () => {
+    if(inputRef.current.value != '') inputConfirm()
+  }
+  const handleKeyDown = (e) => {
+    if(e.key === 'Enter') validate()
+  }
 
   useEffect(() => {
     inputRef.current.value = initTitle;
   }, [inputActive]);
   return (
     <div className={inputActive ? s.edit + " " + s.active : s.edit}>
-      <input ref={inputRef} type="text" onChange={handleEditChange} />
-      <div className={s.btn} onClick={inputConfirm}>
+      <input ref={inputRef} type="text" onKeyDown={handleKeyDown} />
+      <div className={s.btn} onClick={validate}>
         <AiOutlineCheck size={20} />
       </div>
     </div>

@@ -61,15 +61,19 @@ const MenuListAdmin = ({
 
   const handleClickMenuItem = (index) => {
     setCurrentIndexMenu(index);
-    clickToItem(index)
+    clickToItem(index);
   };
+
+  console.log("itemArr", itemArr);
 
   return (
     <>
       {visible && (
         <div className={s.menuList}>
           <div className={s.topSection}>
-            <div className={s.title}>{title}</div>
+            <div className={s.title} onClick={() => setCurrentIndexMenu(null)}>
+              {title}
+            </div>
             <div className={s.icons}>
               <div className={s.createBtn}>
                 <ButtonAdmin
@@ -89,7 +93,7 @@ const MenuListAdmin = ({
                   functionalBtn={AdminButtonFunctional.ToggleVisibleEdit}
                   enabled={
                     currentIndexMenu != null &&
-                      currentIndexMenu <= itemArr.length - 1
+                    currentIndexMenu <= itemArr.length - 1
                       ? true
                       : false
                   }
@@ -107,7 +111,7 @@ const MenuListAdmin = ({
                   functionalBtn={AdminButtonFunctional.Standard}
                   enabled={
                     currentIndexMenu != null &&
-                      currentIndexMenu <= itemArr.length - 1
+                    currentIndexMenu <= itemArr.length - 1
                       ? true
                       : false
                   }
@@ -152,11 +156,15 @@ const MenuListAdmin = ({
                   onClick={() => handleClickMenuItem(index)}
                 >
                   {item.name}
-                  {/* {item.submenuitems.length > 0 && (
-                    <div className={s.hasChildren}>
-                      <AiOutlineRight />
-                    </div>
-                  )} */}
+                  {typeof item["submenuitems"] !== "undefined" && (
+                    <>
+                      {item.submenuitems.length > 0 && (
+                        <div className={s.hasChildren}>
+                          <AiOutlineRight />
+                        </div>
+                      )}
+                    </>
+                  )}
                 </li>
               ))}
           </ul>
