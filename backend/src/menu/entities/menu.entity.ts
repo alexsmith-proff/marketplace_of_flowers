@@ -16,7 +16,7 @@ export class MenuEntity {
 
   @Field(() => [MenuItemEntity])
   @OneToMany(() => MenuItemEntity, menuitem => menuitem.menu, {eager: true, cascade: true})
-  item: MenuItemEntity[]
+  items: MenuItemEntity[]
 
   @Field(() => Date)
   @CreateDateColumn()

@@ -13,6 +13,8 @@ export class SubmenuItemService {
   ) {}
   async create(createSubmenuItemInput: CreateSubmenuItemInput): Promise<SubmenuItemEntity> {
     const newSubMenu = {...createSubmenuItemInput,  menuitem: { id: createSubmenuItemInput.menuitem_id } }
+    console.log('newSubMenu', newSubMenu);
+    
     return this.submenuItemRepository.save(newSubMenu)
   }
 

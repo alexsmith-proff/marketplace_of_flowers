@@ -24,7 +24,7 @@ export class MenuItemEntity {
   link: string
 
   @Field(() => MenuEntity)
-  @ManyToOne(() => MenuEntity, menu => menu.item, {onDelete: 'CASCADE'})
+  @ManyToOne(() => MenuEntity, menu => menu.items, {onDelete: 'CASCADE'})
   menu: MenuEntity
 
   @Field(() => [SubmenuItemEntity])

@@ -9,27 +9,27 @@ export class SubmenuItemTwoResolver {
   constructor(private readonly submenuItemTwoService: SubmenuItemTwoService) {}
 
   @Mutation(() => SubmenuItemTwoEntity)
-  createSubmenuItem(@Args('createSubmenuItemInput') createSubmenuItemTwoInput: CreateSubmenuItemTwoInput) {
+  createSubmenuItemTwo(@Args('createSubmenuItemTwoInput') createSubmenuItemTwoInput: CreateSubmenuItemTwoInput) {
     return this.submenuItemTwoService.create(createSubmenuItemTwoInput);
   }
 
   @Query(() => [SubmenuItemTwoEntity])
-  getAllSubmenuItems() {
+  getAllSubmenuItemsTwo() {
     return this.submenuItemTwoService.findAll();
   }
 
   @Query(() => SubmenuItemTwoEntity)
-  getSubmenuItemById(@Args('id', { type: () => Int }) id: number) {
+  getSubmenuItemTwoById(@Args('id', { type: () => Int }) id: number) {
     return this.submenuItemTwoService.findOne(id);
   }
 
   @Mutation(() => SubmenuItemTwoEntity)
-  updateSubmenuItem(@Args('updateSubmenuItemInput') updateSubmenuItemTwoInput: UpdateSubmenuItemTwoInput) {
+  updateSubmenuItemTwo(@Args('updateSubmenuItemTwoInput') updateSubmenuItemTwoInput: UpdateSubmenuItemTwoInput) {
     return this.submenuItemTwoService.update(updateSubmenuItemTwoInput.id, updateSubmenuItemTwoInput);
   }
 
   @Mutation(() => SubmenuItemTwoEntity)
-  removeSubmenuItem(@Args('id', { type: () => Int }) id: number) {
+  removeSubmenuItemTwo(@Args('id', { type: () => Int }) id: number) {
     return this.submenuItemTwoService.remove(id);
   }
 }

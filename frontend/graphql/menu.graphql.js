@@ -1,87 +1,157 @@
-import { gql } from "@apollo/client"
+import { gql } from "@apollo/client";
 
 export const CREATE_MENU_NAME = gql`
-mutation CreateMenu($createMenuInput: CreateMenuInput!) {
-  createMenu(createMenuInput: $createMenuInput) {
-        id
-        name
+  mutation CreateMenu($createMenuInput: CreateMenuInput!) {
+    createMenu(createMenuInput: $createMenuInput) {
+      id
+      name
     }
-}
-`
+  }
+`;
 
 export const UPDATE_MENU_NAME = gql`
-mutation UpdateMenu($updateMenuInput: UpdateMenuInput!) {
-  updateMenu(updateMenuInput: $updateMenuInput) {
-        id
-        name
+  mutation UpdateMenu($updateMenuInput: UpdateMenuInput!) {
+    updateMenu(updateMenuInput: $updateMenuInput) {
+      id
+      name
     }
-}
-`
+  }
+`;
 
 export const DELETE_MENU_NAME = gql`
-mutation RemoveMenu($id: Int!) {
-  removeMenu(id: $id) {
-        id
-        name
+  mutation RemoveMenu($id: Int!) {
+    removeMenu(id: $id) {
+      id
+      name
     }
-}
-`
+  }
+`;
 
 export const GET_ALL_MENU = gql`
-query GetAllMenu {
+  query GetAllMenu {
     getAllMenus {
       id
       name
-  }
-}
-`
-
-export const GET_MENU_BY_ID = gql`
-query GetMenuByID($id: Int!) {
-    getMenuByID(id: $id) {
-      id
-      name
-      item{
+      items {
         id
         name
         serial_number
         link
-        submenuitems{
+        submenuitems {
+          id
+          name
+          serial_number
+          link
+          submenuitems {
+            id
+            name
+            serial_number
+            link
+          }
+        }
+      }
+    }
+  }
+`;
+
+export const GET_MENU_BY_ID = gql`
+  query GetMenuByID($id: Int!) {
+    getMenuByID(id: $id) {
+      id
+      name
+      items {
+        id
+        name
+        serial_number
+        link
+        submenuitems {
           id
           name
           serial_number
           link
         }
       }
+    }
   }
-}
-`
-
+`;
 
 export const CREATE_MENU_ITEM_NAME = gql`
-mutation CreateMenuItem($createMenuItemInput: CreateMenuItemInput!) {
-  createMenuItem(createMenuItemInput: $createMenuItemInput) {
-        id
-        name
+  mutation CreateMenuItem($createMenuItemInput: CreateMenuItemInput!) {
+    createMenuItem(createMenuItemInput: $createMenuItemInput) {
+      id
+      name
     }
-}
-`
+  }
+`;
 
 export const UPDATE_MENU_ITEM_NAME = gql`
-mutation UpdateMenuItem($updateMenuItemInput: UpdateMenuItemInput!) {
-  updateMenuItem(updateMenuItemInput: $updateMenuItemInput) {
-        id
-        name
+  mutation UpdateMenuItem($updateMenuItemInput: UpdateMenuItemInput!) {
+    updateMenuItem(updateMenuItemInput: $updateMenuItemInput) {
+      id
+      name
     }
-}
-`
+  }
+`;
 
 export const DELETE_MENU_ITEM_NAME = gql`
-mutation RemoveMenuItem($id: Int!) {
-  removeMenuItem(id: $id) {
-        id
-        name
+  mutation RemoveMenuItem($id: Int!) {
+    removeMenuItem(id: $id) {
+      id
+      name
     }
-}
-`
+  }
+`;
 
+export const CREATE_SUBMENU_ITEM_NAME = gql`
+  mutation CreateSubmenuItem($createSubmenuItemInput: CreateSubmenuItemInput!) {
+    createSubmenuItem(createSubmenuItemInput: $createSubmenuItemInput) {
+      id
+      name
+    }
+  }
+`;
+
+export const UPDATE_SUBMENU_ITEM_NAME = gql`
+  mutation UpdateSubmenuItem($updateSubmenuItemInput: UpdateSubmenuItemInput!) {
+    updateSubmenuItem(updateSubmenuItemInput: $updateSubmenuItemInput) {
+      id
+      name
+    }
+  }
+`;
+
+export const DELETE_SUBMENU_ITEM_NAME = gql`
+  mutation RemoveSubmenuItem($id: Int!) {
+    removeSubmenuItem(id: $id) {
+      id
+      name
+    }
+  }
+`;
+
+export const CREATE_SUBMENU_ITEM_TWO_NAME = gql`
+  mutation CreateSubmenuItemTwo($createSubmenuItemTwoInput: CreateSubmenuItemTwoInput!) {
+    createSubmenuItemTwo(createSubmenuItemTwoInput: $createSubmenuItemTwoInput) {
+      id
+      name
+    }
+  }
+`;
+
+export const UPDATE_SUBMENU_ITEM_TWO_NAME = gql`
+  mutation UpdateSubmenuItemTwo($updateSubmenuItemTwoInput: UpdateSubmenuItemTwoInput!) {
+    updateSubmenuItemTwo(updateSubmenuItemTwoInput: $updateSubmenuItemTwoInput) {
+      id
+      name
+    }
+  }
+`;
+
+export const DELETE_SUBMENU_ITEM_TWO_NAME = gql`
+  mutation RemoveSubmenuItemTwo($id: Int!) {
+    removeSubmenuItemTwo(id: $id) {
+      id
+      name
+    }
+  }
+`;

@@ -14,18 +14,20 @@ import s from "./MenuListAdmin.module.scss";
 import InputAdminMenu from "../Inputs/InputMenu/InputAdminMenu";
 
 interface MenuItemListAdminProps {
+  visible: boolean;
   title: string;
   itemArr: IMenuItem[];
-  visible: boolean;
+  clickToItem: (index: number) => void;
   createItemName: (name: string) => void;
   updateItemName: (currentIndexMenu: number, name: string) => void;
   deleteItemName: (currentIndexMenu: number) => void;
 }
 
 const MenuListAdmin = ({
+  visible = false,
   title,
   itemArr,
-  visible = false,
+  clickToItem,
   createItemName,
   updateItemName,
   deleteItemName,
@@ -59,6 +61,7 @@ const MenuListAdmin = ({
 
   const handleClickMenuItem = (index) => {
     setCurrentIndexMenu(index);
+    clickToItem(index)
   };
 
   return (
@@ -86,7 +89,7 @@ const MenuListAdmin = ({
                   functionalBtn={AdminButtonFunctional.ToggleVisibleEdit}
                   enabled={
                     currentIndexMenu != null &&
-                    currentIndexMenu <= itemArr.length - 1
+                      currentIndexMenu <= itemArr.length - 1
                       ? true
                       : false
                   }
@@ -104,7 +107,7 @@ const MenuListAdmin = ({
                   functionalBtn={AdminButtonFunctional.Standard}
                   enabled={
                     currentIndexMenu != null &&
-                    currentIndexMenu <= itemArr.length - 1
+                      currentIndexMenu <= itemArr.length - 1
                       ? true
                       : false
                   }
@@ -149,11 +152,11 @@ const MenuListAdmin = ({
                   onClick={() => handleClickMenuItem(index)}
                 >
                   {item.name}
-                  {item.submenuitems.length > 0 && (
+                  {/* {item.submenuitems.length > 0 && (
                     <div className={s.hasChildren}>
                       <AiOutlineRight />
                     </div>
-                  )}
+                  )} */}
                 </li>
               ))}
           </ul>

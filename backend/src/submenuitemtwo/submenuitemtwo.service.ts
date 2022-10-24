@@ -11,8 +11,11 @@ export class SubmenuItemTwoService {
     @InjectRepository(SubmenuItemTwoEntity)
     private readonly submenuItemRepository: Repository<SubmenuItemTwoEntity>
   ) {}
-  async create(createSubmenuItemInput: CreateSubmenuItemTwoInput): Promise<SubmenuItemTwoEntity> {
-    const newSubMenu = {...createSubmenuItemInput,  menuitem: { id: createSubmenuItemInput.menuitem_id } }
+  async create(createSubmenuItemTwoInput: CreateSubmenuItemTwoInput): Promise<SubmenuItemTwoEntity> {
+    console.log('createSubmenuItemTwoInput', createSubmenuItemTwoInput);
+    
+    const newSubMenu = {...createSubmenuItemTwoInput,  submenuitem: { id: createSubmenuItemTwoInput.menuitem_id } }
+    console.log('newSubMenu', newSubMenu);
     return this.submenuItemRepository.save(newSubMenu)
   }
 

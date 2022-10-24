@@ -52,6 +52,20 @@ input CreateSectionInput {
   slug: String!
 }
 
+input CreateSubmenuItemInput {
+  """link submenuitem)"""
+  link: String
+
+  """serial menu ID)"""
+  menuitem_id: Float!
+
+  """name submenuitem)"""
+  name: String!
+
+  """Serial number)"""
+  serial_number: Int
+}
+
 input CreateSubmenuItemTwoInput {
   """link submenuitem)"""
   link: String
@@ -120,7 +134,7 @@ type MenuEntity {
 
   """id munu"""
   id: ID!
-  item: [MenuItemEntity!]!
+  items: [MenuItemEntity!]!
 
   """This is name menu"""
   name: String!
@@ -148,21 +162,24 @@ type Mutation {
   createMenu(createMenuInput: CreateMenuInput!): MenuEntity!
   createMenuItem(createMenuItemInput: CreateMenuItemInput!): MenuItemEntity!
   createSection(createSectionInput: CreateSectionInput!): SectionEntity!
-  createSubmenuItem(createSubmenuItemInput: CreateSubmenuItemTwoInput!): SubmenuItemTwoEntity!
+  createSubmenuItem(createSubmenuItemInput: CreateSubmenuItemInput!): SubmenuItemEntity!
+  createSubmenuItemTwo(createSubmenuItemTwoInput: CreateSubmenuItemTwoInput!): SubmenuItemTwoEntity!
   createTextElement(createTextElementInput: CreateTextElementInput!): TextElementEntity!
   removeElement(id: Int!): ElementEntity!
   removeImgElement(id: Int!): ImgElementEntity!
   removeMenu(id: Int!): MenuEntity!
   removeMenuItem(id: Int!): MenuItemEntity!
   removeSection(id: Int!): SectionEntity!
-  removeSubmenuItem(id: Int!): SubmenuItemTwoEntity!
+  removeSubmenuItem(id: Int!): SubmenuItemEntity!
+  removeSubmenuItemTwo(id: Int!): SubmenuItemTwoEntity!
   removeTextElement(id: Int!): TextElementEntity!
   updateElement(updateElementInput: UpdateElementInput!): ElementEntity!
   updateImgElement(updateImgElementInput: UpdateImgElementInput!): ImgElementEntity!
   updateMenu(updateMenuInput: UpdateMenuInput!): MenuEntity!
   updateMenuItem(updateMenuItemInput: UpdateMenuItemInput!): MenuItemEntity!
   updateSection(updateSectionInput: UpdateSectionInput!): SectionEntity!
-  updateSubmenuItem(updateSubmenuItemInput: UpdateSubmenuItemTwoInput!): SubmenuItemTwoEntity!
+  updateSubmenuItem(updateSubmenuItemInput: UpdateSubmenuItemInput!): SubmenuItemEntity!
+  updateSubmenuItemTwo(updateSubmenuItemTwoInput: UpdateSubmenuItemTwoInput!): SubmenuItemTwoEntity!
   updateTextElement(updateTextElementInput: UpdateTextElementInput!): TextElementEntity!
 }
 
@@ -172,14 +189,16 @@ type Query {
   getAllMenuItem: [MenuItemEntity!]!
   getAllMenus: [MenuEntity!]!
   getAllSections: [SectionEntity!]!
-  getAllSubmenuItems: [SubmenuItemTwoEntity!]!
+  getAllSubmenuItems: [SubmenuItemEntity!]!
+  getAllSubmenuItemsTwo: [SubmenuItemTwoEntity!]!
   getAllTextElement: [TextElementEntity!]!
   getElementById(id: Int!): ElementEntity!
   getImgElementByID(id: Int!): ImgElementEntity!
   getMenuByID(id: Int!): MenuEntity!
   getMenuItemByID(id: Int!): MenuItemEntity!
   getSectionById(id: Int!): SectionEntity!
-  getSubmenuItemById(id: Int!): SubmenuItemTwoEntity!
+  getSubmenuItemById(id: Int!): SubmenuItemEntity!
+  getSubmenuItemTwoById(id: Int!): SubmenuItemTwoEntity!
   getTextElementByID(id: Int!): TextElementEntity!
 }
 
@@ -293,6 +312,23 @@ input UpdateSectionInput {
 
   """slug section"""
   slug: String!
+}
+
+input UpdateSubmenuItemInput {
+  """ID submenuitem)"""
+  id: Int!
+
+  """link submenuitem)"""
+  link: String
+
+  """Serial menu ID)"""
+  menuitem_id: Float
+
+  """name submenuitem)"""
+  name: String
+
+  """serial number)"""
+  serial_number: Int
 }
 
 input UpdateSubmenuItemTwoInput {

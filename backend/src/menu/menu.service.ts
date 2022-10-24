@@ -28,7 +28,7 @@ export class MenuService {
         id: id
       },
       relations: {
-        item: true
+        items: true
       }
     })
   }
