@@ -1,6 +1,6 @@
-import { SubmenuItemTwoEntity } from '../../submenuitemtwo/entities/submenuitemtwo.entity'
+import { SubmenuItemEntity } from 'src/submenuitem/entities/submenuitem.entity';
 import { MenuItemEntity } from './../../menuitem/entities/menuitem.entity';
-import { ObjectType, Field, ID } from '@nestjs/graphql';
+import { ObjectType, Field, Int, ID } from '@nestjs/graphql';
 import {
   Column,
   CreateDateColumn,
@@ -13,8 +13,8 @@ import {
 } from 'typeorm';
 
 @ObjectType()
-@Entity('submenuitem')
-export class SubmenuItemEntity {
+@Entity('submenuitemtwo')
+export class SubmenuItemTwoEntity {
   @Field(() => ID)
   @PrimaryGeneratedColumn()
   id: number;
@@ -31,20 +31,12 @@ export class SubmenuItemEntity {
   @Column({ default: '' })
   link: string;
 
-  @Field(() => MenuItemEntity)
-  @ManyToOne(() => MenuItemEntity, (menuitem) => menuitem.submenuitems, {
+  @Field(() => SubmenuItemEntity)
+  @ManyToOne(() => SubmenuItemEntity, (submenuitem) => submenuitem.submenuitems, {
     onDelete: 'CASCADE',
   })
-  @JoinColumn({ name: 'menuitem_id' })
-  menuitem: MenuItemEntity;
-
-  @Field(() => [SubmenuItemTwoEntity])
-  @OneToMany(
-    () => SubmenuItemTwoEntity,
-    (sub_submenuitem) => sub_submenuitem.submenuitem,
-    { eager: true, cascade: true },
-  )
-  submenuitems: SubmenuItemTwoEntity[];
+  @JoinColumn({ name: 'submenuitem_id' })
+  submenuitem: SubmenuItemEntity;
 
   @Field()
   @CreateDateColumn()

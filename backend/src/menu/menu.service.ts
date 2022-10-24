@@ -1,4 +1,3 @@
-import { SubmenuItemEntity } from './../submenuitem/entities/submenuitem.entity';
 import { MenuEntity } from './entities/menu.entity';
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -11,8 +10,6 @@ export class MenuService {
   constructor(
     @InjectRepository(MenuEntity)
     private readonly menuRepository: Repository<MenuEntity>,
-    @InjectRepository(SubmenuItemEntity)
-    private readonly submenuItemRepository: Repository<SubmenuItemEntity>
     ) {}
 
   async create(createMenuInput: CreateMenuInput): Promise<MenuEntity> {
@@ -20,17 +17,9 @@ export class MenuService {
   }
 
   async findAll(): Promise<MenuEntity[]> {
-    // await this.submenuItemRepository.manager.getTreeRepository(SubmenuItemEntity).findTrees({
-    //   relations: ["submenuitem"]
-    // })
     const menu = await this.menuRepository.find()
     console.log('menu', menu);
-    
     return menu
-    // const treeCategoriesWithRelations = await this.menuRepository.manager.getTreeRepository(MenuEntity).findTrees()
-    // console.log('treeCategoriesWithRelations = ', treeCategoriesWithRelations);
-    
-    // return treeCategoriesWithRelations 
   }
 
   async findOne(id: number): Promise<MenuEntity> {

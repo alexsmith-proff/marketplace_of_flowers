@@ -9,7 +9,7 @@ import { SubmenuItemService } from 'src/submenuitem/submenuitem.service';
 import { SubmenuItemModule } from 'src/submenuitem/submenuitem.module';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([MenuEntity, SubmenuItemEntity])], 
+  imports: [TypeOrmModule.forFeature([MenuEntity])], 
   providers: [MenuResolver, MenuService]
 })
 export class MenuModule {}
