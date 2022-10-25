@@ -9,40 +9,48 @@ import { MenuItemEntity } from './entities/menuitem.entity';
 export class MenuItemService {
   constructor(
     @InjectRepository(MenuItemEntity)
-    private readonly menuItemRepository: Repository<MenuItemEntity>
-    ) {}
+    private readonly menuItemRepository: Repository<MenuItemEntity>,
+  ) {}
 
-  async create(createMenuItemInput: CreateMenuItemInput): Promise<MenuItemEntity> {
-    return await this.menuItemRepository.save({...createMenuItemInput, menu: {id: createMenuItemInput.menu_id }})
+  async create(
+    createMenuItemInput: CreateMenuItemInput,
+  ): Promise<MenuItemEntity> {
+    return await this.menuItemRepository.save({
+      ...createMenuItemInput,
+      menu: { id: createMenuItemInput.menu_id },
+    });
   }
 
   async findAll(): Promise<MenuItemEntity[]> {
     return await this.menuItemRepository.find({
       relations: {
-        submenuitems: true
+        submenuitems: true,
       }
-    })
+    });
   }
 
   async findOne(id: number): Promise<MenuItemEntity> {
     return await this.menuItemRepository.findOne({
-      where:{
-        id: id
+      where: {
+        id: id,
       },
       relations: {
-        submenuitems: true
-      }
-    })
+        submenuitems: true,
+      },
+    });
   }
 
-  async update(id: number, updateMenuItemInput: UpdateMenuItemInput): Promise<MenuItemEntity> {
-    await this.menuItemRepository.update(id, updateMenuItemInput)
-    return await this.findOne(id)
+  async update(
+    id: number,
+    updateMenuItemInput: UpdateMenuItemInput,
+  ): Promise<MenuItemEntity> {
+    await this.menuItemRepository.update(id, updateMenuItemInput);
+    return await this.findOne(id);
   }
 
   async remove(id: number): Promise<MenuItemEntity> {
-    const user = await this.findOne(id)
-    await this.menuItemRepository.delete(id)
-    return user
+    const user = await this.findOne(id);
+    await this.menuItemRepository.delete(id);
+    return user;
   }
 }

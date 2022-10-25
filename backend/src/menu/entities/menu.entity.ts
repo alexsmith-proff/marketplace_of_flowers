@@ -4,15 +4,27 @@ import { CreateDateColumn, JoinTable, OneToMany, UpdateDateColumn } from 'typeor
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
 @ObjectType()
-@Entity('menu')
+@Entity('menu', {
+  orderBy: {
+    serial_number: 'ASC'
+  }
+})
 export class MenuEntity {
-  @Field(() => ID, { description: 'id munu' })
+  @Field(() => ID, { description: 'id menu' })
   @PrimaryGeneratedColumn()
   id: number
 
   @Field(() => String, {description: "This is name menu"})
   @Column()
-  name: String
+  name: string
+
+  @Field(() => String, {description: "This is slug menu"})
+  @Column()
+  slug: string
+
+  @Field(() => Number, {description: "This is serial number menu"})
+  @Column()
+  serial_number: number
 
   @Field(() => [MenuItemEntity])
   @OneToMany(() => MenuItemEntity, menuitem => menuitem.menu, {eager: true, cascade: true})

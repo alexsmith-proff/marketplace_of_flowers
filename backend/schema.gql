@@ -28,6 +28,9 @@ input CreateImgElementInput {
 input CreateMenuInput {
   """Name"""
   name: String!
+
+  """Serial number"""
+  serial_number: Float!
 }
 
 input CreateMenuItemInput {
@@ -132,12 +135,18 @@ type ImgElementEntity {
 type MenuEntity {
   createdAt: DateTime!
 
-  """id munu"""
+  """id menu"""
   id: ID!
   items: [MenuItemEntity!]!
 
   """This is name menu"""
   name: String!
+
+  """This is serial number menu"""
+  serial_number: Float!
+
+  """This is slug menu"""
+  slug: String!
   updatedAt: DateTime!
 }
 
@@ -285,6 +294,12 @@ input UpdateMenuInput {
 
   """Name"""
   name: String!
+
+  """Serial number"""
+  serial_number: Float!
+
+  """This is slug menu"""
+  slug: String!
 }
 
 input UpdateMenuItemInput {

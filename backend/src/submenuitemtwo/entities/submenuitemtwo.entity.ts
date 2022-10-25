@@ -13,7 +13,11 @@ import {
 } from 'typeorm';
 
 @ObjectType()
-@Entity('submenuitemtwo')
+@Entity('submenuitemtwo', {
+  orderBy: {
+    serial_number: 'ASC',
+  },
+})
 export class SubmenuItemTwoEntity {
   @Field(() => ID)
   @PrimaryGeneratedColumn()

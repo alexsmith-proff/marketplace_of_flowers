@@ -4,4 +4,7 @@ import { InputType, Field } from '@nestjs/graphql';
 export class CreateMenuInput {
   @Field(() => String, { description: 'Name' })
   name: string
+
+  @Field(() => Number, { description: 'Serial number' })
+  serial_number: number
 }

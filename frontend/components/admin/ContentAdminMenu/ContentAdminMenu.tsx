@@ -110,7 +110,8 @@ const ContentAdminMenu = ({ }: ContentAdminMenuProps) => {
     createMenuName({
       variables: {
         createMenuInput: {
-          name: editCreateMenuRef.current.value
+          name: editCreateMenuRef.current.value,
+          serial_number: +menus.data.getAllMenus.length
         }
       },
       refetchQueries: [
