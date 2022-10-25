@@ -1,0 +1,30 @@
+.item{
+    padding: 10px;
+    display: flex;
+    align-items: center;
+}
+.title{
+    width: 30px;
+    font-size: 14px;
+    text-decoration: underline;
+    margin-right: 20px;
+}
+.input{
+    display: flex;
+    align-items: center;
+    input{
+        width: 150px;
+        font-size: 14px;
+        padding: 2px 7px;
+        margin-right: 3px;
+    }
+}
+.inputBtn{
+    border: 1px solid #000;
+    border-radius: 3px;
+    background-color: #fff;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+}

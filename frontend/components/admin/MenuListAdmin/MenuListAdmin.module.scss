@@ -44,15 +44,37 @@
 }
 
 .item {
+    border-bottom: 1px solid rgb(196, 196, 196);    
+}
+.itemTopWrap{
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 13px 10px;
-    border-bottom: 1px solid rgb(196, 196, 196);
+    padding: 13px 10px 13px 15px;
+    // border-bottom: 1px solid rgb(196, 196, 196);
     cursor: pointer;
+    position: relative;
 
     &.active,
     &:hover {
         background-color: rgb(224, 224, 253);
     }
 }
+.optionsBtn{
+    position: absolute;
+    top: 12px;
+    left: -2px;
+    color: rgb(199, 199, 199);
+    &:hover{
+        color: #6d60be;
+    }
+}
+.itemBottomWrap{
+    background-color: rgb(211, 211, 211);
+}
+.optionsList{
+    padding: 10px 15px;
+    border-bottom: 1px solid rgb(130, 130, 130);
+    border-top: 1px solid rgb(130, 130, 130);
+}
+

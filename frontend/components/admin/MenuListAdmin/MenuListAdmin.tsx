@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { RiEdit2Line } from "react-icons/ri";
-import { AiOutlinePlus, AiOutlineRight } from "react-icons/ai";
+import { AiOutlinePlus, AiOutlineRight, AiOutlineMore, AiOutlineCheck } from "react-icons/ai";
 import { MdDeleteOutline } from "react-icons/md";
 
 import {
@@ -12,6 +12,7 @@ import ButtonAdmin from "../Buttons/ButtonAdmin/ButtonAdmin";
 
 import s from "./MenuListAdmin.module.scss";
 import InputAdminMenu from "../Inputs/InputMenu/InputAdminMenu";
+import OptionsItemAdmin from "../OptionsItemAdmin/OptionsItemAdmin";
 
 interface MenuItemListAdminProps {
   visible: boolean;
@@ -33,6 +34,7 @@ const MenuListAdmin = ({
   deleteItemName,
 }: MenuItemListAdminProps) => {
   const [currentIndexMenu, setCurrentIndexMenu] = useState<number>(null);
+  const [itemBottomActive, setItemBottomActive] = useState<boolean>(false)
 
   const [editMenuItemUpdateActive, setEditMenuItemUpdateActive] =
     useState<boolean>(false);
@@ -62,7 +64,15 @@ const MenuListAdmin = ({
   const handleClickMenuItem = (index) => {
     setCurrentIndexMenu(index);
     clickToItem(index);
+    if(itemBottomActive) setItemBottomActive(false)
   };
+
+  const handleClickOptions = (index) => {
+    if (index !== currentIndexMenu) return
+    console.log('handleClickOptions');
+    setItemBottomActive(!itemBottomActive)
+
+  }
 
   console.log("itemArr", itemArr);
 
@@ -93,7 +103,7 @@ const MenuListAdmin = ({
                   functionalBtn={AdminButtonFunctional.ToggleVisibleEdit}
                   enabled={
                     currentIndexMenu != null &&
-                    currentIndexMenu <= itemArr.length - 1
+                      currentIndexMenu <= itemArr.length - 1
                       ? true
                       : false
                   }
@@ -111,7 +121,7 @@ const MenuListAdmin = ({
                   functionalBtn={AdminButtonFunctional.Standard}
                   enabled={
                     currentIndexMenu != null &&
-                    currentIndexMenu <= itemArr.length - 1
+                      currentIndexMenu <= itemArr.length - 1
                       ? true
                       : false
                   }
@@ -148,24 +158,47 @@ const MenuListAdmin = ({
           <ul className={s.list}>
             {itemArr &&
               itemArr.map((item, index) => (
-                <li
-                  className={
-                    currentIndexMenu == index ? s.item + " " + s.active : s.item
+                <li className={s.item} key={item.id}>
+                  <div
+                    className={currentIndexMenu == index ? s.itemTopWrap + " " + s.active : s.itemTopWrap}
+                    onClick={() => handleClickMenuItem(index)}
+                  >
+                    {item.name}
+                    {
+                      typeof item["submenuitems"] !== "undefined" && (
+                        <>
+                          {item.submenuitems.length > 0 && (
+                            <div className={s.hasChildren}>
+                              <AiOutlineRight />
+                            </div>
+                          )}
+                        </>
+                      )
+                    }
+                    <div className={s.optionsBtn} onClick={() => handleClickOptions(index)}>
+                      <AiOutlineMore size={20} />
+                    </div>
+                  </div>
+                  {
+                    currentIndexMenu === index && itemBottomActive &&
+                    <div className={s.itemBottomWrap}>
+                      <div className={s.optionsList}>
+                        <OptionsItemAdmin title='slug' />
+                        <OptionsItemAdmin title='link' />
+                        {/* <div className={s.optionsItem}>
+                          <div className={s.optionsItemTitle}>slug</div>
+                          <div className={s.optionsItemInput}>
+                            <input type="text" />
+                            <div className={s.optionsItemInputBtn}>
+                              <AiOutlineCheck size={17} />
+                            </div>
+                          </div>
+                        </div> */}
+                      </div>
+                    </div>
                   }
-                  key={item.id}
-                  onClick={() => handleClickMenuItem(index)}
-                >
-                  {item.name}
-                  {typeof item["submenuitems"] !== "undefined" && (
-                    <>
-                      {item.submenuitems.length > 0 && (
-                        <div className={s.hasChildren}>
-                          <AiOutlineRight />
-                        </div>
-                      )}
-                    </>
-                  )}
                 </li>
+
               ))}
           </ul>
         </div>
