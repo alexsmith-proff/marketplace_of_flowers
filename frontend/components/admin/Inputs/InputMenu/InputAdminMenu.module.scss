@@ -8,6 +8,7 @@
         position: absolute;
         top: 0;
         left: 0;
+        z-index: 99;
     }
     &.active {
         display: inline;
@@ -16,9 +17,9 @@
 
 .btn {
     position: absolute;
-    // z-index: 99;
     top: 5px;
     right: 0px;
+    z-index: 99;
     // height: 100%;
     color: rgb(147, 147, 255);
     margin-right: 5px;
