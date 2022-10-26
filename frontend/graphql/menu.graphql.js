@@ -80,6 +80,8 @@ export const CREATE_MENU_ITEM_NAME = gql`
     createMenuItem(createMenuItemInput: $createMenuItemInput) {
       id
       name
+      serial_number
+      link
     }
   }
 `;
@@ -89,6 +91,8 @@ export const UPDATE_MENU_ITEM_NAME = gql`
     updateMenuItem(updateMenuItemInput: $updateMenuItemInput) {
       id
       name
+      serial_number
+      link
     }
   }
 `;
@@ -107,6 +111,8 @@ export const CREATE_SUBMENU_ITEM_NAME = gql`
     createSubmenuItem(createSubmenuItemInput: $createSubmenuItemInput) {
       id
       name
+      serial_number
+      link
     }
   }
 `;
@@ -116,6 +122,8 @@ export const UPDATE_SUBMENU_ITEM_NAME = gql`
     updateSubmenuItem(updateSubmenuItemInput: $updateSubmenuItemInput) {
       id
       name
+      serial_number
+      link
     }
   }
 `;
@@ -134,6 +142,8 @@ export const CREATE_SUBMENU_ITEM_TWO_NAME = gql`
     createSubmenuItemTwo(createSubmenuItemTwoInput: $createSubmenuItemTwoInput) {
       id
       name
+      serial_number
+      link
     }
   }
 `;
@@ -143,6 +153,8 @@ export const UPDATE_SUBMENU_ITEM_TWO_NAME = gql`
     updateSubmenuItemTwo(updateSubmenuItemTwoInput: $updateSubmenuItemTwoInput) {
       id
       name
+      serial_number
+      link
     }
   }
 `;

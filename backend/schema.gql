@@ -293,29 +293,29 @@ input UpdateMenuInput {
   id: Int!
 
   """Name"""
-  name: String!
+  name: String
 
   """Serial number"""
-  serial_number: Float!
+  serial_number: Float
 
   """This is slug menu"""
-  slug: String!
+  slug: String
 }
 
 input UpdateMenuItemInput {
-  """ID menuitem)"""
+  """ID menuitem"""
   id: Int!
 
-  """name menuitem)"""
+  """name menuitem"""
   link: String
 
-  """Serial menu ID)"""
+  """Serial menu ID"""
   menu_id: Float
 
-  """name menuitem)"""
+  """name menuitem"""
   name: String
 
-  """serial number)"""
+  """serial number"""
   serial_number: Int
 }
 

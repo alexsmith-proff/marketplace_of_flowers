@@ -13,5 +13,4 @@ export class CreateSubmenuItemInput {
 
   @Field(() => String, { description: 'link submenuitem)', nullable: true })
   link: string;
-  
 }

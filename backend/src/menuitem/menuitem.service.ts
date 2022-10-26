@@ -5,6 +5,8 @@ import { UpdateMenuItemInput } from './dto/update-menuitem.input';
 import { Repository } from 'typeorm';
 import { MenuItemEntity } from './entities/menuitem.entity';
 
+var getSlug = require('speakingurl');
+
 @Injectable()
 export class MenuItemService {
   constructor(
@@ -18,6 +20,7 @@ export class MenuItemService {
     return await this.menuItemRepository.save({
       ...createMenuItemInput,
       menu: { id: createMenuItemInput.menu_id },
+      link: getSlug(createMenuItemInput.name) 
     });
   }
 
@@ -40,10 +43,7 @@ export class MenuItemService {
     });
   }
 
-  async update(
-    id: number,
-    updateMenuItemInput: UpdateMenuItemInput,
-  ): Promise<MenuItemEntity> {
+  async update(id: number, updateMenuItemInput: UpdateMenuItemInput): Promise<MenuItemEntity> {
     await this.menuItemRepository.update(id, updateMenuItemInput);
     return await this.findOne(id);
   }

@@ -54,10 +54,12 @@
     // border-bottom: 1px solid rgb(196, 196, 196);
     cursor: pointer;
     position: relative;
-
-    &.active,
+    
     &:hover {
-        background-color: rgb(224, 224, 253);
+        background-color: rgb(240, 240, 252);
+    }
+    &.active{
+        background-color: rgb(210, 210, 255);
     }
 }
 .optionsBtn{

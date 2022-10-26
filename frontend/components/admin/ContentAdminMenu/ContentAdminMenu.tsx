@@ -141,47 +141,8 @@ const ContentAdminMenu = ({ }: ContentAdminMenuProps) => {
     setCurrentIndexMenu(0)
   }
 
-  const handleUpdateSerialNumberMenuItem = (serialNumber) => {
-    // console.log('serialNumber', serialNumber);
-    
-    updateMenuItemName({
-      variables: {
-        updateMenuItemInput: {
-          id: +menus.data.getAllMenus[currentIndexMenu].id,
-          serial_number: serialNumber
-        },
-        refetchQueries: [
-          {
-            query: GET_ALL_MENU
-          }
-        ]
-      }
-    })
-    // loadMenu()
-  }
-
-  const handleUpdateLinkMenuItem = (link) => {
-    updateMenuItemName({
-      variables: {
-        updateMenuItemInput: {
-          id: +menus.data.getAllMenus[currentIndexMenu].idd,
-          link
-        },
-        refetchQueries: [
-          {
-            query: GET_ALL_MENU
-          }
-        ]
-      }
-    })
-  }
-
 
   const handleEditCreateMenuItemName = (name) => {
-    // setCurrentIndexSubMenuItem(null)
-    // setSubMenuItemActive(false)
-    // setSubMenuItemTwoActive(false)
-
     createMenuItemName({
       variables: {
         createMenuItemInput: {
@@ -204,6 +165,31 @@ const ContentAdminMenu = ({ }: ContentAdminMenuProps) => {
           id: +menus.data.getAllMenus[currentIndexMenu].items[index].id,
           name: name
         }
+      }
+    })
+  }
+  const handleUpdateSerialNumberMenuItem = (index, serialNumber) => {
+    updateMenuItemName({
+      variables: {
+        updateMenuItemInput: {
+          id: +menus.data.getAllMenus[currentIndexMenu].items[index].id,
+          serial_number: serialNumber
+        }
+      },
+      refetchQueries: [
+        {
+          query: GET_ALL_MENU
+        }
+      ]
+    })
+  }
+  const handleUpdateLinkMenuItem = (index, link) => {
+    updateMenuItemName({
+      variables: {
+        updateMenuItemInput: {
+          id: +menus.data.getAllMenus[currentIndexMenu].items[index].id,
+          link: link
+        },
       }
     })
   }
@@ -251,6 +237,31 @@ const ContentAdminMenu = ({ }: ContentAdminMenuProps) => {
       }
     })
   }
+  const handleUpdateSerialNumberSubMenuItem = (index, serialNumber) => {
+    updateSubMenuItemName({
+      variables: {
+        updateSubmenuItemInput: {
+          id: +menus.data.getAllMenus[currentIndexMenu].items[currentIndexMenuItem].submenuitems[index].id,
+          serial_number: serialNumber
+        }
+      },
+      refetchQueries: [
+        {
+          query: GET_ALL_MENU
+        }
+      ]
+    })
+  }
+  const handleUpdateLinkSubMenuItem = (index, link) => {
+    updateSubMenuItemName({
+      variables: {
+        updateSubmenuItemInput: {
+          id: +menus.data.getAllMenus[currentIndexMenu].items[currentIndexMenuItem].submenuitems[index].id,
+          link: link
+        },
+      }
+    })
+  }
   const handleEditDeleteSubMenuItemName = (index) => {
     setCurrentIndexSubMenuItemTwo(null)
     setSubMenuItemTwoActive(false)
@@ -290,6 +301,31 @@ const ContentAdminMenu = ({ }: ContentAdminMenuProps) => {
           id: +menus.data.getAllMenus[currentIndexMenu].items[currentIndexMenuItem].submenuitems[currentIndexSubmenuItem].submenuitems[index].id,
           name: name
         }
+      }
+    })
+  }
+  const handleUpdateSerialNumberSubMenuItemTwo = (index, serialNumber) => {
+    updateSubMenuItemTwoName({
+      variables: {
+        updateSubmenuItemTwoInput: {
+          id: +menus.data.getAllMenus[currentIndexMenu].items[currentIndexMenuItem].submenuitems[currentIndexSubmenuItem].submenuitems[index].id,
+          serial_number: serialNumber
+        }
+      },
+      refetchQueries: [
+        {
+          query: GET_ALL_MENU
+        }
+      ]
+    })
+  }
+  const handleUpdateLinkSubMenuItemTwo = (index, link) => {
+    updateSubMenuItemTwoName({
+      variables: {
+        updateSubmenuItemTwoInput: {
+          id: +menus.data.getAllMenus[currentIndexMenu].items[currentIndexMenuItem].submenuitems[currentIndexSubmenuItem].submenuitems[index].id,
+          link: link
+        },
       }
     })
   }
@@ -385,6 +421,8 @@ const ContentAdminMenu = ({ }: ContentAdminMenuProps) => {
                 createItemName={handleEditCreateSubMenuItemName}
                 updateItemName={handleEditUpdateSubMenuItemName}
                 deleteItemName={handleEditDeleteSubMenuItemName}
+                updateSerialNumber={handleUpdateSerialNumberSubMenuItem}
+                updateLink={handleUpdateLinkSubMenuItem}
               />
             }
             {
@@ -398,6 +436,8 @@ const ContentAdminMenu = ({ }: ContentAdminMenuProps) => {
                 createItemName={handleEditCreateSubMenuItemTwoName}
                 updateItemName={handleEditUpdateSubMenuItemTwoName}
                 deleteItemName={handleEditDeleteSubMenuItemTwoName}
+                updateSerialNumber={handleUpdateSerialNumberSubMenuItemTwo}
+                updateLink={handleUpdateLinkSubMenuItemTwo}
               />
             }
           </>

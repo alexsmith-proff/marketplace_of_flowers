@@ -23,8 +23,8 @@ interface MenuItemListAdminProps {
   updateItemName: (currentIndexMenu: number, name: string) => void;
   deleteItemName: (currentIndexMenu: number) => void;
 
-  updateSerialNumber?: (serial_number: number) => void
-  updateLink?: (link: string) => void 
+  updateSerialNumber?: (index: number, serial_number: number) => void
+  updateLink?: (index: number, link: string) => void 
 }
 
 const MenuListAdmin = ({
@@ -168,7 +168,7 @@ const MenuListAdmin = ({
                     className={currentIndexMenu == index ? s.itemTopWrap + " " + s.active : s.itemTopWrap}
                     onClick={() => handleClickMenuItem(index)}
                   >
-                    {item.name}
+                    {item.name} serial_number={item.serial_number}
                     {
                       typeof item["submenuitems"] !== "undefined" && (
                         <>
@@ -188,8 +188,12 @@ const MenuListAdmin = ({
                     currentIndexMenu === index && itemBottomActive &&
                     <div className={s.itemBottomWrap}>
                       <div className={s.optionsList}>
-                        <OptionsItemAdmin label='Индекс' textInputInit={String(item.serial_number)} inputShort={true} inputConfirm={(data) => updateSerialNumber(+data)} />
-                        <OptionsItemAdmin label='Ссылка' textInputInit={item.link} inputConfirm={(data) => updateLink(data)} />
+                        <OptionsItemAdmin label='Индекс' textInputInit={String(item.serial_number)} inputShort={true} inputConfirm={async(data) => {
+                          updateSerialNumber(index, +data)
+                          setItemBottomActive(false)
+                          setCurrentIndexMenu(null)
+                          }} />
+                        <OptionsItemAdmin label='Ссылка' textInputInit={item.link} inputConfirm={(data) => updateLink(index, data)} />
                       </div>
                     </div>
                   }
