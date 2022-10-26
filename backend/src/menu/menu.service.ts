@@ -19,7 +19,21 @@ export class MenuService {
   }
 
   async findAll(): Promise<MenuEntity[]> {
-    const menu = await this.menuRepository.find();
+    const menu = await this.menuRepository.find({
+      order: {
+        serial_number: 'ASC',
+        items: {
+          serial_number: 'ASC',
+          submenuitems: {
+            serial_number: 'ASC',
+            submenuitems: {
+              serial_number: 'ASC'
+            }
+          }
+        }
+        
+      }
+    });
     console.log('menu', menu);
     return menu;
   }

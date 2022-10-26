@@ -1,11 +1,6 @@
 import { SubmenuItemEntity } from '../../submenuitem/entities/submenuitem.entity';
 import { ObjectType, Field, ID } from '@nestjs/graphql';
-import {
-  CreateDateColumn,
-  ManyToOne,
-  OneToMany,
-  UpdateDateColumn,
-} from 'typeorm';
+import { CreateDateColumn, JoinTable, ManyToOne, OneToMany, UpdateDateColumn } from 'typeorm';
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 import { MenuEntity } from 'src/menu/entities/menu.entity';
 
@@ -13,41 +8,38 @@ import { MenuEntity } from 'src/menu/entities/menu.entity';
 @Entity('menuitem', {
   orderBy: {
     serial_number: 'ASC'
-  },
+  }
 })
 export class MenuItemEntity {
   @Field(() => ID, { description: 'id menuitem' })
   @PrimaryGeneratedColumn()
-  id: number;
+  id: number
 
-  @Field(() => String, { description: 'This is name menuitem' })
+  @Field(() => String, {description: "This is name menuitem"})
   @Column()
-  name: string;
+  name: string
 
   @Field(() => Number)
   @Column({ default: 0 })
-  serial_number: number;
-
+  serial_number: number 
+  
   @Field(() => String)
-  @Column({ default: '' })
-  link: string;
+  @Column({ default: "" })
+  link: string
 
   @Field(() => MenuEntity)
-  @ManyToOne(() => MenuEntity, (menu) => menu.items, { onDelete: 'CASCADE' })
-  menu: MenuEntity;
+  @ManyToOne(() => MenuEntity, menu => menu.items, {onDelete: 'CASCADE'})
+  menu: MenuEntity
 
   @Field(() => [SubmenuItemEntity])
-  @OneToMany(() => SubmenuItemEntity, (submenuitem) => submenuitem.menuitem, {
-    eager: true,
-    cascade: true,
-  })
-  submenuitems: SubmenuItemEntity[];
+  @OneToMany(() => SubmenuItemEntity, submenuitem => submenuitem.menuitem, {eager: true, cascade: true})
+  submenuitems: SubmenuItemEntity[]
 
   @Field(() => Date)
   @CreateDateColumn()
-  createdAt: Date;
+  createdAt: Date
 
   @Field(() => Date)
   @UpdateDateColumn()
-  updatedAt: Date;
+  updatedAt: Date
 }

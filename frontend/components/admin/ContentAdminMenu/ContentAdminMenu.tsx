@@ -68,22 +68,17 @@ const ContentAdminMenu = ({ }: ContentAdminMenuProps) => {
 
 
   console.log("ContentAdminMenu render");
-  console.log("menus", menus);
+  console.log("menusss", menus);
 
 
   const handleChangeComboBox = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    setCurrentIndexMenu(Number(e.target.value))
     setCurrentIndexMenuItem(null)
     setCurrentIndexSubMenuItem(null)
     setCurrentIndexSubMenuItemTwo(null)
 
     setSubMenuItemActive(false)
     setSubMenuItemTwoActive(false)
-    getMenuItems({
-      variables: {
-        id: +menuArr[Number(e.target.value)].id
-      }
-    })
-    setCurrentIndexMenu(Number(e.target.value))
   };
 
 
@@ -157,7 +152,8 @@ const ContentAdminMenu = ({ }: ContentAdminMenuProps) => {
       variables: {
         createMenuItemInput: {
           name: name,
-          menu_id: +menus.data.getAllMenus[currentIndexMenu].id
+          menu_id: +menus.data.getAllMenus[currentIndexMenu].id,
+          serial_number: +menus.data.getAllMenus[currentIndexMenu].items.length
         }
       },
       refetchQueries: [
@@ -200,7 +196,8 @@ const ContentAdminMenu = ({ }: ContentAdminMenuProps) => {
       variables: {
         createSubmenuItemInput: {
           name: name,
-          menuitem_id: +menus.data.getAllMenus[currentIndexMenu].items[currentIndexMenuItem].id
+          menuitem_id: +menus.data.getAllMenus[currentIndexMenu].items[currentIndexMenuItem].id,
+          serial_number: +menus.data.getAllMenus[currentIndexMenu].items[currentIndexMenuItem].submenuitems.length
         }
       },
       refetchQueries: [
@@ -241,7 +238,8 @@ const ContentAdminMenu = ({ }: ContentAdminMenuProps) => {
       variables: {
         createSubmenuItemTwoInput: {
           name: name,
-          menuitem_id: +menus.data.getAllMenus[currentIndexMenu].items[currentIndexMenuItem].submenuitems[currentIndexSubmenuItem].id
+          menuitem_id: +menus.data.getAllMenus[currentIndexMenu].items[currentIndexMenuItem].submenuitems[currentIndexSubmenuItem].id,
+          serial_number: +menus.data.getAllMenus[currentIndexMenu].items[currentIndexMenuItem].submenuitems[currentIndexSubmenuItem].submenuitems.length
         }
       },
       refetchQueries: [
@@ -277,11 +275,7 @@ const ContentAdminMenu = ({ }: ContentAdminMenuProps) => {
 
   useEffect(() => {
     console.log("useEffectSTART render");
-    getMenuItems({
-      variables: {
-        id: 38
-      }
-    })
+    
   }, []);
 
   useEffect(() => {

@@ -8,7 +8,7 @@ export class CreateMenuItemInput {
   @Field(() => Number, { description: 'menu ID)' })
   menu_id: number
 
-  @Field(() => Number, { description: 'serial_number menuitem)', nullable: true })
+  @Field(() => Number, { description: 'serial_number menuitem)'})
   serial_number: number;
 
   @Field(() => String, { description: 'link menuitem)', nullable: true })

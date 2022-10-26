@@ -8,7 +8,7 @@ export class CreateSubmenuItemTwoInput {
   @Field(() => Number, { description: 'serial menu ID)' })
   menuitem_id: number
 
-  @Field(() => Int, { description: 'Serial number)', nullable: true })
+  @Field(() => Int, { description: 'Serial number)'})
   serial_number: number;
 
   @Field(() => String, { description: 'link submenuitem)', nullable: true })
