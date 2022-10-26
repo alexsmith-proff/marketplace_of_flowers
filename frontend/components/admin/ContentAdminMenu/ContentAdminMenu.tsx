@@ -32,7 +32,7 @@ interface ContentAdminMenuProps { }
 
 const ContentAdminMenu = ({ }: ContentAdminMenuProps) => {
   const menus = useQuery(GET_ALL_MENU);
-  const [getMenuItems, { loading, error, data: dataMenu }] = useLazyQuery(GET_MENU_BY_ID)
+  const [loadMenu, ddd] = useLazyQuery(GET_ALL_MENU);
   const [createMenuName, dataCreateMenuName] = useMutation(CREATE_MENU_NAME)
   const [updateMenuName, dataUpdateMenuName] = useMutation(UPDATE_MENU_NAME)
   const [deleteMenuName, dataDeleteMenuName] = useMutation(DELETE_MENU_NAME)
@@ -47,8 +47,7 @@ const ContentAdminMenu = ({ }: ContentAdminMenuProps) => {
 
   const [createSubMenuItemTwoName, dataCreateSubMenuItemTwoName] = useMutation(CREATE_SUBMENU_ITEM_TWO_NAME)
   const [updateSubMenuItemTwoName, dataUpdateSubMenuItemTwoName] = useMutation(UPDATE_SUBMENU_ITEM_TWO_NAME)
-  const [deleteSubMenuItemTwoName, dataDeleteSubMenuItemTwoName] = useMutation(DELETE_SUBMENU_ITEM_TWO_NAME)
-  
+  const [deleteSubMenuItemTwoName, dataDeleteSubMenuItemTwoName] = useMutation(DELETE_SUBMENU_ITEM_TWO_NAME) 
 
 
   const editUpdateMenuRef = useRef(null)
@@ -140,6 +139,41 @@ const ContentAdminMenu = ({ }: ContentAdminMenuProps) => {
       ]
     })
     setCurrentIndexMenu(0)
+  }
+
+  const handleUpdateSerialNumberMenuItem = (serialNumber) => {
+    // console.log('serialNumber', serialNumber);
+    
+    updateMenuItemName({
+      variables: {
+        updateMenuItemInput: {
+          id: +menus.data.getAllMenus[currentIndexMenu].id,
+          serial_number: serialNumber
+        },
+        refetchQueries: [
+          {
+            query: GET_ALL_MENU
+          }
+        ]
+      }
+    })
+    // loadMenu()
+  }
+
+  const handleUpdateLinkMenuItem = (link) => {
+    updateMenuItemName({
+      variables: {
+        updateMenuItemInput: {
+          id: +menus.data.getAllMenus[currentIndexMenu].idd,
+          link
+        },
+        refetchQueries: [
+          {
+            query: GET_ALL_MENU
+          }
+        ]
+      }
+    })
   }
 
 
@@ -275,7 +309,6 @@ const ContentAdminMenu = ({ }: ContentAdminMenuProps) => {
 
   useEffect(() => {
     console.log("useEffectSTART render");
-    
   }, []);
 
   useEffect(() => {
@@ -285,7 +318,7 @@ const ContentAdminMenu = ({ }: ContentAdminMenuProps) => {
     if (menus.data) {
       setMenuArr(menus.data.getAllMenus);
     }
-  }, [menus, dataMenu]);
+  }, [menus]);
 
   return (
     <>
@@ -338,6 +371,8 @@ const ContentAdminMenu = ({ }: ContentAdminMenuProps) => {
                 createItemName={handleEditCreateMenuItemName}
                 updateItemName={handleEditUpdateMenuItemName}
                 deleteItemName={handleEditDeleteMenuItemName}
+                updateSerialNumber={handleUpdateSerialNumberMenuItem}
+                updateLink={handleUpdateLinkMenuItem}
               />
             }
             {

@@ -1,32 +1,38 @@
-import React, { FC, useState } from "react";
+import React, { FC, useEffect, useRef, useState } from "react";
 import { AiOutlineCheck } from "react-icons/ai";
 
-import s from "./MenuListAdmin.module.scss";
+import s from "./OptionsItemAdmin.module.scss";
 
 interface OptionsItemAdminProps {
-    title: string
+    label: string
+    textInputInit: string
+    inputShort?: boolean
+    inputConfirm: (data: string) => void
 }
 
-const OptionsItemAdmin: FC<OptionsItemAdminProps> = ({ title }) => {
+const OptionsItemAdmin: FC<OptionsItemAdminProps> = ({ label, textInputInit, inputShort = false, inputConfirm }) => {
+    const inputRef = useRef(null)
     const [inputBtnActive, setInputBtnActive] = useState<boolean>(false)
 
     const handleChangeInput = (e: React.ChangeEvent<HTMLInputElement>) => {
         if (e.target.value === '') setInputBtnActive(false)
-        else setInputBtnActive(true)
-        console.log(e.target.value);
-
+        else {
+            setInputBtnActive(true)
+        }
     }
     const handleClickInputBtn = () => {
         setInputBtnActive(false)
-        console.log('handleClickInputBtn');
-
+        inputConfirm(inputRef.current.value)
     }
 
+    useEffect(() => {
+        inputRef.current.value = textInputInit
+    }, [])
     return (
         <div className={s.item}>
-            <div className={s.title}>{title}</div>
-            <div className={s.input}>
-                <input type="text" onChange={handleChangeInput} />
+            <div className={s.title}>{label}</div>
+            <div className={inputShort ? (s.input + ' ' + s.shortInput) : s.input}>
+                <input type="text" ref={inputRef} onChange={handleChangeInput} />
                 {
                     inputBtnActive &&
                     <div className={s.inputBtn} onClick={handleClickInputBtn}>

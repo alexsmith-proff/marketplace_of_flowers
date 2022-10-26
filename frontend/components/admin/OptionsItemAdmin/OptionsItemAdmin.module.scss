@@ -4,19 +4,24 @@
     align-items: center;
 }
 .title{
-    width: 30px;
+    width: 50px;
     font-size: 14px;
-    text-decoration: underline;
+    // text-decoration: underline;
     margin-right: 20px;
 }
 .input{
     display: flex;
     align-items: center;
     input{
-        width: 150px;
+        width: 80px;
         font-size: 14px;
         padding: 2px 7px;
         margin-right: 3px;
+    }
+}
+.shortInput{
+    input{
+        width: 15px
     }
 }
 .inputBtn{

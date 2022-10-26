@@ -22,6 +22,9 @@ interface MenuItemListAdminProps {
   createItemName: (name: string) => void;
   updateItemName: (currentIndexMenu: number, name: string) => void;
   deleteItemName: (currentIndexMenu: number) => void;
+
+  updateSerialNumber?: (serial_number: number) => void
+  updateLink?: (link: string) => void 
 }
 
 const MenuListAdmin = ({
@@ -32,6 +35,8 @@ const MenuListAdmin = ({
   createItemName,
   updateItemName,
   deleteItemName,
+  updateSerialNumber,
+  updateLink,
 }: MenuItemListAdminProps) => {
   const [currentIndexMenu, setCurrentIndexMenu] = useState<number>(null);
   const [itemBottomActive, setItemBottomActive] = useState<boolean>(false)
@@ -183,17 +188,8 @@ const MenuListAdmin = ({
                     currentIndexMenu === index && itemBottomActive &&
                     <div className={s.itemBottomWrap}>
                       <div className={s.optionsList}>
-                        <OptionsItemAdmin title='slug' />
-                        <OptionsItemAdmin title='link' />
-                        {/* <div className={s.optionsItem}>
-                          <div className={s.optionsItemTitle}>slug</div>
-                          <div className={s.optionsItemInput}>
-                            <input type="text" />
-                            <div className={s.optionsItemInputBtn}>
-                              <AiOutlineCheck size={17} />
-                            </div>
-                          </div>
-                        </div> */}
+                        <OptionsItemAdmin label='Индекс' textInputInit={String(item.serial_number)} inputShort={true} inputConfirm={(data) => updateSerialNumber(+data)} />
+                        <OptionsItemAdmin label='Ссылка' textInputInit={item.link} inputConfirm={(data) => updateLink(data)} />
                       </div>
                     </div>
                   }
