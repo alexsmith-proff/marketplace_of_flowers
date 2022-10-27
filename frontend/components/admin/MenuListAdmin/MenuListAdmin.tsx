@@ -1,6 +1,11 @@
 import React, { useEffect, useRef, useState } from "react";
 import { RiEdit2Line } from "react-icons/ri";
-import { AiOutlinePlus, AiOutlineRight, AiOutlineMore, AiOutlineCheck } from "react-icons/ai";
+import {
+  AiOutlinePlus,
+  AiOutlineRight,
+  AiOutlineMore,
+  AiOutlineCheck,
+} from "react-icons/ai";
 import { MdDeleteOutline } from "react-icons/md";
 
 import {
@@ -10,9 +15,10 @@ import {
 import { IMenuItem } from "../../../interfaces/menu.interface";
 import ButtonAdmin from "../Buttons/ButtonAdmin/ButtonAdmin";
 
-import s from "./MenuListAdmin.module.scss";
 import InputAdminMenu from "../Inputs/InputMenu/InputAdminMenu";
 import OptionsItemAdmin from "../OptionsItemAdmin/OptionsItemAdmin";
+
+import s from "./MenuListAdmin.module.scss";
 
 interface MenuItemListAdminProps {
   visible: boolean;
@@ -23,8 +29,8 @@ interface MenuItemListAdminProps {
   updateItemName: (currentIndexMenu: number, name: string) => void;
   deleteItemName: (currentIndexMenu: number) => void;
 
-  updateSerialNumber?: (index: number, serial_number: number) => void
-  updateLink?: (index: number, link: string) => void 
+  updateSerialNumber?: (index: number, serial_number: number) => void;
+  updateLink?: (index: number, link: string) => void;
 }
 
 const MenuListAdmin = ({
@@ -39,12 +45,10 @@ const MenuListAdmin = ({
   updateLink,
 }: MenuItemListAdminProps) => {
   const [currentIndexMenu, setCurrentIndexMenu] = useState<number>(null);
-  const [itemBottomActive, setItemBottomActive] = useState<boolean>(false)
+  const [itemBottomActive, setItemBottomActive] = useState<boolean>(false);
 
-  const [editMenuItemUpdateActive, setEditMenuItemUpdateActive] =
-    useState<boolean>(false);
-  const [editMenuItemCreateActive, setEditMenuItemCreateActive] =
-    useState<boolean>(false);
+  const [editMenuItemUpdateActive, setEditMenuItemUpdateActive] = useState<boolean>(false);
+  const [editMenuItemCreateActive, setEditMenuItemCreateActive] = useState<boolean>(false);
 
   const editUpdateMenuItemRef = useRef(null);
   const editCreateMenuItemRef = useRef(null);
@@ -69,14 +73,37 @@ const MenuListAdmin = ({
   const handleClickMenuItem = (index) => {
     setCurrentIndexMenu(index);
     clickToItem(index);
-    if(itemBottomActive) setItemBottomActive(false)
+    if (itemBottomActive) setItemBottomActive(false);
   };
 
   const handleClickOptions = (index) => {
-    if (index !== currentIndexMenu) return
-    console.log('handleClickOptions');
-    setItemBottomActive(!itemBottomActive)
+    if (index !== currentIndexMenu) return;
+    console.log("handleClickOptions");
+    setItemBottomActive(!itemBottomActive);
+  };
 
+  function handleDragStart(e, item) {
+    console.log("handleDragStart", item);
+  }
+  function handleDragOver(e:React.DragEvent<HTMLLIElement>) {
+    // console.log("handleDragOver", e.target);
+    e.preventDefault();
+    e.target.classList.add('menuListDragOver')
+  }
+  function handleDragLeave(e) {
+    // console.log("handleDragLeave");
+    e.preventDefault();
+    e.target.classList.remove('menuListDragOver')
+  }
+  function handleDragEnd(e) {
+    // console.log("handleDragEnd");
+    e.preventDefault();
+    e.target.classList.remove('menuListDragOver')
+  }
+  function handleDrop(e:React.DragEvent<HTMLLIElement>, item) {
+    console.log("handleDrop", item);
+    e.preventDefault();
+    e.target.classList.remove('menuListDragOver')
   }
 
   console.log("itemArr", itemArr);
@@ -108,7 +135,7 @@ const MenuListAdmin = ({
                   functionalBtn={AdminButtonFunctional.ToggleVisibleEdit}
                   enabled={
                     currentIndexMenu != null &&
-                      currentIndexMenu <= itemArr.length - 1
+                    currentIndexMenu <= itemArr.length - 1
                       ? true
                       : false
                   }
@@ -126,7 +153,7 @@ const MenuListAdmin = ({
                   functionalBtn={AdminButtonFunctional.Standard}
                   enabled={
                     currentIndexMenu != null &&
-                      currentIndexMenu <= itemArr.length - 1
+                    currentIndexMenu <= itemArr.length - 1
                       ? true
                       : false
                   }
@@ -163,42 +190,63 @@ const MenuListAdmin = ({
           <ul className={s.list}>
             {itemArr &&
               itemArr.map((item, index) => (
-                <li className={s.item} key={item.id}>
+                <li
+                  className={s.item}
+                  key={item.id}
+                  draggable={true}
+                  onDragStart={(e) => handleDragStart(e, item)}
+                  onDragOver={(e) => handleDragOver(e)}
+                  onDragLeave={(e) => handleDragLeave(e)}
+                  onDragEnd={(e) => handleDragEnd(e)}
+                  onDrop={(e) => handleDrop(e, item)}
+                >
                   <div
-                    className={currentIndexMenu == index ? s.itemTopWrap + " " + s.active : s.itemTopWrap}
+                    className={
+                      currentIndexMenu == index
+                        ? s.itemTopWrap + " " + s.active
+                        : s.itemTopWrap
+                    }
                     onClick={() => handleClickMenuItem(index)}
                   >
                     {item.name} serial_number={item.serial_number}
-                    {
-                      typeof item["submenuitems"] !== "undefined" && (
-                        <>
-                          {item.submenuitems.length > 0 && (
-                            <div className={s.hasChildren}>
-                              <AiOutlineRight />
-                            </div>
-                          )}
-                        </>
-                      )
-                    }
-                    <div className={s.optionsBtn} onClick={() => handleClickOptions(index)}>
+                    {typeof item["submenuitems"] !== "undefined" && (
+                      <>
+                        {item.submenuitems.length > 0 && (
+                          <div className={s.hasChildren}>
+                            <AiOutlineRight />
+                          </div>
+                        )}
+                      </>
+                    )}
+                    <div
+                      className={s.optionsBtn}
+                      onClick={() => handleClickOptions(index)}
+                    >
                       <AiOutlineMore size={20} />
                     </div>
                   </div>
-                  {
-                    currentIndexMenu === index && itemBottomActive &&
+                  {currentIndexMenu === index && itemBottomActive && (
                     <div className={s.itemBottomWrap}>
                       <div className={s.optionsList}>
-                        <OptionsItemAdmin label='Индекс' textInputInit={String(item.serial_number)} inputShort={true} inputConfirm={async(data) => {
-                          updateSerialNumber(index, +data)
-                          setItemBottomActive(false)
-                          setCurrentIndexMenu(null)
-                          }} />
-                        <OptionsItemAdmin label='Ссылка' textInputInit={item.link} inputConfirm={(data) => updateLink(index, data)} />
+                        <OptionsItemAdmin
+                          label="Индекс"
+                          textInputInit={String(item.serial_number)}
+                          inputShort={true}
+                          inputConfirm={async (data) => {
+                            updateSerialNumber(index, +data);
+                            setItemBottomActive(false);
+                            setCurrentIndexMenu(null);
+                          }}
+                        />
+                        <OptionsItemAdmin
+                          label="Ссылка"
+                          textInputInit={item.link}
+                          inputConfirm={(data) => updateLink(index, data)}
+                        />
                       </div>
                     </div>
-                  }
+                  )}
                 </li>
-
               ))}
           </ul>
         </div>
