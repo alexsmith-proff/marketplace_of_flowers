@@ -168,12 +168,27 @@ const ContentAdminMenu = ({ }: ContentAdminMenuProps) => {
       }
     })
   }
-  const handleUpdateSerialNumberMenuItem = (index, serialNumber) => {
+  const handleupdateSerialNumberByIndexMenuItem = (index, serialNumber) => {
     updateMenuItemName({
       variables: {
         updateMenuItemInput: {
           id: +menus.data.getAllMenus[currentIndexMenu].items[index].id,
           serial_number: serialNumber
+        }
+      },
+      refetchQueries: [
+        {
+          query: GET_ALL_MENU
+        }
+      ]
+    })
+  }
+  const handleupdateSerialNumberByIDMenuItem = (id: number, serialNumber: number) => {
+    updateMenuItemName({
+      variables: {
+        updateMenuItemInput: {
+          id: +id,
+          serial_number: +serialNumber
         }
       },
       refetchQueries: [
@@ -237,7 +252,7 @@ const ContentAdminMenu = ({ }: ContentAdminMenuProps) => {
       }
     })
   }
-  const handleUpdateSerialNumberSubMenuItem = (index, serialNumber) => {
+  const handleupdateSerialNumberByIndexSubMenuItem = (index, serialNumber) => {
     updateSubMenuItemName({
       variables: {
         updateSubmenuItemInput: {
@@ -304,7 +319,7 @@ const ContentAdminMenu = ({ }: ContentAdminMenuProps) => {
       }
     })
   }
-  const handleUpdateSerialNumberSubMenuItemTwo = (index, serialNumber) => {
+  const handleupdateSerialNumberByIndexSubMenuItemTwo = (index, serialNumber) => {
     updateSubMenuItemTwoName({
       variables: {
         updateSubmenuItemTwoInput: {
@@ -407,7 +422,8 @@ const ContentAdminMenu = ({ }: ContentAdminMenuProps) => {
                 createItemName={handleEditCreateMenuItemName}
                 updateItemName={handleEditUpdateMenuItemName}
                 deleteItemName={handleEditDeleteMenuItemName}
-                updateSerialNumber={handleUpdateSerialNumberMenuItem}
+                updateSerialNumberByIndex={handleupdateSerialNumberByIndexMenuItem}
+                updateSerialNumberById={handleupdateSerialNumberByIDMenuItem}
                 updateLink={handleUpdateLinkMenuItem}
               />
             }
@@ -421,7 +437,7 @@ const ContentAdminMenu = ({ }: ContentAdminMenuProps) => {
                 createItemName={handleEditCreateSubMenuItemName}
                 updateItemName={handleEditUpdateSubMenuItemName}
                 deleteItemName={handleEditDeleteSubMenuItemName}
-                updateSerialNumber={handleUpdateSerialNumberSubMenuItem}
+                updateSerialNumberByIndex={handleupdateSerialNumberByIndexSubMenuItem}
                 updateLink={handleUpdateLinkSubMenuItem}
               />
             }
@@ -436,7 +452,7 @@ const ContentAdminMenu = ({ }: ContentAdminMenuProps) => {
                 createItemName={handleEditCreateSubMenuItemTwoName}
                 updateItemName={handleEditUpdateSubMenuItemTwoName}
                 deleteItemName={handleEditDeleteSubMenuItemTwoName}
-                updateSerialNumber={handleUpdateSerialNumberSubMenuItemTwo}
+                updateSerialNumberByIndex={handleupdateSerialNumberByIndexSubMenuItemTwo}
                 updateLink={handleUpdateLinkSubMenuItemTwo}
               />
             }

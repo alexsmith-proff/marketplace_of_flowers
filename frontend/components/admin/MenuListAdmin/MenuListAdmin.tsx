@@ -29,7 +29,8 @@ interface MenuItemListAdminProps {
   updateItemName: (currentIndexMenu: number, name: string) => void;
   deleteItemName: (currentIndexMenu: number) => void;
 
-  updateSerialNumber?: (index: number, serial_number: number) => void;
+  updateSerialNumberByIndex?: (index: number, serial_number: number) => void;
+  updateSerialNumberById?: (id: number, serial_number: number) => void;
   updateLink?: (index: number, link: string) => void;
 }
 
@@ -41,11 +42,13 @@ const MenuListAdmin = ({
   createItemName,
   updateItemName,
   deleteItemName,
-  updateSerialNumber,
+  updateSerialNumberByIndex,
+  updateSerialNumberById,
   updateLink,
 }: MenuItemListAdminProps) => {
   const [currentIndexMenu, setCurrentIndexMenu] = useState<number>(null);
   const [itemBottomActive, setItemBottomActive] = useState<boolean>(false);
+  const [dragIndex, setDragIndex] = useState<number>(null);
 
   const [editMenuItemUpdateActive, setEditMenuItemUpdateActive] = useState<boolean>(false);
   const [editMenuItemCreateActive, setEditMenuItemCreateActive] = useState<boolean>(false);
@@ -82,8 +85,11 @@ const MenuListAdmin = ({
     setItemBottomActive(!itemBottomActive);
   };
 
-  function handleDragStart(e, item) {
-    console.log("handleDragStart", item);
+
+
+  function handleDragStart(e, index) {
+    console.log("handleDragStart", index)
+    setDragIndex(index)
   }
   function handleDragOver(e:React.DragEvent<HTMLLIElement>) {
     // console.log("handleDragOver", e.target);
@@ -100,11 +106,42 @@ const MenuListAdmin = ({
     e.preventDefault();
     e.target.classList.remove('menuListDragOver')
   }
-  function handleDrop(e:React.DragEvent<HTMLLIElement>, item) {
-    console.log("handleDrop", item);
+  function handleDrop(e:React.DragEvent<HTMLLIElement>, index) {
+    console.log("handleDrop", index);
     e.preventDefault();
     e.target.classList.remove('menuListDragOver')
+
+    const serial_number = Math.floor((itemArr[index].serial_number + itemArr[index + 1].serial_number) / 2)
+    if((serial_number > itemArr[index].serial_number)&&(serial_number < itemArr[index + 1].serial_number)){
+      updateSerialNumberByIndex(dragIndex, serial_number)
+    }else{
+      console.log('else');
+      
+      const itemArrID = []
+      itemArrID.push({
+        id: itemArr[dragIndex].id,
+        serial_number: itemArr[index].serial_number + 100,
+        name: itemArr[dragIndex].name
+      })
+      console.log('itemArrID', itemArrID);
+
+      for(let i = index + 1; i < itemArr.length; i++){
+        itemArrID.push({
+          id: itemArr[i].id,
+          serial_number: itemArr[index].serial_number + (i - index + 1)*100,
+          name: itemArr[i].name
+        })
+      }
+      for (let i = 0; i < itemArrID.length; i++) {
+        updateSerialNumberById(itemArrID[i].id, itemArrID[i].serial_number)
+      }
+    }
+
+    
   }
+
+
+
 
   console.log("itemArr", itemArr);
 
@@ -194,11 +231,11 @@ const MenuListAdmin = ({
                   className={s.item}
                   key={item.id}
                   draggable={true}
-                  onDragStart={(e) => handleDragStart(e, item)}
+                  onDragStart={(e) => handleDragStart(e, index)}
                   onDragOver={(e) => handleDragOver(e)}
                   onDragLeave={(e) => handleDragLeave(e)}
                   onDragEnd={(e) => handleDragEnd(e)}
-                  onDrop={(e) => handleDrop(e, item)}
+                  onDrop={(e) => handleDrop(e, index)}
                 >
                   <div
                     className={
@@ -208,7 +245,7 @@ const MenuListAdmin = ({
                     }
                     onClick={() => handleClickMenuItem(index)}
                   >
-                    {item.name} serial_number={item.serial_number}
+                    {item.name}
                     {typeof item["submenuitems"] !== "undefined" && (
                       <>
                         {item.submenuitems.length > 0 && (
@@ -233,7 +270,7 @@ const MenuListAdmin = ({
                           textInputInit={String(item.serial_number)}
                           inputShort={true}
                           inputConfirm={async (data) => {
-                            updateSerialNumber(index, +data);
+                            updateSerialNumberByIndex(index, +data);
                             setItemBottomActive(false);
                             setCurrentIndexMenu(null);
                           }}
