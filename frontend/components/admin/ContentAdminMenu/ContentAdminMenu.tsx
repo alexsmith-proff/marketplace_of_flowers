@@ -267,6 +267,21 @@ const ContentAdminMenu = ({ }: ContentAdminMenuProps) => {
       ]
     })
   }
+  const handleUpdateSerialNumberByIDSubMenuItem = (id: number, serialNumber:number) => {
+    updateSubMenuItemName({
+      variables: {
+        updateSubmenuItemInput: {
+          id: +id,
+          serial_number: +serialNumber
+        }
+      },
+      refetchQueries: [
+        {
+          query: GET_ALL_MENU
+        }
+      ]
+    })
+  }
   const handleUpdateLinkSubMenuItem = (index, link) => {
     updateSubMenuItemName({
       variables: {
@@ -319,12 +334,27 @@ const ContentAdminMenu = ({ }: ContentAdminMenuProps) => {
       }
     })
   }
-  const handleupdateSerialNumberByIndexSubMenuItemTwo = (index, serialNumber) => {
+  const handleUpdateSerialNumberByIndexSubMenuItemTwo = (index, serialNumber) => {
     updateSubMenuItemTwoName({
       variables: {
         updateSubmenuItemTwoInput: {
           id: +menus.data.getAllMenus[currentIndexMenu].items[currentIndexMenuItem].submenuitems[currentIndexSubmenuItem].submenuitems[index].id,
           serial_number: serialNumber
+        }
+      },
+      refetchQueries: [
+        {
+          query: GET_ALL_MENU
+        }
+      ]
+    })
+  }
+  const handleUpdateSerialNumberByIDSubMenuItemTwo = (id: number, serialNumber: number) => {
+    updateSubMenuItemTwoName({
+      variables: {
+        updateSubmenuItemTwoInput: {
+          id: +id,
+          serial_number: +serialNumber
         }
       },
       refetchQueries: [
@@ -438,6 +468,7 @@ const ContentAdminMenu = ({ }: ContentAdminMenuProps) => {
                 updateItemName={handleEditUpdateSubMenuItemName}
                 deleteItemName={handleEditDeleteSubMenuItemName}
                 updateSerialNumberByIndex={handleUpdateSerialNumberByIndexSubMenuItem}
+                updateSerialNumberById={handleUpdateSerialNumberByIDSubMenuItem}
                 updateLink={handleUpdateLinkSubMenuItem}
               />
             }
@@ -452,7 +483,8 @@ const ContentAdminMenu = ({ }: ContentAdminMenuProps) => {
                 createItemName={handleEditCreateSubMenuItemTwoName}
                 updateItemName={handleEditUpdateSubMenuItemTwoName}
                 deleteItemName={handleEditDeleteSubMenuItemTwoName}
-                updateSerialNumberByIndex={handleupdateSerialNumberByIndexSubMenuItemTwo}
+                updateSerialNumberByIndex={handleUpdateSerialNumberByIndexSubMenuItemTwo}
+                updateSerialNumberById={handleUpdateSerialNumberByIDSubMenuItem}
                 updateLink={handleUpdateLinkSubMenuItemTwo}
               />
             }

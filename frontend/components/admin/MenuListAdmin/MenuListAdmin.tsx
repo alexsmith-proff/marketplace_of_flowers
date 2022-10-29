@@ -90,6 +90,7 @@ const MenuListAdmin = ({
 
   function handleDragStart(e, index) {
     console.log("handleDragStart", index);
+    setItemBottomActive(false)
     setDragIndex(index);
   }
   function handleDragOver(e: React.DragEvent<HTMLLIElement>, index: number) {
@@ -254,7 +255,7 @@ const MenuListAdmin = ({
                         }
                         onClick={() => handleClickMenuItem(index)}
                       >
-                        {item.name} serial_num = {item.serial_number}
+                        {item.name}
                         {typeof item["submenuitems"] !== "undefined" && (
                           <>
                             {item.submenuitems.length > 0 && (
@@ -275,7 +276,7 @@ const MenuListAdmin = ({
                       {currentIndexMenu === index && itemBottomActive && (
                         <div className={s.itemBottomWrap}>
                           <div className={s.optionsList}>
-                            <OptionsItemAdmin
+                            {/* <OptionsItemAdmin
                               label="Индекс"
                               textInputInit={String(item.serial_number)}
                               inputShort={true}
@@ -284,7 +285,7 @@ const MenuListAdmin = ({
                                 setItemBottomActive(false);
                                 setCurrentIndexMenu(null);
                               }}
-                            />
+                            /> */}
                             <OptionsItemAdmin
                               label="Ссылка"
                               textInputInit={item.link}
