@@ -43,9 +43,10 @@
     left: 0;
 }
 
-.item {
+.itemWrap {
     border-bottom: 1px solid rgb(196, 196, 196);    
 }
+
 .itemTopWrap{
     display: flex;
     justify-content: space-between;
@@ -81,5 +82,15 @@
     padding: 10px 15px;
     border-bottom: 1px solid rgb(130, 130, 130);
     border-top: 1px solid rgb(130, 130, 130);
+}
+
+.futureItem {
+    border-bottom: 1px solid rgb(196, 196, 196);    
+    &Wrap{
+        border: 1px dashed rgb(184, 184, 184);
+        // padding: 13px 10px 13px 15px;
+        padding: 13px 10px;
+        color: rgb(180, 180, 180);
+    }
 }
 

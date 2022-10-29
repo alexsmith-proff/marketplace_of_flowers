@@ -105,7 +105,7 @@ const ContentAdminMenu = ({ }: ContentAdminMenuProps) => {
       variables: {
         createMenuInput: {
           name: editCreateMenuRef.current.value,
-          serial_number: +menus.data.getAllMenus.length
+          serial_number: +menus.data.getAllMenus.length * 100
         }
       },
       refetchQueries: [
@@ -148,7 +148,7 @@ const ContentAdminMenu = ({ }: ContentAdminMenuProps) => {
         createMenuItemInput: {
           name: name,
           menu_id: +menus.data.getAllMenus[currentIndexMenu].id,
-          serial_number: +menus.data.getAllMenus[currentIndexMenu].items.length
+          serial_number: +menus.data.getAllMenus[currentIndexMenu].items.length * 100
         }
       },
       refetchQueries: [
@@ -232,7 +232,7 @@ const ContentAdminMenu = ({ }: ContentAdminMenuProps) => {
         createSubmenuItemInput: {
           name: name,
           menuitem_id: +menus.data.getAllMenus[currentIndexMenu].items[currentIndexMenuItem].id,
-          serial_number: +menus.data.getAllMenus[currentIndexMenu].items[currentIndexMenuItem].submenuitems.length
+          serial_number: +menus.data.getAllMenus[currentIndexMenu].items[currentIndexMenuItem].submenuitems.length * 100
         }
       },
       refetchQueries: [
@@ -252,7 +252,7 @@ const ContentAdminMenu = ({ }: ContentAdminMenuProps) => {
       }
     })
   }
-  const handleupdateSerialNumberByIndexSubMenuItem = (index, serialNumber) => {
+  const handleUpdateSerialNumberByIndexSubMenuItem = (index, serialNumber) => {
     updateSubMenuItemName({
       variables: {
         updateSubmenuItemInput: {
@@ -299,7 +299,7 @@ const ContentAdminMenu = ({ }: ContentAdminMenuProps) => {
         createSubmenuItemTwoInput: {
           name: name,
           menuitem_id: +menus.data.getAllMenus[currentIndexMenu].items[currentIndexMenuItem].submenuitems[currentIndexSubmenuItem].id,
-          serial_number: +menus.data.getAllMenus[currentIndexMenu].items[currentIndexMenuItem].submenuitems[currentIndexSubmenuItem].submenuitems.length
+          serial_number: +menus.data.getAllMenus[currentIndexMenu].items[currentIndexMenuItem].submenuitems[currentIndexSubmenuItem].submenuitems.length * 100
         }
       },
       refetchQueries: [
@@ -437,7 +437,7 @@ const ContentAdminMenu = ({ }: ContentAdminMenuProps) => {
                 createItemName={handleEditCreateSubMenuItemName}
                 updateItemName={handleEditUpdateSubMenuItemName}
                 deleteItemName={handleEditDeleteSubMenuItemName}
-                updateSerialNumberByIndex={handleupdateSerialNumberByIndexSubMenuItem}
+                updateSerialNumberByIndex={handleUpdateSerialNumberByIndexSubMenuItem}
                 updateLink={handleUpdateLinkSubMenuItem}
               />
             }

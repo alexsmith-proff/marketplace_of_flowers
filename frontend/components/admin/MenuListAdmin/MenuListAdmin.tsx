@@ -49,9 +49,12 @@ const MenuListAdmin = ({
   const [currentIndexMenu, setCurrentIndexMenu] = useState<number>(null);
   const [itemBottomActive, setItemBottomActive] = useState<boolean>(false);
   const [dragIndex, setDragIndex] = useState<number>(null);
+  const [futureIndex, setFutureIndex] = useState<number>(null);
 
-  const [editMenuItemUpdateActive, setEditMenuItemUpdateActive] = useState<boolean>(false);
-  const [editMenuItemCreateActive, setEditMenuItemCreateActive] = useState<boolean>(false);
+  const [editMenuItemUpdateActive, setEditMenuItemUpdateActive] =
+    useState<boolean>(false);
+  const [editMenuItemCreateActive, setEditMenuItemCreateActive] =
+    useState<boolean>(false);
 
   const editUpdateMenuItemRef = useRef(null);
   const editCreateMenuItemRef = useRef(null);
@@ -85,63 +88,67 @@ const MenuListAdmin = ({
     setItemBottomActive(!itemBottomActive);
   };
 
-
-
   function handleDragStart(e, index) {
-    console.log("handleDragStart", index)
-    setDragIndex(index)
+    console.log("handleDragStart", index);
+    setDragIndex(index);
   }
-  function handleDragOver(e:React.DragEvent<HTMLLIElement>) {
+  function handleDragOver(e: React.DragEvent<HTMLLIElement>, index: number) {
     // console.log("handleDragOver", e.target);
     e.preventDefault();
-    e.target.classList.add('menuListDragOver')
+    e.target.classList.add("menuListDragOver");
+    setFutureIndex(index);
   }
   function handleDragLeave(e) {
     // console.log("handleDragLeave");
     e.preventDefault();
-    e.target.classList.remove('menuListDragOver')
+    e.target.classList.remove("menuListDragOver");
   }
-  function handleDragEnd(e) {
-    // console.log("handleDragEnd");
+  function handleDragEnd(e, index) {
+    console.log("handleDragEnd", index);
     e.preventDefault();
-    e.target.classList.remove('menuListDragOver')
+    e.target.classList.remove("menuListDragOver");
+    setFutureIndex(null);
   }
-  function handleDrop(e:React.DragEvent<HTMLLIElement>, index) {
+  function handleDrop(e: React.DragEvent<HTMLLIElement>, index) {
     console.log("handleDrop", index);
     e.preventDefault();
-    e.target.classList.remove('menuListDragOver')
+    e.target.classList.remove("menuListDragOver");
 
-    const serial_number = Math.floor((itemArr[index].serial_number + itemArr[index + 1].serial_number) / 2)
-    if((serial_number > itemArr[index].serial_number)&&(serial_number < itemArr[index + 1].serial_number)){
-      updateSerialNumberByIndex(dragIndex, serial_number)
-    }else{
-      console.log('else');
-      
-      const itemArrID = []
-      itemArrID.push({
-        id: itemArr[dragIndex].id,
-        serial_number: itemArr[index].serial_number + 100,
-        name: itemArr[dragIndex].name
-      })
-      console.log('itemArrID', itemArrID);
+    if (index === itemArr.length - 1) {
+      updateSerialNumberByIndex(dragIndex, itemArr[index].serial_number + 100);
+    } else {
+      const serial_number = Math.floor(
+        (itemArr[index].serial_number + itemArr[index + 1].serial_number) / 2
+      );
+      if (
+        serial_number > itemArr[index].serial_number &&
+        serial_number < itemArr[index + 1].serial_number
+      ) {
+        updateSerialNumberByIndex(dragIndex, serial_number);
+      } else {
+        console.log("else");
 
-      for(let i = index + 1; i < itemArr.length; i++){
+        const itemArrID = [];
         itemArrID.push({
-          id: itemArr[i].id,
-          serial_number: itemArr[index].serial_number + (i - index + 1)*100,
-          name: itemArr[i].name
-        })
-      }
-      for (let i = 0; i < itemArrID.length; i++) {
-        updateSerialNumberById(itemArrID[i].id, itemArrID[i].serial_number)
+          id: itemArr[dragIndex].id,
+          serial_number: itemArr[index].serial_number + 100,
+          name: itemArr[dragIndex].name,
+        });
+        console.log("itemArrID", itemArrID);
+
+        for (let i = index + 1; i < itemArr.length; i++) {
+          itemArrID.push({
+            id: itemArr[i].id,
+            serial_number: itemArr[index].serial_number + (i - index + 1) * 100,
+            name: itemArr[i].name,
+          });
+        }
+        for (let i = 0; i < itemArrID.length; i++) {
+          updateSerialNumberById(itemArrID[i].id, itemArrID[i].serial_number);
+        }
       }
     }
-
-    
   }
-
-
-
 
   console.log("itemArr", itemArr);
 
@@ -227,63 +234,73 @@ const MenuListAdmin = ({
           <ul className={s.list}>
             {itemArr &&
               itemArr.map((item, index) => (
-                <li
-                  className={s.item}
-                  key={item.id}
-                  draggable={true}
-                  onDragStart={(e) => handleDragStart(e, index)}
-                  onDragOver={(e) => handleDragOver(e)}
-                  onDragLeave={(e) => handleDragLeave(e)}
-                  onDragEnd={(e) => handleDragEnd(e)}
-                  onDrop={(e) => handleDrop(e, index)}
-                >
-                  <div
-                    className={
-                      currentIndexMenu == index
-                        ? s.itemTopWrap + " " + s.active
-                        : s.itemTopWrap
-                    }
-                    onClick={() => handleClickMenuItem(index)}
+                <>
+                  <li
+                    className={s.item}
+                    key={item.id}
+                    draggable={true}
+                    onDragStart={(e) => handleDragStart(e, index)}
+                    onDragOver={(e) => handleDragOver(e, index)}
+                    onDragLeave={(e) => handleDragLeave(e)}
+                    onDragEnd={(e) => handleDragEnd(e, index)}
+                    onDrop={(e) => handleDrop(e, index)}
                   >
-                    {item.name}
-                    {typeof item["submenuitems"] !== "undefined" && (
-                      <>
-                        {item.submenuitems.length > 0 && (
-                          <div className={s.hasChildren}>
-                            <AiOutlineRight />
-                          </div>
+                    <div className={s.itemWrap}>
+                      <div
+                        className={
+                          currentIndexMenu == index
+                            ? s.itemTopWrap + " " + s.active
+                            : s.itemTopWrap
+                        }
+                        onClick={() => handleClickMenuItem(index)}
+                      >
+                        {item.name} serial_num = {item.serial_number}
+                        {typeof item["submenuitems"] !== "undefined" && (
+                          <>
+                            {item.submenuitems.length > 0 && (
+                              <div className={s.hasChildren}>
+                                <AiOutlineRight />
+                              </div>
+                            )}
+                          </>
                         )}
-                      </>
-                    )}
-                    <div
-                      className={s.optionsBtn}
-                      onClick={() => handleClickOptions(index)}
-                    >
-                      <AiOutlineMore size={20} />
-                    </div>
-                  </div>
-                  {currentIndexMenu === index && itemBottomActive && (
-                    <div className={s.itemBottomWrap}>
-                      <div className={s.optionsList}>
-                        <OptionsItemAdmin
-                          label="Индекс"
-                          textInputInit={String(item.serial_number)}
-                          inputShort={true}
-                          inputConfirm={async (data) => {
-                            updateSerialNumberByIndex(index, +data);
-                            setItemBottomActive(false);
-                            setCurrentIndexMenu(null);
-                          }}
-                        />
-                        <OptionsItemAdmin
-                          label="Ссылка"
-                          textInputInit={item.link}
-                          inputConfirm={(data) => updateLink(index, data)}
-                        />
+                        <div
+                          className={s.optionsBtn}
+                          onClick={() => handleClickOptions(index)}
+                        >
+                          <AiOutlineMore size={20} />
+                        </div>
                       </div>
+
+                      {currentIndexMenu === index && itemBottomActive && (
+                        <div className={s.itemBottomWrap}>
+                          <div className={s.optionsList}>
+                            <OptionsItemAdmin
+                              label="Индекс"
+                              textInputInit={String(item.serial_number)}
+                              inputShort={true}
+                              inputConfirm={async (data) => {
+                                updateSerialNumberByIndex(index, +data);
+                                setItemBottomActive(false);
+                                setCurrentIndexMenu(null);
+                              }}
+                            />
+                            <OptionsItemAdmin
+                              label="Ссылка"
+                              textInputInit={item.link}
+                              inputConfirm={(data) => updateLink(index, data)}
+                            />
+                          </div>
+                        </div>
+                      )}
                     </div>
-                  )}
-                </li>
+                    {index === futureIndex && (
+                      <div className={s.futureItem}>
+                        <div className={s.futureItemWrap}> </div>
+                      </div>
+                    )}
+                  </li>
+                </>
               ))}
           </ul>
         </div>
