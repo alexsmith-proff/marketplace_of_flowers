@@ -2,6 +2,34 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+type CatalogEntity {
+  """Children"""
+  children: [CatalogEntity!]!
+
+  """ID catalog"""
+  id: ID!
+
+  """Name catalog"""
+  name: String!
+
+  """Parent"""
+  parent: CatalogEntity!
+
+  """Serial number"""
+  serial_number: Float!
+}
+
+input CreateCatalogInput {
+  """Name"""
+  name: String!
+
+  """Parent"""
+  parent_id: Float
+
+  """Serial number"""
+  serial_number: Float!
+}
+
 input CreateElementInput {
   """name element"""
   name: String!
@@ -166,6 +194,7 @@ type MenuItemEntity {
 }
 
 type Mutation {
+  createCatalog(createCatalogInput: CreateCatalogInput!): CatalogEntity!
   createElement(createElementInput: CreateElementInput!): ElementEntity!
   createImgElement(createImgElementInput: CreateImgElementInput!): ImgElementEntity!
   createMenu(createMenuInput: CreateMenuInput!): MenuEntity!
@@ -193,6 +222,7 @@ type Mutation {
 }
 
 type Query {
+  getAllCatalog: [CatalogEntity!]!
   getAllElements: [ElementEntity!]!
   getAllImgElement: [ImgElementEntity!]!
   getAllMenuItem: [MenuItemEntity!]!

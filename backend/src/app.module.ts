@@ -24,6 +24,8 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { GraphQLModule } from '@nestjs/graphql';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { SubmenuItemTwoEntity } from './submenuitemtwo/entities/submenuitemtwo.entity';
+import { CatalogModule } from './catalog/catalog.module';
+import { CatalogEntity } from './catalog/entities/catalog.entity';
 
 @Module({
   imports: [
@@ -41,7 +43,7 @@ import { SubmenuItemTwoEntity } from './submenuitemtwo/entities/submenuitemtwo.e
         username: configService.get<string>('TYPEORM_USERNAME'),
         password: configService.get<string>('TYPEORM_PASSWORD'),
         database: configService.get<string>('TYPEORM_DATABASE'),
-        entities: [UserEntity, MenuEntity, MenuItemEntity, SubmenuItemEntity, SubmenuItemTwoEntity, SectionEntity, ElementEntity, TextElementEntity, ImgElementEntity],
+        entities: [UserEntity, MenuEntity, MenuItemEntity, SubmenuItemEntity, SubmenuItemTwoEntity, CatalogEntity, SectionEntity, ElementEntity, TextElementEntity, ImgElementEntity],
         synchronize: true,        
       })
     }),
@@ -52,7 +54,7 @@ import { SubmenuItemTwoEntity } from './submenuitemtwo/entities/submenuitemtwo.e
       playground: true 
     }),
   
-    UserModule, AuthModule, MenuModule, MenuItemModule, SubmenuItemModule, SubmenuItemTwoModule, SectionModule, ElementModule, TextElementModule, ImgElementModule],
+    UserModule, AuthModule, MenuModule, MenuItemModule, SubmenuItemModule, SubmenuItemTwoModule, SectionModule, ElementModule, TextElementModule, ImgElementModule, CatalogModule],
   controllers: [AppController],
   providers: [AppService],
 })
