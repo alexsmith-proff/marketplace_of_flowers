@@ -3,6 +3,7 @@ import { CatalogService } from './catalog.service';
 import { CatalogEntity } from './entities/catalog.entity';
 import { CreateCatalogInput } from './dto/create-catalog.input';
 import { UpdateCatalogInput } from './dto/update-catalog.input';
+import { FindCatalogInput } from './dto/find-catalog.input';
 
 @Resolver(() => CatalogEntity)
 export class CatalogResolver {
@@ -16,6 +17,11 @@ export class CatalogResolver {
   @Query(() => [CatalogEntity], { name: 'getAllCatalog' })
   findAll() {
     return this.catalogService.findAll();
+  }
+
+  @Query(() => [CatalogEntity], { name: 'getCatalogByParent'})
+  findCatalogByParent(@Args('findCatalogInput') findCatalogInput: FindCatalogInput){
+    return this.catalogService.findByParent(findCatalogInput)
   }
 
   // @Query(() => Catalog, { name: 'catalog' })

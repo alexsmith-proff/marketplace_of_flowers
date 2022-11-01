@@ -8,7 +8,7 @@ import {
   DELETE_MENU_ITEM_NAME,
 } from "../../../graphql/menu.graphql";
 import { IMenuItem } from "../../../interfaces/menu.interface";
-import MenuListAdmin from "../MenuListAdmin/MenuListAdmin";
+import MenuListAdmin from "../WindowListAdmin/WindowListAdmin";
 
 import s from "./MenuItemListAdmin.module.scss";
 

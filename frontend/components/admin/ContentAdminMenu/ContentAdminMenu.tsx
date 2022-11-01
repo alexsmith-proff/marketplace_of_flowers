@@ -26,7 +26,7 @@ import { useLazyQuery, useMutation, useQuery } from "@apollo/client";
 import InputAdminMenu from "../Inputs/InputMenu/InputAdminMenu";
 import { AdminButtonFunctional, AdminButtonType } from "../../../enums/AdminButtons.enum";
 import { IMenu, IMenuItem } from "../../../interfaces/menu.interface";
-import MenuListAdmin from "../MenuListAdmin/MenuListAdmin";
+import WindowListAdmin from "../WindowListAdmin/WindowListAdmin";
 
 interface ContentAdminMenuProps { }
 
@@ -444,7 +444,7 @@ const ContentAdminMenu = ({ }: ContentAdminMenuProps) => {
           <>
             {
               menuItemActive &&
-              <MenuListAdmin
+              <WindowListAdmin
                 visible={menuItemActive}
                 title={menus.data.getAllMenus[currentIndexMenu].name}
                 itemArr={menus.data.getAllMenus[currentIndexMenu].items}
@@ -459,7 +459,7 @@ const ContentAdminMenu = ({ }: ContentAdminMenuProps) => {
             }
             {
               submenuItemActive &&
-              <MenuListAdmin
+              <WindowListAdmin
                 visible={submenuItemActive}
                 title={menus.data.getAllMenus[currentIndexMenu].items[currentIndexMenuItem].name}
                 clickToItem={clickToItemSubMenuItem}
@@ -475,7 +475,7 @@ const ContentAdminMenu = ({ }: ContentAdminMenuProps) => {
             {
               // currentIndexSubmenuItem != null &&
               submenuItemTwoActive &&
-              <MenuListAdmin
+              <WindowListAdmin
                 visible={submenuItemTwoActive}
                 title={menus.data.getAllMenus[currentIndexMenu].items[currentIndexMenuItem].submenuitems[currentIndexSubmenuItem].name}
                 clickToItem={clickToItemSubMenuItemTwo}

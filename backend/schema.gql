@@ -143,6 +143,12 @@ type ElementEntity {
   text_elements: [TextElementEntity!]!
 }
 
+input FindCatalogInput {
+  name: String
+  parent_id: Float
+  serial_number: Float
+}
+
 type ImgElementEntity {
   """element_ref ImgElement"""
   element_ref: ElementEntity!
@@ -231,6 +237,7 @@ type Query {
   getAllSubmenuItems: [SubmenuItemEntity!]!
   getAllSubmenuItemsTwo: [SubmenuItemTwoEntity!]!
   getAllTextElement: [TextElementEntity!]!
+  getCatalogByParent(findCatalogInput: FindCatalogInput!): [CatalogEntity!]!
   getElementById(id: Int!): ElementEntity!
   getImgElementByID(id: Int!): ImgElementEntity!
   getMenuByID(id: Int!): MenuEntity!

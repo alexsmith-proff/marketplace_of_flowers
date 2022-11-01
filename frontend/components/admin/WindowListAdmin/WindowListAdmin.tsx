@@ -12,18 +12,23 @@ import {
   AdminButtonFunctional,
   AdminButtonType,
 } from "../../../enums/AdminButtons.enum";
+import { AdminListType } from "../../../enums/AdminList.enum";
 import { IMenuItem } from "../../../interfaces/menu.interface";
 import ButtonAdmin from "../Buttons/ButtonAdmin/ButtonAdmin";
 
 import InputAdminMenu from "../Inputs/InputMenu/InputAdminMenu";
 import OptionsItemAdmin from "../OptionsItemAdmin/OptionsItemAdmin";
 
-import s from "./MenuListAdmin.module.scss";
+import { ICatalog } from "../../../interfaces/catalog.interface";
 
-interface MenuItemListAdminProps {
+import s from "./WindowListAdmin.module.scss";
+
+interface WindowListAdminProps {
+  typeList?: AdminListType;
   visible: boolean;
   title: string;
-  itemArr: IMenuItem[];
+  itemArr: IMenuItem[] | ICatalog[];
+  optionsBtnVisible?: boolean;
   clickToItem: (index: number) => void;
   createItemName: (name: string) => void;
   updateItemName: (currentIndexMenu: number, name: string) => void;
@@ -34,10 +39,12 @@ interface MenuItemListAdminProps {
   updateLink?: (index: number, link: string) => void;
 }
 
-const MenuListAdmin = ({
+const WindowListAdmin = ({
+  typeList = AdminListType.Menu,
   visible = false,
   title,
   itemArr,
+  optionsBtnVisible = true,
   clickToItem,
   createItemName,
   updateItemName,
@@ -45,7 +52,7 @@ const MenuListAdmin = ({
   updateSerialNumberByIndex,
   updateSerialNumberById,
   updateLink,
-}: MenuItemListAdminProps) => {
+}: WindowListAdminProps) => {
   const [currentIndexMenu, setCurrentIndexMenu] = useState<number>(null);
   const [itemBottomActive, setItemBottomActive] = useState<boolean>(false);
   const [dragIndex, setDragIndex] = useState<number>(null);
@@ -90,7 +97,7 @@ const MenuListAdmin = ({
 
   function handleDragStart(e, index) {
     console.log("handleDragStart", index);
-    setItemBottomActive(false)
+    setItemBottomActive(false);
     setDragIndex(index);
   }
   function handleDragOver(e: React.DragEvent<HTMLLIElement>, index: number) {
@@ -256,21 +263,41 @@ const MenuListAdmin = ({
                         onClick={() => handleClickMenuItem(index)}
                       >
                         {item.name}
-                        {typeof item["submenuitems"] !== "undefined" && (
+                        {typeList == AdminListType.Menu && (
                           <>
-                            {item.submenuitems.length > 0 && (
-                              <div className={s.hasChildren}>
-                                <AiOutlineRight />
-                              </div>
+                            {typeof item["submenuitems"] !== "undefined" && (
+                              <>
+                                {item.submenuitems.length > 0 && (
+                                  <div className={s.hasChildren}>
+                                    <AiOutlineRight />
+                                  </div>
+                                )}
+                              </>
                             )}
                           </>
                         )}
-                        <div
-                          className={s.optionsBtn}
-                          onClick={() => handleClickOptions(index)}
-                        >
-                          <AiOutlineMore size={20} />
-                        </div>
+                        {typeList == AdminListType.Catalog && (
+                          <>
+                            {typeof item["children"] !== "undefined" && (
+                              <>
+                                {item.children.length > 0 && (
+                                  <div className={s.hasChildren}>
+                                    <AiOutlineRight />
+                                  </div>
+                                )}
+                              </>
+                            )}
+                          </>
+                        )}
+
+                        {optionsBtnVisible && (
+                          <div
+                            className={s.optionsBtn}
+                            onClick={() => handleClickOptions(index)}
+                          >
+                            <AiOutlineMore size={20} />
+                          </div>
+                        )}
                       </div>
 
                       {currentIndexMenu === index && itemBottomActive && (
@@ -310,4 +337,4 @@ const MenuListAdmin = ({
   );
 };
 
-export default MenuListAdmin;
+export default WindowListAdmin;
