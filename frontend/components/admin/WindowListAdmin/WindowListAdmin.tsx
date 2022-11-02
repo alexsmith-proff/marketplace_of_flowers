@@ -158,7 +158,7 @@ const WindowListAdmin = ({
     }
   }
 
-  console.log("itemArr", itemArr);
+  // console.log("itemArr", itemArr);
 
   return (
     <>
