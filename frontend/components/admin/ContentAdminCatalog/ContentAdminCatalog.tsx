@@ -24,6 +24,7 @@ const ContentAdminCatalog = ({ }: ContentAdminCatalogProps) => {
 
   const [currentWindowNum, setCurrentWindowNum] = useState<number>(null)
   const [currentItemIndex, setCurrentItemIndex] = useState<number>(null)
+  const [titleWindows, setTitleWindows] = useState<string[]>(['Каталог'])
 
   useEffect(() => {
     if (catalogRoot.data) {
@@ -34,25 +35,29 @@ const ContentAdminCatalog = ({ }: ContentAdminCatalogProps) => {
 
   useEffect(() => {
     if (data) {
+      let newCatalogArr
       if((catalogArr.length - 1) > currentWindowNum) {
-        const arrLength = catalogArr.length - 1
-        console.log('arrLength', arrLength);
-        
-        setCatalogArr(catalogArr.filter((item, index) => index <= arrLength))
+        newCatalogArr = catalogArr.filter((item, index) => index <= currentWindowNum)
+      }else{
+        newCatalogArr = catalogArr
       }
-      setCatalogArr([...catalogArr, data.getCatalogByParent])
+      setCatalogArr([...newCatalogArr, data.getCatalogByParent])
     }
   }, [data])
 
 
-  console.log("catalogArr", catalogArr);
-  console.log('data', data);
+  // console.log("catalogArr", catalogArr);
+  // console.log('data', data);
+  console.log('titleWindows', titleWindows);
 
   const handleClickToItem = (windowNum: number, itemIndex: number) => {
-    console.log(`Окно = ${windowNum}; ItemIndex = ${itemIndex}`)
+    // console.log(`Окно = ${windowNum}; ItemIndex = ${itemIndex}`)
     setCurrentWindowNum(windowNum)
     setCurrentItemIndex(itemIndex)
-    console.log('parent_id', catalogArr[windowNum][itemIndex].id)
+
+    let newTitleWindows = [...titleWindows] 
+    newTitleWindows[windowNum + 1] = catalogArr[windowNum][itemIndex].name
+    setTitleWindows(newTitleWindows)
 
     getCatalogById({
       variables: {
@@ -73,7 +78,7 @@ const ContentAdminCatalog = ({ }: ContentAdminCatalogProps) => {
           <WindowListAdmin
             key={windowNum}
             typeList={AdminListType.Catalog}
-            title="Каталог"
+            title={titleWindows[windowNum]}
             itemArr={item}
             visible={true}
             optionsBtnVisible={false}

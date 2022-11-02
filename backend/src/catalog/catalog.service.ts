@@ -72,6 +72,7 @@ export class CatalogService {
         },
         relations: {
           children: true,
+          parent: true
         },
       });
       return sortingArr(catalog)
