@@ -209,6 +209,7 @@ type Mutation {
   createSubmenuItem(createSubmenuItemInput: CreateSubmenuItemInput!): SubmenuItemEntity!
   createSubmenuItemTwo(createSubmenuItemTwoInput: CreateSubmenuItemTwoInput!): SubmenuItemTwoEntity!
   createTextElement(createTextElementInput: CreateTextElementInput!): TextElementEntity!
+  removeCatalog(id: Int!): CatalogEntity!
   removeElement(id: Int!): ElementEntity!
   removeImgElement(id: Int!): ImgElementEntity!
   removeMenu(id: Int!): MenuEntity!
@@ -217,6 +218,7 @@ type Mutation {
   removeSubmenuItem(id: Int!): SubmenuItemEntity!
   removeSubmenuItemTwo(id: Int!): SubmenuItemTwoEntity!
   removeTextElement(id: Int!): TextElementEntity!
+  updateCatalog(updateCatalogInput: UpdateCatalogInput!): CatalogEntity!
   updateElement(updateElementInput: UpdateElementInput!): ElementEntity!
   updateImgElement(updateImgElementInput: UpdateImgElementInput!): ImgElementEntity!
   updateMenu(updateMenuInput: UpdateMenuInput!): MenuEntity!
@@ -296,6 +298,17 @@ type TextElementEntity {
 
   """text TextElement"""
   text: String!
+}
+
+input UpdateCatalogInput {
+  id: Int!
+  name: String!
+
+  """Parent"""
+  parent_id: Float
+
+  """Serial number"""
+  serial_number: Float
 }
 
 input UpdateElementInput {

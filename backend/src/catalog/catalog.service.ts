@@ -79,15 +79,15 @@ export class CatalogService {
     }
   }
 
-  // async update(id: number, updateCatalogInput: UpdateCatalogInput): Promise<CatalogEntity> {
-  //   const item = await this.findOne(id)
-  //   const newItem = {...item, ...updateCatalogInput}
-  //   return await this.catalogRepository.save(newItem)
-  // }
+  async update(id: number, updateCatalogInput: UpdateCatalogInput): Promise<CatalogEntity> {
+    const item = await this.findOne(id)
+    const newItem = {...item, ...updateCatalogInput}
+    return await this.catalogRepository.save(newItem)
+  }
 
-  // async remove(id: number): Promise<CatalogEntity> {
-  //   const item = await this.findOne(id)
-  //   await this.catalogRepository.delete(id)
-  //   return item
-  // }
+  async remove(id: number): Promise<CatalogEntity> {
+    const item = await this.findOne(id)
+    await this.catalogRepository.delete(id)
+    return item
+  }
 }

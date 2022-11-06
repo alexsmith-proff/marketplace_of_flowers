@@ -29,13 +29,13 @@ export class CatalogResolver {
   //   return this.catalogService.findOne(id);
   // }
 
-  // @Mutation(() => CatalogEntity)
-  // updateCatalog(@Args('updateCatalogInput') updateCatalogInput: UpdateCatalogInput) {
-  //   return this.catalogService.update(updateCatalogInput.id, updateCatalogInput);
-  // }
+  @Mutation(() => CatalogEntity)
+  updateCatalog(@Args('updateCatalogInput') updateCatalogInput: UpdateCatalogInput) {
+    return this.catalogService.update(updateCatalogInput.id, updateCatalogInput);
+  }
 
-  // @Mutation(() => CatalogEntity)
-  // removeCatalog(@Args('id', { type: () => Int }) id: number) {
-  //   return this.catalogService.remove(id);
-  // }
+  @Mutation(() => CatalogEntity)
+  removeCatalog(@Args('id', { type: () => Int }) id: number) {
+    return this.catalogService.remove(id);
+  }
 }
