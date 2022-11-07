@@ -1,6 +1,45 @@
 import { gql } from "@apollo/client"
 
-export const GET_ROOT_CATALOG = gql`
+export const GET_ALL_CATALOG = gql`
+  query GetAllCatalog {
+    getAllCatalog{
+      id
+      name
+      serial_number
+      children{
+        id
+        name
+        serial_number
+        children{
+          id
+      	  name
+      	  serial_number
+          children{
+        		id
+      		  name
+      		serial_number
+	          children{
+			        id
+			        name
+			        serial_number
+              children{
+				        id
+      				  name
+      				  serial_number
+      				}
+    			  }
+      		}
+       	}
+      }
+    }
+  }
+`;
+
+
+
+
+
+export const GET_CATALOG_BY_PARENT_ID = gql`
   query GetCatalogByParent($findCatalogInput: FindCatalogInput!) {
     getCatalogByParent(findCatalogInput: $findCatalogInput) {
         id

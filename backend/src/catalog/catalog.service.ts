@@ -14,7 +14,7 @@ const sortingArr = (arr) => {
     }
   });
   return arr;
-}
+};
 
 @Injectable()
 export class CatalogService {
@@ -26,7 +26,11 @@ export class CatalogService {
   async create(createCatalogInput: CreateCatalogInput): Promise<CatalogEntity> {
     let catalogParent;
     if (typeof createCatalogInput['parent_id'] !== 'undefined') {
-      catalogParent = await this.findOne(createCatalogInput.parent_id);
+      if (createCatalogInput.parent_id == null) {
+        catalogParent = null;
+      } else {
+        catalogParent = await this.findOne(createCatalogInput.parent_id);
+      }
     }
     console.log('createCatalogInput', { ...createCatalogInput });
 
@@ -62,9 +66,9 @@ export class CatalogService {
         },
         relations: {
           children: true,
-        }
+        },
       });
-      return sortingArr(catalog) 
+      return sortingArr(catalog);
     } else {
       const catalog = await this.catalogRepository.find({
         where: {
@@ -72,22 +76,25 @@ export class CatalogService {
         },
         relations: {
           children: true,
-          parent: true
+          parent: true,
         },
       });
-      return sortingArr(catalog)
+      return sortingArr(catalog);
     }
   }
 
-  async update(id: number, updateCatalogInput: UpdateCatalogInput): Promise<CatalogEntity> {
-    const item = await this.findOne(id)
-    const newItem = {...item, ...updateCatalogInput}
-    return await this.catalogRepository.save(newItem)
+  async update(
+    id: number,
+    updateCatalogInput: UpdateCatalogInput,
+  ): Promise<CatalogEntity> {
+    const item = await this.findOne(id);
+    const newItem = { ...item, ...updateCatalogInput };
+    return await this.catalogRepository.save(newItem);
   }
 
   async remove(id: number): Promise<CatalogEntity> {
-    const item = await this.findOne(id)
-    await this.catalogRepository.delete(id)
-    return item
+    const item = await this.findOne(id);
+    await this.catalogRepository.delete(id);
+    return item;
   }
 }
