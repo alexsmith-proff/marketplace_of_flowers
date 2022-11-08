@@ -63,6 +63,8 @@ const CreateCatalogSection: FC<CreateCatalogSectionProps> = () => {
       if(dataGetCatalogByID){
         InitialCatalogArr[0] = dataGetCatalogByID.getCatalogByParent
         setCatalogArr([...InitialCatalogArr])
+        console.log('dataGetCatalogByID.getCatalogByParent', dataGetCatalogByID.getCatalogByParent);
+        
       }
     }
     if (actionWindow.current === AdminActionWindowType.ClickParent) {
@@ -82,9 +84,10 @@ const CreateCatalogSection: FC<CreateCatalogSectionProps> = () => {
     if(actionWindow.current == AdminActionWindowType.CreateItem){
       let newCatalogArr = [...catalogArr]
       newCatalogArr[currentWindowNum] = dataGetCatalogByID.getCatalogByParent
+      
       setCatalogArr([...newCatalogArr])
       
-      console.log('dataGetCatalogByIDCreate', newCatalogArr);      
+      console.log('dataGetCatalogByIDCreate', newCatalogArr);
     }
     if (dataGetCatalogByID) {
       console.log('data', dataGetCatalogByID); 
@@ -128,11 +131,8 @@ const CreateCatalogSection: FC<CreateCatalogSectionProps> = () => {
      await createCatalogName({
       variables: {
         createCatalogInput: {
-          // name: 'asaaaa',
           name: nameCatalog,
-          // serial_number: +serial_number,
           serial_number: 120,
-          // parent_id: 1
           parent_id: parent_id
         }
       },      
@@ -191,7 +191,7 @@ const CreateCatalogSection: FC<CreateCatalogSectionProps> = () => {
 
 
 
-  // console.log('catalogArrrrr', catalogArr);
+  console.log('catalogArrrrr', catalogArr);
 
 
   return (
