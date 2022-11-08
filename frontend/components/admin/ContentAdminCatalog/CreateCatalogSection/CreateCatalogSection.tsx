@@ -11,7 +11,11 @@ import { AdminActionWindowType } from "../../../../enums/AdminActions.enum";
 interface CreateCatalogSectionProps { }
 
 const CreateCatalogSection: FC<CreateCatalogSectionProps> = () => {
-  const [getCatalogByIdClick, { loading: loadingGetCatalogByID, error: errorGetCatalogByID, data: dataGetCatalogByID }] = useLazyQuery(GET_CATALOG_BY_PARENT_ID);
+  // const [getCatalogByIdClick, { loading: loadingGetCatalogByID, error: errorGetCatalogByID, data: dataGetCatalogByID }] = useLazyQuery(GET_CATALOG_BY_PARENT_ID);
+  const { loading: loadingGetCatalogByID, error: errorGetCatalogByID, data: dataGetCatalogByID, refetch } = useQuery(GET_CATALOG_BY_PARENT_ID, {
+    notifyOnNetworkStatusChange: true
+  }) 
+  
   const [createCatalogName, dataCreateCatalogName] = useMutation(CREATE_CATALOG_NAME)
   const [updateCatalogName, dataUpdateCatalogName] = useMutation(UPDATE_CATALOG_NAME)
   const [deleteCatalogName, dataDeletCatalogName] = useMutation(DELETE_CATALOG_NAME)
@@ -22,19 +26,30 @@ const CreateCatalogSection: FC<CreateCatalogSectionProps> = () => {
   const [currentItemIndex, setCurrentItemIndex] = useState<number>(null);
   const [titleWindows, setTitleWindows] = useState<string[]>(["Каталог"]);
   const [parentArr, setparentArr] = useState<ICatalog[]>([null])
+
   // const [actionWindow, setActionWindow] = useState<AdminActionWindowType>(null)
   const actionWindow = useRef<AdminActionWindowType>(null)
+
+
+
+
 
   useEffect(() => {
     console.log('useEffect')
     actionWindow.current = AdminActionWindowType.Initial
 
-    getCatalogByIdClick({
-      variables: {
-        findCatalogInput: {
-          parent_id: 0
-        },
-      },
+    // getCatalogByIdClick({
+    //   variables: {
+    //     findCatalogInput: {
+    //       parent_id: 0
+    //     },
+    //   },
+    // })
+
+    refetch({
+      findCatalogInput: {
+        parent_id: 0
+      }
     })
 
   }, []);
@@ -80,17 +95,37 @@ const CreateCatalogSection: FC<CreateCatalogSectionProps> = () => {
 
 
 
-  const handleCreateItemName = (nameCatalog: string, serial_number: number, parent_id: number, windowNum: number) => {
-    console.log(nameCatalog, serial_number, parent_id);
-    // console.log('parentttt', windowNum != 0 ? +parentArr[windowNum].id : null);
-    // console.log('parentArr[windowNum].id', parentArr ? parentArr[windowNum].id : null);
-    // console.log('parentArr', parentArr);
-    
-    
+
+  const handleClickToItem = (windowNum: number, itemIndex: number) => {
+    actionWindow.current = AdminActionWindowType.ClickParent
+
+    setCurrentWindowNum(windowNum);
+    setCurrentItemIndex(itemIndex);
+
+    let newParentArr = []
+    newParentArr = [...parentArr]
+    newParentArr[windowNum + 1] = catalogArr[windowNum][itemIndex]
+    setparentArr([...newParentArr])
+
+    let newTitleWindows = [...titleWindows];
+    newTitleWindows[windowNum + 1] = catalogArr[windowNum][itemIndex].name;
+    setTitleWindows(newTitleWindows);
+
+    refetch({
+      findCatalogInput: {
+        parent_id: Number(catalogArr[windowNum][itemIndex].id)
+      }
+    })
+
+  };
+
+
+
+  const handleCreateItemName = async(nameCatalog: string, serial_number: number, parent_id: number, windowNum: number) => {
     actionWindow.current = AdminActionWindowType.CreateItem
     setCurrentWindowNum(windowNum)
 
-    createCatalogName({
+     await createCatalogName({
       variables: {
         createCatalogInput: {
           // name: 'asaaaa',
@@ -101,32 +136,14 @@ const CreateCatalogSection: FC<CreateCatalogSectionProps> = () => {
           parent_id: parent_id
         }
       },      
-      refetchQueries: [
-        {
-          query: GET_CATALOG_BY_PARENT_ID,
-          variables: {
-            findCatalogInput: {
-              parent_id: parent_id == null ? 0 : parent_id
-              // parent_id: 1
-            },
-          },
-          fetchPolicy: 'network-only'
-        }
-      ],
-      // awaitRefetchQueries: true,
     })
 
-    // setTimeout(() => getCatalogByIdClick({
-    //   variables: {
-    //     findCatalogInput: {
-    //       parent_id: windowNum != 0 ? Number(parentArr[windowNum].id) : 0
-    //     },
-    //   },
-    // }), 1000)
-
-
-  
-    console.log('zzzzzzzzzzzzzzzzzzzz');
+    await refetch({
+      findCatalogInput: {
+        parent_id: Number(parent_id == null ? 0 : parent_id)
+      }
+    })
+ 
   }
 
   const handleUpdateItemName = async (id: number, nameCatalog: string, windowNum: number) => {
@@ -174,38 +191,6 @@ const CreateCatalogSection: FC<CreateCatalogSectionProps> = () => {
 
 
 
-
-
-  const handleClickToItem = (windowNum: number, itemIndex: number) => {
-    console.log('Number(catalogArr[windowNum][itemIndex].id) = ', Number(catalogArr[windowNum][itemIndex].id));
-    
-    actionWindow.current = AdminActionWindowType.ClickParent
-
-    setCurrentWindowNum(windowNum);
-    setCurrentItemIndex(itemIndex);
-
-    let newParentArr = []
-    newParentArr = [...parentArr]
-    newParentArr[windowNum + 1] = catalogArr[windowNum][itemIndex]
-    setparentArr([...newParentArr])
-    console.log('ParentArr', newParentArr);
-    
-
-    let newTitleWindows = [...titleWindows];
-    newTitleWindows[windowNum + 1] = catalogArr[windowNum][itemIndex].name;
-    setTitleWindows(newTitleWindows);
-    console.log('TitleWindows', newTitleWindows);
-
-    getCatalogByIdClick({
-      variables: {
-        findCatalogInput: {
-          parent_id: Number(catalogArr[windowNum][itemIndex].id),
-        },
-      },
-      nextFetchPolicy : 'network-only',
-    });
-  };
-
   // console.log('catalogArrrrr', catalogArr);
 
 
@@ -220,10 +205,10 @@ const CreateCatalogSection: FC<CreateCatalogSectionProps> = () => {
             itemArr={item}
             visible={true}
             optionsBtnVisible={false}
+            clickToItem={(itemIndex) => handleClickToItem(index, itemIndex)}
             createItemName={(name) => handleCreateItemName(name, index != 0 ? (parentArr[index].children.length + 1) * 100 : (catalogArr[0].length + 1) * 100, index != 0 ? Number(parentArr[index].id) : null, index)}
             updateItemName={(indexItem, name) => handleUpdateItemName(catalogArr[index][indexItem].id, name, index)}
             deleteItemName={(indexItem) => handleDeleteItemName(catalogArr[index][indexItem].id, index)}
-            clickToItem={(itemIndex) => handleClickToItem(index, itemIndex)}
           />
         ))}
     </div>
