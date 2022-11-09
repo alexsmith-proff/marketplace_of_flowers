@@ -8,6 +8,10 @@ import { ICatalog } from "../../../../interfaces/catalog.interface";
 import s from "./CreateCatalogSection.module.scss";
 import { AdminActionWindowType } from "../../../../enums/AdminActions.enum";
 
+interface IParentCatalog extends ICatalog {
+  position: number
+}
+
 interface CreateCatalogSectionProps { }
 
 const CreateCatalogSection: FC<CreateCatalogSectionProps> = () => {
@@ -25,7 +29,7 @@ const CreateCatalogSection: FC<CreateCatalogSectionProps> = () => {
   const [currentWindowNum, setCurrentWindowNum] = useState<number>(null);
   const [currentItemIndex, setCurrentItemIndex] = useState<number>(null);
   const [titleWindows, setTitleWindows] = useState<string[]>(["Каталог"]);
-  const [parentArr, setparentArr] = useState<ICatalog[]>([null])
+  const [parentArr, setparentArr] = useState<IParentCatalog[]>([null])
 
   // const [actionWindow, setActionWindow] = useState<AdminActionWindowType>(null)
   const actionWindow = useRef<AdminActionWindowType>(null)
@@ -111,6 +115,31 @@ const CreateCatalogSection: FC<CreateCatalogSectionProps> = () => {
       newCatalogArr[currentWindowNum] = dataGetCatalogByID.getCatalogByParent  
       setCatalogArr([...newCatalogArr])    
     }
+    if(actionWindow.current == AdminActionWindowType.DeleteItem){
+      let newCatalogArr = [...catalogArr]
+      newCatalogArr[currentWindowNum] = dataGetCatalogByID.getCatalogByParent  
+
+      /////////////////////////////////////
+      if (currentWindowNum != 0) {
+        // Добавление массива дочерних категорий в children родителя
+        const itemsArr = [...catalogArr[currentWindowNum - 1]]
+        itemsArr[parentArr[currentWindowNum].position] = { ...catalogArr[currentWindowNum - 1][parentArr[currentWindowNum].position], children: dataGetCatalogByID.getCatalogByParent }
+        newCatalogArr[currentWindowNum - 1] = itemsArr
+
+        if(newCatalogArr[newCatalogArr.length - 1].length == 0){
+          newCatalogArr.pop()
+        }
+
+        // Обновляем массив parentArr
+        let newParentArr = []
+        newParentArr = [...parentArr]
+        newParentArr[currentWindowNum] = {...newParentArr[currentWindowNum], children: dataGetCatalogByID.getCatalogByParent}
+        setparentArr([...newParentArr])
+      }
+      ///////////////////////
+
+      setCatalogArr([...newCatalogArr])    
+    }
 
   }, [dataGetCatalogByID]);
 
@@ -126,7 +155,7 @@ const CreateCatalogSection: FC<CreateCatalogSectionProps> = () => {
 
     let newParentArr = []
     newParentArr = [...parentArr]
-    newParentArr[windowNum + 1] = catalogArr[windowNum][itemIndex]
+    newParentArr[windowNum + 1] = {...catalogArr[windowNum][itemIndex], position: itemIndex}
     setparentArr([...newParentArr])
 
     let newTitleWindows = [...titleWindows];
@@ -166,7 +195,6 @@ const CreateCatalogSection: FC<CreateCatalogSectionProps> = () => {
   }
 
   const handleUpdateItemName = async (id: number, nameCatalog: string, windowNum: number) => {
-    console.log('parentttttt', parentArr[windowNum]);
     actionWindow.current = AdminActionWindowType.UpdateItem
     setCurrentWindowNum(windowNum)
 
@@ -187,27 +215,26 @@ const CreateCatalogSection: FC<CreateCatalogSectionProps> = () => {
 
   }
   const handleDeleteItemName = async (id: number, windowNum: number) => {
+    actionWindow.current = AdminActionWindowType.DeleteItem
+    setCurrentWindowNum(windowNum)
+
     await deleteCatalogName({
       variables: {
-        id: +id
-      },
-      //   refetchQueries: [
-      //       {
-      //         query: GET_CATALOG_BY_PARENT_ID,
-      //         variables: {
-      //           findCatalogInput: {
-      //             parent_id: windowNum != 0 ? +parentArr[windowNum].id : null
-      //           },
-      //         }
-      //       }
-      //     ]
+        id: Number(id)
+      }
+    })
+
+    await refetch({
+      findCatalogInput: {
+        parent_id: Number(parentArr[windowNum] == null ? 0 : parentArr[windowNum].id)
+      }
     })
 
   }
 
 
 
-  // console.log('catalogArrrrr', catalogArr);
+  console.log('catalogArrrrr', catalogArr);
 
 
   return (
