@@ -84,16 +84,24 @@ const CreateCatalogSection: FC<CreateCatalogSectionProps> = () => {
     if(actionWindow.current == AdminActionWindowType.CreateItem){
       let newCatalogArr = [...catalogArr]
       newCatalogArr[currentWindowNum] = dataGetCatalogByID.getCatalogByParent
+
+
+/////////////////////////////////////
+      // Добавление массива дочерних категорий в children родителя
+      if(currentWindowNum != 0){
+        const itemsArr = [...catalogArr[currentWindowNum - 1]]
+        itemsArr[currentItemIndex] = {...catalogArr[currentWindowNum - 1][currentItemIndex], children: dataGetCatalogByID.getCatalogByParent}
+        newCatalogArr[currentWindowNum - 1] = itemsArr
+      }
+///////////////////////
+
       
       setCatalogArr([...newCatalogArr])
       
       console.log('dataGetCatalogByIDCreate', newCatalogArr);
     }
-    if (dataGetCatalogByID) {
-      console.log('data', dataGetCatalogByID); 
-    }
+    
   }, [dataGetCatalogByID]);
-
 
 
 
@@ -142,7 +150,7 @@ const CreateCatalogSection: FC<CreateCatalogSectionProps> = () => {
       findCatalogInput: {
         parent_id: Number(parent_id == null ? 0 : parent_id)
       }
-    })
+    })  
  
   }
 
