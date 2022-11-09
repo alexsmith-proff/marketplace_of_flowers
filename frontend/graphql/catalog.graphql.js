@@ -44,9 +44,11 @@ export const GET_CATALOG_BY_PARENT_ID = gql`
     getCatalogByParent(findCatalogInput: $findCatalogInput) {
         id
         name
+        serial_number
         children{
             id
             name
+            serial_number
         }      
     }
   }

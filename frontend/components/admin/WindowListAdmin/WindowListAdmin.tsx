@@ -158,7 +158,7 @@ const WindowListAdmin = ({
     }
   }
 
-  // console.log("itemArr", itemArr);
+  // console.log("iiitemArr", itemArr);
 
   return (
     <>
@@ -262,7 +262,7 @@ const WindowListAdmin = ({
                         }
                         onClick={() => handleClickMenuItem(index)}
                       >
-                        {item.name}
+                        {item.name}{` (${item.serial_number})`}
                         {typeList == AdminListType.Menu && (
                           <>
                             {typeof item["submenuitems"] !== "undefined" && (
