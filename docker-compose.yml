@@ -1,0 +1,23 @@
+version: "3.7"
+
+services:
+  postgres:
+    container_name: postgres
+    image: postgres:13.3
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=root
+      - POSTGRES_DB=marketplace-flowers
+    ports:
+      - "5432:5432"
+    restart: unless-stopped
+  backend:
+    container_name: backend
+    build:
+       context: ./backend
+       dockerfile: Dockerfile
+    command: npm run start:dev    
+    ports:
+      - '5000:5000'
+    working_dir: /usr/src/app
+    restart: unless-stopped
