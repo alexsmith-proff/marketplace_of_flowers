@@ -1,23 +1,38 @@
-version: "3.7"
+version: "3"
 
 services:
-  postgres:
-    container_name: postgres
-    image: postgres:13.3
-    environment:
-      - POSTGRES_USER=postgres
-      - POSTGRES_PASSWORD=root
-      - POSTGRES_DB=marketplace-flowers
-    ports:
-      - "5432:5432"
-    restart: unless-stopped
-  backend:
-    container_name: backend
-    build:
-       context: ./backend
-       dockerfile: Dockerfile
-    command: npm run start:dev    
-    ports:
-      - '5000:5000'
+  # database:
+  #   container_name: postgressss
+  #   image: postgres:13.3
+  #   environment:
+  #     - POSTGRES_USER=postgres
+  #     - POSTGRES_PASSWORD=root
+  #     - POSTGRES_DB=marketplace-flowers
+  #   ports:
+  #     - "5432:5432"
+  #   restart: unless-stopped
+  # backend:
+  #   container_name: backend
+  #   build:
+  #      context: ./backend
+  #      dockerfile: Dockerfile
+  #   # depends_on:
+  #   #   - database   
+  #   command: npm run start:dev    
+  #   ports:
+  #     - '5000:5000'
+  #   working_dir: /usr/src/app
+  #   restart: unless-stopped
+  frontend:
+    container_name: frontend
+    restart: always  
     working_dir: /usr/src/app
-    restart: unless-stopped
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    volumes:
+      - ./frontend:/usr/src/app
+      - /usr/src/app/node_modules
+      - /usr/src/app/.next
+    ports:
+      - '3000:3000'  

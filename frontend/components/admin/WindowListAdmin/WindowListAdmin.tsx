@@ -29,7 +29,7 @@ interface WindowListAdminProps {
   title: string;
   itemArr: IMenuItem[] | ICatalog[];
   optionsBtnVisible?: boolean;
-  clickToItem: (index: number) => void;
+  clickToItem?: (index: number) => void;
   createItemName: (name: string) => void;
   updateItemName: (currentIndexMenu: number, name: string) => void;
   deleteItemName: (currentIndexMenu: number) => void;
@@ -103,7 +103,7 @@ const WindowListAdmin = ({
   function handleDragOver(e: React.DragEvent<HTMLLIElement>, index: number) {
     // console.log("handleDragOver", e.target);
     e.preventDefault();
-    e.target.classList.add("menuListDragOver");
+    ////e.target.classList.add("menuListDragOver");
     setFutureIndex(index);
   }
   function handleDragLeave(e) {
@@ -120,7 +120,7 @@ const WindowListAdmin = ({
   function handleDrop(e: React.DragEvent<HTMLLIElement>, index) {
     console.log("handleDrop", index);
     e.preventDefault();
-    e.target.classList.remove("menuListDragOver");
+    ////e.target.classList.remove("menuListDragOver");
 
     if (index === itemArr.length - 1) {
       updateSerialNumberByIndex(dragIndex, itemArr[index].serial_number + 100);
