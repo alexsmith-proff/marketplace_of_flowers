@@ -262,7 +262,7 @@ const WindowListAdmin = ({
                         }
                         onClick={() => handleClickMenuItem(index)}
                       >
-                        {item.name}{` (${item.serial_number})`}
+                        {item.name}
                         {typeList == AdminListType.Menu && (
                           <>
                             {typeof item["submenuitems"] !== "undefined" && (
