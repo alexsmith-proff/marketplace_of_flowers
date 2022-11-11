@@ -234,7 +234,16 @@ const CreateCatalogSection: FC<CreateCatalogSectionProps> = () => {
 
 
 
-  const handleUpdateSerialNumberByIndexCatalogItem = async(id: number, serialNumber: number, parent_id: number) => {
+  const handleUpdateSerialNumberByIndexCatalogItem = async(id: number, serialNumber: number, parent_id: number, windowNum: number) => {
+    console.log('handleUpdateSerialNumberByIndexCatalogItem');
+    console.log('--id = ', id);
+    console.log('--serialNumber = ', serialNumber);
+    console.log('--parent_id = ', parent_id);
+
+    actionWindow.current = AdminActionWindowType.UpdateItem
+    setCurrentWindowNum(windowNum)
+    
+    
     await updateCatalogName({
       variables: {
         updateCatalogInput: {
@@ -251,23 +260,6 @@ const CreateCatalogSection: FC<CreateCatalogSectionProps> = () => {
     })
 
   }
-  // const handleupdateSerialNumberByIDCatalogItem = (id: number, serialNumber: number) => {
-  //   updateMenuItemName({
-  //     variables: {
-  //       updateMenuItemInput: {
-  //         id: +id,
-  //         serial_number: +serialNumber
-  //       }
-  //     },
-  //     refetchQueries: [
-  //       {
-  //         query: GET_ALL_MENU
-  //       }
-  //     ]
-  //   })
-  // }
-
-
 
   console.log('catalogArrrrr', catalogArr);
 
@@ -287,8 +279,8 @@ const CreateCatalogSection: FC<CreateCatalogSectionProps> = () => {
             createItemName={(name) => handleCreateItemName(name, index != 0 ? (parentArr[index].children.length + 1) * 100 : (catalogArr[0].length + 1) * 100, index != 0 ? Number(parentArr[index].id) : null, index)}
             updateItemName={(indexItem, name) => handleUpdateItemName(catalogArr[index][indexItem].id, name, index)}
             deleteItemName={(indexItem) => handleDeleteItemName(catalogArr[index][indexItem].id, index)}
-            updateSerialNumberById={(id, serial_number) => handleUpdateSerialNumberByIndexCatalogItem(id, serial_number, index != 0 ? Number(parentArr[index].id) : null)}
-            updateSerialNumberByIndex={(indexItem, serial_number) => handleUpdateSerialNumberByIndexCatalogItem(catalogArr[index][indexItem].id, serial_number, index != 0 ? Number(parentArr[index].id) : null)}
+            updateSerialNumberById={(id, serial_number) => handleUpdateSerialNumberByIndexCatalogItem(id, serial_number, index != 0 ? Number(parentArr[index].id) : null, index)}
+            updateSerialNumberByIndex={(indexItem, serial_number) => handleUpdateSerialNumberByIndexCatalogItem(catalogArr[index][indexItem].id, serial_number, index != 0 ? Number(parentArr[index].id) : null, index)}
           />
         ))}
     </div>

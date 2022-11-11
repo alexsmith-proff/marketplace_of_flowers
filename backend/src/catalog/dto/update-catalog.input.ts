@@ -6,7 +6,7 @@ export class UpdateCatalogInput extends PartialType(CreateCatalogInput) {
   @Field(() => Int)
   id: number
   
-  @Field(() => String)
+  @Field(() => String, {nullable: true})
   name: string
 
   @Field(() => Number, { description: 'Serial number', nullable: true })

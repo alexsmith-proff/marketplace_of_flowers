@@ -302,7 +302,7 @@ type TextElementEntity {
 
 input UpdateCatalogInput {
   id: Int!
-  name: String!
+  name: String
 
   """Parent"""
   parent_id: Float
