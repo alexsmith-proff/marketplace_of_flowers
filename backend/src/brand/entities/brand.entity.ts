@@ -1,9 +1,9 @@
 import { ObjectType, Field, ID } from '@nestjs/graphql';
 import { ProductEntity } from 'src/product/entities/product.entity';
-import { Column, Entity, JoinTable, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 
 @ObjectType()
-@Entity('brend')
+@Entity('brand')
 export class BrandEntity {
   @Field(() => ID, { description: 'id brend' })
   @PrimaryGeneratedColumn()
