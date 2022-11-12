@@ -60,8 +60,8 @@ export class MenuService {
   }
 
   async remove(id: number): Promise<MenuEntity> {
-    const user = await this.findOne(id);
+    const menu = await this.findOne(id);
     await this.menuRepository.delete(id);
-    return user;
+    return menu;
   }
 }

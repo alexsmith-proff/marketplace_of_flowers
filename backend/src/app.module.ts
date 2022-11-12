@@ -26,6 +26,10 @@ import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { SubmenuItemTwoEntity } from './submenuitemtwo/entities/submenuitemtwo.entity';
 import { CatalogModule } from './catalog/catalog.module';
 import { CatalogEntity } from './catalog/entities/catalog.entity';
+import { ProductModule } from './product/product.module';
+import { BrandModule } from './brand/brand.module';
+import { ProductEntity } from './product/entities/product.entity';
+import { BrandEntity } from './brand/entities/brand.entity';
 
 @Module({
   imports: [
@@ -43,7 +47,7 @@ import { CatalogEntity } from './catalog/entities/catalog.entity';
         username: configService.get<string>('TYPEORM_USERNAME'),
         password: configService.get<string>('TYPEORM_PASSWORD'),
         database: configService.get<string>('TYPEORM_DATABASE'),
-        entities: [UserEntity, MenuEntity, MenuItemEntity, SubmenuItemEntity, SubmenuItemTwoEntity, CatalogEntity, SectionEntity, ElementEntity, TextElementEntity, ImgElementEntity],
+        entities: [UserEntity, MenuEntity, MenuItemEntity, SubmenuItemEntity, SubmenuItemTwoEntity, CatalogEntity, SectionEntity, ElementEntity, TextElementEntity, ImgElementEntity, ProductEntity, BrandEntity],
         synchronize: true,        
       })
     }),
@@ -54,7 +58,7 @@ import { CatalogEntity } from './catalog/entities/catalog.entity';
       playground: true 
     }),
   
-    UserModule, AuthModule, MenuModule, MenuItemModule, SubmenuItemModule, SubmenuItemTwoModule, SectionModule, ElementModule, TextElementModule, ImgElementModule, CatalogModule],
+    UserModule, AuthModule, MenuModule, MenuItemModule, SubmenuItemModule, SubmenuItemTwoModule, SectionModule, ElementModule, TextElementModule, ImgElementModule, CatalogModule, ProductModule, BrandModule],
   controllers: [AppController],
   providers: [AppService],
 })

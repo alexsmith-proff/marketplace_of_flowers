@@ -2,6 +2,15 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+type BrandEntity {
+  """id brend"""
+  id: ID!
+
+  """Name brand"""
+  name: String!
+  product: ProductEntity!
+}
+
 type CatalogEntity {
   """Children"""
   children: [CatalogEntity!]!
@@ -17,6 +26,11 @@ type CatalogEntity {
 
   """Serial number"""
   serial_number: Float!
+}
+
+input CreateBrandInput {
+  """Name brand"""
+  name: String!
 }
 
 input CreateCatalogInput {
@@ -73,6 +87,23 @@ input CreateMenuItemInput {
 
   """serial_number menuitem)"""
   serial_number: Float!
+}
+
+input CreateProductInput {
+  """Brand"""
+  brand_id: Float
+
+  """Count in stock"""
+  count_in_stock: Float
+
+  """Name"""
+  name: String!
+
+  """Price"""
+  price: Float
+
+  """Vendor code"""
+  vendor_code: String
 }
 
 input CreateSectionInput {
@@ -200,50 +231,83 @@ type MenuItemEntity {
 }
 
 type Mutation {
+  createBrand(createBrandInput: CreateBrandInput!): BrandEntity!
   createCatalog(createCatalogInput: CreateCatalogInput!): CatalogEntity!
   createElement(createElementInput: CreateElementInput!): ElementEntity!
   createImgElement(createImgElementInput: CreateImgElementInput!): ImgElementEntity!
   createMenu(createMenuInput: CreateMenuInput!): MenuEntity!
   createMenuItem(createMenuItemInput: CreateMenuItemInput!): MenuItemEntity!
+  createProduct(createProductInput: CreateProductInput!): ProductEntity!
   createSection(createSectionInput: CreateSectionInput!): SectionEntity!
   createSubmenuItem(createSubmenuItemInput: CreateSubmenuItemInput!): SubmenuItemEntity!
   createSubmenuItemTwo(createSubmenuItemTwoInput: CreateSubmenuItemTwoInput!): SubmenuItemTwoEntity!
   createTextElement(createTextElementInput: CreateTextElementInput!): TextElementEntity!
+  removeBrand(id: Int!): BrandEntity!
   removeCatalog(id: Int!): CatalogEntity!
   removeElement(id: Int!): ElementEntity!
   removeImgElement(id: Int!): ImgElementEntity!
   removeMenu(id: Int!): MenuEntity!
   removeMenuItem(id: Int!): MenuItemEntity!
+  removeProduct(id: Int!): ProductEntity!
   removeSection(id: Int!): SectionEntity!
   removeSubmenuItem(id: Int!): SubmenuItemEntity!
   removeSubmenuItemTwo(id: Int!): SubmenuItemTwoEntity!
   removeTextElement(id: Int!): TextElementEntity!
+  updateBrand(updateBrandInput: UpdateBrandInput!): BrandEntity!
   updateCatalog(updateCatalogInput: UpdateCatalogInput!): CatalogEntity!
   updateElement(updateElementInput: UpdateElementInput!): ElementEntity!
   updateImgElement(updateImgElementInput: UpdateImgElementInput!): ImgElementEntity!
   updateMenu(updateMenuInput: UpdateMenuInput!): MenuEntity!
   updateMenuItem(updateMenuItemInput: UpdateMenuItemInput!): MenuItemEntity!
+  updateProduct(updateProductInput: UpdateProductInput!): ProductEntity!
+  updateProductBrand(updateProductBrandInput: UpdateProductBrandInput!): ProductEntity!
   updateSection(updateSectionInput: UpdateSectionInput!): SectionEntity!
   updateSubmenuItem(updateSubmenuItemInput: UpdateSubmenuItemInput!): SubmenuItemEntity!
   updateSubmenuItemTwo(updateSubmenuItemTwoInput: UpdateSubmenuItemTwoInput!): SubmenuItemTwoEntity!
   updateTextElement(updateTextElementInput: UpdateTextElementInput!): TextElementEntity!
 }
 
+type ProductEntity {
+  """Brand"""
+  brand: BrandEntity
+
+  """Count in stock"""
+  count_in_stock: Float!
+  createdAt: DateTime!
+
+  """id product"""
+  id: ID!
+
+  """Name"""
+  name: String!
+
+  """Price"""
+  price: Float!
+  updatedAt: DateTime!
+
+  """Vendor code"""
+  vendor_code: String!
+}
+
 type Query {
+  getAllBrands: [BrandEntity!]!
   getAllCatalog: [CatalogEntity!]!
   getAllElements: [ElementEntity!]!
   getAllImgElement: [ImgElementEntity!]!
   getAllMenuItem: [MenuItemEntity!]!
   getAllMenus: [MenuEntity!]!
+  getAllProducts: [ProductEntity!]!
   getAllSections: [SectionEntity!]!
   getAllSubmenuItems: [SubmenuItemEntity!]!
   getAllSubmenuItemsTwo: [SubmenuItemTwoEntity!]!
   getAllTextElement: [TextElementEntity!]!
+  getBrandById(id: Int!): BrandEntity!
   getCatalogByParent(findCatalogInput: FindCatalogInput!): [CatalogEntity!]!
   getElementById(id: Int!): ElementEntity!
   getImgElementByID(id: Int!): ImgElementEntity!
   getMenuByID(id: Int!): MenuEntity!
   getMenuItemByID(id: Int!): MenuItemEntity!
+  getProductById(id: Int!): ProductEntity!
   getSectionById(id: Int!): SectionEntity!
   getSubmenuItemById(id: Int!): SubmenuItemEntity!
   getSubmenuItemTwoById(id: Int!): SubmenuItemTwoEntity!
@@ -298,6 +362,13 @@ type TextElementEntity {
 
   """text TextElement"""
   text: String!
+}
+
+input UpdateBrandInput {
+  id: Int!
+
+  """Name brand"""
+  name: String!
 }
 
 input UpdateCatalogInput {
@@ -367,6 +438,32 @@ input UpdateMenuItemInput {
 
   """serial number"""
   serial_number: Int
+}
+
+input UpdateProductBrandInput {
+  """Brand ID"""
+  brand_id: Float!
+
+  """Product ID"""
+  id: Int!
+}
+
+input UpdateProductInput {
+  """Brand"""
+  brand_id: Float
+
+  """Count in stock"""
+  count_in_stock: Float
+  id: Int!
+
+  """Name"""
+  name: String
+
+  """Price"""
+  price: Float
+
+  """Vendor code"""
+  vendor_code: String
 }
 
 input UpdateSectionInput {
