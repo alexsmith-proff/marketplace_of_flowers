@@ -37,25 +37,13 @@ const CreateCatalogSection: FC<CreateCatalogSectionProps> = () => {
 
 
 
-
   useEffect(() => {
-    console.log('useEffect')
     actionWindow.current = AdminActionWindowType.Initial
-
-    // getCatalogByIdClick({
-    //   variables: {
-    //     findCatalogInput: {
-    //       parent_id: 0
-    //     },
-    //   },
-    // })
-
     refetch({
       findCatalogInput: {
         parent_id: 0
       }
     })
-
   }, []);
 
 
@@ -235,11 +223,6 @@ const CreateCatalogSection: FC<CreateCatalogSectionProps> = () => {
 
 
   const handleUpdateSerialNumberByIndexCatalogItem = async(id: number, serialNumber: number, parent_id: number, windowNum: number) => {
-    console.log('handleUpdateSerialNumberByIndexCatalogItem');
-    console.log('--id = ', id);
-    console.log('--serialNumber = ', serialNumber);
-    console.log('--parent_id = ', parent_id);
-
     actionWindow.current = AdminActionWindowType.UpdateItem
     setCurrentWindowNum(windowNum)
     
@@ -269,7 +252,7 @@ const CreateCatalogSection: FC<CreateCatalogSectionProps> = () => {
       {catalogArr &&
         catalogArr.map((item, index) => (
           <WindowListAdmin
-            key={index}
+            key={index.toString()}
             typeList={AdminListType.Catalog}
             title={titleWindows[index]}
             itemArr={item}
