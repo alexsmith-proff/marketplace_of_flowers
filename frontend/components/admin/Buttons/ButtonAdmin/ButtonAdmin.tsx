@@ -61,7 +61,7 @@ const ButtonAdmin: FC<ButtonAdminProps> = ({
   return (
     <>
       {typeBtn == AdminButtonType.Text && (
-        <div className={s.buttonText + border ? ' ' + s.border : ''} onClick={handleButtonClick}>
+        <div className={s.buttonText + (border ? ' ' + s.border : '')} onClick={handleButtonClick}>
           {children}
         </div>
       )}

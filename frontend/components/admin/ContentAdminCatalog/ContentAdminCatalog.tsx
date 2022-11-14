@@ -9,10 +9,10 @@ interface ContentAdminCatalogProps { }
 const ContentAdminCatalog: FC<ContentAdminCatalogProps> = () => {
   
   return (
-    <>
+    <div className={s.container}>
       <CreateCatalogSection />
       <AdminProductSection />
-    </>
+    </div>
   );
 };
 

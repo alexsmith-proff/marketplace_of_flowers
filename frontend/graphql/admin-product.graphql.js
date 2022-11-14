@@ -7,6 +7,7 @@ export const GET_ALL_PRODUCTS = gql`
         name
         price
         vendor_code
+        count_in_stock
         brand{
           id
           name

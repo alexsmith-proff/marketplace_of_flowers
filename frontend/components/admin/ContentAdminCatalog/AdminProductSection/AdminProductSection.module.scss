@@ -1,0 +1,48 @@
+.section{
+    padding-top: 50px;
+}
+.createProduct{
+    margin-bottom: 20px;
+}
+.table {
+	width: 100%;
+	margin-bottom: 20px;
+	border: 1px solid rgb(230, 230, 255);
+	border-collapse: collapse; 
+}
+.table tr:nth-child(2n){
+    background-color: rgb(250, 250, 255);
+}
+.table tr:hover{
+    background-color: rgb(229, 229, 253);
+    cursor: pointer;
+}
+.table th {
+	font-weight: bold;
+	padding: 5px;
+    background-color: rgb(198, 198, 255);
+	border: 1px solid #888;
+}
+.table td {
+	border: 1px solid #ccc;
+	padding: 7px;
+    text-align: center;
+}
+.table td:nth-child(2) {
+    text-align: left;
+}
+.table td:nth-child(1){
+    width: 5%;
+}
+.table td:nth-child(3){
+    width: 12%;
+}
+.table td:nth-child(4){
+    width: 10%;
+}
+.table td:nth-child(5){
+    width: 15%;
+}
+.table td:nth-child(6){
+    width: 12%;
+}
