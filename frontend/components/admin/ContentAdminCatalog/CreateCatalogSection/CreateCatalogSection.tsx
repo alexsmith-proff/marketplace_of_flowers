@@ -4,9 +4,14 @@ import { CREATE_CATALOG_NAME, GET_CATALOG_BY_PARENT_ID, UPDATE_CATALOG_NAME, DEL
 import WindowListAdmin from "../../WindowListAdmin/WindowListAdmin";
 import { AdminListType } from "../../../../enums/AdminList.enum";
 import { ICatalog } from "../../../../interfaces/catalog.interface";
+import { AdminActionWindowType } from "../../../../enums/AdminActions.enum";
+
+import ButtonAdmin from "../../Buttons/ButtonAdmin/ButtonAdmin";
+import {
+  AdminButtonFunctional, AdminButtonType
+} from "../../../../enums/AdminButtons.enum";
 
 import s from "./CreateCatalogSection.module.scss";
-import { AdminActionWindowType } from "../../../../enums/AdminActions.enum";
 
 interface IParentCatalog extends ICatalog {
   position: number
@@ -30,6 +35,7 @@ const CreateCatalogSection: FC<CreateCatalogSectionProps> = () => {
   const [currentItemIndex, setCurrentItemIndex] = useState<number>(null);
   const [titleWindows, setTitleWindows] = useState<string[]>(["Каталог"]);
   const [parentArr, setparentArr] = useState<IParentCatalog[]>([null])
+  const [catalogStructureVisible, setCatalogStructureVisible] = useState<boolean>(false)
 
   // const [actionWindow, setActionWindow] = useState<AdminActionWindowType>(null)
   const actionWindow = useRef<AdminActionWindowType>(null)
@@ -88,7 +94,7 @@ const CreateCatalogSection: FC<CreateCatalogSectionProps> = () => {
         // Обновляем массив parentArr
         let newParentArr = []
         newParentArr = [...parentArr]
-        newParentArr[currentWindowNum] = {...newParentArr[currentWindowNum], children: dataGetCatalogByID.getCatalogByParent}
+        newParentArr[currentWindowNum] = { ...newParentArr[currentWindowNum], children: dataGetCatalogByID.getCatalogByParent }
         setparentArr([...newParentArr])
       }
       ///////////////////////
@@ -98,14 +104,14 @@ const CreateCatalogSection: FC<CreateCatalogSectionProps> = () => {
 
       console.log('dataGetCatalogByIDCreate', newCatalogArr);
     }
-    if(actionWindow.current == AdminActionWindowType.UpdateItem){
+    if (actionWindow.current == AdminActionWindowType.UpdateItem) {
       let newCatalogArr = [...catalogArr]
-      newCatalogArr[currentWindowNum] = dataGetCatalogByID.getCatalogByParent  
-      setCatalogArr([...newCatalogArr])    
+      newCatalogArr[currentWindowNum] = dataGetCatalogByID.getCatalogByParent
+      setCatalogArr([...newCatalogArr])
     }
-    if(actionWindow.current == AdminActionWindowType.DeleteItem){
+    if (actionWindow.current == AdminActionWindowType.DeleteItem) {
       let newCatalogArr = [...catalogArr]
-      newCatalogArr[currentWindowNum] = dataGetCatalogByID.getCatalogByParent  
+      newCatalogArr[currentWindowNum] = dataGetCatalogByID.getCatalogByParent
 
       /////////////////////////////////////
       if (currentWindowNum != 0) {
@@ -114,19 +120,19 @@ const CreateCatalogSection: FC<CreateCatalogSectionProps> = () => {
         itemsArr[parentArr[currentWindowNum].position] = { ...catalogArr[currentWindowNum - 1][parentArr[currentWindowNum].position], children: dataGetCatalogByID.getCatalogByParent }
         newCatalogArr[currentWindowNum - 1] = itemsArr
 
-        if(newCatalogArr[newCatalogArr.length - 1].length == 0){
+        if (newCatalogArr[newCatalogArr.length - 1].length == 0) {
           newCatalogArr.pop()
         }
 
         // Обновляем массив parentArr
         let newParentArr = []
         newParentArr = [...parentArr]
-        newParentArr[currentWindowNum] = {...newParentArr[currentWindowNum], children: dataGetCatalogByID.getCatalogByParent}
+        newParentArr[currentWindowNum] = { ...newParentArr[currentWindowNum], children: dataGetCatalogByID.getCatalogByParent }
         setparentArr([...newParentArr])
       }
       ///////////////////////
 
-      setCatalogArr([...newCatalogArr])    
+      setCatalogArr([...newCatalogArr])
     }
 
   }, [dataGetCatalogByID]);
@@ -143,7 +149,7 @@ const CreateCatalogSection: FC<CreateCatalogSectionProps> = () => {
 
     let newParentArr = []
     newParentArr = [...parentArr]
-    newParentArr[windowNum + 1] = {...catalogArr[windowNum][itemIndex], position: itemIndex}
+    newParentArr[windowNum + 1] = { ...catalogArr[windowNum][itemIndex], position: itemIndex }
     setparentArr([...newParentArr])
 
     let newTitleWindows = [...titleWindows];
@@ -222,11 +228,11 @@ const CreateCatalogSection: FC<CreateCatalogSectionProps> = () => {
 
 
 
-  const handleUpdateSerialNumberByIndexCatalogItem = async(id: number, serialNumber: number, parent_id: number, windowNum: number) => {
+  const handleUpdateSerialNumberByIndexCatalogItem = async (id: number, serialNumber: number, parent_id: number, windowNum: number) => {
     actionWindow.current = AdminActionWindowType.UpdateItem
     setCurrentWindowNum(windowNum)
-    
-    
+
+
     await updateCatalogName({
       variables: {
         updateCatalogInput: {
@@ -248,25 +254,38 @@ const CreateCatalogSection: FC<CreateCatalogSectionProps> = () => {
 
 
   return (
-    <div className={s.catalogSection}>
-      {catalogArr &&
-        catalogArr.map((item, index) => (
-          <WindowListAdmin
-            key={index.toString()}
-            typeList={AdminListType.Catalog}
-            title={titleWindows[index]}
-            itemArr={item}
-            visible={true}
-            optionsBtnVisible={false}
-            clickToItem={(itemIndex) => handleClickToItem(index, itemIndex)}
-            createItemName={(name) => handleCreateItemName(name, index != 0 ? (parentArr[index].children.length + 1) * 100 : (catalogArr[0].length + 1) * 100, index != 0 ? Number(parentArr[index].id) : null, index)}
-            updateItemName={(indexItem, name) => handleUpdateItemName(catalogArr[index][indexItem].id, name, index)}
-            deleteItemName={(indexItem) => handleDeleteItemName(catalogArr[index][indexItem].id, index)}
-            updateSerialNumberById={(id, serial_number) => handleUpdateSerialNumberByIndexCatalogItem(id, serial_number, index != 0 ? Number(parentArr[index].id) : null, index)}
-            updateSerialNumberByIndex={(indexItem, serial_number) => handleUpdateSerialNumberByIndexCatalogItem(catalogArr[index][indexItem].id, serial_number, index != 0 ? Number(parentArr[index].id) : null, index)}
-          />
-        ))}
-    </div>
+    <>
+      <div className={s.catalogBtn}>
+        <ButtonAdmin typeBtn={AdminButtonType.Toggle} functionalBtn={AdminButtonFunctional.Standard} border={false} clickBtn={() => setCatalogStructureVisible(!catalogStructureVisible)}>
+          {
+            !catalogStructureVisible ? 'Показать структуру каталога' : 'Скрыть структуру каталога'
+          }
+        </ButtonAdmin>
+      </div>
+      {
+        catalogStructureVisible &&
+        <div className={s.catalogStructure}>
+          {catalogArr &&
+            catalogArr.map((item, index) => (
+              <WindowListAdmin
+                key={index.toString()}
+                typeList={AdminListType.Catalog}
+                title={titleWindows[index]}
+                itemArr={item}
+                visible={true}
+                optionsBtnVisible={false}
+                clickToItem={(itemIndex) => handleClickToItem(index, itemIndex)}
+                createItemName={(name) => handleCreateItemName(name, index != 0 ? (parentArr[index].children.length + 1) * 100 : (catalogArr[0].length + 1) * 100, index != 0 ? Number(parentArr[index].id) : null, index)}
+                updateItemName={(indexItem, name) => handleUpdateItemName(catalogArr[index][indexItem].id, name, index)}
+                deleteItemName={(indexItem) => handleDeleteItemName(catalogArr[index][indexItem].id, index)}
+                updateSerialNumberById={(id, serial_number) => handleUpdateSerialNumberByIndexCatalogItem(id, serial_number, index != 0 ? Number(parentArr[index].id) : null, index)}
+                updateSerialNumberByIndex={(indexItem, serial_number) => handleUpdateSerialNumberByIndexCatalogItem(catalogArr[index][indexItem].id, serial_number, index != 0 ? Number(parentArr[index].id) : null, index)}
+              />
+            ))}
+        </div>
+      }
+
+    </>
   );
 };
 

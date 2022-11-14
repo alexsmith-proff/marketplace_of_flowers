@@ -3,15 +3,20 @@
 
     cursor: pointer;
     transition: 0.3s;
-    &:hover {
-        background-color: rgb(198, 198, 255);
-    }
     &.border {
         border: 1px solid #000;
         border-radius: 5px;
         padding: 3px 7px;
     }
+    &.buttonBgrn:hover{
+        background-color: rgb(198, 198, 255);
+    }
+    &.toggle:hover{
+        color: #6B40A8;
+    }
 }
+
+
 
 .buttonIco {
     display: inline-block;

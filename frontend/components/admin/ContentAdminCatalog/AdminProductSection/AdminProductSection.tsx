@@ -38,6 +38,7 @@ const AdminProductSection: FC<AdminProductSectionProps> = () => {
             <th>Цена, руб</th>
             <th>Бренд</th>
             <th>Кол.-во</th>
+            <th>Категория</th>
 
           </tr>
         </thead>
@@ -54,6 +55,7 @@ const AdminProductSection: FC<AdminProductSectionProps> = () => {
                   <td>{item.price}</td>
                   <td>{item.brand.name}</td>
                   <td>{item.count_in_stock}</td>
+                  <td>Цветы в ящиках</td>
                 </tr>
               ))
             }
