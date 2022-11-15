@@ -17,4 +17,7 @@ export class CreateProductInput {
 
   @Field(() => Number, { description: 'Brand', nullable: true})
   brand_id: number
+
+  @Field(() => Number, { description: 'Catalog', nullable: true})
+  catalog_id: number
 }

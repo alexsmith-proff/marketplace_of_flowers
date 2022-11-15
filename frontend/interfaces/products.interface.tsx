@@ -1,3 +1,5 @@
+import { ICatalog } from "./catalog.interface";
+
 interface IBase {
   id: number;
   name: string;
@@ -9,6 +11,7 @@ export interface IAdminProducts extends IBase {
   count_in_stock: number;
   vendor_code: string;
   brand: IBrand;
+  catalog: ICatalog
   createdAt: Date;
   updatedAt: Date;
 }

@@ -1,20 +1,14 @@
-import { useQuery } from "@apollo/client";
+import { useMutation, useQuery } from "@apollo/client";
 import React, { FC, useEffect, useRef, useState } from "react";
 import { AdminButtonFunctional, AdminButtonType } from "../../../enums/AdminButtons.enum";
+import { CREATE_PRODUCT, GET_ALL_PRODUCTS } from "../../../graphql/admin-product.graphql";
 import { GET_ALL_BRANDS } from "../../../graphql/brand.graphql";
-import { GET_ALL_CATALOG, GET_ALL_CATALOG_NO_TREE } from "../../../graphql/catalog.graphql";
+import { GET_ALL_CATALOG_NO_TREE } from "../../../graphql/catalog.graphql";
 import { ICatalog } from "../../../interfaces/catalog.interface";
 import { IBrand } from "../../../interfaces/products.interface";
 import ButtonAdmin from "../Buttons/ButtonAdmin/ButtonAdmin";
 
 import s from "./WindowCreateProduct.module.scss";
-
-const errorFields = {
-    productName: false,
-    productVendor: false,
-    productPrice: false,
-    productCount: false,
-}
 
 interface WindowCreateProductProps {
     visible: boolean
@@ -25,17 +19,17 @@ const WindowCreateProduct: FC<WindowCreateProductProps> = ({ visible, closeWindo
 
     const { loading: loadingBrands, error: errorBrands, data: brandsData } = useQuery(GET_ALL_BRANDS)
     const { loading: loadingCatalog, error: errorCatalog, data: catalogData } = useQuery(GET_ALL_CATALOG_NO_TREE)
+    const [createProduct, dataCreateProduct] = useMutation(CREATE_PRODUCT)
 
     const windowRef = useRef()
 
-    const productNameRef = useRef<string>()
-    const productVendorRef = useRef<string>()
-    const productPriceRef = useRef<number>()
-    const productCountRef = useRef<number>()
-    const productBrandRef = useRef<string>()
-    const productCatalogRef = useRef<string>()
-    const productDescriptionRef = useRef<string>()
-
+    const [productName, setProductName] = useState<string>(null)
+    const [productVendor, setProductVendor] = useState<string>(null)
+    const [productPrice, setProductPrice] = useState<number>(null)
+    const [productCount, setProductCount] = useState<number>(null)
+    const [productBrand, setProductBrand] = useState<IBrand>(null)
+    const [productCatalog, setProductCatalog] = useState<ICatalog>(null)
+    const [productDescription, setProductDescription] = useState<string>(null)
 
     const [productNameValid, setProductNameValid] = useState<boolean>(false)
     const [productVendorValid, setProductVendorValid] = useState<boolean>(false)
@@ -48,11 +42,13 @@ const WindowCreateProduct: FC<WindowCreateProductProps> = ({ visible, closeWindo
     useEffect(() => {
         if (brandsData) {
             setBrandsArr(brandsData.getAllBrands)
+            setProductBrand(brandsData.getAllBrands[0])
         }
     }, [brandsData])
     useEffect(() => {
         if (catalogData) {
             setCatalogArr(catalogData.getAllCatalogNoTree)
+            setProductCatalog(catalogData.getAllCatalogNoTree[0])
         }
     }, [catalogData])
 
@@ -64,31 +60,35 @@ const WindowCreateProduct: FC<WindowCreateProductProps> = ({ visible, closeWindo
 
 
     const handleChangeProductName = (e: React.ChangeEvent<HTMLInputElement>) => {
-        productNameRef.current = e.target.value
+        setProductName(e.target.value)
     }
     const handleChangeProductVendor = (e: React.ChangeEvent<HTMLInputElement>) => {
-        productVendorRef.current = e.target.value
+        setProductVendor(e.target.value)
     }
     const handleChangeProductPrice = (e: React.ChangeEvent<HTMLInputElement>) => {
-        productPriceRef.current = Number(e.target.value)
+        setProductPrice(Number(e.target.value))
     }
     const handleChangeProductCount = (e: React.ChangeEvent<HTMLInputElement>) => {
-        productCountRef.current = Number(e.target.value)
+        setProductCount(Number(e.target.value))
     }
     const handleChangeProductBrand = (e: React.ChangeEvent<HTMLSelectElement>) => {
-        productBrandRef.current = e.target.value
+        const brand = brandsArr.find((item) => item.name == e.target.value)
+        setProductBrand(brand)
+        // console.log('brannnnndddd', brand);
+        // setProductBrand(e.target.value)
     }
     const handleChangeProductCatalog = (e: React.ChangeEvent<HTMLSelectElement>) => {
-        productCatalogRef.current = e.target.value
+        const catalog = catalogArr.find((item) => item.name == e.target.value)
+        setProductCatalog(catalog)
     }
     const handleChangeProductDescription = (e: any) => {
-        productDescriptionRef.current = e.target.value
+        setProductDescription(e.target.value)
     }
 
 
 
 
-    const onlyNumber = (e: any, ref: any, digits: number) => {
+    const onlyNumber = (e: any, digits: number) => {
         if (e.target.value)
             if (e.target.value.length <= digits) {
                 e.target.value = e.target.value.replace(/\D/g, '')
@@ -99,48 +99,66 @@ const WindowCreateProduct: FC<WindowCreateProductProps> = ({ visible, closeWindo
 
     }
     const ProductFieldsNull = () => {
-        productNameRef.current = null
-        productVendorRef.current = null
-        productPriceRef.current = null
-        productCountRef.current = null
-        productBrandRef.current = null
-        productCatalogRef.current = null
-        productDescriptionRef.current = null
+        setProductName(null)
+        setProductVendor(null)
+        setProductPrice(null)
+        setProductCount(null)
+        setProductBrand(brandsArr ? brandsArr[0] : null)
+        setProductCatalog(catalogArr ? catalogArr[0] : null)
+        setProductDescription(null)
     }
 
     const handleCreateProduct = () => {
 
-        console.log('productNameRef', productNameRef.current);
-        console.log('productVendorRef', productVendorRef.current);
-        console.log('productPriceRef', productPriceRef.current);
-        console.log('productCountRef', productCountRef.current);
-        console.log('productBrandRef', productBrandRef.current);
-        console.log('productCatalogRef', productCatalogRef.current);
-        console.log('productDescriptionRef', productDescriptionRef.current);
+        console.log('productNameRef', productName);
+        console.log('productVendorRef', productVendor);
+        console.log('productPriceRef', productPrice);
+        console.log('productCountRef', productCount);
+        console.log('productBrandRef', productBrand);
+        console.log('productCatalogRef', productCatalog);
+        console.log('productDescriptionRef', productDescription);
 
 
-        if (productNameRef.current) {
-            setProductNameValid(true)
-        } else {
-            setProductNameValid(false)
-        }
-        if (productVendorRef.current) {
-            setProductVendorValid(true)
-        } else {
-            setProductVendorValid(false)
-        }
-        if (productPriceRef.current > 0) {
-            setProductPriceValid(true)
-        } else {
-            setProductPriceValid(false)
-        }
-        if (productCountRef.current) {
-            setProductCountValid(true)
-        } else {
-            setProductCountValid(false)
-        }
+        // if (productName) {
+        //     setProductNameValid(true)
+        // } else {
+        //     setProductNameValid(false)
+        // }
+        // if (productVendor) {
+        //     setProductVendorValid(true)
+        // } else {
+        //     setProductVendorValid(false)
+        // }
+        // if (productPrice > 0) {
+        //     setProductPriceValid(true)
+        // } else {
+        //     setProductPriceValid(false)
+        // }
+        // if (productCount > 0) {
+        //     setProductCountValid(true)
+        // } else {
+        //     setProductCountValid(false)
+        // }
 
-        if (productNameValid && productVendorValid && productPriceValid && productCountValid) {
+        if (productName && productVendor && productPrice && productCount) {
+            createProduct({
+                variables: {
+                  createProductInput: {
+                    name: productName,
+                    price: productPrice,
+                    vendor_code: productVendor,
+                    count_in_stock: productCount,
+                    brand_id: +productBrand.id,
+                    catalog_id: +productCatalog.id,
+                  }
+                },
+                refetchQueries: [
+                  {
+                    query: GET_ALL_PRODUCTS
+                  }
+                ]
+              })
+
             // Save DB
             ProductFieldsNull()
             closeWindow()
@@ -155,20 +173,20 @@ const WindowCreateProduct: FC<WindowCreateProductProps> = ({ visible, closeWindo
                     <div className={s.window}>
                         <div className={s.LabelEdit}>
                             <span className={s.title}>Название товара</span>
-                            <input className={!productNameValid ? (s.nameInput + ' ' + s.error) : s.nameInput} type="text" onChange={handleChangeProductName} />
+                            <input className={!productName ? (s.nameInput + ' ' + s.error) : s.nameInput} type="text" onChange={handleChangeProductName} />
                         </div>
                         <div className={s.secondLevel}>
                             <div className={s.LabelEdit}>
                                 <span className={s.title}>Артикул</span>
-                                <input className={!productVendorValid ? (s.nameInput + ' ' + s.error) : s.nameInput} type="text" onChange={handleChangeProductVendor} />
+                                <input className={!productVendor ? (s.vendorInput + ' ' + s.nameInput + ' ' + s.error) : (s.vendorInput + ' ' +s.nameInput)} type="text" onChange={handleChangeProductVendor} />
                             </div>
                             <div className={s.LabelEdit}>
                                 <span className={s.title}>Цена</span>
-                                <input className={!productPriceValid ? (s.nameInput + ' ' + s.error) : s.nameInput} type="text" onInput={e => onlyNumber(e, productPriceRef, 8)} onChange={handleChangeProductPrice} />
+                                <input className={!productPrice ? (s.priceInput + ' ' + s.nameInput + ' ' + s.error) : (s.priceInput + ' ' + s.nameInput)} type="text" onInput={e => onlyNumber(e, 8)} onChange={handleChangeProductPrice} />
                             </div>
                             <div className={s.LabelEdit}>
                                 <span className={s.title}>Кол.-во</span>
-                                <input className={!productCountValid ? (s.nameInput + ' ' + s.error) : s.nameInput} type="text" onInput={e => onlyNumber(e, productCountRef, 6)} onChange={handleChangeProductCount} />
+                                <input className={!productCount ? (s.countInput + ' ' + s.nameInput + ' ' + s.error) : (s.countInput + ' ' + s.nameInput)} type="text" onInput={e => onlyNumber(e, 6)} onChange={handleChangeProductCount} />
                             </div>
                         </div>
 

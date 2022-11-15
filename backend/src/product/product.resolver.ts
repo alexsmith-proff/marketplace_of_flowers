@@ -3,7 +3,7 @@ import { ProductService } from './product.service';
 import { ProductEntity } from './entities/product.entity';
 import { CreateProductInput } from './dto/create-product.input';
 import { UpdateProductInput } from './dto/update-product.input';
-import { UpdateProductBrandInput } from './dto/update-product-brand.input';
+import { UpdateProductBrandInput } from './dto/update-product-relations.input';
 
 @Resolver(() => ProductEntity)
 export class ProductResolver {

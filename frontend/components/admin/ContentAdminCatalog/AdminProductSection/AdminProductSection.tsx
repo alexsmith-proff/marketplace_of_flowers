@@ -112,7 +112,7 @@ const AdminProductSection: FC<AdminProductSectionProps> = () => {
                   <td>{item.price}</td>
                   <td>{item.brand ? item.brand.name : null}</td>
                   <td>{item.count_in_stock}</td>
-                  <td>Цветы в ящиках</td>
+                  <td>{item.catalog ? item.catalog.name : null}</td>
                 </tr>
               ))
             }

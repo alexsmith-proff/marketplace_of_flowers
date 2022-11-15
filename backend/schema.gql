@@ -23,6 +23,7 @@ type CatalogEntity {
 
   """Parent"""
   parent: CatalogEntity!
+  product: ProductEntity!
 
   """Serial number"""
   serial_number: Float!
@@ -92,6 +93,9 @@ input CreateMenuItemInput {
 input CreateProductInput {
   """Brand"""
   brand_id: Float
+
+  """Catalog"""
+  catalog_id: Float
 
   """Count in stock"""
   count_in_stock: Float
@@ -271,6 +275,9 @@ type ProductEntity {
   """Brand"""
   brand: BrandEntity
 
+  """Catalog"""
+  catalog: CatalogEntity
+
   """Count in stock"""
   count_in_stock: Float!
   createdAt: DateTime!
@@ -292,6 +299,7 @@ type ProductEntity {
 type Query {
   getAllBrands: [BrandEntity!]!
   getAllCatalog: [CatalogEntity!]!
+  getAllCatalogNoTree: [CatalogEntity!]!
   getAllElements: [ElementEntity!]!
   getAllImgElement: [ImgElementEntity!]!
   getAllMenuItem: [MenuItemEntity!]!
@@ -442,7 +450,10 @@ input UpdateMenuItemInput {
 
 input UpdateProductBrandInput {
   """Brand ID"""
-  brand_id: Float!
+  brand_id: Float
+
+  """Catalog ID"""
+  catalog_id: Float
 
   """Product ID"""
   id: Int!
@@ -451,6 +462,9 @@ input UpdateProductBrandInput {
 input UpdateProductInput {
   """Brand"""
   brand_id: Float
+
+  """Catalog"""
+  catalog_id: Float
 
   """Count in stock"""
   count_in_stock: Float

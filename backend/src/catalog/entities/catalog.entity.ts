@@ -1,5 +1,6 @@
 import { ObjectType, Field, Int, ID } from '@nestjs/graphql';
-import { Column, Entity, PrimaryGeneratedColumn, Tree, TreeChildren, TreeParent } from 'typeorm';
+import { ProductEntity } from 'src/product/entities/product.entity';
+import { Column, Entity, OneToMany, PrimaryGeneratedColumn, Tree, TreeChildren, TreeParent } from 'typeorm';
 
 @ObjectType()
 @Entity('catalog')
@@ -24,4 +25,8 @@ export class CatalogEntity {
   @Field(() => CatalogEntity, { description: 'Parent' })
   @TreeParent()
   parent: CatalogEntity
+
+  @Field(() => ProductEntity)
+  @OneToMany(() => ProductEntity, product => product.catalog )
+  product: ProductEntity[]
 }

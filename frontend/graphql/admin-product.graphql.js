@@ -11,8 +11,24 @@ export const GET_ALL_PRODUCTS = gql`
         brand{
           id
           name
-        }    
+        } 
+        catalog{
+          id
+          name
+        }   
       }
   }
 `;
+
+
+export const CREATE_PRODUCT = gql`
+  mutation CreateProduct($createProductInput: CreateProductInput!){
+    createProduct(createProductInput: $createProductInput){
+      id
+      name
+    }
+  }
+`;
+
+
 

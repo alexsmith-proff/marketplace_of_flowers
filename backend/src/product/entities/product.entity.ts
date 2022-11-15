@@ -1,5 +1,6 @@
 import { ObjectType, Field, ID } from '@nestjs/graphql'
 import { BrandEntity } from 'src/brand/entities/brand.entity';
+import { CatalogEntity } from 'src/catalog/entities/catalog.entity';
 import { Column, CreateDateColumn, Entity, JoinColumn, JoinTable, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
 
 @ObjectType()
@@ -28,6 +29,10 @@ export class ProductEntity {
   @Field(() => BrandEntity, { description: 'Brand', nullable: true})
   @ManyToOne(() => BrandEntity, brand => brand.product)
   brand: BrandEntity
+
+  @Field(() => CatalogEntity, { description: 'Catalog', nullable: true})
+  @ManyToOne(() => CatalogEntity, catalog => catalog.product)
+  catalog: CatalogEntity
 
   @Field(() => Date)
   @CreateDateColumn()
