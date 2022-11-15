@@ -27,6 +27,7 @@
     input {
         font-size: 16px;
         padding: 5px;
+        border: 1px solid #000;
         border-radius: 5px;
     }
 }
@@ -51,6 +52,7 @@
 .description {
     font-size: 18px;
     padding: 5px;
+    // border: 2px solid #000;
     border-radius: 5px;
 }
 
@@ -69,6 +71,7 @@
 .dropdown {
     margin-right: 10px;
     select {
+        // border: 2px solid #000;
         font-size: 16px;
         padding: 5px;
         border-radius: 5px;
