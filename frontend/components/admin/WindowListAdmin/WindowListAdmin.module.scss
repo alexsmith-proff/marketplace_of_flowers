@@ -94,4 +94,26 @@
         color: rgb(180, 180, 180);
     }
 }
+.list{
+    height: calc(100% - 37px);
+    overflow-y: auto;
+    
+}
 
+// body{
+//     scrollbar-color: #D2D2FF #551A8B;
+//     scrollbar-width: thin;
+// }
+.list::-webkit-scrollbar {
+    width: 7px; /* ширина для вертикального скролла */
+    height: 8px; /* высота для горизонтального скролла */
+    background-color: #fff;
+}
+/* ползунок скроллбара */
+.list::-webkit-scrollbar-thumb {
+    background-color: #C8CCFA;
+    border-radius: 10px;
+}
+.list::-webkit-scrollbar-tshumb:hover {
+    background-color: #5e4ec4;
+}
