@@ -41,6 +41,10 @@ export class CatalogService {
   }
 
   async findAll() {
+    return this.catalogRepository.find()
+  }
+
+  async findAllTree() {
     const catalogArr = await this.catalogRepository.manager
       .getTreeRepository(CatalogEntity)
       .findTrees();

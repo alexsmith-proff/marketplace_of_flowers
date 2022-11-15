@@ -38,13 +38,19 @@
     margin-bottom: 10px;
 }
 
+.nameInput.error{
+    background-color: rgb(250, 218, 218);
+}
+
 .secondLevel,
 .thirdLevel {
     display: flex;
+
     .LabelEdit {
         margin-right: 15px;
     }
 }
+
 .thirdLevel {
     margin-bottom: 10px;
 }
@@ -61,7 +67,7 @@
 }
 
 .priceInput {
-    width: 70px;
+    width: 75px;
 }
 
 .countInput {
@@ -70,6 +76,7 @@
 
 .dropdown {
     margin-right: 10px;
+
     select {
         // border: 2px solid #000;
         font-size: 16px;

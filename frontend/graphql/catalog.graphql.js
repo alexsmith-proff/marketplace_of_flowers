@@ -35,9 +35,14 @@ export const GET_ALL_CATALOG = gql`
   }
 `;
 
-
-
-
+export const GET_ALL_CATALOG_NO_TREE = gql`
+  query GetAllCatalogNoTree{
+    getAllCatalogNoTree{
+      id
+      name
+    }
+  }
+`;
 
 export const GET_CATALOG_BY_PARENT_ID = gql`
   query GetCatalogByParent($findCatalogInput: FindCatalogInput!) {

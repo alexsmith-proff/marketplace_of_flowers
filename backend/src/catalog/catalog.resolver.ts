@@ -14,9 +14,14 @@ export class CatalogResolver {
     return this.catalogService.create(createCatalogInput);
   }
 
-  @Query(() => [CatalogEntity], { name: 'getAllCatalog' })
+  @Query(() => [CatalogEntity], { name: 'getAllCatalogNoTree' })
   findAll() {
     return this.catalogService.findAll();
+  }
+
+  @Query(() => [CatalogEntity], { name: 'getAllCatalog' })
+  findAllTree() {
+    return this.catalogService.findAllTree();
   }
 
   @Query(() => [CatalogEntity], { name: 'getCatalogByParent'})
