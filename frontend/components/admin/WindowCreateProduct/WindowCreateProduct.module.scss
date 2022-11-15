@@ -1,0 +1,88 @@
+.background {
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.6);
+    position: fixed;
+    z-index: 100;
+    top: 0;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    // pointer-events = all  - чтобы модальное окно было кликабельным
+    pointer-events: all;
+    transition: 0.5s;
+}
+
+.window {
+    padding: 25px;
+    background-color: #fff;
+}
+
+.LabelEdit {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+
+    input {
+        font-size: 16px;
+        padding: 5px;
+        border-radius: 5px;
+    }
+}
+
+.title {
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.secondLevel,
+.thirdLevel {
+    display: flex;
+    .LabelEdit {
+        margin-right: 15px;
+    }
+}
+.thirdLevel {
+    margin-bottom: 10px;
+}
+
+.description {
+    font-size: 18px;
+    padding: 5px;
+    border-radius: 5px;
+}
+
+.vendorInput {
+    width: 130px;
+}
+
+.priceInput {
+    width: 70px;
+}
+
+.countInput {
+    width: 55px;
+}
+
+.dropdown {
+    margin-right: 10px;
+    select {
+        font-size: 16px;
+        padding: 5px;
+        border-radius: 5px;
+        width: 200px;
+        cursor: pointer;
+    }
+}
+
+.buttons {
+    display: flex;
+    justify-content: center;
+    padding-top: 20px;
+}
+
+.btnClose {
+    margin-left: 20px;
+}

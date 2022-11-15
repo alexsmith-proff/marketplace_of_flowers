@@ -9,6 +9,7 @@ import PopupMenu from "../../../PopupMenu/PopupMenu";
 import s from "./AdminProductSection.module.scss";
 import { IPopupMenuItems } from "../../../../interfaces/popup-menu.intrface";
 import { ICoordinate } from "../../../../interfaces/coordinate.interface";
+import WindowCreateProduct from "../../WindowCreateProduct/WindowCreateProduct";
 
 const menuItems: IPopupMenuItems[] = [
   {
@@ -35,6 +36,7 @@ const AdminProductSection: FC<AdminProductSectionProps> = () => {
   // const popupCoordinate = useRef<ICoordinate>({X: 0, Y: 0})
   const [popupCoordinate, setPopupCoordinate] = useState<ICoordinate>({X: 0, Y: 0})
   const [popupMenuVisible, setPopupMenuVisible] = useState<boolean>(false)
+  const [windowCreateProductVisible, setWindowCreateProductVisible] = useState<boolean>(false)
   const popupRef = useRef()
 
   useEffect(() => {
@@ -72,12 +74,13 @@ const AdminProductSection: FC<AdminProductSectionProps> = () => {
 
   return (
     <div className={s.section}>
+      <WindowCreateProduct visible={windowCreateProductVisible} closeWindow={() => setWindowCreateProductVisible(false)} />
       {
         popupMenuVisible && <PopupMenu menuItems={menuItems} coordinate={popupCoordinate} clickMenuItem={handleSelectMenuItem} popupRef={popupRef} />
       }
 
       <div className={s.createProduct}>
-        <ButtonAdmin typeBtn={AdminButtonType.Text} functionalBtn={AdminButtonFunctional.Standard} border={true} clickBtn={() => null}>
+        <ButtonAdmin typeBtn={AdminButtonType.Text} functionalBtn={AdminButtonFunctional.Standard} border={true} clickBtn={() => setWindowCreateProductVisible(true)}>
           Создать товар
         </ButtonAdmin>
       </div>
