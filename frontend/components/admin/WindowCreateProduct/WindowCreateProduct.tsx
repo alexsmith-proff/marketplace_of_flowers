@@ -5,21 +5,20 @@ import { CREATE_PRODUCT, GET_ALL_PRODUCTS } from "../../../graphql/admin-product
 import { GET_ALL_BRANDS } from "../../../graphql/brand.graphql";
 import { GET_ALL_CATALOG_NO_TREE } from "../../../graphql/catalog.graphql";
 import { ICatalog } from "../../../interfaces/catalog.interface";
-import { IBrand } from "../../../interfaces/products.interface";
+import { IBrand, ICreateProductInput } from "../../../interfaces/products.interface";
 import ButtonAdmin from "../Buttons/ButtonAdmin/ButtonAdmin";
 
 import s from "./WindowCreateProduct.module.scss";
 
 interface WindowCreateProductProps {
     visible: boolean
+    createProduct: (createProductInput: ICreateProductInput) => void
     closeWindow: () => void
 }
 
-const WindowCreateProduct: FC<WindowCreateProductProps> = ({ visible, closeWindow }) => {
-
+const WindowCreateProduct: FC<WindowCreateProductProps> = ({ visible, createProduct, closeWindow }) => {
     const { loading: loadingBrands, error: errorBrands, data: brandsData } = useQuery(GET_ALL_BRANDS)
     const { loading: loadingCatalog, error: errorCatalog, data: catalogData } = useQuery(GET_ALL_CATALOG_NO_TREE)
-    const [createProduct, dataCreateProduct] = useMutation(CREATE_PRODUCT)
 
     const windowRef = useRef()
 
@@ -30,11 +29,6 @@ const WindowCreateProduct: FC<WindowCreateProductProps> = ({ visible, closeWindo
     const [productBrand, setProductBrand] = useState<IBrand>(null)
     const [productCatalog, setProductCatalog] = useState<ICatalog>(null)
     const [productDescription, setProductDescription] = useState<string>(null)
-
-    const [productNameValid, setProductNameValid] = useState<boolean>(false)
-    const [productVendorValid, setProductVendorValid] = useState<boolean>(false)
-    const [productPriceValid, setProductPriceValid] = useState<boolean>(false)
-    const [productCountValid, setProductCountValid] = useState<boolean>(false)
 
     const [brandsArr, setBrandsArr] = useState<IBrand[]>(null)
     const [catalogArr, setCatalogArr] = useState<ICatalog[]>(null)
@@ -58,7 +52,6 @@ const WindowCreateProduct: FC<WindowCreateProductProps> = ({ visible, closeWindo
         }
     }
 
-
     const handleChangeProductName = (e: React.ChangeEvent<HTMLInputElement>) => {
         setProductName(e.target.value)
     }
@@ -74,8 +67,6 @@ const WindowCreateProduct: FC<WindowCreateProductProps> = ({ visible, closeWindo
     const handleChangeProductBrand = (e: React.ChangeEvent<HTMLSelectElement>) => {
         const brand = brandsArr.find((item) => item.name == e.target.value)
         setProductBrand(brand)
-        // console.log('brannnnndddd', brand);
-        // setProductBrand(e.target.value)
     }
     const handleChangeProductCatalog = (e: React.ChangeEvent<HTMLSelectElement>) => {
         const catalog = catalogArr.find((item) => item.name == e.target.value)
@@ -84,8 +75,6 @@ const WindowCreateProduct: FC<WindowCreateProductProps> = ({ visible, closeWindo
     const handleChangeProductDescription = (e: any) => {
         setProductDescription(e.target.value)
     }
-
-
 
 
     const onlyNumber = (e: any, digits: number) => {
@@ -108,36 +97,17 @@ const WindowCreateProduct: FC<WindowCreateProductProps> = ({ visible, closeWindo
         setProductDescription(null)
     }
 
-    const handleCreateProduct = () => {
-
-        console.log('productNameRef', productName);
-        console.log('productVendorRef', productVendor);
-        console.log('productPriceRef', productPrice);
-        console.log('productCountRef', productCount);
-        console.log('productBrandRef', productBrand);
-        console.log('productCatalogRef', productCatalog);
-        console.log('productDescriptionRef', productDescription);
-
+    const handleClickCreateProduct = () => {
         if (productName && productVendor && productPrice && productCount) {
             createProduct({
-                variables: {
-                  createProductInput: {
-                    name: productName,
-                    price: productPrice,
-                    vendor_code: productVendor,
-                    count_in_stock: productCount,
-                    brand_id: +productBrand.id,
-                    catalog_id: +productCatalog.id,
-                  }
-                },
-                refetchQueries: [
-                  {
-                    query: GET_ALL_PRODUCTS
-                  }
-                ]
+                name: productName,
+                price: productPrice,
+                vendor_code: productVendor,
+                count_in_stock: productCount,
+                brand_id: +productBrand.id,
+                catalog_id: +productCatalog.id,
               })
 
-            // Save DB
             ProductFieldsNull()
             closeWindow()
         }
@@ -209,7 +179,7 @@ const WindowCreateProduct: FC<WindowCreateProductProps> = ({ visible, closeWindo
 
 
                         <div className={s.buttons}>
-                            <ButtonAdmin typeBtn={AdminButtonType.Text} functionalBtn={AdminButtonFunctional.Standard} border={true} clickBtn={handleCreateProduct}>Создать товар</ButtonAdmin>
+                            <ButtonAdmin typeBtn={AdminButtonType.Text} functionalBtn={AdminButtonFunctional.Standard} border={true} clickBtn={handleClickCreateProduct}>Создать товар</ButtonAdmin>
                             <div className={s.btnClose} onClick={closeWindow}>
                                 <ButtonAdmin typeBtn={AdminButtonType.Text} functionalBtn={AdminButtonFunctional.Standard} border={true} clickBtn={() => closeWindow()}>Закрыть</ButtonAdmin>
                             </div>

@@ -1,7 +1,7 @@
 import { useMutation, useQuery } from "@apollo/client";
 import React, { FC, useEffect, useRef, useState } from "react";
-import { DELETE_PRODUCT, GET_ALL_PRODUCTS, GET_ALL_PRODUCTS_BY_SORT } from "../../../../graphql/admin-product.graphql";
-import { IAdminProduct } from "../../../../interfaces/products.interface";
+import { CREATE_PRODUCT, DELETE_PRODUCT, GET_ALL_PRODUCTS, GET_ALL_PRODUCTS_BY_SORT, UPDATE_PRODUCT, UPDATE_RELATIONS_PRODUCT } from "../../../../graphql/admin-product.graphql";
+import { IAdminProduct, ICreateProductInput, IUpdateProductInput, IUpdateProductRelationsInput } from "../../../../interfaces/products.interface";
 import ButtonAdmin from "../../Buttons/ButtonAdmin/ButtonAdmin";
 import { AdminButtonType, AdminButtonFunctional } from "../../../../enums/AdminButtons.enum";
 import PopupMenu from "../../../PopupMenu/PopupMenu";
@@ -41,6 +41,9 @@ const AdminProductSection: FC<AdminProductSectionProps> = () => {
       }
     }
   )
+  const [createProduct, dataCreateProduct] = useMutation(CREATE_PRODUCT)
+  const [updateProduct, dataUpdateProduct] = useMutation(UPDATE_PRODUCT)
+  const [updateRelationsProduct, dataUpdateRelationsProduct] = useMutation(UPDATE_RELATIONS_PRODUCT)
   const [deleteProduct, dataDeleteProduct] = useMutation(DELETE_PRODUCT)
 
   const [products, setProducts] = useState<IAdminProduct[]>(null)
@@ -98,7 +101,13 @@ const AdminProductSection: FC<AdminProductSectionProps> = () => {
         },
         refetchQueries: [
           {
-            query: GET_ALL_PRODUCTS
+            query: GET_ALL_PRODUCTS_BY_SORT,
+            variables: {
+              sortProductInput: {
+                sort_field: "count_in_stock",
+                sort_order: "ASC"
+              }
+            }
           }
         ]
       })
@@ -107,71 +116,115 @@ const AdminProductSection: FC<AdminProductSectionProps> = () => {
   }
   // end POPUP ///////////////////////////////
 
-  const closeWindow = () => {
-    setWindowCreateProductVisible(false)
-    setWindowUpdateProductVisible(false)
-    setProductIndexActive(null)
+  const handleCreateProduct = (createProductInput: ICreateProductInput) => {
+    // Save DB
+    createProduct({
+      variables: {
+        createProductInput: createProductInput
+      },
+      refetchQueries: [
+        {
+          query: GET_ALL_PRODUCTS_BY_SORT,
+          variables: {
+            sortProductInput: {
+              sort_field: "count_in_stock",
+              sort_order: "ASC"
+            }
+          }
+        }
+      ]
+    })
   }
 
-  return (
-    <div className={s.section}>
-      <WindowCreateProduct visible={windowCreateProductVisible} closeWindow={closeWindow} />
-      {
-        currentProduct &&
-        <WindowUpdateProduct visible={windowUpdateProductVisible} product={currentProduct} closeWindow={closeWindow} />
+  const handleUpdateProduct = async (updateProductInput: IUpdateProductInput, updateProductRelationsInput: IUpdateProductRelationsInput) => {
+    await updateProduct({
+      variables: {
+        updateProductInput: updateProductInput
       }
-      {
-        popupMenuVisible && <PopupMenu menuItems={menuItems} coordinate={popupCoordinate} clickMenuItem={handleSelectMenuItem} popupRef={popupRef} />
-      }
-
-      <div className={s.createProduct}>
-        <ButtonAdmin typeBtn={AdminButtonType.Text} functionalBtn={AdminButtonFunctional.Standard} border={true} clickBtn={() => setWindowCreateProductVisible(true)}>
-          Создать товар
-        </ButtonAdmin>
-      </div>
-
-
-      <table className={s.table}>
-        <thead>
-          <tr>
-            <th>№</th>
-            <th>Название</th>
-            <th>Артикул</th>
-            <th>Цена, руб</th>
-            <th>Производитель</th>
-            <th>Кол.-во</th>
-            <th>Категория</th>
-            <th>Create</th>
-            <th>Update</th>
-
-          </tr>
-        </thead>
-        <tbody>
-          {
-            products &&
-            <>
-              {
-                products.map((item, index) => (
-                  <tr className={index == productIndexActive ? (s.tr + ' ' + s.activeRow) : s.tr} key={item.id} onClick={(e) => handleOpenPopupMenu(e, item, index)} onContextMenu={(e) => handleOpenPopupMenu(e, item, index)}>
-                    <td>{index + 1}</td>
-                    <td>{item.name}</td>
-                    <td>{item.vendor_code}</td>
-                    <td>{item.price}</td>
-                    <td>{item.brand ? item.brand.name : null}</td>
-                    <td>{item.count_in_stock}</td>
-                    <td>{item.catalog ? item.catalog.name : null}</td>
-                    <td>{item.catalog ? String(item.createdAt) : null}</td>
-                    <td>{item.catalog ? String(item.updatedAt) : null}</td>
-                  </tr>
-                ))
-              }
-            </>
+    })
+    await updateRelationsProduct({
+      variables: {
+        updateProductRelationsInput: updateProductRelationsInput
+      },
+      refetchQueries: [
+        {
+          query: GET_ALL_PRODUCTS_BY_SORT,
+          variables: {
+            sortProductInput: {
+              sort_field: "count_in_stock",
+              sort_order: "ASC"
+            }
           }
+        }
+      ]
+    })
+  }
 
-        </tbody>
-      </table>
+const closeWindow = () => {
+  setWindowCreateProductVisible(false)
+  setWindowUpdateProductVisible(false)
+  setProductIndexActive(null)
+}
 
-      {/* {products && (
+return (
+  <div className={s.section}>
+    <WindowCreateProduct visible={windowCreateProductVisible} createProduct={handleCreateProduct} closeWindow={closeWindow} />
+    {
+      currentProduct &&
+      <WindowUpdateProduct visible={windowUpdateProductVisible} product={currentProduct} updateProduct={handleUpdateProduct} closeWindow={closeWindow} />
+    }
+    {
+      popupMenuVisible && <PopupMenu menuItems={menuItems} coordinate={popupCoordinate} clickMenuItem={handleSelectMenuItem} popupRef={popupRef} />
+    }
+
+    <div className={s.createProduct}>
+      <ButtonAdmin typeBtn={AdminButtonType.Text} functionalBtn={AdminButtonFunctional.Standard} border={true} clickBtn={() => setWindowCreateProductVisible(true)}>
+        Создать товар
+      </ButtonAdmin>
+    </div>
+
+
+    <table className={s.table}>
+      <thead>
+        <tr>
+          <th>№</th>
+          <th>Название</th>
+          <th>Артикул</th>
+          <th>Цена, руб</th>
+          <th>Производитель</th>
+          <th>Кол.-во</th>
+          <th>Категория</th>
+          <th>Create</th>
+          <th>Update</th>
+
+        </tr>
+      </thead>
+      <tbody>
+        {
+          products &&
+          <>
+            {
+              products.map((item, index) => (
+                <tr className={index == productIndexActive ? (s.tr + ' ' + s.activeRow) : s.tr} key={item.id} onClick={(e) => handleOpenPopupMenu(e, item, index)} onContextMenu={(e) => handleOpenPopupMenu(e, item, index)}>
+                  <td>{index + 1}</td>
+                  <td>{item.name}</td>
+                  <td>{item.vendor_code}</td>
+                  <td>{item.price}</td>
+                  <td>{item.brand ? item.brand.name : null}</td>
+                  <td>{item.count_in_stock}</td>
+                  <td>{item.catalog ? item.catalog.name : null}</td>
+                  <td>{item.catalog ? String(item.createdAt) : null}</td>
+                  <td>{item.catalog ? String(item.updatedAt) : null}</td>
+                </tr>
+              ))
+            }
+          </>
+        }
+
+      </tbody>
+    </table>
+
+    {/* {products && (
         <ul>
           {products.map((item) => (
             <li key={item.id}>{item.name}</li>
@@ -180,8 +233,8 @@ const AdminProductSection: FC<AdminProductSectionProps> = () => {
       )} */}
 
 
-    </div>
-  );
+  </div>
+);
 };
 
 export default AdminProductSection;

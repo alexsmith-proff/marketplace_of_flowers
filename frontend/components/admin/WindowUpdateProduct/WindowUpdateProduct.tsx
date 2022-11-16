@@ -1,11 +1,10 @@
-import { useMutation, useQuery } from "@apollo/client";
+import { useQuery } from "@apollo/client";
 import React, { FC, useEffect, useRef, useState } from "react";
 import { AdminButtonFunctional, AdminButtonType } from "../../../enums/AdminButtons.enum";
-import { CREATE_PRODUCT, GET_ALL_PRODUCTS, UPDATE_PRODUCT, UPDATE_RELATIONS_PRODUCT } from "../../../graphql/admin-product.graphql";
 import { GET_ALL_BRANDS } from "../../../graphql/brand.graphql";
 import { GET_ALL_CATALOG_NO_TREE } from "../../../graphql/catalog.graphql";
 import { ICatalog } from "../../../interfaces/catalog.interface";
-import { IAdminProduct, IBrand } from "../../../interfaces/products.interface";
+import { IAdminProduct, IBrand, IUpdateProductInput, IUpdateProductRelationsInput } from "../../../interfaces/products.interface";
 import ButtonAdmin from "../Buttons/ButtonAdmin/ButtonAdmin";
 
 import s from "./WindowUpdateProduct.module.scss";
@@ -13,15 +12,14 @@ import s from "./WindowUpdateProduct.module.scss";
 interface WindowUpdateProductProps {
     visible: boolean
     product: IAdminProduct
+    updateProduct: (updateProductInput: IUpdateProductInput, updateProductRelationsInput: IUpdateProductRelationsInput) => void
     closeWindow: () => void
 }
 
-const WindowUpdateProduct: FC<WindowUpdateProductProps> = ({ visible, product, closeWindow }) => {
+const WindowUpdateProduct: FC<WindowUpdateProductProps> = ({ visible, product, updateProduct, closeWindow }) => {
 
     const { loading: loadingBrands, error: errorBrands, data: brandsData } = useQuery(GET_ALL_BRANDS)
     const { loading: loadingCatalog, error: errorCatalog, data: catalogData } = useQuery(GET_ALL_CATALOG_NO_TREE)
-    const [updateProduct, dataUpdateProduct] = useMutation(UPDATE_PRODUCT)
-    const [updateRelationsProduct, dataUpdateRelationsProduct] = useMutation(UPDATE_RELATIONS_PRODUCT)
     
     const windowRef = useRef()
 
@@ -32,11 +30,6 @@ const WindowUpdateProduct: FC<WindowUpdateProductProps> = ({ visible, product, c
     const [productCount, setProductCount] = useState<number>(null)
     const [productCatalog, setProductCatalog] = useState<ICatalog>(null)
     const [productDescription, setProductDescription] = useState<string>(null)
-
-    const [productNameValid, setProductNameValid] = useState<boolean>(false)
-    const [productVendorValid, setProductVendorValid] = useState<boolean>(false)
-    const [productPriceValid, setProductPriceValid] = useState<boolean>(false)
-    const [productCountValid, setProductCountValid] = useState<boolean>(false)
 
     const [brandsArr, setBrandsArr] = useState<IBrand[]>(null)
     const [catalogArr, setCatalogArr] = useState<ICatalog[]>(null)
@@ -68,7 +61,7 @@ const WindowUpdateProduct: FC<WindowUpdateProductProps> = ({ visible, product, c
         }
     }
 
-
+    
     const handleChangeProductName = (e: React.ChangeEvent<HTMLInputElement>) => {
         setProductName(e.target.value)
     }
@@ -104,33 +97,20 @@ const WindowUpdateProduct: FC<WindowUpdateProductProps> = ({ visible, product, c
 
     }
 
-    const handleUpdateProduct = async() => {
+    const handleClickUpdateProduct = async() => {
         if (productName && productVendor && productPrice && productCount) {
-            await updateProduct({
-                variables: {
-                    updateProductInput: {
-                    id: +product.id,
-                    name: productName,
-                    vendor_code: productVendor,
-                    price: +productPrice,
-                    count_in_stock: +productCount,
-                  }
-                }
-              })
-            await updateRelationsProduct({
-                variables: {
-                    updateProductRelationsInput: {
-                    id: +product.id,
-                    brand_id: +productBrand.id,
-                    catalog_id: +productCatalog.id
-                  }
-                },
-                refetchQueries: [
-                  {
-                    query: GET_ALL_PRODUCTS
-                  }
-                ]
-              })  
+            updateProduct({
+                id: +product.id,
+                name: productName,
+                vendor_code: productVendor,
+                price: +productPrice,
+                count_in_stock: +productCount,
+            },
+            {
+                id: +product.id,
+                brand_id: +productBrand.id,
+                catalog_id: +productCatalog.id                
+            })
 
             closeWindow()
         }
@@ -201,7 +181,7 @@ const WindowUpdateProduct: FC<WindowUpdateProductProps> = ({ visible, product, c
 
 
                         <div className={s.buttons}>
-                            <ButtonAdmin typeBtn={AdminButtonType.Text} functionalBtn={AdminButtonFunctional.Standard} border={true} clickBtn={handleUpdateProduct}>Редактировать товар</ButtonAdmin>
+                            <ButtonAdmin typeBtn={AdminButtonType.Text} functionalBtn={AdminButtonFunctional.Standard} border={true} clickBtn={handleClickUpdateProduct}>Редактировать товар</ButtonAdmin>
                             <div className={s.btnClose} onClick={closeWindow}>
                                 <ButtonAdmin typeBtn={AdminButtonType.Text} functionalBtn={AdminButtonFunctional.Standard} border={true} clickBtn={() => closeWindow()}>Закрыть</ButtonAdmin>
                             </div>
