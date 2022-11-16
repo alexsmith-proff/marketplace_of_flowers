@@ -3,7 +3,8 @@ import { ProductService } from './product.service';
 import { ProductEntity } from './entities/product.entity';
 import { CreateProductInput } from './dto/create-product.input';
 import { UpdateProductInput } from './dto/update-product.input';
-import { UpdateProductBrandInput } from './dto/update-product-relations.input';
+import { UpdateProductRelationsInput } from './dto/update-product-relations.input';
+import { SortProductInput } from './dto/sort-product.input';
 
 @Resolver(() => ProductEntity)
 export class ProductResolver {
@@ -19,6 +20,11 @@ export class ProductResolver {
     return this.productService.findAll();
   }
 
+  @Query(() => [ProductEntity], { name: 'getAllProductsBySort' })
+  findAllBySort(@Args('sortProductInput') sortProductInput: SortProductInput) {
+    return this.productService.findAllBySort(sortProductInput);
+  }
+
   @Query(() => ProductEntity, { name: 'getProductById' })
   findOne(@Args('id', { type: () => Int }) id: number) {
     return this.productService.findOne(id);
@@ -30,8 +36,8 @@ export class ProductResolver {
   }
   
   @Mutation(() => ProductEntity)
-  updateProductBrand(@Args('updateProductBrandInput') updateProductBrandInput: UpdateProductBrandInput) {
-    return this.productService.updateBrand(updateProductBrandInput)
+  updateProductRelations(@Args('updateProductRelationsInput') updateProductRelationsInput: UpdateProductRelationsInput) {
+    return this.productService.updateRelations(updateProductRelationsInput)
   }
 
   @Mutation(() => ProductEntity)

@@ -2,7 +2,8 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { CreateProductInput } from './dto/create-product.input';
-import { UpdateProductBrandInput } from './dto/update-product-relations.input';
+import { SortProductInput } from './dto/sort-product.input';
+import { UpdateProductRelationsInput } from './dto/update-product-relations.input';
 import { UpdateProductInput } from './dto/update-product.input';
 import { ProductEntity } from './entities/product.entity';
 
@@ -23,6 +24,18 @@ export class ProductService {
     })
   }
 
+  async findAllBySort(sortProductInput: SortProductInput): Promise<ProductEntity[]> {
+      return await this.productRepository.find({
+        relations: {
+          brand: true,
+          catalog: true
+        },
+        order: {
+          [sortProductInput.sort_field]: sortProductInput.sort_order
+        }
+      })    
+  }
+
   async findOne(id: number): Promise<ProductEntity> {
     return this.productRepository.findOne({
       where: 
@@ -39,11 +52,11 @@ export class ProductService {
     return await this.findOne(id)
   }
 
- async updateBrand(updateProductBrandInput: UpdateProductBrandInput): Promise<ProductEntity> {
-  const product = await this.findOne(updateProductBrandInput.id)
-  const newProduct = {...product, brand: {id: updateProductBrandInput.brand_id}, catalog: {id: updateProductBrandInput.catalog_id}}
+ async updateRelations(updateProductRelationsInput: UpdateProductRelationsInput): Promise<ProductEntity> {
+  const product = await this.findOne(updateProductRelationsInput.id)
+  const newProduct = {...product, brand: {id: updateProductRelationsInput.brand_id}, catalog: {id: updateProductRelationsInput.catalog_id}}
   await this.productRepository.save(newProduct)   
-  return await this.findOne(updateProductBrandInput.id)
+  return await this.findOne(updateProductRelationsInput.id)
  }
 
   async remove(id: number): Promise<ProductEntity> {

@@ -1,33 +1,35 @@
 import { useMutation, useQuery } from "@apollo/client";
 import React, { FC, useEffect, useRef, useState } from "react";
 import { AdminButtonFunctional, AdminButtonType } from "../../../enums/AdminButtons.enum";
-import { CREATE_PRODUCT, GET_ALL_PRODUCTS } from "../../../graphql/admin-product.graphql";
+import { CREATE_PRODUCT, GET_ALL_PRODUCTS, UPDATE_PRODUCT, UPDATE_RELATIONS_PRODUCT } from "../../../graphql/admin-product.graphql";
 import { GET_ALL_BRANDS } from "../../../graphql/brand.graphql";
 import { GET_ALL_CATALOG_NO_TREE } from "../../../graphql/catalog.graphql";
 import { ICatalog } from "../../../interfaces/catalog.interface";
-import { IBrand } from "../../../interfaces/products.interface";
+import { IAdminProduct, IBrand } from "../../../interfaces/products.interface";
 import ButtonAdmin from "../Buttons/ButtonAdmin/ButtonAdmin";
 
-import s from "./WindowCreateProduct.module.scss";
+import s from "./WindowUpdateProduct.module.scss";
 
-interface WindowCreateProductProps {
+interface WindowUpdateProductProps {
     visible: boolean
+    product: IAdminProduct
     closeWindow: () => void
 }
 
-const WindowCreateProduct: FC<WindowCreateProductProps> = ({ visible, closeWindow }) => {
+const WindowUpdateProduct: FC<WindowUpdateProductProps> = ({ visible, product, closeWindow }) => {
 
     const { loading: loadingBrands, error: errorBrands, data: brandsData } = useQuery(GET_ALL_BRANDS)
     const { loading: loadingCatalog, error: errorCatalog, data: catalogData } = useQuery(GET_ALL_CATALOG_NO_TREE)
-    const [createProduct, dataCreateProduct] = useMutation(CREATE_PRODUCT)
-
+    const [updateProduct, dataUpdateProduct] = useMutation(UPDATE_PRODUCT)
+    const [updateRelationsProduct, dataUpdateRelationsProduct] = useMutation(UPDATE_RELATIONS_PRODUCT)
+    
     const windowRef = useRef()
 
     const [productName, setProductName] = useState<string>(null)
     const [productVendor, setProductVendor] = useState<string>(null)
     const [productPrice, setProductPrice] = useState<number>(null)
-    const [productCount, setProductCount] = useState<number>(null)
     const [productBrand, setProductBrand] = useState<IBrand>(null)
+    const [productCount, setProductCount] = useState<number>(null)
     const [productCatalog, setProductCatalog] = useState<ICatalog>(null)
     const [productDescription, setProductDescription] = useState<string>(null)
 
@@ -42,7 +44,6 @@ const WindowCreateProduct: FC<WindowCreateProductProps> = ({ visible, closeWindo
     useEffect(() => {
         if (brandsData) {
             setBrandsArr(brandsData.getAllBrands)
-            setProductBrand(brandsData.getAllBrands[0])
         }
     }, [brandsData])
     useEffect(() => {
@@ -51,6 +52,15 @@ const WindowCreateProduct: FC<WindowCreateProductProps> = ({ visible, closeWindo
             setProductCatalog(catalogData.getAllCatalogNoTree[0])
         }
     }, [catalogData])
+    useEffect(() => {
+        setProductName(product.name)
+        setProductVendor(product.vendor_code)
+        setProductPrice(product.price)
+        setProductBrand(product.brand)
+        setProductCount(product.count_in_stock)
+        setProductCatalog(product.catalog)
+        setProductDescription(null)
+    }, [product])
 
     const handleCloseWindow = (e) => {
         if (e.target === windowRef.current) {
@@ -74,8 +84,6 @@ const WindowCreateProduct: FC<WindowCreateProductProps> = ({ visible, closeWindo
     const handleChangeProductBrand = (e: React.ChangeEvent<HTMLSelectElement>) => {
         const brand = brandsArr.find((item) => item.name == e.target.value)
         setProductBrand(brand)
-        // console.log('brannnnndddd', brand);
-        // setProductBrand(e.target.value)
     }
     const handleChangeProductCatalog = (e: React.ChangeEvent<HTMLSelectElement>) => {
         const catalog = catalogArr.find((item) => item.name == e.target.value)
@@ -84,9 +92,6 @@ const WindowCreateProduct: FC<WindowCreateProductProps> = ({ visible, closeWindo
     const handleChangeProductDescription = (e: any) => {
         setProductDescription(e.target.value)
     }
-
-
-
 
     const onlyNumber = (e: any, digits: number) => {
         if (e.target.value)
@@ -98,36 +103,26 @@ const WindowCreateProduct: FC<WindowCreateProductProps> = ({ visible, closeWindo
             }
 
     }
-    const ProductFieldsNull = () => {
-        setProductName(null)
-        setProductVendor(null)
-        setProductPrice(null)
-        setProductCount(null)
-        setProductBrand(brandsArr ? brandsArr[0] : null)
-        setProductCatalog(catalogArr ? catalogArr[0] : null)
-        setProductDescription(null)
-    }
 
-    const handleCreateProduct = () => {
-
-        console.log('productNameRef', productName);
-        console.log('productVendorRef', productVendor);
-        console.log('productPriceRef', productPrice);
-        console.log('productCountRef', productCount);
-        console.log('productBrandRef', productBrand);
-        console.log('productCatalogRef', productCatalog);
-        console.log('productDescriptionRef', productDescription);
-
+    const handleUpdateProduct = async() => {
         if (productName && productVendor && productPrice && productCount) {
-            createProduct({
+            await updateProduct({
                 variables: {
-                  createProductInput: {
+                    updateProductInput: {
+                    id: +product.id,
                     name: productName,
-                    price: productPrice,
                     vendor_code: productVendor,
-                    count_in_stock: productCount,
+                    price: +productPrice,
+                    count_in_stock: +productCount,
+                  }
+                }
+              })
+            await updateRelationsProduct({
+                variables: {
+                    updateProductRelationsInput: {
+                    id: +product.id,
                     brand_id: +productBrand.id,
-                    catalog_id: +productCatalog.id,
+                    catalog_id: +productCatalog.id
                   }
                 },
                 refetchQueries: [
@@ -135,10 +130,8 @@ const WindowCreateProduct: FC<WindowCreateProductProps> = ({ visible, closeWindo
                     query: GET_ALL_PRODUCTS
                   }
                 ]
-              })
+              })  
 
-            // Save DB
-            ProductFieldsNull()
             closeWindow()
         }
     }
@@ -151,28 +144,27 @@ const WindowCreateProduct: FC<WindowCreateProductProps> = ({ visible, closeWindo
                     <div className={s.window}>
                         <div className={s.LabelEdit}>
                             <span className={s.title}>Название товара</span>
-                            <input className={!productName ? (s.nameInput + ' ' + s.error) : s.nameInput} type="text" onChange={handleChangeProductName} />
+                            <input className={!productName ? (s.nameInput + ' ' + s.error) : s.nameInput} type="text" onChange={handleChangeProductName} value={productName} />
                         </div>
                         <div className={s.secondLevel}>
                             <div className={s.LabelEdit}>
                                 <span className={s.title}>Артикул</span>
-                                <input className={!productVendor ? (s.vendorInput + ' ' + s.nameInput + ' ' + s.error) : (s.vendorInput + ' ' +s.nameInput)} type="text" onChange={handleChangeProductVendor} />
+                                <input className={!productVendor ? (s.vendorInput + ' ' + s.nameInput + ' ' + s.error) : (s.vendorInput + ' ' +s.nameInput)} type="text" onChange={handleChangeProductVendor} value={productVendor} />
                             </div>
                             <div className={s.LabelEdit}>
                                 <span className={s.title}>Цена</span>
-                                <input className={!productPrice ? (s.priceInput + ' ' + s.nameInput + ' ' + s.error) : (s.priceInput + ' ' + s.nameInput)} type="text" onInput={e => onlyNumber(e, 8)} onChange={handleChangeProductPrice} />
+                                <input className={!productPrice ? (s.priceInput + ' ' + s.nameInput + ' ' + s.error) : (s.priceInput + ' ' + s.nameInput)} type="text" onInput={e => onlyNumber(e, 8)} onChange={handleChangeProductPrice} value={productPrice} />
                             </div>
                             <div className={s.LabelEdit}>
                                 <span className={s.title}>Кол.-во</span>
-                                <input className={!productCount ? (s.countInput + ' ' + s.nameInput + ' ' + s.error) : (s.countInput + ' ' + s.nameInput)} type="text" onInput={e => onlyNumber(e, 6)} onChange={handleChangeProductCount} />
-                            </div>
+                                <input className={!productCount ? (s.countInput + ' ' + s.nameInput + ' ' + s.error) : (s.countInput + ' ' + s.nameInput)} type="text" onInput={e => onlyNumber(e, 6)} onChange={handleChangeProductCount} value={productCount} />                            </div>
                         </div>
 
                         <div className={s.thirdLevel}>
                             <div className={s.LabelEdit}>
                                 <span className={s.title}>Бренд</span>
                                 <div className={s.dropdown} data-itemChart="1">
-                                    <select name="one" className={s.dropdownSelect} onChange={handleChangeProductBrand} >
+                                    <select name="one" className={s.dropdownSelect} onChange={handleChangeProductBrand} value={productBrand.name} >
                                         {
                                             brandsArr &&
                                             <>
@@ -187,7 +179,7 @@ const WindowCreateProduct: FC<WindowCreateProductProps> = ({ visible, closeWindo
                             <div className={s.LabelEdit}>
                                 <span className={s.title}>Категория</span>
                                 <div className={s.dropdown} data-itemChart="1">
-                                    <select name="one" className={s.dropdownSelect} onChange={handleChangeProductCatalog} >
+                                    <select name="one" className={s.dropdownSelect} onChange={handleChangeProductCatalog} value={productCatalog ? productCatalog.name : null} >
                                         {
                                             catalogArr &&
                                             <>
@@ -209,7 +201,7 @@ const WindowCreateProduct: FC<WindowCreateProductProps> = ({ visible, closeWindo
 
 
                         <div className={s.buttons}>
-                            <ButtonAdmin typeBtn={AdminButtonType.Text} functionalBtn={AdminButtonFunctional.Standard} border={true} clickBtn={handleCreateProduct}>Создать товар</ButtonAdmin>
+                            <ButtonAdmin typeBtn={AdminButtonType.Text} functionalBtn={AdminButtonFunctional.Standard} border={true} clickBtn={handleUpdateProduct}>Редактировать товар</ButtonAdmin>
                             <div className={s.btnClose} onClick={closeWindow}>
                                 <ButtonAdmin typeBtn={AdminButtonType.Text} functionalBtn={AdminButtonFunctional.Standard} border={true} clickBtn={() => closeWindow()}>Закрыть</ButtonAdmin>
                             </div>
@@ -221,4 +213,4 @@ const WindowCreateProduct: FC<WindowCreateProductProps> = ({ visible, closeWindo
     );
 };
 
-export default WindowCreateProduct;
+export default WindowUpdateProduct;

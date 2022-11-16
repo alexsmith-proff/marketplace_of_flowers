@@ -6,7 +6,7 @@ interface IBase {
 }
 export interface IBrand extends IBase{}
 
-export interface IAdminProducts extends IBase {
+export interface IAdminProduct extends IBase {
   price: number;
   count_in_stock: number;
   vendor_code: string;

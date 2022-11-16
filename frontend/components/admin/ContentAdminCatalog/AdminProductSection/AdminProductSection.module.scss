@@ -1,49 +1,83 @@
-.createProduct{
+.createProduct {
     margin-bottom: 20px;
 }
+
 .table {
-	width: 100%;
-	margin-bottom: 20px;
+    width: 100%;
+    margin-bottom: 20px;
     box-shadow: 1px 1px 44px 1px rgba(0, 0, 0, 0.25);
-	border: 1px solid rgb(230, 230, 255);
-	border-collapse: collapse; 
+    border: 1px solid rgb(230, 230, 255);
+    border-collapse: collapse;
 }
-.table tr:nth-child(2n){
+
+.tr:nth-child(2n) {
     background-color: rgb(250, 250, 255);
 }
-.table tr:hover{
+
+.tr:hover {
     background-color: rgb(229, 229, 253);
     cursor: pointer;
 }
+
 .table th {
-	font-weight: bold;
-	padding: 8px;
+    font-weight: bold;
+    padding: 8px;
     background-color: rgb(198, 198, 255);
-	border: 1px solid #888;
+    border: 1px solid #888;
 }
+
 .table td {
-	border: 1px solid #ccc;
-	padding: 7px;
+    border: 1px solid #ccc;
+    padding: 7px;
     text-align: center;
 }
+
+.tr.activeRow {
+    background-color: rgb(191, 191, 255);
+}
+
 .table td:nth-child(2) {
     text-align: left;
 }
-.table td:nth-child(1){
+
+// Порядковый номер
+.table td:nth-child(1) {
     width: 3%;
 }
-.table td:nth-child(3){
-    width: 12%;
-}
-.table td:nth-child(4){
-    width: 10%;
-}
-.table td:nth-child(5){
-    width: 15%;
-}
-.table td:nth-child(6){
+
+// Артикул
+.table td:nth-child(3) {
     width: 8%;
 }
-.table td:nth-child(7){
-    width: 20%;
+
+// Цена
+.table td:nth-child(4) {
+    width: 6%;
+}
+
+// Производитель
+.table td:nth-child(5) {
+    width: 11%;
+}
+
+// Количество на складе
+.table td:nth-child(6) {
+    width: 6%;
+}
+
+// Категория
+.table td:nth-child(7) {
+    width: 14%;
+}
+
+// Create
+.table td:nth-child(8) {
+    width: 12%;
+    font-size: 14px;
+}
+
+// Update
+.table td:nth-child(9) {
+    width: 12%;
+    font-size: 14px;
 }
