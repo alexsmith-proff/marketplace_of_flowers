@@ -18,6 +18,6 @@ export class SectionEntity {
   slug: string
 
   @Field(() => [ElementEntity])
-  @OneToMany(() => ElementEntity, element => element.section_ref)
+  @OneToMany(() => ElementEntity, element => element.section_ref, { eager: true, cascade: true })
   elements: ElementEntity[]
 }

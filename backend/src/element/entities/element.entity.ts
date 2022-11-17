@@ -20,11 +20,11 @@ export class ElementEntity {
   slug: string
 
   @Field(() => [TextElementEntity])
-  @OneToMany(() => TextElementEntity, textelement => textelement.element_ref)
+  @OneToMany(() => TextElementEntity, textelement => textelement.element_ref, { eager: true, cascade: true })
   text_elements: TextElementEntity[]
 
   @Field(() => [ImgElementEntity])
-  @OneToMany(() => ImgElementEntity, imgelement => imgelement.element_ref)
+  @OneToMany(() => ImgElementEntity, imgelement => imgelement.element_ref, { eager: true, cascade: true })
   img_elements: ImgElementEntity[]
 
   @Field(() => SectionEntity)
