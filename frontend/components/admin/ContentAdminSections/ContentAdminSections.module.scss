@@ -23,13 +23,60 @@
         box-shadow: 1px 1px 44px 1px rgba(0, 0, 0, 0.25);
         width: 100%;
     }
+    &Item{
+        background-color: #ddd;
+    }
     &Title{
         padding: 10px;
         border-bottom: 1px solid #000;
         background-color: #C8CCFA;
         font-weight: bold;
     }
-
+}
+.blockText{
+    &Item{
+        padding: 20px 10px;
+        border-bottom: 1px dashed #999;
+        // border-bottom: 1px dotted #888;
+        &:last-child{
+            border-bottom: none;
+        }
+    }
+    &Name{
+        margin-bottom: 10px;
+    }
+    &Area{
+        background-color: #fff;
+        border: 1px solid #888;
+        padding: 10px 5px;
+    }
+}
+.blockImg{
+    &List{
+        font-size: 14px;
+        border-top: 1px dashed #999;
+        padding: 20px 10px;
+        display: flex;
+        flex-wrap: wrap;
+    }
+    &Item{
+        margin: 0 40px 20px 0;
+        text-align: center;
+    }
+    &Photo{
+        width: 150px;
+        height: 200px;
+        border: 1px solid #777;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-bottom: 10px;
+        background-color: #ccc;
+    }
+    &Title{
+        margin-bottom: 5px;
+    }
+   
 }
 
 .operations{
@@ -43,7 +90,8 @@
     cursor: pointer;
     &Title{
         text-align: center;
-        padding: 7px 0;
+        background-color: #C8CCFA;
+        padding: 10px 0;
         border-bottom: 1px solid #000;
         font-size: 16px;
         font-weight: bold;
@@ -58,7 +106,7 @@
     &Item{
         padding: 5px 20px;
         &:hover{
-            background-color: rgb(198, 198, 255);
+            background-color: rgb(226, 226, 255);
         }
     }
 }

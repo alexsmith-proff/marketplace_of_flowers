@@ -264,7 +264,7 @@ type Mutation {
   updateMenu(updateMenuInput: UpdateMenuInput!): MenuEntity!
   updateMenuItem(updateMenuItemInput: UpdateMenuItemInput!): MenuItemEntity!
   updateProduct(updateProductInput: UpdateProductInput!): ProductEntity!
-  updateProductBrand(updateProductBrandInput: UpdateProductBrandInput!): ProductEntity!
+  updateProductRelations(updateProductRelationsInput: UpdateProductRelationsInput!): ProductEntity!
   updateSection(updateSectionInput: UpdateSectionInput!): SectionEntity!
   updateSubmenuItem(updateSubmenuItemInput: UpdateSubmenuItemInput!): SubmenuItemEntity!
   updateSubmenuItemTwo(updateSubmenuItemTwoInput: UpdateSubmenuItemTwoInput!): SubmenuItemTwoEntity!
@@ -305,6 +305,7 @@ type Query {
   getAllMenuItem: [MenuItemEntity!]!
   getAllMenus: [MenuEntity!]!
   getAllProducts: [ProductEntity!]!
+  getAllProductsBySort(sortProductInput: SortProductInput!): [ProductEntity!]!
   getAllSections: [SectionEntity!]!
   getAllSubmenuItems: [SubmenuItemEntity!]!
   getAllSubmenuItemsTwo: [SubmenuItemTwoEntity!]!
@@ -333,6 +334,14 @@ type SectionEntity {
 
   """slug section"""
   slug: String!
+}
+
+input SortProductInput {
+  """Sort Name"""
+  sort_field: String!
+
+  """ASC-DESC sort"""
+  sort_order: String!
 }
 
 type SubmenuItemEntity {
@@ -448,17 +457,6 @@ input UpdateMenuItemInput {
   serial_number: Int
 }
 
-input UpdateProductBrandInput {
-  """Brand ID"""
-  brand_id: Float
-
-  """Catalog ID"""
-  catalog_id: Float
-
-  """Product ID"""
-  id: Int!
-}
-
 input UpdateProductInput {
   """Brand"""
   brand_id: Float
@@ -478,6 +476,17 @@ input UpdateProductInput {
 
   """Vendor code"""
   vendor_code: String
+}
+
+input UpdateProductRelationsInput {
+  """Brand ID"""
+  brand_id: Float
+
+  """Catalog ID"""
+  catalog_id: Float
+
+  """Product ID"""
+  id: Int!
 }
 
 input UpdateSectionInput {
