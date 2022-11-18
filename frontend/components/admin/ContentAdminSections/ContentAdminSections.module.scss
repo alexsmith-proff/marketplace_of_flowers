@@ -10,12 +10,17 @@
         font-size: 16px;
         font-weight: bold;
         margin-bottom: 20px;
+        margin-right: 15px;
         padding-top: 20px;
     }
 }
 .wrap{
     display: flex;
     justify-content: space-between;
+}
+.titleWrap{
+    display: flex;
+    align-items: center;
 }
 .elem{
     &List{
@@ -25,36 +30,56 @@
     }
     &Item{
         background-color: #ddd;
+        .titleWrap{
+            background-color: #C8CCFA;
+            border-bottom: 1px solid #000;
+        }
     }
     &Title{
         padding: 10px;
-        border-bottom: 1px solid #000;
-        background-color: #C8CCFA;
         font-weight: bold;
     }
 }
 .blockText{
+    
     &Item{
+        cursor: pointer;
         padding: 20px 10px;
         border-bottom: 1px dashed #999;
-        // border-bottom: 1px dotted #888;
         &:last-child{
             border-bottom: none;
         }
+        .titleWrap{
+            background-color: transparent;
+            border-bottom: none;
+            margin-bottom: 10px;
+        }
     }
-    &Name{
-        margin-bottom: 10px;
+    &Title{
+        margin-right: 15px;
     }
     &Area{
+        line-height: 24px;
         background-color: #fff;
+        display: inline-block;
         border: 1px solid #888;
         padding: 10px 5px;
     }
 }
 .blockImg{
+    border-top: 1px dashed #999;
+    padding-top: 20px;
+    cursor: pointer;
+    .titleWrap{
+        background-color: transparent;
+        border-bottom: none;
+    }
+    &Title{
+        padding: 0 0 0 10px;
+        margin-right: 15px;
+    }
     &List{
         font-size: 14px;
-        border-top: 1px dashed #999;
         padding: 20px 10px;
         display: flex;
         flex-wrap: wrap;
@@ -73,10 +98,7 @@
         margin-bottom: 10px;
         background-color: #ccc;
     }
-    &Title{
-        margin-bottom: 5px;
-    }
-   
+
 }
 
 .operations{
@@ -84,7 +106,6 @@
     margin-left: 30px;
     border: 1px solid #000;
     box-shadow: 1px 1px 44px 1px rgba(0, 0, 0, 0.25);
-    // border-radius: 10px;
     height: 100%;
     font-size: 14px;
     cursor: pointer;
@@ -97,7 +118,6 @@
         font-weight: bold;
     }
     &Section{
-        // padding: 10px;
         border-bottom: 1px solid #bbb;
         &:last-child{
             border-bottom: none
