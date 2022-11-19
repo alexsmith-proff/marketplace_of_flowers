@@ -140,6 +140,9 @@ const ContentAdminSections = ({ }: ContentAdminSectionsProps) => {
                     </>
                 )}
             </ul>
+            <div className={s.btnCreateSection}>
+                <ButtonAdmin typeBtn={AdminButtonType.Text} functionalBtn={AdminButtonFunctional.Standard} border={true}>Создать секцию</ButtonAdmin>
+            </div>
         </div>
     );
 };
