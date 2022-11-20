@@ -22,3 +22,15 @@ export interface ICreateNameSlugInput {
     name: string
     slug: string
 }
+
+export interface ICreateBlockTextInput {
+    name: string
+    slug: string
+    text: string
+}
+
+export interface ICreateBlockImgInput {
+    name: string
+    slug: string
+    fileName: string[]
+}

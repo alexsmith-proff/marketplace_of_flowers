@@ -1,10 +1,10 @@
 import { useMutation, useQuery } from "@apollo/client";
 import React, { useEffect, useState } from "react";
-import { CREATE_ELEMENT, CREATE_SECTION, GET_ALL_SECTIONS } from "../../../graphql/section.graphql";
+import { CREATE_BLOCK_TEXT, CREATE_ELEMENT, CREATE_SECTION, GET_ALL_SECTIONS } from "../../../graphql/section.graphql";
 import { AiOutlinePlus } from 'react-icons/ai';
 import { RiEdit2Line } from 'react-icons/ri';
 import { MdDeleteOutline } from 'react-icons/md';
-import { ICreateNameSlugInput, IElement, ISection } from "../../../interfaces/section.interface";
+import { ICreateBlockTextInput, ICreateNameSlugInput, IElement, ISection } from "../../../interfaces/section.interface";
 
 import s from "./ContentAdminSections.module.scss";
 import ButtonAdmin from "../Buttons/ButtonAdmin/ButtonAdmin";
@@ -19,6 +19,7 @@ const ContentAdminSections = ({ }: ContentAdminSectionsProps) => {
     const { loading, error, data } = useQuery(GET_ALL_SECTIONS);
     const [createSection, dataCreateSection] = useMutation(CREATE_SECTION)
     const [createElement, dataCreateElement] = useMutation(CREATE_ELEMENT)
+    const [createBlockText, dataCreateBlockText] = useMutation(CREATE_BLOCK_TEXT)
 
     const [windowCreateSectionVisible, setWindowCreateSectionVisible] = useState<boolean>(false)
     const [windowCreateElementVisible, setWindowCreateElementVisible] = useState<boolean>(false)
@@ -32,6 +33,7 @@ const ContentAdminSections = ({ }: ContentAdminSectionsProps) => {
     const [activeBlockImg, setActiveBlockImg] = useState<boolean>(false)
 
     const [currentIdSection, setCurrentIdSection] = useState<number>(null)
+    const [currentIdElement, setCurrentIdElement] = useState<number>(null)
 
 
 
@@ -69,6 +71,20 @@ const ContentAdminSections = ({ }: ContentAdminSectionsProps) => {
         })
     }
 
+    const handleCreateBlockText = (createBlockTextInput: ICreateBlockTextInput, element_id: number) => {
+        // Save DB
+        createBlockText({
+          variables: {
+            createTextElementInput: {...createBlockTextInput, element_id: +element_id}
+          },
+          refetchQueries: [
+            {
+              query: GET_ALL_SECTIONS
+            }
+          ]
+        })
+    }
+
     const closeWindow = () => {
         setWindowCreateSectionVisible(false)
         setWindowCreateElementVisible(false)
@@ -94,7 +110,8 @@ const ContentAdminSections = ({ }: ContentAdminSectionsProps) => {
         setWindowCreateElementVisible(true)
     }
 
-    const handleClickCreateBlock = () => {
+    const handleClickCreateBlock = (element: IElement) => {
+        setCurrentIdElement(element.id)
         setWindowCreateBlockVisible(true)
     }
 
@@ -107,7 +124,7 @@ const ContentAdminSections = ({ }: ContentAdminSectionsProps) => {
         <div className={s.section}>
             <WindowCreateNameSlug visible={windowCreateSectionVisible} type={AdminSectionType.Section} createNameSlug={handleCreateSection} closeWindow={closeWindow} />
             <WindowCreateNameSlug visible={windowCreateElementVisible} type={AdminSectionType.Element} createNameSlug={(data) => handleCreateElement(data, currentIdSection)} closeWindow={closeWindow} />
-            <WindowCreateBlockText visible={windowCreateBlockVisible} createBlockText={null} closeWindow={closeWindow} />
+            <WindowCreateBlockText visible={windowCreateBlockVisible} createBlockText={(data) => handleCreateBlockText(data, currentIdElement)} closeWindow={closeWindow} />
             <ul className={s.sectionlist}>
                 {sections && (
                     <>
@@ -135,7 +152,7 @@ const ContentAdminSections = ({ }: ContentAdminSectionsProps) => {
                                                             {
                                                                 activeSection == indexSection && activeElement === indexElement &&
                                                                 <>
-                                                                    <ButtonAdmin typeBtn={AdminButtonType.Ico} functionalBtn={AdminButtonFunctional.Standard} border={false} ico={<AiOutlinePlus />} sizeIco={16} clickBtn={handleClickCreateBlock} />
+                                                                    <ButtonAdmin typeBtn={AdminButtonType.Ico} functionalBtn={AdminButtonFunctional.Standard} border={false} ico={<AiOutlinePlus />} sizeIco={16} clickBtn={() => handleClickCreateBlock(elem)} />
                                                                     <ButtonAdmin typeBtn={AdminButtonType.Ico} functionalBtn={AdminButtonFunctional.Standard} border={false} ico={<RiEdit2Line />} sizeIco={16} />
                                                                     <ButtonAdmin typeBtn={AdminButtonType.Ico} functionalBtn={AdminButtonFunctional.Standard} border={false} ico={<MdDeleteOutline />} sizeIco={16} />
                                                                 </>

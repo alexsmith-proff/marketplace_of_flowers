@@ -64,6 +64,8 @@ const WindowCreateNameSlug: FC<WindowCreateNameSlugProps> = ({ visible, type, cr
                             <input className={!setSlugName ? (s.nameInput + ' ' + s.error) : s.nameInput} type="text" onChange={handleChangeSlugName} />
                         </div>
 
+                        
+
                         <div className={s.buttons}>
                             <ButtonAdmin typeBtn={AdminButtonType.Text} functionalBtn={AdminButtonFunctional.Standard} border={true} clickBtn={handleClickCreateProduct}>{type == AdminSectionType.Section ? 'Создать секцию' : 'Создать элемент'}</ButtonAdmin>
                             <div className={s.btnClose} onClick={closeWindow}>

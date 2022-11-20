@@ -1,6 +1,6 @@
 import React, { FC, useRef, useState } from "react";
 import { AdminButtonFunctional, AdminButtonType } from "../../../enums/AdminButtons.enum";
-import { ICreateNameSlugInput } from "../../../interfaces/section.interface";
+import { ICreateBlockImgInput, ICreateBlockTextInput, ICreateNameSlugInput } from "../../../interfaces/section.interface";
 import ButtonAdmin from "../Buttons/ButtonAdmin/ButtonAdmin";
 
 import s from "./WindowCreateBlock.module.scss";
@@ -12,14 +12,17 @@ const BlockTypeArr = [
 
 interface WindowCreateBlockProps {
     visible: boolean
-    createBlockText: (createInput: ICreateNameSlugInput) => void
+    createBlockText?: (createInput: ICreateBlockTextInput) => void
+    createBlockImg?: (createInput: ICreateBlockImgInput) => void
     closeWindow: () => void
 }
 
-const WindowCreateBlock: FC<WindowCreateBlockProps> = ({ visible, createBlockText, closeWindow }) => {
+const WindowCreateBlock: FC<WindowCreateBlockProps> = ({ visible, createBlockText, createBlockImg, closeWindow }) => {
 
     const [titleName, setTitleName] = useState<string>(null)
     const [slugName, setSlugName] = useState<string>(null)
+    const [blockType, setblockType] = useState<string>(BlockTypeArr[0])
+    const [text, setText] = useState<string>(null)
 
     const windowRef = useRef()
 
@@ -30,9 +33,13 @@ const WindowCreateBlock: FC<WindowCreateBlockProps> = ({ visible, createBlockTex
         setSlugName(e.target.value)
     }
     const handleChangeBlockType = (e: React.ChangeEvent<HTMLSelectElement>) => {
-        // const brand = brandsArr.find((item) => item.name == e.target.value)
-        // setProductBrand(brand)
+        const selectedBlockType = BlockTypeArr.find((item) => item == e.target.value)
+        setblockType(selectedBlockType)
     }
+    const handleChangeBlockText = (e: any) => {
+        setText(e.target.value)
+    }
+    
 
     const handleCloseWindow = (e) => {
         if (e.target === windowRef.current) {
@@ -43,14 +50,25 @@ const WindowCreateBlock: FC<WindowCreateBlockProps> = ({ visible, createBlockTex
     const blockFieldsNull = () => {
         setTitleName(null)
         setSlugName(null)
+        setblockType(BlockTypeArr[0])
+        setText(null)
     }
 
 
     const handleClickCreateBlock = () => {
-        // createNameSlug({
-        //     name: sectionName,
-        //     slug: slugName
-        // })
+        // Блок текстовый',
+        if(blockType == BlockTypeArr[0]){
+            createBlockText({
+                name: titleName, 
+                slug: slugName,
+                text: text                
+            })
+        }
+        // Блок изображений
+        // if(blockType == BlockTypeArr[1]){
+        //     createBlockImg({})
+        // }
+
         blockFieldsNull()
         closeWindow()
     }
@@ -74,20 +92,31 @@ const WindowCreateBlock: FC<WindowCreateBlockProps> = ({ visible, createBlockTex
 
 
                         <div className={s.LabelEdit}>
-                                <span className={s.title}>Бренд</span>
-                                <div className={s.dropdown} data-itemChart="1">
-                                    <select name="one" className={s.dropdownSelect} onChange={handleChangeBlockType} >
-                                        {
-                                            BlockTypeArr &&
-                                            <>
-                                                {
-                                                    BlockTypeArr.map((item, index) => <option key={index}>{item}</option>)
-                                                }
-                                            </>
-                                        }
-                                    </select>
-                                </div>
+                            <span className={s.title}>Тип блока</span>
+                            <div className={s.dropdown} data-itemChart="1">
+                                <select name="one" className={s.dropdownSelect} onChange={handleChangeBlockType} >
+                                    {
+                                        BlockTypeArr &&
+                                        <>
+                                            {
+                                                BlockTypeArr.map((item, index) => <option key={index}>{item}</option>)
+                                            }
+                                        </>
+                                    }
+                                 </select>
                             </div>
+                        </div>
+
+                        {
+                            // Текстовый блок
+                            blockType == BlockTypeArr[0] && (
+                                <div className={s.LabelEdit}>
+                                    <span className={s.title}>Текст</span>
+                                    <textarea className={s.description} rows={8} cols={50} onChange={handleChangeBlockText}></textarea>
+                                </div>
+                            )
+                        }
+                        
 
 
 

@@ -18,6 +18,15 @@ mutation CreateElement($createElementInput: CreateElementInput!){
 }
 `;
 
+export const CREATE_BLOCK_TEXT = gql`
+mutation CreateBlockText($createTextElementInput: CreateTextElementInput!){
+  createTextElement(createTextElementInput: $createTextElementInput){
+    id
+    name
+  }
+}
+`;
+
 export const GET_ALL_SECTIONS = gql`
 query GetAllSections{
     getAllSections{
