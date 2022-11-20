@@ -9,8 +9,9 @@ import { ICreateNameSlugInput, IElement, ISection } from "../../../interfaces/se
 import s from "./ContentAdminSections.module.scss";
 import ButtonAdmin from "../Buttons/ButtonAdmin/ButtonAdmin";
 import { AdminButtonFunctional, AdminButtonType } from "../../../enums/AdminButtons.enum";
-import WindowCreateSection from "../WindowCreateNameSlug/WindowCreateNameSlug";
+import WindowCreateNameSlug from "../WindowCreateNameSlug/WindowCreateNameSlug";
 import { AdminSectionType } from "../../../enums/AdminSections.enum";
+import WindowCreateBlockText from "../WindowCreateBlock/WindowCreateBlock";
 
 interface ContentAdminSectionsProps { }
 
@@ -21,6 +22,7 @@ const ContentAdminSections = ({ }: ContentAdminSectionsProps) => {
 
     const [windowCreateSectionVisible, setWindowCreateSectionVisible] = useState<boolean>(false)
     const [windowCreateElementVisible, setWindowCreateElementVisible] = useState<boolean>(false)
+    const [windowCreateBlockVisible, setWindowCreateBlockVisible] = useState<boolean>(false)
 
     const [sections, setSections] = useState<ISection[]>(null);
 
@@ -29,7 +31,7 @@ const ContentAdminSections = ({ }: ContentAdminSectionsProps) => {
     const [activeBlockText, setActiveBlockText] = useState<number>(null)
     const [activeBlockImg, setActiveBlockImg] = useState<boolean>(false)
 
-    const [currentIdElement, setCurrentIdElement] = useState<number>(null)
+    const [currentIdSection, setCurrentIdSection] = useState<number>(null)
 
 
 
@@ -70,6 +72,7 @@ const ContentAdminSections = ({ }: ContentAdminSectionsProps) => {
     const closeWindow = () => {
         setWindowCreateSectionVisible(false)
         setWindowCreateElementVisible(false)
+        setWindowCreateBlockVisible(false)
     }
 
 
@@ -87,8 +90,12 @@ const ContentAdminSections = ({ }: ContentAdminSectionsProps) => {
     }
 
     const handleClickCreateElement = (section: ISection) => {
-        setCurrentIdElement(section.id)
+        setCurrentIdSection(section.id)
         setWindowCreateElementVisible(true)
+    }
+
+    const handleClickCreateBlock = () => {
+        setWindowCreateBlockVisible(true)
     }
 
 
@@ -98,8 +105,9 @@ const ContentAdminSections = ({ }: ContentAdminSectionsProps) => {
 
     return (
         <div className={s.section}>
-            <WindowCreateSection visible={windowCreateSectionVisible} type={AdminSectionType.Section} createNameSlug={handleCreateSection} closeWindow={closeWindow} />
-            <WindowCreateSection visible={windowCreateElementVisible} type={AdminSectionType.Element} createNameSlug={(data) => handleCreateElement(data, currentIdElement)} closeWindow={closeWindow} />
+            <WindowCreateNameSlug visible={windowCreateSectionVisible} type={AdminSectionType.Section} createNameSlug={handleCreateSection} closeWindow={closeWindow} />
+            <WindowCreateNameSlug visible={windowCreateElementVisible} type={AdminSectionType.Element} createNameSlug={(data) => handleCreateElement(data, currentIdSection)} closeWindow={closeWindow} />
+            <WindowCreateBlockText visible={windowCreateBlockVisible} createBlockText={null} closeWindow={closeWindow} />
             <ul className={s.sectionlist}>
                 {sections && (
                     <>
@@ -127,7 +135,7 @@ const ContentAdminSections = ({ }: ContentAdminSectionsProps) => {
                                                             {
                                                                 activeSection == indexSection && activeElement === indexElement &&
                                                                 <>
-                                                                    {/* <ButtonAdmin typeBtn={AdminButtonType.Ico} functionalBtn={AdminButtonFunctional.Standard} border={false} ico={<AiOutlinePlus />} sizeIco={16} /> */}
+                                                                    <ButtonAdmin typeBtn={AdminButtonType.Ico} functionalBtn={AdminButtonFunctional.Standard} border={false} ico={<AiOutlinePlus />} sizeIco={16} clickBtn={handleClickCreateBlock} />
                                                                     <ButtonAdmin typeBtn={AdminButtonType.Ico} functionalBtn={AdminButtonFunctional.Standard} border={false} ico={<RiEdit2Line />} sizeIco={16} />
                                                                     <ButtonAdmin typeBtn={AdminButtonType.Ico} functionalBtn={AdminButtonFunctional.Standard} border={false} ico={<MdDeleteOutline />} sizeIco={16} />
                                                                 </>

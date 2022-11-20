@@ -1,19 +1,22 @@
 import React, { FC, useRef, useState } from "react";
 import { AdminButtonFunctional, AdminButtonType } from "../../../enums/AdminButtons.enum";
-import { AdminSectionType } from "../../../enums/AdminSections.enum";
 import { ICreateNameSlugInput } from "../../../interfaces/section.interface";
 import ButtonAdmin from "../Buttons/ButtonAdmin/ButtonAdmin";
 
-import s from "./WindowCreateNameSlug.module.scss";
+import s from "./WindowCreateBlock.module.scss";
 
-interface WindowCreateNameSlugProps {
+const BlockTypeArr = [
+    'Блок текстовый',
+    'Блок изображений'
+]
+
+interface WindowCreateBlockProps {
     visible: boolean
-    type: AdminSectionType
-    createNameSlug: (createProductInput: ICreateNameSlugInput) => void
+    createBlockText: (createInput: ICreateNameSlugInput) => void
     closeWindow: () => void
 }
 
-const WindowCreateNameSlug: FC<WindowCreateNameSlugProps> = ({ visible, type, createNameSlug, closeWindow }) => {
+const WindowCreateBlock: FC<WindowCreateBlockProps> = ({ visible, createBlockText, closeWindow }) => {
 
     const [titleName, setTitleName] = useState<string>(null)
     const [slugName, setSlugName] = useState<string>(null)
@@ -26,6 +29,10 @@ const WindowCreateNameSlug: FC<WindowCreateNameSlugProps> = ({ visible, type, cr
     const handleChangeSlugName = (e: React.ChangeEvent<HTMLInputElement>) => {
         setSlugName(e.target.value)
     }
+    const handleChangeBlockType = (e: React.ChangeEvent<HTMLSelectElement>) => {
+        // const brand = brandsArr.find((item) => item.name == e.target.value)
+        // setProductBrand(brand)
+    }
 
     const handleCloseWindow = (e) => {
         if (e.target === windowRef.current) {
@@ -33,18 +40,18 @@ const WindowCreateNameSlug: FC<WindowCreateNameSlugProps> = ({ visible, type, cr
         }
     }
 
-    const productFieldsNull = () => {
+    const blockFieldsNull = () => {
         setTitleName(null)
         setSlugName(null)
     }
 
-    const handleClickCreateProduct = () => {
-        createNameSlug({
-            name: titleName,
-            slug: slugName
-        })
 
-        productFieldsNull()
+    const handleClickCreateBlock = () => {
+        // createNameSlug({
+        //     name: sectionName,
+        //     slug: slugName
+        // })
+        blockFieldsNull()
         closeWindow()
     }
 
@@ -55,7 +62,7 @@ const WindowCreateNameSlug: FC<WindowCreateNameSlugProps> = ({ visible, type, cr
                 <div className={s.background} onClick={handleCloseWindow} ref={windowRef}>
                     <div className={s.window}>
                         <div className={s.LabelEdit}>
-                            <span className={s.title}>{type == AdminSectionType.Section ? 'Имя секции' : 'Имя элемента'}</span>
+                            <span className={s.title}>Имя блока</span>
                             <input className={!titleName ? (s.nameInput + ' ' + s.error) : s.nameInput} type="text" onChange={handleChangeTitleName} />
                         </div>
 
@@ -64,8 +71,29 @@ const WindowCreateNameSlug: FC<WindowCreateNameSlugProps> = ({ visible, type, cr
                             <input className={!setSlugName ? (s.nameInput + ' ' + s.error) : s.nameInput} type="text" onChange={handleChangeSlugName} />
                         </div>
 
+
+
+                        <div className={s.LabelEdit}>
+                                <span className={s.title}>Бренд</span>
+                                <div className={s.dropdown} data-itemChart="1">
+                                    <select name="one" className={s.dropdownSelect} onChange={handleChangeBlockType} >
+                                        {
+                                            BlockTypeArr &&
+                                            <>
+                                                {
+                                                    BlockTypeArr.map((item, index) => <option key={index}>{item}</option>)
+                                                }
+                                            </>
+                                        }
+                                    </select>
+                                </div>
+                            </div>
+
+
+
+
                         <div className={s.buttons}>
-                            <ButtonAdmin typeBtn={AdminButtonType.Text} functionalBtn={AdminButtonFunctional.Standard} border={true} clickBtn={handleClickCreateProduct}>{type == AdminSectionType.Section ? 'Создать секцию' : 'Создать элемент'}</ButtonAdmin>
+                            <ButtonAdmin typeBtn={AdminButtonType.Text} functionalBtn={AdminButtonFunctional.Standard} border={true} clickBtn={handleClickCreateBlock}>Создать блок</ButtonAdmin>
                             <div className={s.btnClose} onClick={closeWindow}>
                                 <ButtonAdmin typeBtn={AdminButtonType.Text} functionalBtn={AdminButtonFunctional.Standard} border={true} clickBtn={() => closeWindow()}>Закрыть</ButtonAdmin>
                             </div>
@@ -77,4 +105,4 @@ const WindowCreateNameSlug: FC<WindowCreateNameSlugProps> = ({ visible, type, cr
     );
 };
 
-export default WindowCreateNameSlug;
+export default WindowCreateBlock;
