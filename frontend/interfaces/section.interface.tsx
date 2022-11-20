@@ -17,3 +17,8 @@ export interface IElement extends IBase{
 export interface ISection extends IBase {
     elements: IElement[]
 }
+
+export interface ICreateNameSlugInput {
+    name: string
+    slug: string
+}

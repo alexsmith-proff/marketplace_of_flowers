@@ -1,7 +1,22 @@
 import { gql } from "@apollo/client";
 
-// export const CREATE_SECTION = gql`
-// `;
+export const CREATE_SECTION = gql`
+mutation CreateSection($createSectionInput: CreateSectionInput!){
+  createSection(createSectionInput: $createSectionInput){
+    id
+    name
+  }
+}
+`;
+
+export const CREATE_ELEMENT = gql`
+mutation CreateElement($createElementInput: CreateElementInput!){
+  createElement(createElementInput: $createElementInput){
+    id
+    name
+  }
+}
+`;
 
 export const GET_ALL_SECTIONS = gql`
 query GetAllSections{

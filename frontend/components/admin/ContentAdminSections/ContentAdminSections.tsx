@@ -1,27 +1,35 @@
-import { useQuery } from "@apollo/client";
+import { useMutation, useQuery } from "@apollo/client";
 import React, { useEffect, useState } from "react";
-import { GET_ALL_SECTIONS } from "../../../graphql/section.graphql";
+import { CREATE_ELEMENT, CREATE_SECTION, GET_ALL_SECTIONS } from "../../../graphql/section.graphql";
 import { AiOutlinePlus } from 'react-icons/ai';
 import { RiEdit2Line } from 'react-icons/ri';
 import { MdDeleteOutline } from 'react-icons/md';
-import { IElement, ISection } from "../../../interfaces/section.interface";
+import { ICreateNameSlugInput, IElement, ISection } from "../../../interfaces/section.interface";
 
 import s from "./ContentAdminSections.module.scss";
 import ButtonAdmin from "../Buttons/ButtonAdmin/ButtonAdmin";
 import { AdminButtonFunctional, AdminButtonType } from "../../../enums/AdminButtons.enum";
+import WindowCreateSection from "../WindowCreateNameSlug/WindowCreateNameSlug";
+import { AdminSectionType } from "../../../enums/AdminSections.enum";
 
 interface ContentAdminSectionsProps { }
 
 const ContentAdminSections = ({ }: ContentAdminSectionsProps) => {
     const { loading, error, data } = useQuery(GET_ALL_SECTIONS);
+    const [createSection, dataCreateSection] = useMutation(CREATE_SECTION)
+    const [createElement, dataCreateElement] = useMutation(CREATE_ELEMENT)
+
+    const [windowCreateSectionVisible, setWindowCreateSectionVisible] = useState<boolean>(false)
+    const [windowCreateElementVisible, setWindowCreateElementVisible] = useState<boolean>(false)
 
     const [sections, setSections] = useState<ISection[]>(null);
-    const [elements, setElements] = useState<IElement[]>(null);
 
     const [activeSection, setActiveSection] = useState<number>(null)
     const [activeElement, setActiveElement] = useState<number>(null)
     const [activeBlockText, setActiveBlockText] = useState<number>(null)
     const [activeBlockImg, setActiveBlockImg] = useState<boolean>(false)
+
+    const [currentIdElement, setCurrentIdElement] = useState<number>(null)
 
 
 
@@ -31,21 +39,78 @@ const ContentAdminSections = ({ }: ContentAdminSectionsProps) => {
         }
     }, [data]);
 
+    const handleCreateSection = (createSectionInput: ICreateNameSlugInput) => {
+        // Save DB
+        createSection({
+          variables: {
+            createSectionInput: createSectionInput
+          },
+          refetchQueries: [
+            {
+              query: GET_ALL_SECTIONS
+            }
+          ]
+        })
+    }
+
+    const handleCreateElement = (createElementInput: ICreateNameSlugInput, section_id: number) => {
+        // Save DB
+        createElement({
+          variables: {
+            createElementInput: {...createElementInput, section_id: +section_id}
+          },
+          refetchQueries: [
+            {
+              query: GET_ALL_SECTIONS
+            }
+          ]
+        })
+    }
+
+    const closeWindow = () => {
+        setWindowCreateSectionVisible(false)
+        setWindowCreateElementVisible(false)
+    }
+
+
+    const handleMouseEnterSection = (indexSection: number) => {
+        setActiveSection(indexSection)
+        setActiveElement(null)
+    }
+    const handleMouseEnterElement = (indexSection: number, indexElement: number) => {
+        setActiveSection(indexSection)
+        setActiveElement(indexElement)
+    }
+    const handleMouseLeave = () => {
+        setActiveSection(null)
+        setActiveElement(null)
+    }
+
+    const handleClickCreateElement = (section: ISection) => {
+        setCurrentIdElement(section.id)
+        setWindowCreateElementVisible(true)
+    }
+
+
     console.log("sdddddd", sections);
+    console.log('activeSection = ', activeSection);
+    
 
     return (
         <div className={s.section}>
+            <WindowCreateSection visible={windowCreateSectionVisible} type={AdminSectionType.Section} createNameSlug={handleCreateSection} closeWindow={closeWindow} />
+            <WindowCreateSection visible={windowCreateElementVisible} type={AdminSectionType.Element} createNameSlug={(data) => handleCreateElement(data, currentIdElement)} closeWindow={closeWindow} />
             <ul className={s.sectionlist}>
                 {sections && (
                     <>
                         {sections.map((section, indexSection) => (
                             <li className={s.sectionItem} key={section.id}>
-                                <div className={s.titleWrap} onMouseEnter={() => setActiveSection(indexSection)} onMouseLeave={() => setActiveSection(null)}>
+                                <div className={s.titleWrap} onMouseEnter={() => handleMouseEnterSection(indexSection)} onMouseLeave={handleMouseLeave}>
                                     <div className={s.sectionTitle}>{`Секция - ${section.name} (${section.slug})`}</div>
                                     {
-                                        activeSection === indexSection &&
+                                        activeSection == indexSection && activeElement == null &&
                                         <>
-                                            {/* <ButtonAdmin typeBtn={AdminButtonType.Ico} functionalBtn={AdminButtonFunctional.Standard} border={false} ico={<AiOutlinePlus />} sizeIco={16} /> */}
+                                            <ButtonAdmin typeBtn={AdminButtonType.Ico} functionalBtn={AdminButtonFunctional.Standard} border={false} ico={<AiOutlinePlus />} sizeIco={16} clickBtn={() => handleClickCreateElement(section)} />
                                             <ButtonAdmin typeBtn={AdminButtonType.Ico} functionalBtn={AdminButtonFunctional.Standard} border={false} ico={<RiEdit2Line />} sizeIco={16} />
                                             <ButtonAdmin typeBtn={AdminButtonType.Ico} functionalBtn={AdminButtonFunctional.Standard} border={false} ico={<MdDeleteOutline />} sizeIco={16} />
                                         </>
@@ -57,10 +122,10 @@ const ContentAdminSections = ({ }: ContentAdminSectionsProps) => {
                                             <>
                                                 {sections[indexSection].elements.map((elem, indexElement) => (
                                                     <li className={s.elemItem} key={elem.id}>
-                                                        <div className={s.titleWrap} onMouseEnter={() => setActiveElement(indexElement)} onMouseLeave={() => setActiveElement(null)}>
+                                                        <div className={s.titleWrap} onMouseEnter={() => handleMouseEnterElement(indexSection, indexElement)} onMouseLeave={handleMouseLeave}>
                                                             <div className={s.elemTitle}>{`Элемент - ${elem.name} (${elem.slug})`}</div>
                                                             {
-                                                                activeElement === indexElement &&
+                                                                activeSection == indexSection && activeElement === indexElement &&
                                                                 <>
                                                                     {/* <ButtonAdmin typeBtn={AdminButtonType.Ico} functionalBtn={AdminButtonFunctional.Standard} border={false} ico={<AiOutlinePlus />} sizeIco={16} /> */}
                                                                     <ButtonAdmin typeBtn={AdminButtonType.Ico} functionalBtn={AdminButtonFunctional.Standard} border={false} ico={<RiEdit2Line />} sizeIco={16} />
@@ -141,7 +206,7 @@ const ContentAdminSections = ({ }: ContentAdminSectionsProps) => {
                 )}
             </ul>
             <div className={s.btnCreateSection}>
-                <ButtonAdmin typeBtn={AdminButtonType.Text} functionalBtn={AdminButtonFunctional.Standard} border={true}>Создать секцию</ButtonAdmin>
+                <ButtonAdmin typeBtn={AdminButtonType.Text} functionalBtn={AdminButtonFunctional.Standard} border={true} clickBtn={() => setWindowCreateSectionVisible(true)}>Создать секцию</ButtonAdmin>
             </div>
         </div>
     );
