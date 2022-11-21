@@ -3,6 +3,8 @@ import { ImgElementService } from './imgelement.service';
 import { ImgElementEntity } from './entities/imgelement.entity';
 import { CreateImgElementInput } from './dto/create-imgelement.input';
 import { UpdateImgElementInput } from './dto/update-imgelement.input';
+import GraphQLUpload, { FileUpload } from 'graphql-upload';
+import { createReadStream, createWriteStream } from 'fs';
 
 @Resolver(() => ImgElementEntity)
 export class ImgElementResolver {
