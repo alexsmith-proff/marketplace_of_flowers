@@ -88,6 +88,18 @@
     }
 }
 
+.preview{
+    display: flex;
+    justify-content: center;
+    padding-top: 30px;
+    &Images{
+        width: 150px;
+        height: 200px;
+    }
+}
+
+
+
 .buttons {
     display: flex;
     justify-content: center;

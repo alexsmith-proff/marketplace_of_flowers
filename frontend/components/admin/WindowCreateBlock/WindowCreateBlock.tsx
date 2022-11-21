@@ -1,4 +1,5 @@
-import React, { FC, useRef, useState } from "react";
+import React, { FC, useEffect, useRef, useState } from "react";
+// import { URL } from "url";
 import { AdminButtonFunctional, AdminButtonType } from "../../../enums/AdminButtons.enum";
 import { ICreateBlockImgInput, ICreateBlockTextInput, ICreateNameSlugInput } from "../../../interfaces/section.interface";
 import ButtonAdmin from "../Buttons/ButtonAdmin/ButtonAdmin";
@@ -23,6 +24,9 @@ const WindowCreateBlock: FC<WindowCreateBlockProps> = ({ visible, createBlockTex
     const [slugName, setSlugName] = useState<string>(null)
     const [blockType, setblockType] = useState<string>(BlockTypeArr[0])
     const [text, setText] = useState<string>(null)
+    const [files, setFiles] = useState<File>(null)
+    const [fileDataURL, setFileDataURL] = useState(null)
+
 
     const windowRef = useRef()
 
@@ -39,7 +43,10 @@ const WindowCreateBlock: FC<WindowCreateBlockProps> = ({ visible, createBlockTex
     const handleChangeBlockText = (e: any) => {
         setText(e.target.value)
     }
-    
+
+    const handleChangeBlockFile = (e: any) => {
+        setFiles(e.target.files)
+    }
 
     const handleCloseWindow = (e) => {
         if (e.target === windowRef.current) {
@@ -57,11 +64,11 @@ const WindowCreateBlock: FC<WindowCreateBlockProps> = ({ visible, createBlockTex
 
     const handleClickCreateBlock = () => {
         // Блок текстовый',
-        if(blockType == BlockTypeArr[0]){
+        if (blockType == BlockTypeArr[0]) {
             createBlockText({
-                name: titleName, 
+                name: titleName,
                 slug: slugName,
-                text: text                
+                text: text
             })
         }
         // Блок изображений
@@ -72,6 +79,17 @@ const WindowCreateBlock: FC<WindowCreateBlockProps> = ({ visible, createBlockTex
         blockFieldsNull()
         closeWindow()
     }
+
+    useEffect(() => {
+        if (files) {
+            const fileReader = new FileReader()
+            fileReader.onload = (e) => {
+                setFileDataURL(e.target.result)
+            }
+            fileReader.readAsDataURL(files[0])
+        }
+
+    }, [files])
 
     return (
         <>
@@ -103,12 +121,12 @@ const WindowCreateBlock: FC<WindowCreateBlockProps> = ({ visible, createBlockTex
                                             }
                                         </>
                                     }
-                                 </select>
+                                </select>
                             </div>
                         </div>
 
                         {
-                            // Текстовый блок
+                            // Блок текстовый
                             blockType == BlockTypeArr[0] && (
                                 <div className={s.LabelEdit}>
                                     <span className={s.title}>Текст</span>
@@ -116,7 +134,25 @@ const WindowCreateBlock: FC<WindowCreateBlockProps> = ({ visible, createBlockTex
                                 </div>
                             )
                         }
-                        
+
+                        {
+                            // Блок изображений
+                            blockType == BlockTypeArr[1] && (
+                                <div className={s.LabelEdit}>
+                                    <span className={s.title}>Изображения</span>
+                                    <input type="file" multiple accept="image/*" onChange={handleChangeBlockFile} />
+                                    <div className={s.preview}>
+                                        {
+                                            fileDataURL &&
+                                            <>
+                                                <img className={s.previewImages} src={fileDataURL} />
+                                            </>
+                                        }
+                                    </div>
+                                </div>
+                            )
+                        }
+
 
 
 
