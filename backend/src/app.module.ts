@@ -30,6 +30,7 @@ import { ProductModule } from './product/product.module';
 import { BrandModule } from './brand/brand.module';
 import { ProductEntity } from './product/entities/product.entity';
 import { BrandEntity } from './brand/entities/brand.entity';
+import { UploadModule } from './upload/upload.module';
 
 @Module({
   imports: [
@@ -58,7 +59,7 @@ import { BrandEntity } from './brand/entities/brand.entity';
       playground: true 
     }),
   
-    UserModule, AuthModule, MenuModule, MenuItemModule, SubmenuItemModule, SubmenuItemTwoModule, SectionModule, ElementModule, TextElementModule, ImgElementModule, CatalogModule, ProductModule, BrandModule],
+    UserModule, AuthModule, MenuModule, MenuItemModule, SubmenuItemModule, SubmenuItemTwoModule, SectionModule, ElementModule, TextElementModule, ImgElementModule, CatalogModule, ProductModule, BrandModule, UploadModule],
   controllers: [AppController],
   providers: [AppService],
 })

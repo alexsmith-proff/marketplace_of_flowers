@@ -27,6 +27,14 @@ mutation CreateBlockText($createTextElementInput: CreateTextElementInput!){
 }
 `;
 
+export const ADD_PHOTO = gql`
+mutation ($file: Upload!) {
+  addPhoto(file: $file) {
+    id
+  }
+}
+`;
+
 export const GET_ALL_SECTIONS = gql`
 query GetAllSections{
     getAllSections{

@@ -4,6 +4,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { CreateImgElementInput } from './dto/create-imgelement.input';
 import { UpdateImgElementInput } from './dto/update-imgelement.input';
 import { Repository } from 'typeorm';
+import { createWriteStream } from 'fs';
 
 @Injectable()
 export class ImgElementService {
@@ -45,4 +46,18 @@ export class ImgElementService {
     await this.imgElementRepository.delete(id)
     return imgElement
   }
+
+   createImgBlock(): string {
+    return 'Created image block'
+  }
+
+  // async upload({ createReadStream, filename }: FileUpload): Promise<string> {
+  //   const stream = createReadStream().pipe(createWriteStream(__dirname + `/../../images/${filename}`))
+  //   console.log('streammmm', stream)
+  //   return 'Good'
+  // }
+
+
+
+
 }

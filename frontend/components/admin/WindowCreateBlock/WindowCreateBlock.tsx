@@ -1,3 +1,6 @@
+import { useMutation } from "@apollo/client";
+import axios from "axios";
+import { appendFile } from "fs/promises";
 import React, { FC, useEffect, useRef, useState } from "react";
 // import { URL } from "url";
 import { AdminButtonFunctional, AdminButtonType } from "../../../enums/AdminButtons.enum";
@@ -24,11 +27,11 @@ const WindowCreateBlock: FC<WindowCreateBlockProps> = ({ visible, createBlockTex
     const [slugName, setSlugName] = useState<string>(null)
     const [blockType, setblockType] = useState<string>(BlockTypeArr[0])
     const [text, setText] = useState<string>(null)
-    const [files, setFiles] = useState<File>(null)
+    const [ffile, setFile] = useState<File>(null)
     const [fileDataURL, setFileDataURL] = useState(null)
 
-
     const windowRef = useRef()
+
 
     const handleChangeTitleName = (e: React.ChangeEvent<HTMLInputElement>) => {
         setTitleName(e.target.value)
@@ -45,7 +48,11 @@ const WindowCreateBlock: FC<WindowCreateBlockProps> = ({ visible, createBlockTex
     }
 
     const handleChangeBlockFile = (e: any) => {
-        setFiles(e.target.files)
+        setFile(e.target.files[0])
+        
+        
+        
+        // setFiles(e.target.files)
     }
 
     const handleCloseWindow = (e) => {
@@ -62,7 +69,9 @@ const WindowCreateBlock: FC<WindowCreateBlockProps> = ({ visible, createBlockTex
     }
 
 
-    const handleClickCreateBlock = () => {
+    const handleClickCreateBlock = async() => {
+        console.log('kkkkkkkkkkkkkkkkkkkkk');
+        
         // Блок текстовый',
         if (blockType == BlockTypeArr[0]) {
             createBlockText({
@@ -71,25 +80,38 @@ const WindowCreateBlock: FC<WindowCreateBlockProps> = ({ visible, createBlockTex
                 text: text
             })
         }
-        // Блок изображений
-        // if(blockType == BlockTypeArr[1]){
-        //     createBlockImg({})
-        // }
+        //Блок изображений
+        if(blockType == BlockTypeArr[1]){
+            let formdata = new FormData()
+            formdata.append('file', ffile)
+            
+            
+            
+            axios({
+                url: 'http://localhost:5000/api/imgelement/createfile',
+                method: "POST",
+                data: formdata
+            }).then((res)=>{})
+            
+            // createBlockImg({})
+            console.log('sdsdasdasdassa');
+            
+        }
 
         blockFieldsNull()
         closeWindow()
     }
 
-    useEffect(() => {
-        if (files) {
-            const fileReader = new FileReader()
-            fileReader.onload = (e) => {
-                setFileDataURL(e.target.result)
-            }
-            fileReader.readAsDataURL(files[0])
-        }
+    // useEffect(() => {
+    //     if (files) {
+    //         const fileReader = new FileReader()
+    //         fileReader.onload = (e) => {
+    //             setFileDataURL(e.target.result)
+    //         }
+    //         fileReader.readAsDataURL(files[0])
+    //     }
 
-    }, [files])
+    // }, [files])
 
     return (
         <>
