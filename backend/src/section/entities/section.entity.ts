@@ -1,6 +1,6 @@
 import { ObjectType, Field, ID } from '@nestjs/graphql';
 import { ElementEntity } from 'src/element/entities/element.entity';
-import { Column, Entity, PrimaryGeneratedColumn, OneToMany } from 'typeorm';
+import { Column, Entity, PrimaryGeneratedColumn, OneToMany, CreateDateColumn, UpdateDateColumn } from 'typeorm';
 
 @ObjectType()
 @Entity('section')
@@ -20,4 +20,12 @@ export class SectionEntity {
   @Field(() => [ElementEntity])
   @OneToMany(() => ElementEntity, element => element.section_ref, { eager: true, cascade: true })
   elements: ElementEntity[]
+
+  @Field(() => Date)
+  @CreateDateColumn()
+  createdAt: Date
+
+  @Field(() => Date)
+  @UpdateDateColumn()
+  updatedAt: Date
 }

@@ -18,6 +18,9 @@ export class SectionService {
 
   async findAll(): Promise<SectionEntity[]> {
     return await this.sectionRepository.find({
+      order: {
+        createdAt: 'ASC'
+      },
       relations:{
         elements: true,
       }

@@ -29,8 +29,8 @@ export interface ICreateBlockTextInput {
     text: string
 }
 
-export interface ICreateBlockImgInput {
-    name: string
-    slug: string
-    fileName: string[]
-}
+// export interface ICreateBlockImgInput {
+//     name: string
+//     slug: string
+//     file: any
+// }

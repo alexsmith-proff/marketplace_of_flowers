@@ -2,7 +2,7 @@ import { SectionEntity } from './../../section/entities/section.entity';
 import { TextElementEntity } from '../../textelement/entities/textelement.entity';
 import { ImgElementEntity } from '../../imgelement/entities/imgelement.entity';
 import { ObjectType, Field, ID } from '@nestjs/graphql';
-import { Column, Entity, PrimaryGeneratedColumn, OneToMany, ManyToOne } from 'typeorm';
+import { Column, Entity, PrimaryGeneratedColumn, OneToMany, ManyToOne, CreateDateColumn, UpdateDateColumn } from 'typeorm';
 
 @ObjectType()
 @Entity('element')
@@ -31,4 +31,11 @@ export class ElementEntity {
   @ManyToOne(() => SectionEntity, section => section.elements)
   section_ref: SectionEntity
 
+  @Field(() => Date)
+  @CreateDateColumn()
+  createdAt: Date
+
+  @Field(() => Date)
+  @UpdateDateColumn()
+  updatedAt: Date
 }

@@ -1,10 +1,7 @@
-import { useMutation } from "@apollo/client";
-import axios from "axios";
-import { appendFile } from "fs/promises";
 import React, { FC, useEffect, useRef, useState } from "react";
 // import { URL } from "url";
 import { AdminButtonFunctional, AdminButtonType } from "../../../enums/AdminButtons.enum";
-import { ICreateBlockImgInput, ICreateBlockTextInput, ICreateNameSlugInput } from "../../../interfaces/section.interface";
+import { ICreateBlockTextInput } from "../../../interfaces/section.interface";
 import ButtonAdmin from "../Buttons/ButtonAdmin/ButtonAdmin";
 
 import s from "./WindowCreateBlock.module.scss";
@@ -17,7 +14,7 @@ const BlockTypeArr = [
 interface WindowCreateBlockProps {
     visible: boolean
     createBlockText?: (createInput: ICreateBlockTextInput) => void
-    createBlockImg?: (createInput: ICreateBlockImgInput) => void
+    createBlockImg?: (formData: any) => void
     closeWindow: () => void
 }
 
@@ -27,7 +24,7 @@ const WindowCreateBlock: FC<WindowCreateBlockProps> = ({ visible, createBlockTex
     const [slugName, setSlugName] = useState<string>(null)
     const [blockType, setblockType] = useState<string>(BlockTypeArr[0])
     const [text, setText] = useState<string>(null)
-    const [ffile, setFile] = useState(null)
+    const [file, setFile] = useState(null)
     const [fileDataURL, setFileDataURL] = useState(null)
 
     const windowRef = useRef()
@@ -52,7 +49,7 @@ const WindowCreateBlock: FC<WindowCreateBlockProps> = ({ visible, createBlockTex
 
     const handleChangeBlockFile = (e: any) => {
         setFile(e.target.files[0])
-        
+
         // setFiles(e.target.files)
     }
 
@@ -73,73 +70,35 @@ const WindowCreateBlock: FC<WindowCreateBlockProps> = ({ visible, createBlockTex
     }
 
 
-    const handleClickCreateBlock = async() => {
-        // Блок текстовый',
-        if (blockType == BlockTypeArr[0]) {
-            createBlockText({
-                name: titleName,
-                slug: slugName,
-                text: text
-            })
+    const handleClickCreateBlock = async () => {
+        console.log('titleName', titleName);
+        console.log('slugName', slugName);
+        
+        if (titleName && slugName) {
+            // Блок текстовый',
+            if (blockType == BlockTypeArr[0]) {
+                if (!text) return
+                createBlockText({
+                    name: titleName,
+                    slug: slugName,
+                    text: text
+                })
+            }
+            //Блок изображений
+            if (blockType == BlockTypeArr[1]) {
+                if(!file) return
+                let formData = new FormData()
+                formData.append('file', file)
+                formData.append('name', titleName)
+                formData.append('slug', slugName)
+
+                createBlockImg(formData)
+            }
+
+            blockFieldsNull()
+            closeWindow()
         }
-        //Блок изображений
-        if(blockType == BlockTypeArr[1]){
-
-            let formData = new FormData()
-            formData.append('file', ffile)
-            formData.append('name', 'Alexey')
-            formData.append('slug', 'slugal')
-            formData.append('element_id', '1')
-            
-
-
-            // console.log('formDataaaaa', formData.getAll());
-
-            // const res = await fetch('http://localhost:5000/api/imgelement/createfile', {
-            //     method: 'POST',
-            //     body: formData
-            // })
-            // const data = await res.json()
-            // console.log('dataaaaaaaa', data);
-            
-            
-            
-            // axios({
-            //     url: 'http://localhost:5000/api/imgelement/createfile',
-            //     method: "POST",
-            //     data: formdata
-            // }).then((res)=>{})
-
-
-
-            axios.post('http://localhost:5000/api/imgelement/create', formData, )
-            .then((res) => {
-                console.log('Success' + res.data);
-            })
-            .catch((err) => {
-                console.log(err);
-            })
-
-
-            
-            // createBlockImg({})
-            
-        }
-
-        blockFieldsNull()
-        closeWindow()
     }
-
-    // useEffect(() => {
-    //     if (files) {
-    //         const fileReader = new FileReader()
-    //         fileReader.onload = (e) => {
-    //             setFileDataURL(e.target.result)
-    //         }
-    //         fileReader.readAsDataURL(files[0])
-    //     }
-
-    // }, [files])
 
     return (
         <>
@@ -202,10 +161,6 @@ const WindowCreateBlock: FC<WindowCreateBlockProps> = ({ visible, createBlockTex
                                 </div>
                             )
                         }
-
-
-
-
 
                         <div className={s.buttons}>
                             <ButtonAdmin typeBtn={AdminButtonType.Text} functionalBtn={AdminButtonFunctional.Standard} border={true} clickBtn={handleClickCreateBlock}>Создать блок</ButtonAdmin>

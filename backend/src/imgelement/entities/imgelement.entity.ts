@@ -1,6 +1,6 @@
 import { ElementEntity } from '../../element/entities/element.entity';
 import { ObjectType, Field, ID } from '@nestjs/graphql';
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, CreateDateColumn, Entity, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
 
 @ObjectType()
 @Entity('imgelement')
@@ -24,4 +24,12 @@ export class ImgElementEntity {
   @Field(() => ElementEntity, { description: 'element_ref ImgElement' })
   @ManyToOne(() => ElementEntity, element => element.img_elements)
   element_ref: ElementEntity
+
+  @Field(() => Date)
+  @CreateDateColumn()
+  createdAt: Date
+
+  @Field(() => Date)
+  @UpdateDateColumn()
+  updatedAt: Date
 }

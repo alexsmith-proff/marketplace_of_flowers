@@ -1,6 +1,6 @@
 import { ObjectType, Field, Int, ID } from '@nestjs/graphql';
 import { ElementEntity } from 'src/element/entities/element.entity';
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, CreateDateColumn, Entity, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
 
 @ObjectType()
 @Entity('textelement')
@@ -24,4 +24,12 @@ export class TextElementEntity {
   @Field(() => ElementEntity)
   @ManyToOne(() => ElementEntity, element => element.text_elements)
   element_ref: ElementEntity
+
+  @Field(() => Date)
+  @CreateDateColumn()
+  createdAt: Date
+
+  @Field(() => Date)
+  @UpdateDateColumn()
+  updatedAt: Date
 }

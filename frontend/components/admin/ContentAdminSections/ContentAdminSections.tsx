@@ -12,11 +12,12 @@ import { AdminButtonFunctional, AdminButtonType } from "../../../enums/AdminButt
 import WindowCreateNameSlug from "../WindowCreateNameSlug/WindowCreateNameSlug";
 import { AdminSectionType } from "../../../enums/AdminSections.enum";
 import WindowCreateBlockText from "../WindowCreateBlock/WindowCreateBlock";
+import axios from "axios";
 
 interface ContentAdminSectionsProps { }
 
 const ContentAdminSections = ({ }: ContentAdminSectionsProps) => {
-    const { loading, error, data } = useQuery(GET_ALL_SECTIONS);
+    const { loading, error, data, refetch: RefeachAllSections } = useQuery(GET_ALL_SECTIONS);
     const [createSection, dataCreateSection] = useMutation(CREATE_SECTION)
     const [createElement, dataCreateElement] = useMutation(CREATE_ELEMENT)
     const [createBlockText, dataCreateBlockText] = useMutation(CREATE_BLOCK_TEXT)
@@ -85,6 +86,21 @@ const ContentAdminSections = ({ }: ContentAdminSectionsProps) => {
         })
     }
 
+    const handleCreateBlockImg = (formData: any, element_id: number) => {
+        formData.append('element_id', element_id)
+        axios.post(process.env.SERVER_URL + '/api/imgelement/create', formData, )
+            .then((res) => {
+                console.log('Success' + res.data);
+                RefeachAllSections()
+            })
+            .catch((err) => {
+                console.log(err);
+            })
+        
+    }
+
+
+
     const closeWindow = () => {
         setWindowCreateSectionVisible(false)
         setWindowCreateElementVisible(false)
@@ -124,7 +140,7 @@ const ContentAdminSections = ({ }: ContentAdminSectionsProps) => {
         <div className={s.section}>
             <WindowCreateNameSlug visible={windowCreateSectionVisible} type={AdminSectionType.Section} createNameSlug={handleCreateSection} closeWindow={closeWindow} />
             <WindowCreateNameSlug visible={windowCreateElementVisible} type={AdminSectionType.Element} createNameSlug={(data) => handleCreateElement(data, currentIdSection)} closeWindow={closeWindow} />
-            <WindowCreateBlockText visible={windowCreateBlockVisible} createBlockText={(data) => handleCreateBlockText(data, currentIdElement)} closeWindow={closeWindow} />
+            <WindowCreateBlockText visible={windowCreateBlockVisible} createBlockText={(data) => handleCreateBlockText(data, currentIdElement)} createBlockImg={(data) => handleCreateBlockImg(data, currentIdElement)} closeWindow={closeWindow} />
             <ul className={s.sectionlist}>
                 {sections && (
                     <>
@@ -198,7 +214,9 @@ const ContentAdminSections = ({ }: ContentAdminSectionsProps) => {
                                                                     <ul className={s.blockImgList}>
                                                                         {sections[indexSection].elements[indexElement].img_elements.map((img, _) => (
                                                                             <li className={s.blockImgItem}>
-                                                                                <div className={s.blockImgPhoto}>{img.filename}</div>
+                                                                                <div className={s.blockImgPhoto}>
+                                                                                    <img src={process.env.SERVER_URL + '/' + img.filename} alt={img.filename} />
+                                                                                </div>
                                                                                 <div className={s.blockImgTitle}>{img.name}</div>
                                                                                 <div className={s.blockImgSlug}>({img.slug})</div>
                                                                             </li>

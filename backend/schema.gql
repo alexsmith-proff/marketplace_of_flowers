@@ -151,6 +151,8 @@ A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date
 scalar DateTime
 
 type ElementEntity {
+  createdAt: DateTime!
+
   """id element"""
   id: ID!
   img_elements: [ImgElementEntity!]!
@@ -162,6 +164,7 @@ type ElementEntity {
   """slug element"""
   slug: String!
   text_elements: [TextElementEntity!]!
+  updatedAt: DateTime!
 }
 
 input FindCatalogInput {
@@ -171,6 +174,8 @@ input FindCatalogInput {
 }
 
 type ImgElementEntity {
+  createdAt: DateTime!
+
   """element_ref ImgElement"""
   element_ref: ElementEntity!
 
@@ -185,6 +190,7 @@ type ImgElementEntity {
 
   """slug ImgElement"""
   slug: String!
+  updatedAt: DateTime!
 }
 
 type MenuEntity {
@@ -305,6 +311,7 @@ type Query {
 }
 
 type SectionEntity {
+  createdAt: DateTime!
   elements: [ElementEntity!]!
 
   """id section"""
@@ -315,6 +322,7 @@ type SectionEntity {
 
   """slug section"""
   slug: String!
+  updatedAt: DateTime!
 }
 
 input SortProductInput {
@@ -347,6 +355,7 @@ type SubmenuItemTwoEntity {
 }
 
 type TextElementEntity {
+  createdAt: DateTime!
   element_ref: ElementEntity!
 
   """id TextElement"""
@@ -360,6 +369,7 @@ type TextElementEntity {
 
   """text TextElement"""
   text: String!
+  updatedAt: DateTime!
 }
 
 input UpdateBrandInput {

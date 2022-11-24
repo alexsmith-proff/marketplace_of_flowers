@@ -22,6 +22,9 @@ export class ElementService {
       relations:{
         text_elements: true,
         img_elements: true        
+      },
+      order: {
+        createdAt: 'DESC'
       }
     })
   }

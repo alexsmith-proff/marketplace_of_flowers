@@ -31,6 +31,8 @@ import { BrandModule } from './brand/brand.module';
 import { ProductEntity } from './product/entities/product.entity';
 import { BrandEntity } from './brand/entities/brand.entity';
 import { UploadModule } from './upload/upload.module';
+import { ServeStaticModule } from '@nestjs/serve-static';
+import * as path from 'path';
 
 @Module({
   imports: [
@@ -38,6 +40,7 @@ import { UploadModule } from './upload/upload.module';
       isGlobal: true,
       envFilePath: '.env'
     }),
+    ServeStaticModule.forRoot({ rootPath: path.resolve(__dirname, 'static')}),
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],
       inject: [ConfigService],
@@ -59,7 +62,8 @@ import { UploadModule } from './upload/upload.module';
       playground: true 
     }),
   
-    UserModule, AuthModule, MenuModule, MenuItemModule, SubmenuItemModule, SubmenuItemTwoModule, SectionModule, ElementModule, TextElementModule, ImgElementModule, CatalogModule, ProductModule, BrandModule, UploadModule],
+    UserModule, AuthModule, MenuModule, MenuItemModule, SubmenuItemModule, SubmenuItemTwoModule, SectionModule, ElementModule, TextElementModule, ImgElementModule, CatalogModule, ProductModule, BrandModule, UploadModule
+  ],
   controllers: [AppController],
   providers: [AppService],
 })

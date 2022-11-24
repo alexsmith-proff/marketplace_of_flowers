@@ -92,11 +92,15 @@
         width: 150px;
         height: 200px;
         border: 1px solid #777;
-        display: flex;
-        justify-content: center;
-        align-items: center;
+        background-color: #777;
+        box-shadow: 10px 9px 31px -11px rgba(34, 60, 80, 0.63);
         margin-bottom: 10px;
-        background-color: #ccc;
+        img{
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
     }
 
 }

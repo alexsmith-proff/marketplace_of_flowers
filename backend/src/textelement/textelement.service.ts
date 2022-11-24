@@ -30,6 +30,9 @@ export class TextElementService {
       where: {
         id        
       },
+      order: {
+        createdAt: 'DESC'
+      },
       relations: {
         element_ref: true
       }
