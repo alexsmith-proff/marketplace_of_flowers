@@ -1,4 +1,5 @@
 export class CreateImgElementDto {
     name: string
-    slug: number
+    slug: string
+    element_id: number
 }

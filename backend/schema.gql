@@ -54,20 +54,6 @@ input CreateElementInput {
   slug: String!
 }
 
-input CreateImgElementInput {
-  """element_id ImgElement"""
-  element_id: Float!
-
-  """filename ImgElement"""
-  filename: String!
-
-  """name ImgElement"""
-  name: String!
-
-  """slug ImgElement"""
-  slug: String!
-}
-
 input CreateMenuInput {
   """Name"""
   name: String!
@@ -238,7 +224,6 @@ type Mutation {
   createBrand(createBrandInput: CreateBrandInput!): BrandEntity!
   createCatalog(createCatalogInput: CreateCatalogInput!): CatalogEntity!
   createElement(createElementInput: CreateElementInput!): ElementEntity!
-  createImgElement(createImgElementInput: CreateImgElementInput!): ImgElementEntity!
   createMenu(createMenuInput: CreateMenuInput!): MenuEntity!
   createMenuItem(createMenuItemInput: CreateMenuItemInput!): MenuItemEntity!
   createProduct(createProductInput: CreateProductInput!): ProductEntity!
@@ -249,7 +234,6 @@ type Mutation {
   removeBrand(id: Int!): BrandEntity!
   removeCatalog(id: Int!): CatalogEntity!
   removeElement(id: Int!): ElementEntity!
-  removeImgElement(id: Int!): ImgElementEntity!
   removeMenu(id: Int!): MenuEntity!
   removeMenuItem(id: Int!): MenuItemEntity!
   removeProduct(id: Int!): ProductEntity!
@@ -260,7 +244,6 @@ type Mutation {
   updateBrand(updateBrandInput: UpdateBrandInput!): BrandEntity!
   updateCatalog(updateCatalogInput: UpdateCatalogInput!): CatalogEntity!
   updateElement(updateElementInput: UpdateElementInput!): ElementEntity!
-  updateImgElement(updateImgElementInput: UpdateImgElementInput!): ImgElementEntity!
   updateMenu(updateMenuInput: UpdateMenuInput!): MenuEntity!
   updateMenuItem(updateMenuItemInput: UpdateMenuItemInput!): MenuItemEntity!
   updateProduct(updateProductInput: UpdateProductInput!): ProductEntity!
@@ -301,7 +284,6 @@ type Query {
   getAllCatalog: [CatalogEntity!]!
   getAllCatalogNoTree: [CatalogEntity!]!
   getAllElements: [ElementEntity!]!
-  getAllImgElement: [ImgElementEntity!]!
   getAllMenuItem: [MenuItemEntity!]!
   getAllMenus: [MenuEntity!]!
   getAllProducts: [ProductEntity!]!
@@ -313,7 +295,6 @@ type Query {
   getBrandById(id: Int!): BrandEntity!
   getCatalogByParent(findCatalogInput: FindCatalogInput!): [CatalogEntity!]!
   getElementById(id: Int!): ElementEntity!
-  getImgElementByID(id: Int!): ImgElementEntity!
   getMenuByID(id: Int!): MenuEntity!
   getMenuItemByID(id: Int!): MenuItemEntity!
   getProductById(id: Int!): ProductEntity!
@@ -408,23 +389,6 @@ input UpdateElementInput {
 
   """slug element"""
   slug: String!
-}
-
-input UpdateImgElementInput {
-  """element_id ImgElement"""
-  element_id: Float
-
-  """filename ImgElement"""
-  filename: String
-
-  """id ImgElement"""
-  id: Float!
-
-  """name ImgElement"""
-  name: String
-
-  """slug ImgElement"""
-  slug: String
 }
 
 input UpdateMenuInput {

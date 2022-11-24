@@ -23,7 +23,6 @@ export class ImgElementResolver {
   // }
 
 
-
   // @Mutation(() => String)
   // addPhoto(@Args({name: 'file', type: () => GraphQLUpload}) file: string) {
   //   console.log('file.filenameeee', file);
@@ -32,30 +31,28 @@ export class ImgElementResolver {
   // }
 
 
+  // @Mutation(() => ImgElementEntity)
+  // createImgElement(@Args('createImgElementInput') createImgElementInput: CreateImgElementInput) {
+  //   return this.imgElementService.create(createImgElementInput);
+  // }
 
+  // @Query(() => [ImgElementEntity], { name: 'getAllImgElement' })
+  // findAll() {
+  //   return this.imgElementService.findAll();
+  // }
 
-  @Mutation(() => ImgElementEntity)
-  createImgElement(@Args('createImgElementInput') createImgElementInput: CreateImgElementInput) {
-    return this.imgElementService.create(createImgElementInput);
-  }
+  // @Query(() => ImgElementEntity, { name: 'getImgElementByID' })
+  // findOne(@Args('id', { type: () => Int }) id: number) {
+  //   return this.imgElementService.findOne(id);
+  // }
 
-  @Query(() => [ImgElementEntity], { name: 'getAllImgElement' })
-  findAll() {
-    return this.imgElementService.findAll();
-  }
+  // @Mutation(() => ImgElementEntity)
+  // updateImgElement(@Args('updateImgElementInput') updateImgElementInput: UpdateImgElementInput) {
+  //   return this.imgElementService.update(updateImgElementInput.id, updateImgElementInput);
+  // }
 
-  @Query(() => ImgElementEntity, { name: 'getImgElementByID' })
-  findOne(@Args('id', { type: () => Int }) id: number) {
-    return this.imgElementService.findOne(id);
-  }
-
-  @Mutation(() => ImgElementEntity)
-  updateImgElement(@Args('updateImgElementInput') updateImgElementInput: UpdateImgElementInput) {
-    return this.imgElementService.update(updateImgElementInput.id, updateImgElementInput);
-  }
-
-  @Mutation(() => ImgElementEntity)
-  removeImgElement(@Args('id', { type: () => Int }) id: number) {
-    return this.imgElementService.remove(id);
-  }
+  // @Mutation(() => ImgElementEntity)
+  // removeImgElement(@Args('id', { type: () => Int }) id: number) {
+  //   return this.imgElementService.remove(id);
+  // }
 }

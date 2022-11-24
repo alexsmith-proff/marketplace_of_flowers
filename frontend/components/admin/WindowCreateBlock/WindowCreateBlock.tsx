@@ -27,7 +27,7 @@ const WindowCreateBlock: FC<WindowCreateBlockProps> = ({ visible, createBlockTex
     const [slugName, setSlugName] = useState<string>(null)
     const [blockType, setblockType] = useState<string>(BlockTypeArr[0])
     const [text, setText] = useState<string>(null)
-    const [ffile, setFile] = useState<File>(null)
+    const [ffile, setFile] = useState(null)
     const [fileDataURL, setFileDataURL] = useState(null)
 
     const windowRef = useRef()
@@ -47,13 +47,17 @@ const WindowCreateBlock: FC<WindowCreateBlockProps> = ({ visible, createBlockTex
         setText(e.target.value)
     }
 
+
+
+
     const handleChangeBlockFile = (e: any) => {
         setFile(e.target.files[0])
         
-        
-        
         // setFiles(e.target.files)
     }
+
+
+
 
     const handleCloseWindow = (e) => {
         if (e.target === windowRef.current) {
@@ -70,8 +74,6 @@ const WindowCreateBlock: FC<WindowCreateBlockProps> = ({ visible, createBlockTex
 
 
     const handleClickCreateBlock = async() => {
-        console.log('kkkkkkkkkkkkkkkkkkkkk');
-        
         // Блок текстовый',
         if (blockType == BlockTypeArr[0]) {
             createBlockText({
@@ -82,19 +84,45 @@ const WindowCreateBlock: FC<WindowCreateBlockProps> = ({ visible, createBlockTex
         }
         //Блок изображений
         if(blockType == BlockTypeArr[1]){
-            let formdata = new FormData()
-            formdata.append('file', ffile)
+
+            let formData = new FormData()
+            formData.append('file', ffile)
+            formData.append('name', 'Alexey')
+            formData.append('slug', 'slugal')
+            formData.append('element_id', '1')
+            
+
+
+            // console.log('formDataaaaa', formData.getAll());
+
+            // const res = await fetch('http://localhost:5000/api/imgelement/createfile', {
+            //     method: 'POST',
+            //     body: formData
+            // })
+            // const data = await res.json()
+            // console.log('dataaaaaaaa', data);
             
             
             
-            axios({
-                url: 'http://localhost:5000/api/imgelement/createfile',
-                method: "POST",
-                data: formdata
-            }).then((res)=>{})
+            // axios({
+            //     url: 'http://localhost:5000/api/imgelement/createfile',
+            //     method: "POST",
+            //     data: formdata
+            // }).then((res)=>{})
+
+
+
+            axios.post('http://localhost:5000/api/imgelement/create', formData, )
+            .then((res) => {
+                console.log('Success' + res.data);
+            })
+            .catch((err) => {
+                console.log(err);
+            })
+
+
             
             // createBlockImg({})
-            console.log('sdsdasdasdassa');
             
         }
 
@@ -162,7 +190,7 @@ const WindowCreateBlock: FC<WindowCreateBlockProps> = ({ visible, createBlockTex
                             blockType == BlockTypeArr[1] && (
                                 <div className={s.LabelEdit}>
                                     <span className={s.title}>Изображения</span>
-                                    <input type="file" multiple accept="image/*" onChange={handleChangeBlockFile} />
+                                    <input type="file" accept="image/*" onChange={handleChangeBlockFile} />
                                     <div className={s.preview}>
                                         {
                                             fileDataURL &&
