@@ -63,6 +63,15 @@ mutation CreateBlockText($createTextElementInput: CreateTextElementInput!){
 }
 `;
 
+export const DELETE_BLOCK_TEXT = gql`
+mutation DeleteBlockText($id: Int!){
+  removeTextElement(id: $id){
+    id
+    name
+  }
+}
+`;
+
 export const ADD_PHOTO = gql`
 mutation ($file: Upload!) {
   addPhoto(file: $file) {

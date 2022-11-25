@@ -4,7 +4,7 @@ interface IBase {
     slug: string
 
 }
-interface ITextElement extends IBase {
+export interface ITextElement extends IBase {
     text: string
 }
 interface IImgElement extends IBase {

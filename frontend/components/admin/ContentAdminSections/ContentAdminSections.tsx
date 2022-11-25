@@ -1,10 +1,10 @@
 import { useMutation, useQuery } from "@apollo/client";
 import React, { useEffect, useState } from "react";
-import { CREATE_BLOCK_TEXT, CREATE_ELEMENT, CREATE_SECTION, DELETE_ELEMENT, DELETE_SECTION, GET_ALL_SECTIONS, UPDATE_ELEMENT, UPDATE_SECTION } from "../../../graphql/section.graphql";
+import { CREATE_BLOCK_TEXT, CREATE_ELEMENT, CREATE_SECTION, DELETE_BLOCK_TEXT, DELETE_ELEMENT, DELETE_SECTION, GET_ALL_SECTIONS, UPDATE_ELEMENT, UPDATE_SECTION } from "../../../graphql/section.graphql";
 import { AiOutlinePlus } from 'react-icons/ai';
 import { RiEdit2Line } from 'react-icons/ri';
 import { MdDeleteOutline } from 'react-icons/md';
-import { ICreateBlockTextInput, IElement, INameSlugInput, ISection } from "../../../interfaces/section.interface";
+import { ICreateBlockTextInput, IElement, INameSlugInput, ISection, ITextElement } from "../../../interfaces/section.interface";
 
 import s from "./ContentAdminSections.module.scss";
 import ButtonAdmin from "../Buttons/ButtonAdmin/ButtonAdmin";
@@ -26,6 +26,7 @@ const ContentAdminSections = ({ }: ContentAdminSectionsProps) => {
     const [updateElement, dataUpdateElement] = useMutation(UPDATE_ELEMENT)
     const [deleteElement, dataDeleteElement] = useMutation(DELETE_ELEMENT)
     const [createBlockText, dataCreateBlockText] = useMutation(CREATE_BLOCK_TEXT)
+    const [deleteBlockText, dataDeleteBlockText] = useMutation(DELETE_BLOCK_TEXT)
 
     const [windowCreateSectionVisible, setWindowCreateSectionVisible] = useState<boolean>(false)
     const [windowUpdateSectionVisible, setWindowUpdateSectionVisible] = useState<boolean>(false)
@@ -232,10 +233,24 @@ const ContentAdminSections = ({ }: ContentAdminSectionsProps) => {
         setWindowCreateBlockVisible(true)
     }
 
+    const handleClickDeleteTextBlock = (textblock: ITextElement) => {
+        // Delete DB
+        deleteBlockText({
+            variables: {
+              id: +textblock.id
+            },
+            refetchQueries: [
+              {
+                query: GET_ALL_SECTIONS
+              }
+            ]
+          })
+    }
 
-    console.log('currentName', currentName);
-    console.log('currentSlug', currentSlug);
-    
+
+    // console.log('currentName', currentName);
+    // console.log('currentSlug', currentSlug);
+
 
     return (
         <div className={s.section}>
@@ -295,7 +310,7 @@ const ContentAdminSections = ({ }: ContentAdminSectionsProps) => {
                                                                                     <>
                                                                                         {/* <ButtonAdmin typeBtn={AdminButtonType.Ico} functionalBtn={AdminButtonFunctional.Standard} border={false} ico={<AiOutlinePlus />} sizeIco={16} /> */}
                                                                                         <ButtonAdmin typeBtn={AdminButtonType.Ico} functionalBtn={AdminButtonFunctional.Standard} border={false} ico={<RiEdit2Line />} sizeIco={16} />
-                                                                                        <ButtonAdmin typeBtn={AdminButtonType.Ico} functionalBtn={AdminButtonFunctional.Standard} border={false} ico={<MdDeleteOutline />} sizeIco={16} />
+                                                                                        <ButtonAdmin typeBtn={AdminButtonType.Ico} functionalBtn={AdminButtonFunctional.Standard} border={false} ico={<MdDeleteOutline />} sizeIco={16} clickBtn={() => handleClickDeleteTextBlock(text)} />
                                                                                     </>
                                                                                 }
                                                                             </div>
@@ -315,7 +330,7 @@ const ContentAdminSections = ({ }: ContentAdminSectionsProps) => {
                                                                         {activeBlockImg &&
                                                                             <>
                                                                                 {/* <ButtonAdmin typeBtn={AdminButtonType.Ico} functionalBtn={AdminButtonFunctional.Standard} border={false} ico={<AiOutlinePlus />} sizeIco={16} /> */}
-                                                                                <ButtonAdmin typeBtn={AdminButtonType.Ico} functionalBtn={AdminButtonFunctional.Standard} border={false} ico={<RiEdit2Line />} sizeIco={16} />
+                                                                                {/* <ButtonAdmin typeBtn={AdminButtonType.Ico} functionalBtn={AdminButtonFunctional.Standard} border={false} ico={<RiEdit2Line />} sizeIco={16} /> */}
                                                                                 <ButtonAdmin typeBtn={AdminButtonType.Ico} functionalBtn={AdminButtonFunctional.Standard} border={false} ico={<MdDeleteOutline />} sizeIco={16} />
                                                                             </>
                                                                         }
