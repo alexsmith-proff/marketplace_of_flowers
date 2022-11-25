@@ -1,30 +1,38 @@
 import { useMutation, useQuery } from "@apollo/client";
 import React, { useEffect, useState } from "react";
-import { CREATE_BLOCK_TEXT, CREATE_ELEMENT, CREATE_SECTION, GET_ALL_SECTIONS } from "../../../graphql/section.graphql";
+import { CREATE_BLOCK_TEXT, CREATE_ELEMENT, CREATE_SECTION, DELETE_ELEMENT, DELETE_SECTION, GET_ALL_SECTIONS, UPDATE_ELEMENT, UPDATE_SECTION } from "../../../graphql/section.graphql";
 import { AiOutlinePlus } from 'react-icons/ai';
 import { RiEdit2Line } from 'react-icons/ri';
 import { MdDeleteOutline } from 'react-icons/md';
-import { ICreateBlockTextInput, ICreateNameSlugInput, IElement, ISection } from "../../../interfaces/section.interface";
+import { ICreateBlockTextInput, IElement, INameSlugInput, ISection } from "../../../interfaces/section.interface";
 
 import s from "./ContentAdminSections.module.scss";
 import ButtonAdmin from "../Buttons/ButtonAdmin/ButtonAdmin";
 import { AdminButtonFunctional, AdminButtonType } from "../../../enums/AdminButtons.enum";
 import WindowCreateNameSlug from "../WindowCreateNameSlug/WindowCreateNameSlug";
 import { AdminSectionType } from "../../../enums/AdminSections.enum";
-import WindowCreateBlockText from "../WindowCreateBlock/WindowCreateBlock";
 import axios from "axios";
+import { AdminWindowMode } from "../../../enums/Mode.enum";
+import WindowCreateBlock from "../WindowCreateBlock/WindowCreateBlock";
 
 interface ContentAdminSectionsProps { }
 
 const ContentAdminSections = ({ }: ContentAdminSectionsProps) => {
     const { loading, error, data, refetch: RefeachAllSections } = useQuery(GET_ALL_SECTIONS);
     const [createSection, dataCreateSection] = useMutation(CREATE_SECTION)
+    const [updateSection, dataUpdateSection] = useMutation(UPDATE_SECTION)
+    const [deleteSection, dataDeleteSection] = useMutation(DELETE_SECTION)
     const [createElement, dataCreateElement] = useMutation(CREATE_ELEMENT)
+    const [updateElement, dataUpdateElement] = useMutation(UPDATE_ELEMENT)
+    const [deleteElement, dataDeleteElement] = useMutation(DELETE_ELEMENT)
     const [createBlockText, dataCreateBlockText] = useMutation(CREATE_BLOCK_TEXT)
 
     const [windowCreateSectionVisible, setWindowCreateSectionVisible] = useState<boolean>(false)
+    const [windowUpdateSectionVisible, setWindowUpdateSectionVisible] = useState<boolean>(false)
     const [windowCreateElementVisible, setWindowCreateElementVisible] = useState<boolean>(false)
+    const [windowUpdateElementVisible, setWindowUpdateElementVisible] = useState<boolean>(false)
     const [windowCreateBlockVisible, setWindowCreateBlockVisible] = useState<boolean>(false)
+    const [windowUpdateBlockVisible, setWindowUpdateBlockVisible] = useState<boolean>(false)
 
     const [sections, setSections] = useState<ISection[]>(null);
 
@@ -36,6 +44,9 @@ const ContentAdminSections = ({ }: ContentAdminSectionsProps) => {
     const [currentIdSection, setCurrentIdSection] = useState<number>(null)
     const [currentIdElement, setCurrentIdElement] = useState<number>(null)
 
+    const [currentName, setCurrentName] = useState<string>('a')
+    const [currentSlug, setCurrentSlug] = useState<string>('q')
+
 
 
     useEffect(() => {
@@ -43,8 +54,12 @@ const ContentAdminSections = ({ }: ContentAdminSectionsProps) => {
             setSections(data.getAllSections);
         }
     }, [data]);
+    
 
-    const handleCreateSection = (createSectionInput: ICreateNameSlugInput) => {
+
+    const handleCreateSection = (createSectionInput: INameSlugInput) => {
+        console.log('saveeee');
+        
         // Save DB
         createSection({
           variables: {
@@ -58,11 +73,40 @@ const ContentAdminSections = ({ }: ContentAdminSectionsProps) => {
         })
     }
 
-    const handleCreateElement = (createElementInput: ICreateNameSlugInput, section_id: number) => {
+    const handleUpdateSection = (sectionInput: INameSlugInput) => {
+
+        // Update DB
+        updateSection({
+          variables: {
+            updateSectionInput: {...sectionInput, id: +currentIdSection}
+          },
+          refetchQueries: [
+            {
+              query: GET_ALL_SECTIONS
+            }
+          ]
+        })
+    }
+
+    const handleCreateElement = (createElementInput: INameSlugInput, section_id: number) => {
         // Save DB
         createElement({
           variables: {
             createElementInput: {...createElementInput, section_id: +section_id}
+          },
+          refetchQueries: [
+            {
+              query: GET_ALL_SECTIONS
+            }
+          ]
+        })
+    }
+
+    const handleUpdateElement = (elementInput: INameSlugInput) => {
+        // Update DB
+        updateElement({
+          variables: {
+            updateElementInput: {...elementInput, id: +currentIdElement}
           },
           refetchQueries: [
             {
@@ -105,6 +149,10 @@ const ContentAdminSections = ({ }: ContentAdminSectionsProps) => {
         setWindowCreateSectionVisible(false)
         setWindowCreateElementVisible(false)
         setWindowCreateBlockVisible(false)
+
+        setWindowUpdateSectionVisible(false)
+        setWindowUpdateElementVisible(false)
+        setWindowUpdateBlockVisible(false)
     }
 
 
@@ -121,10 +169,63 @@ const ContentAdminSections = ({ }: ContentAdminSectionsProps) => {
         setActiveElement(null)
     }
 
+
+
+
+    const handleClickUpdateSection = (section: ISection) => {
+        setCurrentName(section.name)
+        setCurrentSlug(section.slug)
+        setCurrentIdSection(section.id)
+        setWindowUpdateSectionVisible(true)
+    }
+
+    const handleClickDeleteSection = (section: ISection) => {
+        // Delete DB
+        deleteSection({
+            variables: {
+              id: +section.id
+            },
+            refetchQueries: [
+              {
+                query: GET_ALL_SECTIONS
+              }
+            ]
+          })
+    }
+    
+
+
+
+
     const handleClickCreateElement = (section: ISection) => {
         setCurrentIdSection(section.id)
         setWindowCreateElementVisible(true)
+    }    
+
+    const handleClickUpdateElement = (element: IElement) => {
+        setCurrentName(element.name)
+        setCurrentSlug(element.slug)
+        setCurrentIdElement(element.id)
+        setWindowUpdateElementVisible(true)
     }
+
+    const handleClickDeleteElement = (element: IElement) => {
+        // Delete DB
+        deleteElement({
+            variables: {
+              id: +element.id
+            },
+            refetchQueries: [
+              {
+                query: GET_ALL_SECTIONS
+              }
+            ]
+          })
+    }
+
+
+
+    
 
     const handleClickCreateBlock = (element: IElement) => {
         setCurrentIdElement(element.id)
@@ -132,15 +233,23 @@ const ContentAdminSections = ({ }: ContentAdminSectionsProps) => {
     }
 
 
-    console.log("sdddddd", sections);
-    console.log('activeSection = ', activeSection);
+    console.log('currentName', currentName);
+    console.log('currentSlug', currentSlug);
     
 
     return (
         <div className={s.section}>
-            <WindowCreateNameSlug visible={windowCreateSectionVisible} type={AdminSectionType.Section} createNameSlug={handleCreateSection} closeWindow={closeWindow} />
-            <WindowCreateNameSlug visible={windowCreateElementVisible} type={AdminSectionType.Element} createNameSlug={(data) => handleCreateElement(data, currentIdSection)} closeWindow={closeWindow} />
-            <WindowCreateBlockText visible={windowCreateBlockVisible} createBlockText={(data) => handleCreateBlockText(data, currentIdElement)} createBlockImg={(data) => handleCreateBlockImg(data, currentIdElement)} closeWindow={closeWindow} />
+            {/* Создать секцию */}
+            <WindowCreateNameSlug visible={windowCreateSectionVisible} modeWindow={AdminWindowMode.Create} typeSection={AdminSectionType.Section} createNameSlug={handleCreateSection} closeWindow={closeWindow} />
+            {/* Редактировать секцию */}
+            <WindowCreateNameSlug visible={windowUpdateSectionVisible} modeWindow={AdminWindowMode.Update} typeSection={AdminSectionType.Section} name={currentName} slug={currentSlug} updateNameSlug={handleUpdateSection} closeWindow={closeWindow} />
+
+            {/* Создать элемент */}
+            <WindowCreateNameSlug visible={windowCreateElementVisible} modeWindow={AdminWindowMode.Create} typeSection={AdminSectionType.Element} createNameSlug={(data) => handleCreateElement(data, currentIdSection)} closeWindow={closeWindow} />
+            {/* Редактировать элемент */}
+            <WindowCreateNameSlug visible={windowUpdateElementVisible} modeWindow={AdminWindowMode.Update} typeSection={AdminSectionType.Element} name={currentName} slug={currentSlug} updateNameSlug={(data) => handleUpdateElement(data)} closeWindow={closeWindow} />
+            {/* Создать текст/изображение блок */}
+            <WindowCreateBlock visible={windowCreateBlockVisible} createBlockText={(data) => handleCreateBlockText(data, currentIdElement)} createBlockImg={(data) => handleCreateBlockImg(data, currentIdElement)} closeWindow={closeWindow} />
             <ul className={s.sectionlist}>
                 {sections && (
                     <>
@@ -152,8 +261,8 @@ const ContentAdminSections = ({ }: ContentAdminSectionsProps) => {
                                         activeSection == indexSection && activeElement == null &&
                                         <>
                                             <ButtonAdmin typeBtn={AdminButtonType.Ico} functionalBtn={AdminButtonFunctional.Standard} border={false} ico={<AiOutlinePlus />} sizeIco={16} clickBtn={() => handleClickCreateElement(section)} />
-                                            <ButtonAdmin typeBtn={AdminButtonType.Ico} functionalBtn={AdminButtonFunctional.Standard} border={false} ico={<RiEdit2Line />} sizeIco={16} />
-                                            <ButtonAdmin typeBtn={AdminButtonType.Ico} functionalBtn={AdminButtonFunctional.Standard} border={false} ico={<MdDeleteOutline />} sizeIco={16} />
+                                            <ButtonAdmin typeBtn={AdminButtonType.Ico} functionalBtn={AdminButtonFunctional.Standard} border={false} ico={<RiEdit2Line />} sizeIco={16} clickBtn={() => handleClickUpdateSection(section)} />
+                                            <ButtonAdmin typeBtn={AdminButtonType.Ico} functionalBtn={AdminButtonFunctional.Standard} border={false} ico={<MdDeleteOutline />} sizeIco={16} clickBtn={() => handleClickDeleteSection(section)} />
                                         </>
                                     }
                                 </div>
@@ -169,8 +278,8 @@ const ContentAdminSections = ({ }: ContentAdminSectionsProps) => {
                                                                 activeSection == indexSection && activeElement === indexElement &&
                                                                 <>
                                                                     <ButtonAdmin typeBtn={AdminButtonType.Ico} functionalBtn={AdminButtonFunctional.Standard} border={false} ico={<AiOutlinePlus />} sizeIco={16} clickBtn={() => handleClickCreateBlock(elem)} />
-                                                                    <ButtonAdmin typeBtn={AdminButtonType.Ico} functionalBtn={AdminButtonFunctional.Standard} border={false} ico={<RiEdit2Line />} sizeIco={16} />
-                                                                    <ButtonAdmin typeBtn={AdminButtonType.Ico} functionalBtn={AdminButtonFunctional.Standard} border={false} ico={<MdDeleteOutline />} sizeIco={16} />
+                                                                    <ButtonAdmin typeBtn={AdminButtonType.Ico} functionalBtn={AdminButtonFunctional.Standard} border={false} ico={<RiEdit2Line />} sizeIco={16} clickBtn={() => handleClickUpdateElement(elem)} />
+                                                                    <ButtonAdmin typeBtn={AdminButtonType.Ico} functionalBtn={AdminButtonFunctional.Standard} border={false} ico={<MdDeleteOutline />} sizeIco={16} clickBtn={() => handleClickDeleteElement(elem)} />
                                                                 </>
                                                             }
                                                         </div>
@@ -178,7 +287,7 @@ const ContentAdminSections = ({ }: ContentAdminSectionsProps) => {
                                                             {sections[indexSection].elements[indexElement].text_elements && (
                                                                 <>
                                                                     {sections[indexSection].elements[indexElement].text_elements.map((text, indexBlockText) => (
-                                                                        <li className={s.blockTextItem} onMouseEnter={() => setActiveBlockText(indexBlockText)} onMouseLeave={() => setActiveBlockText(null)}>
+                                                                        <li className={s.blockTextItem} onMouseEnter={() => setActiveBlockText(indexBlockText)} onMouseLeave={() => setActiveBlockText(null)} key={indexBlockText}>
                                                                             <div className={s.titleWrap}>
                                                                                 <div className={s.blockTextTitle}>{`${text.name} (${text.slug})`}</div>
                                                                                 {
@@ -213,7 +322,7 @@ const ContentAdminSections = ({ }: ContentAdminSectionsProps) => {
                                                                     </div>
                                                                     <ul className={s.blockImgList}>
                                                                         {sections[indexSection].elements[indexElement].img_elements.map((img, _) => (
-                                                                            <li className={s.blockImgItem}>
+                                                                            <li className={s.blockImgItem} key={img.id}>
                                                                                 <div className={s.blockImgPhoto}>
                                                                                     <img src={process.env.SERVER_URL + '/' + img.filename} alt={img.filename} />
                                                                                 </div>

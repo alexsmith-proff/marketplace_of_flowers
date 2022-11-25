@@ -1,22 +1,27 @@
-import React, { FC, useRef, useState } from "react";
+import React, { FC, useEffect, useRef, useState } from "react";
 import { AdminButtonFunctional, AdminButtonType } from "../../../enums/AdminButtons.enum";
 import { AdminSectionType } from "../../../enums/AdminSections.enum";
-import { ICreateNameSlugInput } from "../../../interfaces/section.interface";
+import { AdminWindowMode } from "../../../enums/Mode.enum";
+import { INameSlugInput } from "../../../interfaces/section.interface";
 import ButtonAdmin from "../Buttons/ButtonAdmin/ButtonAdmin";
 
 import s from "./WindowCreateNameSlug.module.scss";
 
 interface WindowCreateNameSlugProps {
     visible: boolean
-    type: AdminSectionType
-    createNameSlug: (createProductInput: ICreateNameSlugInput) => void
+    modeWindow: AdminWindowMode
+    typeSection: AdminSectionType
+    name?: string
+    slug?: string
+    createNameSlug?: (createProductInput: INameSlugInput) => void
+    updateNameSlug?: (updateProductInput: INameSlugInput) => void
     closeWindow: () => void
 }
 
-const WindowCreateNameSlug: FC<WindowCreateNameSlugProps> = ({ visible, type, createNameSlug, closeWindow }) => {
+const WindowCreateNameSlug: FC<WindowCreateNameSlugProps> = ({ visible, modeWindow, typeSection, name, slug, createNameSlug, updateNameSlug, closeWindow }) => {
 
-    const [titleName, setTitleName] = useState<string>(null)
-    const [slugName, setSlugName] = useState<string>(null)
+    const [titleName, setTitleName] = useState<string>(name)
+    const [slugName, setSlugName] = useState<string>(slug)
 
     const windowRef = useRef()
 
@@ -39,14 +44,34 @@ const WindowCreateNameSlug: FC<WindowCreateNameSlugProps> = ({ visible, type, cr
     }
 
     const handleClickCreateProduct = () => {
-        createNameSlug({
-            name: titleName,
-            slug: slugName
-        })
+        if(modeWindow == AdminWindowMode.Create) {
+            createNameSlug({
+                name: titleName,
+                slug: slugName
+            })
+            productFieldsNull()
+        }
+        if(modeWindow == AdminWindowMode.Update) {
+            updateNameSlug({
+                name: titleName,
+                slug: slugName
+            })
+        }
 
-        productFieldsNull()
         closeWindow()
     }
+
+    useEffect(() => {
+        setTitleName(name)        
+    }, [name])
+
+    useEffect(() => {
+        setSlugName(slug)
+    }, [slug])
+
+    // console.log('nameee', name);
+    // console.log('slugggg', slug);
+    
 
     return (
         <>
@@ -55,19 +80,19 @@ const WindowCreateNameSlug: FC<WindowCreateNameSlugProps> = ({ visible, type, cr
                 <div className={s.background} onClick={handleCloseWindow} ref={windowRef}>
                     <div className={s.window}>
                         <div className={s.LabelEdit}>
-                            <span className={s.title}>{type == AdminSectionType.Section ? 'Имя секции' : 'Имя элемента'}</span>
-                            <input className={!titleName ? (s.nameInput + ' ' + s.error) : s.nameInput} type="text" onChange={handleChangeTitleName} />
+                            <span className={s.title}>{typeSection == AdminSectionType.Section ? 'Имя секции' : 'Имя элемента'}</span>
+                            <input className={!titleName ? (s.nameInput + ' ' + s.error) : s.nameInput} type="text" onChange={handleChangeTitleName} value={titleName} />
                         </div>
 
                         <div className={s.LabelEdit}>
                             <span className={s.title}>Имя слага</span>
-                            <input className={!setSlugName ? (s.nameInput + ' ' + s.error) : s.nameInput} type="text" onChange={handleChangeSlugName} />
+                            <input className={!setSlugName ? (s.nameInput + ' ' + s.error) : s.nameInput} type="text" onChange={handleChangeSlugName} value={slugName} />
                         </div>
 
                         
 
                         <div className={s.buttons}>
-                            <ButtonAdmin typeBtn={AdminButtonType.Text} functionalBtn={AdminButtonFunctional.Standard} border={true} clickBtn={handleClickCreateProduct}>{type == AdminSectionType.Section ? 'Создать секцию' : 'Создать элемент'}</ButtonAdmin>
+                            <ButtonAdmin typeBtn={AdminButtonType.Text} functionalBtn={AdminButtonFunctional.Standard} border={true} clickBtn={handleClickCreateProduct}>{modeWindow == AdminWindowMode.Create ? 'Создать' : 'Редактировать'} {typeSection == AdminSectionType.Section ? 'секцию' : 'элемент'}</ButtonAdmin>
                             <div className={s.btnClose} onClick={closeWindow}>
                                 <ButtonAdmin typeBtn={AdminButtonType.Text} functionalBtn={AdminButtonFunctional.Standard} border={true} clickBtn={() => closeWindow()}>Закрыть</ButtonAdmin>
                             </div>

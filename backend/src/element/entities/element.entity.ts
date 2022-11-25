@@ -28,7 +28,7 @@ export class ElementEntity {
   img_elements: ImgElementEntity[]
 
   @Field(() => SectionEntity)
-  @ManyToOne(() => SectionEntity, section => section.elements)
+  @ManyToOne(() => SectionEntity, section => section.elements, {onDelete: 'CASCADE'})
   section_ref: SectionEntity
 
   @Field(() => Date)

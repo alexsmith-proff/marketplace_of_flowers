@@ -18,10 +18,11 @@ export interface ISection extends IBase {
     elements: IElement[]
 }
 
-export interface ICreateNameSlugInput {
+export interface INameSlugInput {
     name: string
     slug: string
 }
+
 
 export interface ICreateBlockTextInput {
     name: string
@@ -29,8 +30,7 @@ export interface ICreateBlockTextInput {
     text: string
 }
 
-// export interface ICreateBlockImgInput {
-//     name: string
-//     slug: string
-//     file: any
-// }
+export interface INameSlug {
+    name: string
+    slug: string
+}

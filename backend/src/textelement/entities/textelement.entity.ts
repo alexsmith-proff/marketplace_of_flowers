@@ -22,7 +22,7 @@ export class TextElementEntity {
   text: string
 
   @Field(() => ElementEntity)
-  @ManyToOne(() => ElementEntity, element => element.text_elements)
+  @ManyToOne(() => ElementEntity, element => element.text_elements, {onDelete: 'CASCADE'})
   element_ref: ElementEntity
 
   @Field(() => Date)

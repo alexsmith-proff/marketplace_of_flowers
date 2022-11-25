@@ -22,7 +22,7 @@ export class ImgElementEntity {
   filename: string
 
   @Field(() => ElementEntity, { description: 'element_ref ImgElement' })
-  @ManyToOne(() => ElementEntity, element => element.img_elements)
+  @ManyToOne(() => ElementEntity, element => element.img_elements, {onDelete: 'CASCADE'})
   element_ref: ElementEntity
 
   @Field(() => Date)
