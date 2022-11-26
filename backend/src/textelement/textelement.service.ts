@@ -40,7 +40,7 @@ export class TextElementService {
   }
 
   async findBySlug(slug: string): Promise<TextElementEntity> {
-    return this.textElementRepository.findOne({
+    return await this.textElementRepository.findOne({
       where: {
         slug: slug
       }

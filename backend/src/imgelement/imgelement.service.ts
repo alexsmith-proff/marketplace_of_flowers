@@ -22,6 +22,14 @@ export class ImgElementService {
     return await this.imgElementRepository.save(newImgElement)
   }
 
+  async findBySlug(slug: string): Promise<ImgElementEntity> {
+    return await this.imgElementRepository.findOne({
+      where: {
+        slug
+      }
+    })
+  }
+
   // async findAll(): Promise<ImgElementEntity[]> {
   //   return await this.imgElementRepository.find({
   //     relations:{

@@ -5,10 +5,16 @@ import { CreateImgElementInput } from './dto/create-imgelement.input';
 import { UpdateImgElementInput } from './dto/update-imgelement.input';
 import uuidv4 from 'uuid'
 import { GraphQLUpload, graphqlUploadExpress } from 'graphql-upload/GraphQLUpload.js'
+import { query } from 'express';
 
 @Resolver(() => ImgElementEntity)
 export class ImgElementResolver {
   constructor(private readonly imgElementService: ImgElementService) {}
+
+  @Query(() => ImgElementEntity, { name: 'getImgElementBySlug' })
+  findImgBySlug(@Args('slug', { type: () => String }) slug: string) {
+    return this.imgElementService.findBySlug(slug)
+  }
 
   // @Mutation(() => [ImgElementEntity])
   // addPhoto(@Args({name: 'file', type: () => GraphQLUpload}) file: FileUpload) {
