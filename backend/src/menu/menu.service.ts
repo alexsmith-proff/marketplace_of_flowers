@@ -38,6 +38,29 @@ export class MenuService {
     return menu;
   }
 
+  async findBySlug(slug: string): Promise<MenuEntity> {
+    const menu = await this.menuRepository.findOne({
+      where: {
+        slug
+      },
+      order: {
+        serial_number: 'ASC',
+        items: {
+          serial_number: 'ASC',
+          submenuitems: {
+            serial_number: 'ASC',
+            submenuitems: {
+              serial_number: 'ASC'
+            }
+          }
+        }
+        
+      }
+    });
+    console.log('menu', menu);
+    return menu;
+  }
+
   async findOne(id: number): Promise<MenuEntity> {
     return await this.menuRepository.findOne({
       where: {
