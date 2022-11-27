@@ -301,6 +301,7 @@ type Query {
   getBrandById(id: Int!): BrandEntity!
   getCatalogByParent(findCatalogInput: FindCatalogInput!): [CatalogEntity!]!
   getElementById(id: Int!): ElementEntity!
+  getImgElementBySlug(slug: String!): ImgElementEntity!
   getMenuByID(id: Int!): MenuEntity!
   getMenuItemByID(id: Int!): MenuItemEntity!
   getProductById(id: Int!): ProductEntity!
@@ -308,6 +309,7 @@ type Query {
   getSubmenuItemById(id: Int!): SubmenuItemEntity!
   getSubmenuItemTwoById(id: Int!): SubmenuItemTwoEntity!
   getTextElementByID(id: Int!): TextElementEntity!
+  getTextElementBySlug(slug: String!): TextElementEntity!
 }
 
 type SectionEntity {

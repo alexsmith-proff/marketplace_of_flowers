@@ -106,3 +106,23 @@ query GetAllSections{
     }
   }
 `;
+
+export const GET_TEXTBLOCK_BY_SLUG = gql`
+query GetTextElementBySlug($slug: String!){
+  getTextElementBySlug(slug: $slug){
+    id
+    name
+    text
+  }
+}
+`;
+
+export const GET_IMG_BY_SLUG = gql`
+query GetImgElementBySlug($slug: String!){
+  getImgElementBySlug(slug: $slug){
+    id
+    name
+    filename
+  }
+}
+`;
