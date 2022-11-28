@@ -1509,6 +1509,9 @@ button::-moz-focus-inner {
   }
 }
 .header {
+  padding: 15px 0;
+}
+.headerContainer {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -1596,6 +1599,10 @@ button::-moz-focus-inner {
 }
 
 .topInfo {
+  padding: 13px 0;
+  background-color: #F2F3F5;
+}
+.topInfoContainer {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -1605,7 +1612,6 @@ button::-moz-focus-inner {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  padding: 13px 0;
 }
 
 .topInfoTime {

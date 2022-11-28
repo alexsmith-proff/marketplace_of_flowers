@@ -1,8 +1,11 @@
 .topInfo {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
     padding: 13px 0;
+    background-color: #F2F3F5;
+    &Container {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
 }
 
 .topInfoTime {
