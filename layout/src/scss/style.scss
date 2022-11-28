@@ -1,0 +1,50 @@
+@import 'base/*.scss';
+@import 'global/*.scss';
+@import 'fonts/*.scss';
+@import '**/_*.scss';
+@import '../components/**/*.scss';
+
+body{
+  font-family: 'TTNorms-Regular', sans-serif;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 20px;
+  color: #1B1C21;
+  background-color: #fff;
+
+}
+
+.container{
+  max-width: 1170px;
+  padding: 0 40px;
+  margin: 0 auto;
+}
+// @media screen and (max-width: 1600px) {
+//   .container{
+//     //max-width: 1230px;
+//     //padding: 0 10px;
+//   }
+// }
+@media screen and (max-width: 768px) {
+  .container{
+    //max-width: 315px;
+    //padding: 0 10px;
+  }
+}
+
+
+
+//--------- ��� RESPONSIVE --------- ������
+html {
+	font-size: 10px;
+}
+@media screen and (max-width: 1800px) {
+	html{
+		// font-size: 0.62vw;
+	}
+}
+body {
+	// font-size: 1rem;
+}
+//--------- ��� RESPONSIVE --------- �����
+

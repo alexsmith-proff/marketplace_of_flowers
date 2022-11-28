@@ -1,0 +1,18 @@
+.my-btn{
+  font-size: 22px;
+  line-height: 28px;
+  text-transform: uppercase;
+}
+
+@media screen and (max-width: 768px) {
+  .my-btn{
+      font-size: 18px;
+      line-height: 26px;
+  }
+}
+@media screen and (max-width: 320px) {
+  .my-btn{
+      font-size: 12px;
+      line-height: 16px;
+  }
+}

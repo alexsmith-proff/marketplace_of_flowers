@@ -1,0 +1,36 @@
+.topmenu {
+    padding-top: 20px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.stock {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 40px;
+    &__ico{
+        margin-right: 10px;
+    }
+}
+
+.menu {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.menuItem {
+//     margin-right: 40px;
+//     &:last-child {
+//         margin-right: 0;
+    // }
+
+    a {
+        font-size: 16px;
+        line-height: 22px;
+        color: #1B1C21;
+    }
+}

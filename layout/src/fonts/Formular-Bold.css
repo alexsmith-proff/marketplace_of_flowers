@@ -1,0 +1,9 @@
+@font-face {
+    font-family: 'Formular';
+    src: local('Formular Bold'), local('Formular-Bold'),
+        url('Formular-Bold.woff2') format('woff2'),
+        url('Formular-Bold.woff') format('woff'),
+        url('Formular-Bold.ttf') format('truetype');
+    font-weight: 700;
+    font-style: normal;
+  }

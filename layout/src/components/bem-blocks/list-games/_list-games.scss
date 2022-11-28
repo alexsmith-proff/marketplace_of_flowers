@@ -1,0 +1,39 @@
+.list-games {
+    padding: 20px 0 50px 0;
+    background-color: #fff;
+
+    &__list {
+        display: grid;
+
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        grid-gap: 50px;
+
+        //justify-items: center;
+        padding: 30px 0;
+    }
+
+    &__item {
+        text-align: center;
+    }
+
+    &__item-img {
+        width: 250px;
+        height: 250px;
+        transition: .5s;
+    }
+
+    &__item-img:hover{
+        transform: scale(1.1);
+        transition: .7s;
+        // opacity: .7;
+    }
+
+    &__item-name {
+        font-size: 20px;
+        font-weight: bold;
+        text-align: center;
+        color: #000;
+        padding-top: 25px;
+    }
+    
+}

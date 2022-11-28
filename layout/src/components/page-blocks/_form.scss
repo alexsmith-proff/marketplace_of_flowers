@@ -1,0 +1,50 @@
+.fancybox__content{
+	background-color: #48388b;
+    padding: 0;
+}
+.form__body{
+    padding: 50px;
+}
+
+.form__logo img{
+	display: block;
+	margin: 0 auto;
+	margin-bottom: 40px;
+}
+
+.form__item{
+	color: #fff;
+	margin-bottom: 40px;
+}
+.form__item input{
+	display: block;
+	margin: 0 auto;
+}
+.form__input{
+	font-size: 18px;
+	height: 50px;
+	padding: 0px 10px;
+	margin-left: 5px;
+	border: 2px solid #333;
+	border-radius: 7px;
+}
+.form__btn{
+	background-color: #202020;
+	color: #fff;
+	font-size: 18px;
+	padding: 10px 30px;
+	border: none;
+	border-radius: 7px;
+	display: block;
+	margin: 0 auto;
+	cursor: pointer;
+	text-transform: uppercase;
+}
+.form__btn:hover{
+	background-color: #f38824;
+}
+@media screen and (max-width: 480px) {
+	.form__body{
+		padding: 30px;
+	}
+}
