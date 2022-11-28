@@ -54,6 +54,35 @@ export const GET_ALL_MENU = gql`
   }
 `;
 
+
+export const GET_MENU_BY_SLUG = gql`
+  query GetMenuBySlug($slug: String!) {
+    getMenuBySlug(slug: $slug) {
+      id
+      name
+      items {
+        id
+        name
+        serial_number
+        link
+        submenuitems {
+          id
+          name
+          serial_number
+          link
+          submenuitems {
+            id
+            name
+            serial_number
+            link
+          }
+        }
+      }
+    }
+  }
+`;
+
+
 export const GET_MENU_BY_ID = gql`
   query GetMenuByID($id: Int!) {
     getMenuByID(id: $id) {

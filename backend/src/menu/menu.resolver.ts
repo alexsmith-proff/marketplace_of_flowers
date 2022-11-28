@@ -18,6 +18,11 @@ export class MenuResolver {
     return this.menuService.findAll();
   }
 
+  @Query(() => MenuEntity, { name: 'getMenuBySlug' })
+  findBySlug(@Args('slug', {type: () => String}) slug: string) {
+    return this.menuService.findBySlug(slug);
+  }
+
   @Query(() => MenuEntity, { name: 'getMenuByID' })
   findOne(@Args('id', { type: () => Int }) id: number) {
     console.log('id = ', id);

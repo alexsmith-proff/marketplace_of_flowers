@@ -23,6 +23,11 @@ export class TextElementResolver {
     return this.textElementService.findOne(id);
   }
 
+  @Query(() => TextElementEntity, {name: 'getTextElementBySlug'})
+  findBySlug(@Args('slug', {type: () => String}) slug: string) {
+    return this.textElementService.findBySlug(slug)
+  }
+
   @Mutation(() => TextElementEntity)
   updateTextElement(@Args('updateTextElementInput') updateTextElementInput: UpdateTextElementInput) {
     return this.textElementService.update(updateTextElementInput.id, updateTextElementInput);

@@ -39,6 +39,14 @@ export class TextElementService {
     })
   }
 
+  async findBySlug(slug: string): Promise<TextElementEntity> {
+    return await this.textElementRepository.findOne({
+      where: {
+        slug: slug
+      }
+    })
+  }
+
   async update(id: number, updateTextElementInput: UpdateTextElementInput): Promise<TextElementEntity> {
     this.textElementRepository.update(id, updateTextElementInput)
     return await this.findOne(id)
