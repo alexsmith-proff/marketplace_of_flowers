@@ -454,13 +454,6 @@ button::-moz-focus-inner {
   font-display: swap;
 }
 @font-face {
-  font-family: "TTNorms-BlackItalic";
-  src: local("TTNorms-BlackItalic"), url("../fonts/TTNorms-BlackItalic.woff2") format("woff2"), url("../fonts/TTNorms-BlackItalic.woff") format("woff");
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
-@font-face {
   font-family: "Formular";
   src: local("Formular"), url("../fonts/Formular.woff2") format("woff2"), url("../fonts/Formular.woff") format("woff");
   font-weight: 400;
@@ -475,15 +468,22 @@ button::-moz-focus-inner {
   font-display: swap;
 }
 @font-face {
-  font-family: "TTNorms-BoldItalic";
-  src: local("TTNorms-BoldItalic"), url("../fonts/TTNorms-BoldItalic.woff2") format("woff2"), url("../fonts/TTNorms-BoldItalic.woff") format("woff");
+  font-family: "TTNorms-BlackItalic";
+  src: local("TTNorms-BlackItalic"), url("../fonts/TTNorms-BlackItalic.woff2") format("woff2"), url("../fonts/TTNorms-BlackItalic.woff") format("woff");
   font-weight: 400;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
-  font-family: "TTNorms-ExtraBoldItalic";
-  src: local("TTNorms-ExtraBoldItalic"), url("../fonts/TTNorms-ExtraBoldItalic.woff2") format("woff2"), url("../fonts/TTNorms-ExtraBoldItalic.woff") format("woff");
+  font-family: "TTNorms-Bold";
+  src: local("TTNorms-Bold"), url("../fonts/TTNorms-Bold.woff2") format("woff2"), url("../fonts/TTNorms-Bold.woff") format("woff");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "TTNorms-BoldItalic";
+  src: local("TTNorms-BoldItalic"), url("../fonts/TTNorms-BoldItalic.woff2") format("woff2"), url("../fonts/TTNorms-BoldItalic.woff") format("woff");
   font-weight: 400;
   font-style: normal;
   font-display: swap;
@@ -496,8 +496,29 @@ button::-moz-focus-inner {
   font-display: swap;
 }
 @font-face {
+  font-family: "TTNorms-ExtraBoldItalic";
+  src: local("TTNorms-ExtraBoldItalic"), url("../fonts/TTNorms-ExtraBoldItalic.woff2") format("woff2"), url("../fonts/TTNorms-ExtraBoldItalic.woff") format("woff");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "TTNorms-ExtraLight";
+  src: local("TTNorms-ExtraLight"), url("../fonts/TTNorms-ExtraLight.woff2") format("woff2"), url("../fonts/TTNorms-ExtraLight.woff") format("woff");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
   font-family: "TTNorms-ExtraLightItalic";
   src: local("TTNorms-ExtraLightItalic"), url("../fonts/TTNorms-ExtraLightItalic.woff2") format("woff2"), url("../fonts/TTNorms-ExtraLightItalic.woff") format("woff");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "TTNorms-Heavy";
+  src: local("TTNorms-Heavy"), url("../fonts/TTNorms-Heavy.woff2") format("woff2"), url("../fonts/TTNorms-Heavy.woff") format("woff");
   font-weight: 400;
   font-style: normal;
   font-display: swap;
@@ -531,20 +552,6 @@ button::-moz-focus-inner {
   font-display: swap;
 }
 @font-face {
-  font-family: "TTNorms-ExtraLight";
-  src: local("TTNorms-ExtraLight"), url("../fonts/TTNorms-ExtraLight.woff2") format("woff2"), url("../fonts/TTNorms-ExtraLight.woff") format("woff");
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
-@font-face {
-  font-family: "TTNorms-Heavy";
-  src: local("TTNorms-Heavy"), url("../fonts/TTNorms-Heavy.woff2") format("woff2"), url("../fonts/TTNorms-Heavy.woff") format("woff");
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
-@font-face {
   font-family: "TTNorms-Medium";
   src: local("TTNorms-Medium"), url("../fonts/TTNorms-Medium.woff2") format("woff2"), url("../fonts/TTNorms-Medium.woff") format("woff");
   font-weight: 400;
@@ -559,13 +566,6 @@ button::-moz-focus-inner {
   font-display: swap;
 }
 @font-face {
-  font-family: "TTNorms-Thin";
-  src: local("TTNorms-Thin"), url("../fonts/TTNorms-Thin.woff2") format("woff2"), url("../fonts/TTNorms-Thin.woff") format("woff");
-  font-weight: 400;
-  font-style: normal;
-  font-display: swap;
-}
-@font-face {
   font-family: "TTNorms-Regular";
   src: local("TTNorms-Regular"), url("../fonts/TTNorms-Regular.woff2") format("woff2"), url("../fonts/TTNorms-Regular.woff") format("woff");
   font-weight: 400;
@@ -573,15 +573,15 @@ button::-moz-focus-inner {
   font-display: swap;
 }
 @font-face {
-  font-family: "TTNorms-ThinItalic";
-  src: local("TTNorms-ThinItalic"), url("../fonts/TTNorms-ThinItalic.woff2") format("woff2"), url("../fonts/TTNorms-ThinItalic.woff") format("woff");
+  font-family: "TTNorms-Thin";
+  src: local("TTNorms-Thin"), url("../fonts/TTNorms-Thin.woff2") format("woff2"), url("../fonts/TTNorms-Thin.woff") format("woff");
   font-weight: 400;
   font-style: normal;
   font-display: swap;
 }
 @font-face {
-  font-family: "TTNorms-Bold";
-  src: local("TTNorms-Bold"), url("../fonts/TTNorms-Bold.woff2") format("woff2"), url("../fonts/TTNorms-Bold.woff") format("woff");
+  font-family: "TTNorms-ThinItalic";
+  src: local("TTNorms-ThinItalic"), url("../fonts/TTNorms-ThinItalic.woff2") format("woff2"), url("../fonts/TTNorms-ThinItalic.woff") format("woff");
   font-weight: 400;
   font-style: normal;
   font-display: swap;
@@ -1702,6 +1702,11 @@ button::-moz-focus-inner {
 
 .topmenu {
   padding-top: 20px;
+  -webkit-box-shadow: 0px 4px 15px rgba(34, 42, 70, 0.08);
+          box-shadow: 0px 4px 15px rgba(34, 42, 70, 0.08);
+  padding: 20px 0;
+}
+.topmenuContainer {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -1740,11 +1745,35 @@ button::-moz-focus-inner {
           align-items: center;
   width: 100%;
 }
-
+.menuItem {
+  position: relative;
+}
 .menuItem a {
   font-size: 16px;
   line-height: 22px;
   color: #1B1C21;
+}
+.menuChild {
+  position: absolute;
+  top: 30px;
+  left: -20px;
+  background-color: #fff;
+  border: 1px solid #F2F6F7;
+  -webkit-box-shadow: 0px 10px 30px rgba(34, 42, 70, 0.1);
+          box-shadow: 0px 10px 30px rgba(34, 42, 70, 0.1);
+  border-radius: 10px;
+  padding: 20px;
+}
+.menuItemChild {
+  white-space: nowrap;
+  line-height: 22px;
+  margin-bottom: 10px;
+}
+.menuItemChild a {
+  color: #505567;
+}
+.menuItemChild.active a {
+  color: #0093A2;
 }
 
 body {

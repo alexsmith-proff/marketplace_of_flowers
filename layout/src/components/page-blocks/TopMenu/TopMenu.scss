@@ -1,8 +1,12 @@
 .topmenu {
     padding-top: 20px;
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
+    box-shadow: 0px 4px 15px rgba(34, 42, 70, 0.08);
+    padding: 20px 0;
+    &Container {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+    }
 }
 
 .stock {
@@ -10,7 +14,8 @@
     justify-content: center;
     align-items: center;
     margin-right: 40px;
-    &__ico{
+
+    &__ico {
         margin-right: 10px;
     }
 }
@@ -20,17 +25,40 @@
     justify-content: space-between;
     align-items: center;
     width: 100%;
-}
 
-.menuItem {
-//     margin-right: 40px;
-//     &:last-child {
-//         margin-right: 0;
-    // }
+    &Item {
+        position: relative;
 
-    a {
-        font-size: 16px;
+        a {
+            font-size: 16px;
+            line-height: 22px;
+            color: #1B1C21;
+        }
+    }
+
+    &Child {
+        position: absolute;
+        top: 30px;
+        left: -20px;
+        background-color: #fff;
+        border: 1px solid #F2F6F7;
+        box-shadow: 0px 10px 30px rgba(34, 42, 70, 0.1);
+        border-radius: 10px;
+        padding: 20px;
+    }
+
+    &ItemChild {
+        white-space: nowrap;
         line-height: 22px;
-        color: #1B1C21;
+        margin-bottom: 10px;
+
+        & a {
+            color: #505567;
+        }
+
+        &.active a {
+            color: #0093A2;
+        }
+
     }
 }

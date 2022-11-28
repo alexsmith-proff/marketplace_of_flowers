@@ -1,11 +1,7 @@
-﻿import { gql } from '@apollo/client';
-import React, { FC } from 'react'
+﻿import React, { FC } from 'react'
 import TopInfo from '../components/TopInfo/TopInfo';
-import { GET_TEXTBLOCK_BY_SLUG } from '../graphql/section.graphql';
 import MainLayout from '../layouts/MainLayout/MainLayout'
 import { GetImgByBlock, GetMenu, GetTextByBlock } from '../services/core/requests';
-
-import client from '../util/apollo-client'
 
 import s from './index.module.scss'
 
