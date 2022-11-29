@@ -1,5 +1,6 @@
 {
     "recommendations": [
-        "diz.ecsstractor-port"
+        "diz.ecsstractor-port",
+        "kubosho.ecsstractor"
     ]
 }
