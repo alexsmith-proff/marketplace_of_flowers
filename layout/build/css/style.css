@@ -1820,6 +1820,35 @@ button::-moz-focus-inner {
   color: #FFFFFF;
 }
 
+.privileges__list {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+.privileges__card {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  background: #FFFFFF;
+  border: 1px solid #F2F3F5;
+  -webkit-box-shadow: 0px 4px 12px rgba(34, 42, 70, 0.03);
+          box-shadow: 0px 4px 12px rgba(34, 42, 70, 0.03);
+  border-radius: 5px;
+  padding: 25px;
+}
+.privileges__cardImg {
+  margin-right: 10px;
+}
+
 .topInfo {
   padding: 13px 0;
   background-color: #F2F3F5;
