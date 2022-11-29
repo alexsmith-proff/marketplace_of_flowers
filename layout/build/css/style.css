@@ -1599,7 +1599,7 @@ button::-moz-focus-inner {
 }
 
 .mainCards {
-  padding-top: 60px;
+  padding-bottom: 60px;
 }
 .mainCards__mainTitle {
   font-family: "Yeseva One";
@@ -1947,6 +1947,57 @@ button::-moz-focus-inner {
   color: #FFFFFF;
 }
 
+.partitions {
+  padding-top: 60px;
+  padding-bottom: 60px;
+  background: #F2F6F7;
+}
+.partitions__mainTitle {
+  font-family: "Yeseva One";
+  font-weight: 400;
+  font-size: 40px;
+  line-height: 50px;
+  color: #222A46;
+  margin-bottom: 30px;
+}
+.partitions__list {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+.partitions__item {
+  background: #FFFFFF;
+  -webkit-box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.05);
+          box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.05);
+  border-radius: 5px;
+}
+.partitions__info {
+  padding: 20px;
+  text-align: center;
+}
+.partitions__title {
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 30px;
+  color: #222A46;
+  margin-bottom: 10px;
+}
+.partitions__price {
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 22px;
+  color: #222A46;
+}
+.partitions__price span {
+  font-weight: 700;
+}
+
+.privileges {
+  padding-bottom: 60px;
+}
 .privileges__list {
   display: -webkit-box;
   display: -ms-flexbox;
