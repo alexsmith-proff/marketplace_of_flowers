@@ -1508,6 +1508,62 @@ button::-moz-focus-inner {
     margin-left: 0;
   }
 }
+.gallery {
+  background-color: #fff;
+  padding-top: 60px;
+  padding-bottom: 60px;
+}
+.gallery__mainTitle {
+  font-family: "Yeseva One";
+  font-weight: 400;
+  font-size: 40px;
+  line-height: 50px;
+  color: #222A46;
+  margin-bottom: 30px;
+}
+.gallery__list {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  position: relative;
+}
+.gallery__item img {
+  border: 1px solid #E2ECE8;
+  border-radius: 10px;
+}
+
+.arrows {
+  position: absolute;
+  top: 50%;
+  z-index: 99;
+  padding: 15px;
+  border-radius: 50%;
+  background-color: #fff;
+  -webkit-box-shadow: 0px 4px 15px rgba(34, 42, 70, 0.15);
+          box-shadow: 0px 4px 15px rgba(34, 42, 70, 0.15);
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+.arrows.arrowLeft {
+  left: -20px;
+}
+.arrows.arrowRight {
+  right: -20px;
+}
+
 .header {
   padding: 15px 0;
 }
