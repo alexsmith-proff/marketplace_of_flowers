@@ -2003,6 +2003,100 @@ button::-moz-focus-inner {
   color: #FFFFFF;
 }
 
+.news {
+  padding-top: 60px;
+  padding-bottom: 60px;
+}
+.news__top {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  margin-bottom: 30px;
+}
+.news__mainTitle {
+  font-family: "Yeseva One";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 40px;
+  line-height: 50px;
+  color: #15191C;
+}
+.news__allNews {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+.news__list {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+.news__item {
+  width: 377px;
+  background: #FFFFFF;
+  border: 1px solid #F2F3F5;
+  -webkit-box-shadow: 0px 4px 15px rgba(34, 42, 70, 0.08);
+          box-shadow: 0px 4px 15px rgba(34, 42, 70, 0.08);
+  border-radius: 5px;
+}
+.news__item img {
+  width: 377px;
+}
+.news__info {
+  padding: 20px 25px;
+}
+.news__title {
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 26px;
+  color: #1B1C21;
+  margin-bottom: 10px;
+}
+.news__text {
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 22px;
+  color: #353949;
+  margin-bottom: 20px;
+}
+.news__date {
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 20px;
+  color: #7D818E;
+}
+
+.allNews__text {
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 20px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  color: #1B1C21;
+  margin-right: 10px;
+}
+.allNews img {
+  display: block;
+  width: 14px;
+  height: 8px;
+}
+
 .partitions {
   padding-top: 60px;
   padding-bottom: 60px;
