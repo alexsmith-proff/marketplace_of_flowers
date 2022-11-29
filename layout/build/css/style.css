@@ -1598,6 +1598,133 @@ button::-moz-focus-inner {
   margin-left: 15px;
 }
 
+.mainCards {
+  padding-top: 60px;
+}
+.mainCards__mainTitle {
+  font-family: "Yeseva One";
+  font-weight: 400;
+  font-size: 40px;
+  line-height: 50px;
+  color: #222A46;
+  margin-bottom: 30px;
+}
+.mainCards__list {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+}
+.mainCards__item {
+  background: #FFFFFF;
+  border: 1px solid #E2E4EB;
+  border-radius: 5px;
+  position: relative;
+}
+.mainCards__imgHeart {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  background-color: #fff;
+  border-radius: 50%;
+  padding: 9px;
+}
+.mainCards__info {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  height: 180px;
+  padding: 20px;
+}
+.mainCards__title {
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 22px;
+  color: #222A46;
+  margin-bottom: 10px;
+}
+.mainCards__subtitle {
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 20px;
+  color: #505567;
+}
+.mainCards__priceCart {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+.mainCards__actualPrice {
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 22px;
+  color: #222A46;
+}
+.mainCards__crossPrice {
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 20px;
+  -webkit-text-decoration-line: line-through;
+          text-decoration-line: line-through;
+  color: #B0B2B9;
+}
+.mainCards__cartBtn {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  padding: 8px 14px;
+  background: #E2195B;
+  border-radius: 5px;
+}
+
+.cartBtn__ico {
+  margin-right: 13px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-transform: translateY(3px);
+      -ms-transform: translateY(3px);
+          transform: translateY(3px);
+}
+.cartBtn__text {
+  font-size: 14px;
+  line-height: 20px;
+  color: #FFFFFF;
+}
+
 .mainSlider {
   padding: 30px 0;
 }
