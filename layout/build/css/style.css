@@ -2083,6 +2083,116 @@ button::-moz-focus-inner {
   margin-right: 10px;
 }
 
+.reviews {
+  padding-top: 80px;
+  padding-bottom: 80px;
+  background: #F2F6F7;
+}
+.reviews__top {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  margin-bottom: 40px;
+}
+.reviews__mainTitle {
+  font-family: "Yeseva One";
+  font-weight: 400;
+  font-size: 40px;
+  line-height: 50px;
+  text-align: center;
+  color: #222A46;
+}
+.reviews__sendReviewBtn {
+  padding: 13px 30px;
+  font-size: 16px;
+  line-height: 22px;
+  color: #0093A2;
+  background: #FFFFFF;
+  border: 1px solid #0093A2;
+  border-radius: 5px;
+}
+.reviews__slider {
+  background: #FFFFFF;
+  -webkit-box-shadow: 0px 4px 15px rgba(34, 42, 70, 0.08);
+          box-shadow: 0px 4px 15px rgba(34, 42, 70, 0.08);
+  border-radius: 10px;
+  padding: 40px 50px;
+  margin-bottom: 40px;
+}
+.reviews__sliderContainer {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+.reviews__sliderStarsList {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  margin-bottom: 5px;
+}
+.reviews__sliderStar {
+  margin-right: 5px;
+}
+.reviews__sliderName {
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 26px;
+  color: #222A46;
+  margin-bottom: 15px;
+}
+.reviews__sliderText {
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 22px;
+  color: #222A46;
+  margin-bottom: 40px;
+  width: 800px;
+}
+.reviews__sliderBouquet {
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 22px;
+  color: #222A46;
+}
+.reviews__sliderBouquet span {
+  color: #0093A2;
+}
+.reviews__sliderRight {
+  border: 2px solid #0093A2;
+  border-radius: 50%;
+}
+.reviews__sliderRight img {
+  display: block;
+  padding: 10px;
+}
+.reviews__BtnWrap {
+  text-align: center;
+}
+.reviews__Btn {
+  padding: 13px 30px;
+  font-size: 16px;
+  line-height: 22px;
+  color: #0093A2;
+  background: #FFFFFF;
+  border: 1px solid #0093A2;
+  border-radius: 5px;
+}
+
 .topInfo {
   padding: 13px 0;
   background-color: #F2F3F5;
