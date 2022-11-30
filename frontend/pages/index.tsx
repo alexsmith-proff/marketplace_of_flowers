@@ -1,4 +1,5 @@
 ﻿import React, { FC } from 'react'
+import Header from '../components/Header/Header';
 import TopInfo from '../components/TopInfo/TopInfo';
 import MainLayout from '../layouts/MainLayout/MainLayout'
 import { GetImgByBlock, GetMenu, GetTextByBlock } from '../services/core/requests';
@@ -12,22 +13,15 @@ interface IndexProps {
   topMenu,
 }
 
-const Index: FC<IndexProps> = ({ text, img_filename, topMenu }) => {
+const Index: FC<IndexProps> = ({ topMenu }) => {
 
   
 
   return (
     <div>
       <MainLayout>
-        Test string
-        <div>
-          {text}
-        </div>
-        <div>
-          {img_filename}
-        </div>
-        <img src={process.env.SERVER_URL + '/' + img_filename} alt={img_filename} />
         <TopInfo menu={topMenu} />
+        <Header />
       </MainLayout>
     </div>
   )

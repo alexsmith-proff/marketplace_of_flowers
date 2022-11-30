@@ -1,0 +1,62 @@
+.header {
+    padding: 15px 0;
+    &Container{
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+}
+
+.header__deliveryText{
+    width: 110px;
+}
+.header__find{
+    position: relative;
+    &Input{
+        font-size: 16px;
+        color: #7D818E;
+        padding: 10px 20px;
+        border: 1px solid #D0D2D7;
+        border-radius: 60px;
+        width: 300px;
+        &__findBtn{
+            position: absolute;
+            top: 12px;
+            right: 15px;
+        }
+    }
+}
+.header__call {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.headerBtn {
+    border: 1px solid #E2E4EB;
+    border-radius: 50%;
+    padding: 10px;
+    &__img {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 18px;
+        height: 18px;
+    }
+}
+.call__number{
+    font-size: 16px;
+    font-weight: 700;
+    margin-left: 15px;
+}
+
+.header__cart {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.cart__price{
+    font-size: 16px;
+    margin-left: 15px;
+}
