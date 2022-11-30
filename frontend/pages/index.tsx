@@ -1,5 +1,6 @@
 ﻿import React, { FC } from 'react'
 import Header from '../components/Header/Header';
+import MainSlider from '../components/MainSlider/MainSlider';
 import TopInfo from '../components/TopInfo/TopInfo';
 import TopMenu from '../components/TopMenu/TopMenu';
 import MainLayout from '../layouts/MainLayout/MainLayout'
@@ -24,6 +25,7 @@ const Index: FC<IndexProps> = ({ topMenu }) => {
         <TopInfo menu={topMenu} />
         <Header />
         <TopMenu />
+        <MainSlider />
       </MainLayout>
     </div>
   )
