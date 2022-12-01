@@ -2,6 +2,7 @@
 import Header from '../components/Header/Header';
 import MainCards from '../components/MainCards/MainCards';
 import MainSlider from '../components/MainSlider/MainSlider';
+import Partitions from '../components/Partitions/Partitions';
 import Privileges from '../components/Privileges/Privileges';
 import TopInfo from '../components/TopInfo/TopInfo';
 import TopMenu from '../components/TopMenu/TopMenu';
@@ -30,6 +31,7 @@ const Index: FC<IndexProps> = ({ topMenu }) => {
         <MainSlider />
         <Privileges />
         <MainCards />
+        <Partitions />
       </MainLayout>
     </div>
   )
