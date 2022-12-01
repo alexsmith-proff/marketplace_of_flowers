@@ -1,0 +1,105 @@
+.mainCards {
+    padding-bottom: 60px;
+    &__mainTitle {
+        font-family: 'Yeseva One';
+        font-weight: 400;
+        font-size: 40px;
+        line-height: 50px;
+        color: #222A46;
+        margin-bottom: 30px;
+    }
+
+    &__list {
+        display: flex;
+        justify-content: space-between;
+    }
+
+    &__item {
+        background: #FFFFFF;
+        border: 1px solid #E2E4EB;
+        border-radius: 5px;
+        position: relative;
+    }
+
+    &__imgHeart {
+        position: absolute;
+        top: 15px;
+        right: 15px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: #fff;
+        border-radius: 50%;
+        padding: 9px;
+    }
+
+    &__info {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        // background-color: #888;
+        height: 180px;
+        padding: 20px;
+    }
+
+    &__title {
+        font-weight: 700;
+        font-size: 16px;
+        line-height: 22px;
+        color: #222A46;
+        margin-bottom: 10px;
+    }
+
+    &__subtitle {
+        font-weight: 400;
+        font-size: 14px;
+        line-height: 20px;
+        color: #505567;
+        // margin-bottom: 45px;
+    }
+
+    &__priceCart {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    &__actualPrice {
+        font-weight: 700;
+        font-size: 16px;
+        line-height: 22px;
+        color: #222A46;
+    }
+
+    &__crossPrice {
+        font-weight: 400;
+        font-size: 14px;
+        line-height: 20px;
+        text-decoration-line: line-through;
+        color: #B0B2B9;
+    }
+
+    &__cartBtn {
+        display: flex;
+        align-items: center;
+        padding: 8px 14px;
+        background: #E2195B;
+        border-radius: 5px;
+    }
+}
+
+.cartBtn {
+    &__ico {
+        margin-right: 13px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        transform: translateY(3px);
+    }
+
+    &__text {
+        font-size: 14px;
+        line-height: 20px;
+        color: #FFFFFF;
+    }
+}
