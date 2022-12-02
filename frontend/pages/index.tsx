@@ -1,4 +1,5 @@
 ﻿import React, { FC } from 'react'
+import Footer from '../components/Footer/Footer';
 import Gallery from '../components/Gallery/Gallery';
 import Header from '../components/Header/Header';
 import MainCards from '../components/MainCards/MainCards';
@@ -42,6 +43,7 @@ const Index: FC<IndexProps> = ({ topMenu }) => {
         <News />
         <SeoOne />
         <SeoTwo />
+        <Footer />
       </MainLayout>
     </div>
   )

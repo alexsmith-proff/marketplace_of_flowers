@@ -1,0 +1,93 @@
+.footer {
+    padding-top: 40px;
+    background: #F2F6F7;
+
+    &__top {
+        display: flex;
+        justify-content: space-around;
+    }
+
+    &__menu {
+        display: flex;
+        flex-direction: column;
+        flex-wrap: wrap;
+        // justify-content: space-between;
+        width: 100%;
+        height: 400px;
+    }
+
+    &__item {
+        font-weight: 700;
+        font-size: 18px;
+        line-height: 26px;
+        color: #222A46;
+        margin-bottom: 30px;
+        width: 175px;
+    }
+
+    &__menuChild {
+        padding-top: 10px;
+
+        &Item {
+            font-weight: 400;
+            font-size: 16px;
+            line-height: 22px;
+            color: #353949;
+            margin-bottom: 5px;
+
+            &:last-child {
+                margin-bottom: 0;
+            }
+        }
+    }
+
+    &__contacts {
+        width: 200px;
+    }
+}
+
+.contacts {
+    &__title {
+        font-weight: 700;
+        font-size: 18px;
+        line-height: 26px;
+        color: #222A46;
+        margin-bottom: 15px;
+    }
+
+    &__point {
+        margin-bottom: 15px;
+
+        &Name {
+            font-weight: 400;
+            font-size: 14px;
+            line-height: 20px;
+            color: #505567;
+        }
+
+        &Phone {
+            font-weight: 700;
+            font-size: 18px;
+            line-height: 26px;
+            color: #222A46;
+
+        }
+    }
+
+    &__email {
+        &Name {
+            font-weight: 400;
+            font-size: 14px;
+            line-height: 20px;
+            color: #505567;
+        }
+
+        &Text {
+            font-weight: 400;
+            font-size: 14px;
+            line-height: 20px;
+            color: #222A46;
+        }
+    }
+
+}
