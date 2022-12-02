@@ -8,6 +8,7 @@ import Partitions from '../components/Partitions/Partitions';
 import Privileges from '../components/Privileges/Privileges';
 import Reviews from '../components/Reviews/Reviews';
 import SeoOne from '../components/SeoOne/SeoOne';
+import SeoTwo from '../components/SeoTwo/SeoTwo';
 import TopInfo from '../components/TopInfo/TopInfo';
 import TopMenu from '../components/TopMenu/TopMenu';
 import MainLayout from '../layouts/MainLayout/MainLayout'
@@ -40,6 +41,7 @@ const Index: FC<IndexProps> = ({ topMenu }) => {
         <Reviews />
         <News />
         <SeoOne />
+        <SeoTwo />
       </MainLayout>
     </div>
   )
