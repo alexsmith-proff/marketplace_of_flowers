@@ -1,0 +1,91 @@
+.news {
+    padding-top: 60px;
+    padding-bottom: 60px;
+
+    &__top {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 30px;
+    }
+
+    &__mainTitle {
+        font-family: 'Yeseva One';
+        font-style: normal;
+        font-weight: 400;
+        font-size: 40px;
+        line-height: 50px;
+        color: #15191C;
+
+    }
+
+    &__allNews {
+        display: flex;
+    }
+
+    &__list {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    &__item {
+        width: 377px;
+        background: #FFFFFF;
+        border: 1px solid #F2F3F5;
+        box-shadow: 0px 4px 15px rgba(34, 42, 70, 0.08);
+        border-radius: 5px;
+
+        img {
+            width: 377px;
+        }
+    }
+
+    &__info {
+        padding: 20px 25px;
+    }
+
+    &__title {
+        font-weight: 700;
+        font-size: 18px;
+        line-height: 26px;
+        color: #1B1C21;
+        margin-bottom: 10px;
+    }
+
+    &__text {
+        font-weight: 400;
+        font-size: 16px;
+        line-height: 22px;
+        color: #353949;
+        margin-bottom: 20px;
+    }
+
+    &__date {
+        font-weight: 400;
+        font-size: 14px;
+        line-height: 20px;
+
+        color: #7D818E;
+
+    }
+}
+
+.allNews {
+
+    &__text {
+        font-weight: 400;
+        font-size: 14px;
+        line-height: 20px;
+        display: flex;
+        align-items: center;
+        color: #1B1C21;
+        margin-right: 10px;
+    }
+
+    img {
+        display: block;
+        width: 14px;
+        height: 8px;
+    }
+}
