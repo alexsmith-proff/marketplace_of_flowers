@@ -48,7 +48,6 @@
         border-radius: 10px;
         padding: 20px;
         transform: scale(0);
-        // opacity: 0;
     }
     &Item:hover &Child{
         transform: scale(1);
@@ -63,8 +62,8 @@
             color: #505567;
         // }
 
-        &.active a {
-            color: #0093A2;
+        &:hover{
+           color: #0093A2; 
         }
 
     }

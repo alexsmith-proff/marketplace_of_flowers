@@ -55,6 +55,7 @@ export async function getServerSideProps() {
   // const img_filename = await GetImgByBlock('capt_im')
   const topMenu = await GetMenu('verkhnee-menyu') 
   const headerMenu = await GetMenu('menyu-v-khedere') 
+  
 
   return {
       props: { topMenu, headerMenu }
