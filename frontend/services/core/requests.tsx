@@ -31,7 +31,7 @@ export const GetMenu = async(slug: string) => {
           slug: slug
         }
       })
-      console.log(data);
+      // console.log(data);
       
     return data.getMenuBySlug
   }

@@ -1,11 +1,15 @@
 import React, { FC } from 'react';
+import { IMenu } from '../../interfaces/menu.interface';
 
 import s from './TopMenu.module.scss'
 
 interface TopMenuProps {
+    menu: IMenu
 }
 
-const TopMenu: FC<TopMenuProps> = ({ }) => {
+const TopMenu: FC<TopMenuProps> = ({ menu }) => {
+    console.log('menuuuuuuuuuuuu',menu);
+    
 
     return (
         <div className={s.topmenu}>
@@ -18,7 +22,33 @@ const TopMenu: FC<TopMenuProps> = ({ }) => {
                         </div>
                     </a>
                     <ul className={s.menu}>
-                        <li className={s.menuItem}>
+                        {
+                            menu.items.map((item) => (
+                                <li className={s.menuItem} key={item.id}>
+                                    {item.name}
+                                    {
+                                        item.submenuitems.length != 0 && 
+                                        <ul className={s.menuChild}>
+                                            {
+                                                item.submenuitems.map((itemChild) => <li className={s.menuItemChild} key={itemChild.id}>{itemChild.name}</li>)                                                    
+                                            }
+                                        </ul>
+                                    }
+                                    {/* <ul className={s.menuChild}>
+                                        {
+                                            item.submenuitems && (
+                                                <>
+                                                {
+                                                    item.submenuitems.map((itemChild) => <li className={s.menuItemChild} key={itemChild.id}>{itemChild.name}</li>)                                                    
+                                                }
+                                                </>
+                                            )
+                                        }
+                                    </ul> */}
+                                </li>
+                            ))
+                        }
+                        {/* <li className={s.menuItem}>
                             <a href="#">Цветы поштучно</a>
                         </li>
                         <li className={s.menuItem}>
@@ -58,7 +88,7 @@ const TopMenu: FC<TopMenuProps> = ({ }) => {
                         </li>
                         <li className={s.menuItem}>
                             <a href="#">Повод</a>
-                        </li>
+                        </li> */}
                     </ul>
                 </div>
             </div>

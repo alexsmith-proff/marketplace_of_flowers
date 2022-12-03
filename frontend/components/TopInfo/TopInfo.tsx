@@ -1,9 +1,10 @@
 import React, { FC } from 'react';
+import { IMenu } from '../../interfaces/menu.interface';
 
 import s from './TopInfo.module.scss'
 
 interface TopInfoProps {
-    menu
+    menu: IMenu
 }
 
 const TopInfo: FC<TopInfoProps> = ({ menu }) => {

@@ -12,6 +12,7 @@ import SeoOne from '../components/SeoOne/SeoOne';
 import SeoTwo from '../components/SeoTwo/SeoTwo';
 import TopInfo from '../components/TopInfo/TopInfo';
 import TopMenu from '../components/TopMenu/TopMenu';
+import { IMenu } from '../interfaces/menu.interface';
 import MainLayout from '../layouts/MainLayout/MainLayout'
 import { GetImgByBlock, GetMenu, GetTextByBlock } from '../services/core/requests';
 
@@ -19,12 +20,11 @@ import s from './index.module.scss'
 
 
 interface IndexProps {
-  text: string,
-  img_filename: string,
-  topMenu,
+  topMenu :IMenu,
+  headerMenu: IMenu
 }
 
-const Index: FC<IndexProps> = ({ topMenu }) => {
+const Index: FC<IndexProps> = ({ topMenu, headerMenu }) => {
 
   
 
@@ -33,7 +33,7 @@ const Index: FC<IndexProps> = ({ topMenu }) => {
       <MainLayout>
         <TopInfo menu={topMenu} />
         <Header />
-        <TopMenu />
+        <TopMenu menu={headerMenu} />
         <MainSlider />
         <Privileges />
         <MainCards />
@@ -51,12 +51,13 @@ const Index: FC<IndexProps> = ({ topMenu }) => {
 
 
 export async function getServerSideProps() {
-  const text = await GetTextByBlock('main_text')
-  const img_filename = await GetImgByBlock('capt_im')
+  // const text = await GetTextByBlock('main_text')
+  // const img_filename = await GetImgByBlock('capt_im')
   const topMenu = await GetMenu('verkhnee-menyu') 
+  const headerMenu = await GetMenu('menyu-v-khedere') 
 
   return {
-      props: { text, img_filename, topMenu }
+      props: { topMenu, headerMenu }
   }
 }
 

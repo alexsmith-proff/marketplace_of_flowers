@@ -2,7 +2,9 @@ export interface IMenuBase {
   id: number;
   name: string;
 }
-export interface IMenu extends IMenuBase {}
+export interface IMenu extends IMenuBase {
+  items: IMenuItem[]
+}
 export interface IMenuItem extends IMenuBase {
   serial_number: number;
   link: string;
