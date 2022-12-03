@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, useState } from 'react';
 import { IMenu } from '../../interfaces/menu.interface';
 
 import s from './TopMenu.module.scss'
@@ -8,6 +8,7 @@ interface TopMenuProps {
 }
 
 const TopMenu: FC<TopMenuProps> = ({ menu }) => {
+    const [menuItemActive, setMenuItemActive] = useState<boolean>(false)
     console.log('menuuuuuuuuuuuu',menu);
     
 
@@ -27,24 +28,13 @@ const TopMenu: FC<TopMenuProps> = ({ menu }) => {
                                 <li className={s.menuItem} key={item.id}>
                                     {item.name}
                                     {
-                                        item.submenuitems.length != 0 && 
+                                        (item.submenuitems.length != 0) &&
                                         <ul className={s.menuChild}>
                                             {
                                                 item.submenuitems.map((itemChild) => <li className={s.menuItemChild} key={itemChild.id}>{itemChild.name}</li>)                                                    
                                             }
                                         </ul>
                                     }
-                                    {/* <ul className={s.menuChild}>
-                                        {
-                                            item.submenuitems && (
-                                                <>
-                                                {
-                                                    item.submenuitems.map((itemChild) => <li className={s.menuItemChild} key={itemChild.id}>{itemChild.name}</li>)                                                    
-                                                }
-                                                </>
-                                            )
-                                        }
-                                    </ul> */}
                                 </li>
                             ))
                         }
