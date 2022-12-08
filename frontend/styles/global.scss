@@ -92,3 +92,13 @@ button:focus {
 // 		margin: 0 -5px;
 // 	  }
 // }
+
+.gallery{
+	.slick-prev {
+		left: 0px !important;
+	}
+	.slick-next {
+		right: 0px !important;
+	}
+
+}
