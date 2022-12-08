@@ -10,7 +10,18 @@ interface MainSliderProps {
 }
 
 const MainSlider: FC<MainSliderProps> = ({ }) => {
-    const settings: Settings = {
+    const settingsBigSlider: Settings = {
+        // dots: true,
+        arrows: true,
+        fade: true,
+        infinite: true,
+        autoplay: true,
+        autoplaySpeed: 8000, // Время между кадрами 7 сек
+        speed: 5000, // Плавность перехода 3 сек
+        slidesToShow: 1,
+        slidesToScroll: 1
+    };
+    const settingsSmallSlider: Settings = {
         // dots: true,
         arrows: true,
         infinite: true,
@@ -27,7 +38,7 @@ const MainSlider: FC<MainSliderProps> = ({ }) => {
                 <div className={s.mainSliderContainer}>
                     <div className="bigSlider">
                         <div className={s.bigSlider}>
-                            <Slider {...settings}>
+                            <Slider {...settingsBigSlider}>
                                 <div className={s.bigSlider__item}>
                                     <img src="img/big-slider1.png" alt="big-slider1" />
                                     <div className={s.bigSlider__info}>
@@ -62,7 +73,7 @@ const MainSlider: FC<MainSliderProps> = ({ }) => {
                     <div className="smallSlider">
                         <div className={s.smallSlider}>
                             <div className={s.smallSlider__title}>Букет недели</div>
-                            <Slider {...settings}>
+                            <Slider {...settingsSmallSlider}>
                                 <div className={s.smallSlider__item}>
                                     <img src="img/small-slider1.png" alt="small-slider1" />
                                     <div className={s.smallSlider__info}>

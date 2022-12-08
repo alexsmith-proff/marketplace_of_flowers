@@ -5,6 +5,9 @@ Marketplace of flowers
 NestJS/Next.js/TypeScript, GraphQL, PostgreSQL
 
 ## Start
+ATTENTION!!!
+The backend/.env file must contain the entry TYPEORM_HOST=database
+
 New terminal
 ```bash
 $ docker-compose up --build
