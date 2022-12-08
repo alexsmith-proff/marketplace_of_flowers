@@ -12,6 +12,7 @@
     "@apollo/client": "^3.7.0",
     "@reduxjs/toolkit": "^1.8.1",
     "@types/react-router-dom": "^5.3.3",
+    "@types/react-slick": "^0.23.10",
     "apollo-upload-client": "^12.1.0",
     "axios": "^0.27.2",
     "date-and-time": "^2.4.1",
@@ -23,7 +24,9 @@
     "react-dom": "18.0.0",
     "react-icons": "^4.4.0",
     "react-redux": "^8.0.1",
+    "react-slick": "^0.29.0",
     "sass": "^1.50.1",
+    "slick-carousel": "^1.8.1",
     "validator": "^13.7.0"
   },
   "devDependencies": {
