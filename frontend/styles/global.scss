@@ -100,5 +100,11 @@ button:focus {
 	.slick-next {
 		right: 0px !important;
 	}
+}
 
+.reviews{
+	.slick-prev,
+	.slick-next {
+		display: none!important;
+	}	
 }
