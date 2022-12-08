@@ -16,15 +16,19 @@ const TopInfo: FC<TopInfoProps> = ({ menu }) => {
                     <img className={s.topInfoTime__ico} src="img/clock.png" alt="clock" />
                     <div className={s.topInfoTime__text}>Пн-Сб: 8:00–20:00 Вс: 9:00–20:00</div>
                 </div>
-                <ul className={s.TopInfoMenu}>
-                    {
-                        menu.items.map((item) => (
-                            <li className={s.TopInfoMenu__item} key={item.id}>
-                                <a className={s.TopInfoMenu__link} href={item.link}>{item.name}</a>
-                            </li>
-                        ))
-                    }
-                </ul>
+                {
+                    menu &&
+                    <ul className={s.TopInfoMenu}>
+                        {
+                            menu.items.map((item) => (
+                                <li className={s.TopInfoMenu__item} key={item.id}>
+                                    <a className={s.TopInfoMenu__link} href={item.link}>{item.name}</a>
+                                </li>
+                            ))
+                        }
+                    </ul>
+                }
+
                 <div className={s.TopInfoSocialProfile}>
                     <div className={s.TopInfoSocial}>
                         <a className={s.TopInfoSocial__link} href="#">
