@@ -18,6 +18,11 @@ export class SectionResolver {
     return this.sectionService.findAll();
   }
 
+  @Query(() => SectionEntity, { name: 'getSectionBySlug' })
+  findBySlug(@Args('slug', {type: () => String}) slug: string) {
+    return this.sectionService.findBySlug(slug);
+  }
+
   @Query(() => SectionEntity, { name: 'getSectionById' })
   findOne(@Args('id', { type: () => Int }) id: number) {
     return this.sectionService.findOne(id);

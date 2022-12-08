@@ -307,6 +307,7 @@ type Query {
   getMenuItemByID(id: Int!): MenuItemEntity!
   getProductById(id: Int!): ProductEntity!
   getSectionById(id: Int!): SectionEntity!
+  getSectionBySlug(slug: String!): SectionEntity!
   getSubmenuItemById(id: Int!): SubmenuItemEntity!
   getSubmenuItemTwoById(id: Int!): SubmenuItemTwoEntity!
   getTextElementByID(id: Int!): TextElementEntity!

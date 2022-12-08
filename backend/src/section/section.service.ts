@@ -27,6 +27,29 @@ export class SectionService {
     })
   }
 
+  async findBySlug(slug: string): Promise<SectionEntity> {
+    const section = await this.sectionRepository.findOne({
+      where: {
+        slug
+      },
+      order: {
+        elements: {
+          id: 'ASC',
+          text_elements: {
+            id: 'ASC'
+          },
+          img_elements: {
+              id: 'ASC'
+            }
+          }
+        }
+        
+      }
+    );
+    // console.log('menu', menu);
+    return section;
+  }
+
   async findOne(id: number): Promise<SectionEntity> {
     return await this.sectionRepository.findOne({
       where: {

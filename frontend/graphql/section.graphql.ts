@@ -107,6 +107,33 @@ query GetAllSections{
   }
 `;
 
+export const GET_SECTION_BY_SLUG = gql`
+  query GetSectionBySlug($slug: String!) {
+    getSectionBySlug(slug: $slug) {
+      id
+      name
+      slug
+      elements {
+        id
+        name
+        slug
+        text_elements {
+          id
+          name
+          slug
+          text
+        }
+        img_elements {
+          id
+          name
+          slug
+          filename
+        }
+      }
+    }
+  }
+`;
+
 export const GET_TEXTBLOCK_BY_SLUG = gql`
 query GetTextElementBySlug($slug: String!){
   getTextElementBySlug(slug: $slug){

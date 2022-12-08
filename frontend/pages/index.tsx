@@ -13,18 +13,21 @@ import SeoTwo from '../components/SeoTwo/SeoTwo';
 import TopInfo from '../components/TopInfo/TopInfo';
 import TopMenu from '../components/TopMenu/TopMenu';
 import { IMenu } from '../interfaces/menu.interface';
+import { ISection } from '../interfaces/section.interface';
 import MainLayout from '../layouts/MainLayout/MainLayout'
-import { GetImgByBlock, GetMenu, GetTextByBlock } from '../services/core/requests';
+import { GetImgByBlock, GetMenu, GetSection, GetTextByBlock } from '../services/core/requests';
 
 import s from './index.module.scss'
 
 
 interface IndexProps {
   topMenu :IMenu,
-  headerMenu: IMenu
+  headerMenu: IMenu,
+  bigSlider: ISection,
+  // smallSection: ISection
 }
 
-const Index: FC<IndexProps> = ({ topMenu, headerMenu }) => {
+const Index: FC<IndexProps> = ({ topMenu, headerMenu, bigSlider }) => {
 
   
 
@@ -34,7 +37,7 @@ const Index: FC<IndexProps> = ({ topMenu, headerMenu }) => {
         <TopInfo menu={topMenu} />
         <Header />
         <TopMenu menu={headerMenu} />
-        <MainSlider />
+        <MainSlider bigSliderSection={bigSlider} />
         <Privileges />
         <MainCards />
         <Partitions />
@@ -55,10 +58,12 @@ export async function getServerSideProps() {
   // const img_filename = await GetImgByBlock('capt_im')
   const topMenu = await GetMenu('verkhnee-menyu') 
   const headerMenu = await GetMenu('menyu-v-khedere') 
+  const bigSlider = await GetSection('bigSlider')
+  // console.log('bigSliderrrrrrrrrrrrrrr', bigSlider);
   
 
   return {
-      props: { topMenu, headerMenu }
+      props: { topMenu, headerMenu, bigSlider }
   }
 }
 
