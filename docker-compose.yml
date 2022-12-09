@@ -10,6 +10,8 @@ services:
       - POSTGRES_DB=marketplace-flowers
     ports:
       - "5432:5432"
+    volumes:
+      - /var/lib/postgresql:/var/lib/postgresql  
     restart: always
   pgadmin:
     image: dpage/pgadmin4
