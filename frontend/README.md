@@ -3,7 +3,7 @@
 Frontend marketplace of flowers
 
 ## Stack
-Next.js/TypeScript, GraphQL, REDUX
+Next.js/TypeScript, GraphQL
 
 ## Installation
 

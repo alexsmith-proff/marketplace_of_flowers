@@ -4,13 +4,26 @@ Marketplace of flowers
 ## Stack
 NestJS/Next.js/TypeScript, GraphQL, PostgreSQL
 
+## Installation
+Install PostgreSQL https://www.postgresql.org/download/
+
+
 ## Start
 ATTENTION!!!
-The backend/.env file must contain the entry TYPEORM_HOST=database
+The app has a problem start with Docker
 
 New terminal
 ```bash
-$ docker-compose up --build
+$ cd backend
+$ cd npm install
+$ npm run start:dev
+```
+
+New terminal
+```bash
+$ cd frontend
+$ cd npm install
+$ npm run dev
 ```
 
 Follow the link http://localhost:3000 in a browser
