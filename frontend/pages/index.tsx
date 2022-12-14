@@ -25,9 +25,10 @@ interface IndexProps {
   headerMenu: IMenu,
   bigSlider: ISection,
   smallSlider: ISection,
+  privilege: ISection,
 }
 
-const Index: FC<IndexProps> = ({ topMenu, headerMenu, bigSlider, smallSlider }) => {
+const Index: FC<IndexProps> = ({ topMenu, headerMenu, bigSlider, smallSlider, privilege }) => {
 
   
 
@@ -38,7 +39,7 @@ const Index: FC<IndexProps> = ({ topMenu, headerMenu, bigSlider, smallSlider }) 
         <Header />
         <TopMenu menu={headerMenu} />
         <MainSlider bigSliderSection={bigSlider} smallSliderSection={smallSlider}/>
-        <Privileges />
+        <Privileges privilegeSection={privilege} />
         <MainCards />
         <Partitions />
         <Gallery />
@@ -60,12 +61,13 @@ export async function getServerSideProps() {
   const headerMenu = await GetMenu('menyu-v-khedere') 
   const bigSlider = await GetSection('bigSlider')
   const smallSlider = await GetSection('smallSlider')
-  console.log('bigSliderrrrr', bigSlider);
+  const privilege = await GetSection('privileges')
+  
   
   
 
   return {
-      props: { topMenu, headerMenu, bigSlider, smallSlider }
+      props: { topMenu, headerMenu, bigSlider, smallSlider, privilege }
   }
 }
 
