@@ -9,9 +9,10 @@ import { ISection } from '../../interfaces/section.interface';
 
 interface MainSliderProps {
     bigSliderSection: ISection
+    smallSliderSection: ISection
 }
 
-const MainSlider: FC<MainSliderProps> = ({ bigSliderSection }) => {
+const MainSlider: FC<MainSliderProps> = ({ bigSliderSection, smallSliderSection }) => {
     const settingsBigSlider: Settings = {
         // dots: true,
         arrows: true,
@@ -72,40 +73,27 @@ const MainSlider: FC<MainSliderProps> = ({ bigSliderSection }) => {
                         <div className={s.smallSlider}>
                             <div className={s.smallSlider__title}>Букет недели</div>
                             <Slider {...settingsSmallSlider}>
-                                <div className={s.smallSlider__item}>
-                                    <img src="img/small-slider1.png" alt="small-slider1" />
-                                    <div className={s.smallSlider__info}>
-                                        <div className={s.smallSlider__infoTitle}>Букет 25 роз Нежный микс</div>
-                                        <div className={s.smallSlider__infoSubTitle}>Высота: 60 см, Ширина: 35 см</div>
-                                        <div className={s.smallSlider__infoChart}>
-                                            <div className={s.smallSlider__infoPriceWrap}>
-                                                <div className={s.smallSlider__infoPrice}>13 499 ₽</div>
-                                                <div className={s.smallSlider__infoCrossPrice}>15 499 ₽</div>
-                                            </div>
-                                            <div className={s.smallSlider__infoBtn}>
-                                                <img src="img/cart-ico.png" alt="cart-ico" />
-                                                <div className={s.smallSlider__infoBtnText}>В корзину</div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div className={s.smallSlider__item}>
-                                    <img src="img/small-slider1.png" alt="small-slider1" />
-                                    <div className={s.smallSlider__info}>
-                                        <div className={s.smallSlider__infoTitle}>Букет 25 роз Нежный микс</div>
-                                        <div className={s.smallSlider__infoSubTitle}>Высота: 60 см, Ширина: 35 см</div>
-                                        <div className={s.smallSlider__infoChart}>
-                                            <div className={s.smallSlider__infoPriceWrap}>
-                                                <div className={s.smallSlider__infoPrice}>13 499 ₽</div>
-                                                <div className={s.smallSlider__infoCrossPrice}>15 499 ₽</div>
-                                            </div>
-                                            <div className={s.smallSlider__infoBtn}>
-                                                <img src="img/cart-ico.png" alt="cart-ico" />
-                                                <div className={s.smallSlider__infoBtnText}>В корзину</div>
+                                {
+                                    smallSliderSection.elements.map(item => (
+                                        <div className={s.smallSlider__item} key={item.id}>
+                                            <img src={process.env.SERVER_URL + '/' + item.img_elements[0].filename} alt="small-slider1" />
+                                            <div className={s.smallSlider__info}>
+                                                <div className={s.smallSlider__infoTitle}>{item.text_elements[0].text}</div>
+                                                <div className={s.smallSlider__infoSubTitle}>{item.text_elements[1].text}</div>
+                                                <div className={s.smallSlider__infoChart}>
+                                                    <div className={s.smallSlider__infoPriceWrap}>
+                                                        <div className={s.smallSlider__infoPrice}>{item.text_elements[2].text}</div>
+                                                        <div className={s.smallSlider__infoCrossPrice}>{item.text_elements[3].text}</div>
+                                                    </div>
+                                                    <div className={s.smallSlider__infoBtn}>
+                                                        <img src="img/cart-ico.png" alt="cart-ico" />
+                                                        <div className={s.smallSlider__infoBtnText}>В корзину</div>
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
-                                </div>
+                                    ))
+                                }
                             </Slider>
                         </div>
                     </div>

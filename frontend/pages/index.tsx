@@ -24,10 +24,10 @@ interface IndexProps {
   topMenu :IMenu,
   headerMenu: IMenu,
   bigSlider: ISection,
-  // smallSection: ISection
+  smallSlider: ISection,
 }
 
-const Index: FC<IndexProps> = ({ topMenu, headerMenu, bigSlider }) => {
+const Index: FC<IndexProps> = ({ topMenu, headerMenu, bigSlider, smallSlider }) => {
 
   
 
@@ -37,7 +37,7 @@ const Index: FC<IndexProps> = ({ topMenu, headerMenu, bigSlider }) => {
         <TopInfo menu={topMenu} />
         <Header />
         <TopMenu menu={headerMenu} />
-        <MainSlider bigSliderSection={bigSlider} />
+        <MainSlider bigSliderSection={bigSlider} smallSliderSection={smallSlider}/>
         <Privileges />
         <MainCards />
         <Partitions />
@@ -58,13 +58,14 @@ export async function getServerSideProps() {
   // const img_filename = await GetImgByBlock('capt_im')
   const topMenu = await GetMenu('verkhnee-menyu') 
   const headerMenu = await GetMenu('menyu-v-khedere') 
-  const bigSlider = await GetSection('bolshoy-slider-na-glavnoy')
+  const bigSlider = await GetSection('bigSlider')
+  const smallSlider = await GetSection('smallSlider')
   console.log('bigSliderrrrr', bigSlider);
   
   
 
   return {
-      props: { topMenu, headerMenu, bigSlider }
+      props: { topMenu, headerMenu, bigSlider, smallSlider }
   }
 }
 
