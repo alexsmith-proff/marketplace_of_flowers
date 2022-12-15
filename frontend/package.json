@@ -29,6 +29,7 @@
     "react-slick": "^0.29.0",
     "sass": "^1.50.1",
     "slick-carousel": "^1.8.1",
+    "speakingurl": "^14.0.1",
     "validator": "^13.7.0"
   },
   "devDependencies": {

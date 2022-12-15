@@ -11,6 +11,8 @@ const BlockTypeArr = [
     'Блок изображений'
 ]
 
+let getSlug = require('speakingurl');
+
 interface WindowCreateBlockProps {
     visible: boolean
     createBlockText?: (createInput: ICreateBlockTextInput) => void
@@ -32,6 +34,7 @@ const WindowCreateBlock: FC<WindowCreateBlockProps> = ({ visible, createBlockTex
 
     const handleChangeTitleName = (e: React.ChangeEvent<HTMLInputElement>) => {
         setTitleName(e.target.value)
+        setSlugName(getSlug(e.target.value))
     }
     const handleChangeSlugName = (e: React.ChangeEvent<HTMLInputElement>) => {
         setSlugName(e.target.value)
@@ -108,12 +111,12 @@ const WindowCreateBlock: FC<WindowCreateBlockProps> = ({ visible, createBlockTex
                     <div className={s.window}>
                         <div className={s.LabelEdit}>
                             <span className={s.title}>Имя блока</span>
-                            <input className={!titleName ? (s.nameInput + ' ' + s.error) : s.nameInput} type="text" onChange={handleChangeTitleName} />
+                            <input className={!titleName ? (s.nameInput + ' ' + s.error) : s.nameInput} type="text" onChange={handleChangeTitleName} value={titleName} />
                         </div>
 
                         <div className={s.LabelEdit}>
                             <span className={s.title}>Имя слага</span>
-                            <input className={!setSlugName ? (s.nameInput + ' ' + s.error) : s.nameInput} type="text" onChange={handleChangeSlugName} />
+                            <input className={!setSlugName ? (s.nameInput + ' ' + s.error) : s.nameInput} type="text" onChange={handleChangeSlugName} value={slugName} />
                         </div>
 
 

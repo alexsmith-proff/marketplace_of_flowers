@@ -7,6 +7,9 @@ import ButtonAdmin from "../Buttons/ButtonAdmin/ButtonAdmin";
 
 import s from "./WindowCreateNameSlug.module.scss";
 
+
+let getSlug = require('speakingurl');
+
 interface WindowCreateNameSlugProps {
     visible: boolean
     modeWindow: AdminWindowMode
@@ -27,6 +30,7 @@ const WindowCreateNameSlug: FC<WindowCreateNameSlugProps> = ({ visible, modeWind
 
     const handleChangeTitleName = (e: React.ChangeEvent<HTMLInputElement>) => {
         setTitleName(e.target.value)
+        setSlugName(getSlug(e.target.value))
     }
     const handleChangeSlugName = (e: React.ChangeEvent<HTMLInputElement>) => {
         setSlugName(e.target.value)
