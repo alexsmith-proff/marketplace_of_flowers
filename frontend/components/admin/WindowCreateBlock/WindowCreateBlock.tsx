@@ -107,7 +107,7 @@ const WindowCreateBlock: FC<WindowCreateBlockProps> = ({ visible, createBlockTex
         <>
             {
                 visible &&
-                <div className={s.background} onClick={handleCloseWindow} ref={windowRef}>
+                <div className={s.background} onMouseDown={handleCloseWindow} ref={windowRef}>
                     <div className={s.window}>
                         <div className={s.LabelEdit}>
                             <span className={s.title}>Имя блока</span>

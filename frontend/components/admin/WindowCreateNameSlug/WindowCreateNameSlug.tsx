@@ -81,7 +81,7 @@ const WindowCreateNameSlug: FC<WindowCreateNameSlugProps> = ({ visible, modeWind
         <>
             {
                 visible &&
-                <div className={s.background} onClick={handleCloseWindow} ref={windowRef}>
+                <div className={s.background} onMouseDown={handleCloseWindow} ref={windowRef}>
                     <div className={s.window}>
                         <div className={s.LabelEdit}>
                             <span className={s.title}>{typeSection == AdminSectionType.Section ? 'Имя секции' : 'Имя элемента'}</span>
