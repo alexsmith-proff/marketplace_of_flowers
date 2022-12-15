@@ -41,11 +41,11 @@ const MainSlider: FC<MainSliderProps> = ({ bigSliderSection, smallSliderSection 
                 <div className={s.mainSliderContainer}>
                     <div className="bigSlider">
                         <div className={s.bigSlider}>
-                            {
+                            {                                
                                 bigSliderSection &&
                                 <Slider {...settingsBigSlider}>
                                     {
-                                        bigSliderSection.elements.map(item => (
+                                        bigSliderSection && bigSliderSection.elements.map(item => (
                                             <div className={s.bigSlider__item} key={item.id}>
                                                 <img src={process.env.SERVER_URL + '/' + item.img_elements[0].filename} alt="big-slider1" />
                                                 <div className={s.bigSlider__info}>
@@ -74,7 +74,7 @@ const MainSlider: FC<MainSliderProps> = ({ bigSliderSection, smallSliderSection 
                             <div className={s.smallSlider__title}>Букет недели</div>
                             <Slider {...settingsSmallSlider}>
                                 {
-                                    smallSliderSection.elements.map(item => (
+                                    smallSliderSection && smallSliderSection.elements.map(item => (
                                         <div className={s.smallSlider__item} key={item.id}>
                                             <img src={process.env.SERVER_URL + '/' + item.img_elements[0].filename} alt="small-slider1" />
                                             <div className={s.smallSlider__info}>

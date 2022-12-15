@@ -15,7 +15,7 @@ const Privileges: FC<PrivilegesProps> = ({ privilegeSection }) => {
                 <div className="container">
                     <ul className={s.privileges__list}>
                         {
-                            privilegeSection.elements.map(item => (
+                            privilegeSection && privilegeSection.elements.map(item => (
                                 <li className={s.privileges__card} key={item.id}>
                                     <img className={s.privileges__cardImg} src={process.env.SERVER_URL + '/' + item.img_elements[0].filename} alt="delivery-ico" />
                                     <h4 className={s.privileges__cardText}>{item.text_elements[0].text}</h4>
