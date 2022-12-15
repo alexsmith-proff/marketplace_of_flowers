@@ -171,6 +171,8 @@ const WindowCreateBlock: FC<WindowCreateBlockProps> = ({ visible, createBlockTex
                                 <ButtonAdmin typeBtn={AdminButtonType.Text} functionalBtn={AdminButtonFunctional.Standard} border={true} clickBtn={() => closeWindow()}>Закрыть</ButtonAdmin>
                             </div>
                         </div>
+
+                        <div className={s.close} onMouseDown={closeWindow}></div>
                     </div>
                 </div>
             }

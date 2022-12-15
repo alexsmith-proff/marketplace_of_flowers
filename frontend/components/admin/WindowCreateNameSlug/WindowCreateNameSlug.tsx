@@ -101,6 +101,7 @@ const WindowCreateNameSlug: FC<WindowCreateNameSlugProps> = ({ visible, modeWind
                                 <ButtonAdmin typeBtn={AdminButtonType.Text} functionalBtn={AdminButtonFunctional.Standard} border={true} clickBtn={() => closeWindow()}>Закрыть</ButtonAdmin>
                             </div>
                         </div>
+                        <div className={s.close} onMouseDown={closeWindow}></div>
                     </div>
                 </div>
             }
