@@ -29,6 +29,7 @@ const WindowCreateProduct: FC<WindowCreateProductProps> = ({ visible, createProd
     const [productBrand, setProductBrand] = useState<IBrand>(null)
     const [productCatalog, setProductCatalog] = useState<ICatalog>(null)
     const [productDescription, setProductDescription] = useState<string>(null)
+    const [filesArr, setFilesArr] = useState([])
 
     const [brandsArr, setBrandsArr] = useState<IBrand[]>(null)
     const [catalogArr, setCatalogArr] = useState<ICatalog[]>(null)
@@ -97,6 +98,35 @@ const WindowCreateProduct: FC<WindowCreateProductProps> = ({ visible, createProd
         setProductDescription(null)
     }
 
+    const handleChangeImages = (e: any) => {
+        console.log(e.target.files[0]);
+        setFilesArr(e.target.files)
+
+        const reader = new FileReader()
+        reader.onload = () => {
+            setFilesArr(reader.result)
+            console.log('reader.result', reader.result);
+
+        }
+        reader.readAsDataURL(e.target.files[0])
+
+
+
+        // //Блок изображений
+        // if (blockType == BlockTypeArr[1]) {
+        //     if(!file) return
+        //     let formData = new FormData()
+        //     formData.append('file', file)
+        //     formData.append('name', titleName)
+        //     formData.append('slug', slugName)
+
+        //     createBlockImg(formData)
+        // }
+
+
+
+    }
+
     const handleClickCreateProduct = () => {
         if (productName && productVendor && productPrice && productCount) {
             createProduct({
@@ -106,7 +136,7 @@ const WindowCreateProduct: FC<WindowCreateProductProps> = ({ visible, createProd
                 count_in_stock: productCount,
                 brand_id: +productBrand.id,
                 catalog_id: +productCatalog.id,
-              })
+            })
 
             ProductFieldsNull()
             closeWindow()
@@ -126,7 +156,7 @@ const WindowCreateProduct: FC<WindowCreateProductProps> = ({ visible, createProd
                         <div className={s.secondLevel}>
                             <div className={s.LabelEdit}>
                                 <span className={s.title}>Артикул</span>
-                                <input className={!productVendor ? (s.vendorInput + ' ' + s.nameInput + ' ' + s.error) : (s.vendorInput + ' ' +s.nameInput)} type="text" onChange={handleChangeProductVendor} />
+                                <input className={!productVendor ? (s.vendorInput + ' ' + s.nameInput + ' ' + s.error) : (s.vendorInput + ' ' + s.nameInput)} type="text" onChange={handleChangeProductVendor} />
                             </div>
                             <div className={s.LabelEdit}>
                                 <span className={s.title}>Цена</span>
@@ -176,6 +206,18 @@ const WindowCreateProduct: FC<WindowCreateProductProps> = ({ visible, createProd
                             <textarea className={s.description} rows={8} cols={50} onChange={handleChangeProductDescription}></textarea>
                         </div>
 
+                        <input type="file" accept="image/*" multiple={true} onChange={handleChangeImages} />
+                        <div className={s.preview}>
+                            {
+                                filesArr &&
+                                <>
+                                    {
+                                        filesArr.map((item) => <img className={s.previewImages} src={item} />)
+                                    }
+                                </>
+
+                            }
+                        </div>
 
 
                         <div className={s.buttons}>

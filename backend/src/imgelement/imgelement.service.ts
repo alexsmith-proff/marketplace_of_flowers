@@ -2,12 +2,8 @@ import { ImgElementEntity } from './entities/imgelement.entity';
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { CreateImgElementInput } from './dto/create-imgelement.input';
-import { UpdateImgElementInput } from './dto/update-imgelement.input';
 import { Repository } from 'typeorm';
-import { v4 as uuidv4 } from 'uuid'
-import * as path from 'path';
-import  * as fs from 'fs'
-import { CreateImgElementDto } from './dto/create-imgelement.dto';
+import { createFile } from '../util/file';
 
 @Injectable()
 export class ImgElementService {
@@ -17,7 +13,7 @@ export class ImgElementService {
   ){}
 
   async create(file: Express.Multer.File,  createImgElementInput: CreateImgElementInput) {
-    const fileName = this.createFile(file)
+    const fileName = createFile(file)
     const newImgElement = {...createImgElementInput, filename: fileName, element_ref: {id: createImgElementInput.element_id}}
     return await this.imgElementRepository.save(newImgElement)
   }
@@ -63,19 +59,5 @@ export class ImgElementService {
    createImgBlock(): string {
     return 'Created image block'
   }
-
-
-  createFile(file: Express.Multer.File): string {    
-    const ext = file.originalname.split('.').pop()
-    const filename = `${uuidv4()}.${ext}`
-    const filePath = path.resolve(__dirname, '..', 'static')
-    
-    if(!fs.existsSync(filePath)){
-      fs.mkdirSync(filePath, {recursive: true})
-    }
-    fs.writeFileSync(path.resolve(filePath, filename), file.buffer)
-    return filename
-  }
-
 
 }

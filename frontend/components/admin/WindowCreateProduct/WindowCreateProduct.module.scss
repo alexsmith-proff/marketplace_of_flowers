@@ -17,6 +17,9 @@
 .window {
     padding: 25px;
     background-color: #fff;
+    &Wrap{
+        display: flex;
+    }
 }
 
 .LabelEdit {
@@ -29,6 +32,15 @@
         padding: 5px;
         border: 1px solid #000;
         border-radius: 5px;
+    }
+}
+
+.preview{
+    padding-top: 20px;
+    &Images{
+        width: 150px;
+        height: 200px;
+        object-fit: cover;
     }
 }
 
