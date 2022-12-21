@@ -99,16 +99,16 @@ const WindowCreateProduct: FC<WindowCreateProductProps> = ({ visible, createProd
     }
 
     const handleChangeImages = (e: any) => {
-        console.log(e.target.files[0]);
-        setFilesArr(e.target.files)
+        // console.log(e.target.files[0]);
+        // setFilesArr(e.target.files)
 
-        const reader = new FileReader()
-        reader.onload = () => {
-            setFilesArr(reader.result)
-            console.log('reader.result', reader.result);
+        // const reader = new FileReader()
+        // reader.onload = () => {
+        //     setFilesArr(reader.result)
+        //     console.log('reader.result', reader.result);
 
-        }
-        reader.readAsDataURL(e.target.files[0])
+        // }
+        // reader.readAsDataURL(e.target.files[0])
 
 
 
@@ -206,7 +206,7 @@ const WindowCreateProduct: FC<WindowCreateProductProps> = ({ visible, createProd
                             <textarea className={s.description} rows={8} cols={50} onChange={handleChangeProductDescription}></textarea>
                         </div>
 
-                        <input type="file" accept="image/*" multiple={true} onChange={handleChangeImages} />
+                        {/* <input type="file" accept="image/*" multiple={true} onChange={handleChangeImages} />
                         <div className={s.preview}>
                             {
                                 filesArr &&
@@ -217,7 +217,7 @@ const WindowCreateProduct: FC<WindowCreateProductProps> = ({ visible, createProd
                                 </>
 
                             }
-                        </div>
+                        </div> */}
 
 
                         <div className={s.buttons}>

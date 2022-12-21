@@ -73,18 +73,19 @@ export class CatalogService {
         },
       });
       return sortingArr(catalog);
-    } else {
-      const catalog = await this.catalogRepository.find({
-        where: {
-          parent: findParent,
-        },
-        relations: {
-          children: true,
-          parent: true,
-        },
-      });
-      return sortingArr(catalog);
     }
+    // else {
+    //   const catalog = await this.catalogRepository.find({
+    //     where: {
+    //       parent: findParent,
+    //     },
+    //     relations: {
+    //       children: true,
+    //       parent: true,
+    //     },
+    //   });
+    //   return sortingArr(catalog);
+    // }
   }
 
   async update(

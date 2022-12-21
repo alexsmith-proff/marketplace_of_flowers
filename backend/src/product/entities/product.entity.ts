@@ -34,13 +34,13 @@ export class ProductEntity {
   @ManyToOne(() => CatalogEntity, catalog => catalog.product)
   catalog: CatalogEntity
 
-  @Field(() => String, { description: 'filename main image', defaultValue: '' })
-  @Column()
-  filename_main_image: string
+  // @Field(() => String, { description: 'filename main image', nullable: true })
+  // @Column()
+  // filename_main_image?: string
 
-  @Field(() => [String], { description: 'filenames images', nullable: true })
-  @Column()
-  filenames_images: string[]
+  // @Field(() => [String], { description: 'filenames images', nullable: true })
+  // @Column()
+  // filenames_images: string[]
 
   @Field(() => Date)
   @CreateDateColumn()
