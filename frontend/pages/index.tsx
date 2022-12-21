@@ -58,6 +58,7 @@ export async function getServerSideProps() {
   // const text = await GetTextByBlock('main_text')
   // const img_filename = await GetImgByBlock('capt_im')
   const topMenu = await GetMenu('verkhnee-menyu') 
+  
   const headerMenu = await GetMenu('menyu-v-khedere') 
   const bigSlider = await GetSection('bigSlider')
   const smallSlider = await GetSection('smallSlider')

@@ -3,13 +3,11 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { Module } from '@nestjs/common';
 import { MenuService } from './menu.service';
 import { MenuResolver } from './menu.resolver';
-import { SubmenuItemEntity } from 'src/submenuitem/entities/submenuitem.entity';
-import { SubmenuItemResolver } from 'src/submenuitem/submenuitem.resolver';
-import { SubmenuItemService } from 'src/submenuitem/submenuitem.service';
-import { SubmenuItemModule } from 'src/submenuitem/submenuitem.module';
+import { MenuController } from './menu.controller';
 
 @Module({
   imports: [TypeOrmModule.forFeature([MenuEntity])], 
+  controllers: [MenuController],
   providers: [MenuResolver, MenuService]
 })
 export class MenuModule {}
