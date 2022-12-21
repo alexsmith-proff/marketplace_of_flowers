@@ -2,6 +2,7 @@ import client from '../../util/apollo-client'
 
 import { GET_IMG_BY_SLUG, GET_SECTION_BY_SLUG, GET_TEXTBLOCK_BY_SLUG } from "../../graphql/section.graphql";
 import { GET_MENU_BY_SLUG } from '../../graphql/menu.graphql';
+import allEndPoints from '../api/api';
 
 export const GetSection = async (slug: string) => {
   let dataQuery = null
@@ -45,16 +46,10 @@ export const GetImgByBlock = async (slug: string) => {
 export const GetMenu = async (slug: string) => {
   let dataQuery = null
   try {
-    const { data } = await client.query({
-      query: GET_MENU_BY_SLUG,
-      variables: {
-        slug: slug
-      }
-    })
-    dataQuery = data
+    dataQuery = allEndPoints.menu.getBySlug(slug)
   } catch (error) {
-    // console.log('error', error);
+    console.log('error', error);
   }
-  // console.log('dattaaaa', dataQuery)
-  return dataQuery ? dataQuery.getMenuBySlug : null
+  console.log('dattaaaaaaaaaa', dataQuery)
+  return dataQuery
 }

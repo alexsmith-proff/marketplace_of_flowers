@@ -2,7 +2,7 @@
 const nextConfig = {
   reactStrictMode: false,
   env: {
-    SERVER_URL: 'http://localhost:5000',
+    SERVER_URL: 'http://backend:5000',
     API_URI: 'http://localhost:5000',
     API_URI_DOCKER: 'http://backend:5000'
   },

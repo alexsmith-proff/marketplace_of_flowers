@@ -1,12 +1,12 @@
-import { Controller, Get } from "@nestjs/common";
+import { Controller, Get, Param } from "@nestjs/common";
 import { MenuService } from "./menu.service";
 
 @Controller('/api/menu')
 export class MenuController{
     constructor(private readonly menuService: MenuService) {}
-    @Get('/u')
-    findBySlug(slug: string){
-        return this.menuService.findBySlug('menyu-v-khedere')
+    @Get(':slug')
+    findBySlug(@Param() params){
+        return this.menuService.findBySlug(params.slug)
     }
 
 }
