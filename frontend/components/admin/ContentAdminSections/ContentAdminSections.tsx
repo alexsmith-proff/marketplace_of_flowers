@@ -133,7 +133,8 @@ const ContentAdminSections = ({ }: ContentAdminSectionsProps) => {
 
     const handleCreateBlockImg = (formData: any, element_id: number) => {
         formData.append('element_id', element_id)
-        axios.post(process.env.SERVER_URL + '/api/imgelement/create', formData, )
+        axios.post(process.env.API_URI + '/api/imgelement/create', formData)
+        // axios.post('http://localhost:5000' + '/api/imgelement/create', formData)
             .then((res) => {
                 console.log('Success' + res.data);
                 RefeachAllSections()
@@ -339,7 +340,7 @@ const ContentAdminSections = ({ }: ContentAdminSectionsProps) => {
                                                                         {sections[indexSection].elements[indexElement].img_elements.map((img, _) => (
                                                                             <li className={s.blockImgItem} key={img.id}>
                                                                                 <div className={s.blockImgPhoto}>
-                                                                                    <img src={process.env.SERVER_URL + '/' + img.filename} alt={img.filename} />
+                                                                                    <img src={process.env.API_URI + '/' + img.filename} alt={img.filename} />
                                                                                 </div>
                                                                                 <div className={s.blockImgTitle}>{img.name}</div>
                                                                                 <div className={s.blockImgSlug}>({img.slug})</div>

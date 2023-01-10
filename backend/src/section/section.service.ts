@@ -46,7 +46,6 @@ export class SectionService {
         
       }
     );
-    // console.log('menu', menu);
     return section;
   }
 

@@ -31,6 +31,8 @@ services:
     ports:
       - '5000:5000'
     working_dir: /usr/src/app
+    volumes:
+      - ./backend/dist/static:/usr/src/app/dist/static
     restart: unless-stopped
   frontend:
     container_name: frontend
