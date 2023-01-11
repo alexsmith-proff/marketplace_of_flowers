@@ -63,6 +63,15 @@ mutation CreateBlockText($createTextElementInput: CreateTextElementInput!){
 }
 `;
 
+export const UPDATE_BLOCK_TEXT = gql`
+mutation UpdateBlockText($updateTextElementInput: UpdateTextElementInput!){
+  updateTextElement(updateTextElementInput: $updateTextElementInput){
+    id
+    name
+  }
+}
+`;
+
 export const DELETE_BLOCK_TEXT = gql`
 mutation DeleteBlockText($id: Int!){
   removeTextElement(id: $id){

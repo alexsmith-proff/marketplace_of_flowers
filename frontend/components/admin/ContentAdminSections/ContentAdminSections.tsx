@@ -1,10 +1,10 @@
 import { useMutation, useQuery } from "@apollo/client";
 import React, { useEffect, useState } from "react";
-import { CREATE_BLOCK_TEXT, CREATE_ELEMENT, CREATE_SECTION, DELETE_BLOCK_TEXT, DELETE_ELEMENT, DELETE_SECTION, GET_ALL_SECTIONS, UPDATE_ELEMENT, UPDATE_SECTION } from "../../../graphql/section.graphql";
+import { CREATE_BLOCK_TEXT, CREATE_ELEMENT, CREATE_SECTION, DELETE_BLOCK_TEXT, DELETE_ELEMENT, DELETE_SECTION, GET_ALL_SECTIONS, UPDATE_BLOCK_TEXT, UPDATE_ELEMENT, UPDATE_SECTION } from "../../../graphql/section.graphql";
 import { AiOutlinePlus } from 'react-icons/ai';
 import { RiEdit2Line } from 'react-icons/ri';
 import { MdDeleteOutline } from 'react-icons/md';
-import { ICreateBlockTextInput, IElement, INameSlugInput, ISection, ITextElement } from "../../../interfaces/section.interface";
+import { ICreateBlockTextInput, IElement, INameSlugInput, ISection, ITextElement, IImgElement } from "../../../interfaces/section.interface";
 
 import s from "./ContentAdminSections.module.scss";
 import ButtonAdmin from "../Buttons/ButtonAdmin/ButtonAdmin";
@@ -14,6 +14,7 @@ import { AdminSectionType } from "../../../enums/AdminSections.enum";
 import axios from "axios";
 import { AdminWindowMode } from "../../../enums/Mode.enum";
 import WindowCreateBlock from "../WindowCreateBlock/WindowCreateBlock";
+import { AdminBlockType } from "../../../enums/AdminBlock.enum";
 
 interface ContentAdminSectionsProps { }
 
@@ -26,6 +27,7 @@ const ContentAdminSections = ({ }: ContentAdminSectionsProps) => {
     const [updateElement, dataUpdateElement] = useMutation(UPDATE_ELEMENT)
     const [deleteElement, dataDeleteElement] = useMutation(DELETE_ELEMENT)
     const [createBlockText, dataCreateBlockText] = useMutation(CREATE_BLOCK_TEXT)
+    const [updateBlockText, dataUpdateBlockText] = useMutation(UPDATE_BLOCK_TEXT)    
     const [deleteBlockText, dataDeleteBlockText] = useMutation(DELETE_BLOCK_TEXT)
 
     const [windowCreateSectionVisible, setWindowCreateSectionVisible] = useState<boolean>(false)
@@ -44,9 +46,13 @@ const ContentAdminSections = ({ }: ContentAdminSectionsProps) => {
 
     const [currentIdSection, setCurrentIdSection] = useState<number>(null)
     const [currentIdElement, setCurrentIdElement] = useState<number>(null)
+    const [currentIdBlock, setCurrentIdBlock] = useState<number>(null)
 
-    const [currentName, setCurrentName] = useState<string>('a')
-    const [currentSlug, setCurrentSlug] = useState<string>('q')
+    const [currentName, setCurrentName] = useState<string>('')
+    const [currentSlug, setCurrentSlug] = useState<string>('')
+    const [currentTextValue, setCurrentTextValue] = useState<string>('')
+    // const [currentFileName, setCurrentFileName] = useState<string>('')
+    const [currentTypeBlock, setCurrentTypeBlock] = useState<AdminBlockType>(AdminBlockType.Text)
 
 
 
@@ -122,6 +128,20 @@ const ContentAdminSections = ({ }: ContentAdminSectionsProps) => {
         createBlockText({
           variables: {
             createTextElementInput: {...createBlockTextInput, element_id: +element_id}
+          },
+          refetchQueries: [
+            {
+              query: GET_ALL_SECTIONS
+            }
+          ]
+        })
+    }
+
+    const handleUpdateBlockText = (BlockTextInput: ICreateBlockTextInput) => {
+        // Update DB
+        updateBlockText({
+          variables: {
+            updateTextElementInput: {...BlockTextInput, id: +currentIdBlock}
           },
           refetchQueries: [
             {
@@ -249,9 +269,20 @@ const ContentAdminSections = ({ }: ContentAdminSectionsProps) => {
     }
 
 
-    // console.log('currentName', currentName);
-    // console.log('currentSlug', currentSlug);
+    const handleClickUpdateTextBlock = (textblock: ITextElement) => {
+        console.log('textblock.name', textblock.name);
+        console.log('textblock.slug', textblock.slug);
+        console.log('textblock.text', textblock.text);
+        console.log('textblock.id', textblock.id);
+        
+        setCurrentName(textblock.name)
+        setCurrentSlug(textblock.slug)
+        setCurrentTextValue(textblock.text)
+        setCurrentIdBlock(textblock.id)
 
+        setCurrentTypeBlock(AdminBlockType.Text)
+        setWindowUpdateBlockVisible(true)
+    }
 
     return (
         <div className={s.section}>
@@ -264,8 +295,12 @@ const ContentAdminSections = ({ }: ContentAdminSectionsProps) => {
             <WindowCreateNameSlug visible={windowCreateElementVisible} modeWindow={AdminWindowMode.Create} typeSection={AdminSectionType.Element} createNameSlug={(data) => handleCreateElement(data, currentIdSection)} closeWindow={closeWindow} />
             {/* Редактировать элемент */}
             <WindowCreateNameSlug visible={windowUpdateElementVisible} modeWindow={AdminWindowMode.Update} typeSection={AdminSectionType.Element} name={currentName} slug={currentSlug} updateNameSlug={(data) => handleUpdateElement(data)} closeWindow={closeWindow} />
+
             {/* Создать текст/изображение блок */}
-            <WindowCreateBlock visible={windowCreateBlockVisible} createBlockText={(data) => handleCreateBlockText(data, currentIdElement)} createBlockImg={(data) => handleCreateBlockImg(data, currentIdElement)} closeWindow={closeWindow} />
+            <WindowCreateBlock visible={windowCreateBlockVisible} modeWindow={AdminWindowMode.Create} typeBlock={AdminBlockType.Text} createBlockText={(data) => handleCreateBlockText(data, currentIdElement)} createBlockImg={(data) => handleCreateBlockImg(data, currentIdElement)} closeWindow={closeWindow} />
+            {/* Редактировать текст/изображение блок */}
+            <WindowCreateBlock visible={windowUpdateBlockVisible} modeWindow={AdminWindowMode.Update} name={currentName} slug={currentSlug} textValue={currentTextValue} typeBlock={currentTypeBlock} updateBlockText={(data) => handleUpdateBlockText(data)} closeWindow={closeWindow} />
+
             <ul className={s.sectionlist}>
                 {sections && (
                     <>
@@ -310,7 +345,7 @@ const ContentAdminSections = ({ }: ContentAdminSectionsProps) => {
                                                                                     activeBlockText === indexBlockText &&
                                                                                     <>
                                                                                         {/* <ButtonAdmin typeBtn={AdminButtonType.Ico} functionalBtn={AdminButtonFunctional.Standard} border={false} ico={<AiOutlinePlus />} sizeIco={16} /> */}
-                                                                                        <ButtonAdmin typeBtn={AdminButtonType.Ico} functionalBtn={AdminButtonFunctional.Standard} border={false} ico={<RiEdit2Line />} sizeIco={16} />
+                                                                                        <ButtonAdmin typeBtn={AdminButtonType.Ico} functionalBtn={AdminButtonFunctional.Standard} border={false} ico={<RiEdit2Line />} sizeIco={16} clickBtn={() => handleClickUpdateTextBlock(text)} />
                                                                                         <ButtonAdmin typeBtn={AdminButtonType.Ico} functionalBtn={AdminButtonFunctional.Standard} border={false} ico={<MdDeleteOutline />} sizeIco={16} clickBtn={() => handleClickDeleteTextBlock(text)} />
                                                                                     </>
                                                                                 }
@@ -331,7 +366,7 @@ const ContentAdminSections = ({ }: ContentAdminSectionsProps) => {
                                                                         {activeBlockImg &&
                                                                             <>
                                                                                 {/* <ButtonAdmin typeBtn={AdminButtonType.Ico} functionalBtn={AdminButtonFunctional.Standard} border={false} ico={<AiOutlinePlus />} sizeIco={16} /> */}
-                                                                                {/* <ButtonAdmin typeBtn={AdminButtonType.Ico} functionalBtn={AdminButtonFunctional.Standard} border={false} ico={<RiEdit2Line />} sizeIco={16} /> */}
+                                                                                {/* <ButtonAdmin typeBtn={AdminButtonType.Ico} functionalBtn={AdminButtonFunctional.Standard} border={false} ico={<RiEdit2Line />} sizeIco={16} clickBtn={(img) => handleClickUpdateImgBlock(img)}  /> */}
                                                                                 <ButtonAdmin typeBtn={AdminButtonType.Ico} functionalBtn={AdminButtonFunctional.Standard} border={false} ico={<MdDeleteOutline />} sizeIco={16} />
                                                                             </>
                                                                         }

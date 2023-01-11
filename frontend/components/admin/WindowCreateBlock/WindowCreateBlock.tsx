@@ -1,6 +1,8 @@
 import React, { FC, useEffect, useRef, useState } from "react";
+import { AdminBlockType } from "../../../enums/AdminBlock.enum";
 // import { URL } from "url";
 import { AdminButtonFunctional, AdminButtonType } from "../../../enums/AdminButtons.enum";
+import { AdminWindowMode } from "../../../enums/Mode.enum";
 import { ICreateBlockTextInput } from "../../../interfaces/section.interface";
 import ButtonAdmin from "../Buttons/ButtonAdmin/ButtonAdmin";
 
@@ -15,17 +17,23 @@ let getSlug = require('speakingurl');
 
 interface WindowCreateBlockProps {
     visible: boolean
+    modeWindow?: AdminWindowMode //Create, Update, Delete
+    name?: string
+    slug?: string
+    textValue?: string
+    typeBlock: AdminBlockType //Text, Image
     createBlockText?: (createInput: ICreateBlockTextInput) => void
+    updateBlockText?: (updateInput: ICreateBlockTextInput) => void
     createBlockImg?: (formData: any) => void
     closeWindow: () => void
 }
 
-const WindowCreateBlock: FC<WindowCreateBlockProps> = ({ visible, createBlockText, createBlockImg, closeWindow }) => {
+const WindowCreateBlock: FC<WindowCreateBlockProps> = ({ visible, modeWindow, name, slug, textValue, typeBlock, createBlockText, updateBlockText, createBlockImg, closeWindow }) => {
 
-    const [titleName, setTitleName] = useState<string>(null)
-    const [slugName, setSlugName] = useState<string>(null)
-    const [blockType, setblockType] = useState<string>(BlockTypeArr[0])
-    const [text, setText] = useState<string>(null)
+    const [titleName, setTitleName] = useState<string>(name)
+    const [slugName, setSlugName] = useState<string>(slug)
+    const [blockType, setblockType] = useState<string>(BlockTypeArr[typeBlock])
+    const [text, setText] = useState<string>(textValue)
     const [file, setFile] = useState(null)
     const [fileDataURL, setFileDataURL] = useState(null)
 
@@ -74,22 +82,31 @@ const WindowCreateBlock: FC<WindowCreateBlockProps> = ({ visible, createBlockTex
 
 
     const handleClickCreateBlock = async () => {
-        console.log('titleName', titleName);
-        console.log('slugName', slugName);
-        
         if (titleName && slugName) {
             // Блок текстовый',
             if (blockType == BlockTypeArr[0]) {
-                if (!text) return
-                createBlockText({
-                    name: titleName,
-                    slug: slugName,
-                    text: text
-                })
+                if (modeWindow == AdminWindowMode.Create) {
+                    console.log('creaate');
+                    
+                    if (!text) return
+                    createBlockText({
+                        name: titleName,
+                        slug: slugName,
+                        text: text
+                    })
+                }
+                if (modeWindow == AdminWindowMode.Update) {
+                    if (!text) return
+                    updateBlockText({
+                        name: titleName,
+                        slug: slugName,
+                        text: text
+                    })
+                }
             }
             //Блок изображений
             if (blockType == BlockTypeArr[1]) {
-                if(!file) return
+                if (!file) return
                 let formData = new FormData()
                 formData.append('file', file)
                 formData.append('name', titleName)
@@ -102,6 +119,15 @@ const WindowCreateBlock: FC<WindowCreateBlockProps> = ({ visible, createBlockTex
             closeWindow()
         }
     }
+
+    useEffect(() => {
+        setTitleName(name)
+        setSlugName(slug)
+        setText(textValue)
+    }, [name, slug, textValue])
+
+
+    console.log('textValue', textValue);
 
     return (
         <>
@@ -123,13 +149,13 @@ const WindowCreateBlock: FC<WindowCreateBlockProps> = ({ visible, createBlockTex
 
                         <div className={s.LabelEdit}>
                             <span className={s.title}>Тип блока</span>
-                            <div className={s.dropdown} data-itemChart="1">
+                            <div className={s.dropdown} data-itemChart="0">
                                 <select name="one" className={s.dropdownSelect} onChange={handleChangeBlockType} >
                                     {
                                         BlockTypeArr &&
                                         <>
                                             {
-                                                BlockTypeArr.map((item, index) => <option key={index}>{item}</option>)
+                                                BlockTypeArr.map((item, index, arr) => <option key={index} selected={index == typeBlock ? true : false}>{item}</option>)
                                             }
                                         </>
                                     }
@@ -142,7 +168,7 @@ const WindowCreateBlock: FC<WindowCreateBlockProps> = ({ visible, createBlockTex
                             blockType == BlockTypeArr[0] && (
                                 <div className={s.LabelEdit}>
                                     <span className={s.title}>Текст</span>
-                                    <textarea className={s.description} rows={8} cols={50} onChange={handleChangeBlockText}></textarea>
+                                    <textarea className={s.description} rows={8} cols={50} onChange={handleChangeBlockText}>{textValue}</textarea>
                                 </div>
                             )
                         }
@@ -166,7 +192,7 @@ const WindowCreateBlock: FC<WindowCreateBlockProps> = ({ visible, createBlockTex
                         }
 
                         <div className={s.buttons}>
-                            <ButtonAdmin typeBtn={AdminButtonType.Text} functionalBtn={AdminButtonFunctional.Standard} border={true} clickBtn={handleClickCreateBlock}>Создать блок</ButtonAdmin>
+                            <ButtonAdmin typeBtn={AdminButtonType.Text} functionalBtn={AdminButtonFunctional.Standard} border={true} clickBtn={handleClickCreateBlock}>{modeWindow==AdminWindowMode.Create?'Создать':'Редактировать'} блок</ButtonAdmin>
                             <div className={s.btnClose} onClick={closeWindow}>
                                 <ButtonAdmin typeBtn={AdminButtonType.Text} functionalBtn={AdminButtonFunctional.Standard} border={true} clickBtn={() => closeWindow()}>Закрыть</ButtonAdmin>
                             </div>

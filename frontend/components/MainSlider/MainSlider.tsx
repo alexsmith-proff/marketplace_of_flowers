@@ -50,14 +50,14 @@ const MainSlider: FC<MainSliderProps> = ({ bigSliderSection, smallSliderSection 
                                     {
                                         bigSliderSection && bigSliderSection.elements.map(item => (
                                             <div className={s.bigSlider__item} key={item.id}>
-                                                <img src={process.env.SERVER_URL + '/' + (item.img_elements[0] ? item.img_elements[0].filename : '')} alt="big-slider1" />
+                                                <img src={process.env.API_URI + '/' + (item.img_elements[0] ? item.img_elements[0].filename : '')} alt="big-slider1" />
                                                 <div className={s.bigSlider__info}>
                                                     <div className={s.bigSlider__infoTopText}>{item.text_elements[0] ? item.text_elements[0].text : ''}</div>
                                                     <div className={s.bigSlider__infoMiddleText}>{item.text_elements[1] ? item.text_elements[1].text : ''}</div>
                                                     <div className={s.bigSlider__infoUnderText}>{item.text_elements[2] ? item.text_elements[2].text :''}</div>
 
                                                     <div className={s.bigSlider__infoPromo}>
-                                                        <div className={s.bigSlider__infoPromoText}>{item.text_elements[2] ? item.text_elements[2].text :''}</div>
+                                                        <div className={s.bigSlider__infoPromoText}>{item.text_elements[3] ? item.text_elements[3].text :''}</div>
                                                         <div className={s.bigSlider__infoPromoBtn}>
                                                             <img src="img/promo-btn-copy.png" alt="promo-btn-copy" />
                                                         </div>
