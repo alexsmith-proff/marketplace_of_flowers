@@ -6,6 +6,7 @@ import Slider, { Settings } from "react-slick";
 
 import s from './MainSlider.module.scss'
 import { ISection } from '../../interfaces/section.interface';
+import { getTextInTextBlockFromElement } from '../../services/core/parse';
 
 interface MainSliderProps {
     bigSliderSection: ISection
@@ -88,7 +89,7 @@ const MainSlider: FC<MainSliderProps> = ({ bigSliderSection, smallSliderSection 
                                                     <div className={s.smallSlider__infoChart}>
                                                         <div className={s.smallSlider__infoPriceWrap}>
                                                             <div className={s.smallSlider__infoPrice}>{item.text_elements[2] ? item.text_elements[2].text + ' ₽' : ''}</div>
-                                                            <div className={s.smallSlider__infoCrossPrice}>{item.text_elements[3] ? item.text_elements[3].text + ' ₽' : ''}</div>
+                                                            <div className={s.smallSlider__infoCrossPrice}>{getTextInTextBlockFromElement(item, 'staraya-cena') + ' ₽'}</div>
                                                         </div>
                                                         <div className={s.smallSlider__infoBtn}>
                                                             <img src="img/cart-ico.png" alt="cart-ico" />
