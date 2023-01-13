@@ -36,7 +36,7 @@ const MainSlider: FC<MainSliderProps> = ({ bigSliderSection, smallSliderSection 
     };
 
     console.log('bigSliderSection', bigSliderSection);
-    
+
 
     return (
         <div className={s.mainSlider}>
@@ -44,7 +44,7 @@ const MainSlider: FC<MainSliderProps> = ({ bigSliderSection, smallSliderSection 
                 <div className={s.mainSliderContainer}>
                     <div className="bigSlider">
                         <div className={s.bigSlider}>
-                            {                                
+                            {
                                 bigSliderSection &&
                                 <Slider {...settingsBigSlider}>
                                     {
@@ -54,10 +54,10 @@ const MainSlider: FC<MainSliderProps> = ({ bigSliderSection, smallSliderSection 
                                                 <div className={s.bigSlider__info}>
                                                     <div className={s.bigSlider__infoTopText}>{item.text_elements[0] ? item.text_elements[0].text : ''}</div>
                                                     <div className={s.bigSlider__infoMiddleText}>{item.text_elements[1] ? item.text_elements[1].text : ''}</div>
-                                                    <div className={s.bigSlider__infoUnderText}>{item.text_elements[2] ? item.text_elements[2].text :''}</div>
+                                                    <div className={s.bigSlider__infoUnderText}>{item.text_elements[2] ? item.text_elements[2].text : ''}</div>
 
                                                     <div className={s.bigSlider__infoPromo}>
-                                                        <div className={s.bigSlider__infoPromoText}>{item.text_elements[3] ? item.text_elements[3].text :''}</div>
+                                                        <div className={s.bigSlider__infoPromoText}>{item.text_elements[3] ? item.text_elements[3].text : ''}</div>
                                                         <div className={s.bigSlider__infoPromoBtn}>
                                                             <img src="img/promo-btn-copy.png" alt="promo-btn-copy" />
                                                         </div>
@@ -72,34 +72,37 @@ const MainSlider: FC<MainSliderProps> = ({ bigSliderSection, smallSliderSection 
 
                         </div>
                     </div>
-                    {/* <div className="smallSlider">
+                    <div className="smallSlider">
                         <div className={s.smallSlider}>
                             <div className={s.smallSlider__title}>Букет недели</div>
-                            <Slider {...settingsSmallSlider}>
-                                {
-                                    smallSliderSection && smallSliderSection.elements.map(item => (
-                                        <div className={s.smallSlider__item} key={item.id}>
-                                            <img src={process.env.SERVER_URL + '/' + item.img_elements[0].filename} alt="small-slider1" />
-                                            <div className={s.smallSlider__info}>
-                                                <div className={s.smallSlider__infoTitle}>{item.text_elements[0].text}</div>
-                                                <div className={s.smallSlider__infoSubTitle}>{item.text_elements[1].text}</div>
-                                                <div className={s.smallSlider__infoChart}>
-                                                    <div className={s.smallSlider__infoPriceWrap}>
-                                                        <div className={s.smallSlider__infoPrice}>{item.text_elements[2].text}</div>
-                                                        <div className={s.smallSlider__infoCrossPrice}>{item.text_elements[3].text}</div>
-                                                    </div>
-                                                    <div className={s.smallSlider__infoBtn}>
-                                                        <img src="img/cart-ico.png" alt="cart-ico" />
-                                                        <div className={s.smallSlider__infoBtnText}>В корзину</div>
+                            {
+                                smallSliderSection &&
+                                <Slider {...settingsSmallSlider}>
+                                    {
+                                        smallSliderSection && smallSliderSection.elements.map(item => (
+                                            <div className={s.smallSlider__item} key={item.id}>
+                                                <img src={process.env.API_URI + '/' + (item.img_elements[0] ? item.img_elements[0].filename : '')} alt="small-slider1" />
+                                                <div className={s.smallSlider__info}>
+                                                    <div className={s.smallSlider__infoTitle}>{item.text_elements[0] ? item.text_elements[0].text : ''}</div>
+                                                    <div className={s.smallSlider__infoSubTitle}>{item.text_elements[1] ? item.text_elements[1].text : ''}</div>
+                                                    <div className={s.smallSlider__infoChart}>
+                                                        <div className={s.smallSlider__infoPriceWrap}>
+                                                            <div className={s.smallSlider__infoPrice}>{item.text_elements[2] ? item.text_elements[2].text + ' ₽' : ''}</div>
+                                                            <div className={s.smallSlider__infoCrossPrice}>{item.text_elements[3] ? item.text_elements[3].text + ' ₽' : ''}</div>
+                                                        </div>
+                                                        <div className={s.smallSlider__infoBtn}>
+                                                            <img src="img/cart-ico.png" alt="cart-ico" />
+                                                            <div className={s.smallSlider__infoBtnText}>В корзину</div>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                    ))
-                                }
-                            </Slider>
+                                        ))
+                                    }
+                                </Slider>
+                            }
                         </div>
-                    </div> */}
+                    </div>
                 </div>
             </div >
         </div >
