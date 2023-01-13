@@ -15,3 +15,10 @@ export const getTextInTextBlockFromElement = (element: IElement, textSlug: strin
     else return ''
 
 }
+
+export const getFileNameInImgBlockFromElement = (element: IElement, imgSlug: string) => {
+    const imgElement = element.img_elements.find(img_el => img_el.slug == imgSlug)
+    if (imgElement) return imgElement.filename
+    else return ''
+
+}

@@ -6,7 +6,7 @@ import Slider, { Settings } from "react-slick";
 
 import s from './MainSlider.module.scss'
 import { ISection } from '../../interfaces/section.interface';
-import { getTextInTextBlockFromElement } from '../../services/core/parse';
+import { getFileNameInImgBlockFromElement, getTextInTextBlockFromElement } from '../../services/core/parse';
 
 interface MainSliderProps {
     bigSliderSection: ISection
@@ -51,14 +51,14 @@ const MainSlider: FC<MainSliderProps> = ({ bigSliderSection, smallSliderSection 
                                     {
                                         bigSliderSection && bigSliderSection.elements.map(item => (
                                             <div className={s.bigSlider__item} key={item.id}>
-                                                <img src={process.env.API_URI + '/' + (item.img_elements[0] ? item.img_elements[0].filename : '')} alt="big-slider1" />
+                                                <img src={process.env.API_URI + '/' + getFileNameInImgBlockFromElement(item, 'background')} alt="big-slider1" />
                                                 <div className={s.bigSlider__info}>
-                                                    <div className={s.bigSlider__infoTopText}>{item.text_elements[0] ? item.text_elements[0].text : ''}</div>
-                                                    <div className={s.bigSlider__infoMiddleText}>{item.text_elements[1] ? item.text_elements[1].text : ''}</div>
-                                                    <div className={s.bigSlider__infoUnderText}>{item.text_elements[2] ? item.text_elements[2].text : ''}</div>
+                                                    <div className={s.bigSlider__infoTopText}>{getTextInTextBlockFromElement(item, 'tekst-vverkhu')}</div>
+                                                    <div className={s.bigSlider__infoMiddleText}>{getTextInTextBlockFromElement(item, 'tekst-v-seredine')}</div>
+                                                    <div className={s.bigSlider__infoUnderText}>{getTextInTextBlockFromElement(item, 'promokod-tekst')}</div>
 
                                                     <div className={s.bigSlider__infoPromo}>
-                                                        <div className={s.bigSlider__infoPromoText}>{item.text_elements[3] ? item.text_elements[3].text : ''}</div>
+                                                        <div className={s.bigSlider__infoPromoText}>{getTextInTextBlockFromElement(item, 'tekst-vnizu')}</div>
                                                         <div className={s.bigSlider__infoPromoBtn}>
                                                             <img src="img/promo-btn-copy.png" alt="promo-btn-copy" />
                                                         </div>
@@ -82,13 +82,13 @@ const MainSlider: FC<MainSliderProps> = ({ bigSliderSection, smallSliderSection 
                                     {
                                         smallSliderSection && smallSliderSection.elements.map(item => (
                                             <div className={s.smallSlider__item} key={item.id}>
-                                                <img src={process.env.API_URI + '/' + (item.img_elements[0] ? item.img_elements[0].filename : '')} alt="small-slider1" />
+                                                <img src={process.env.API_URI + '/' + getFileNameInImgBlockFromElement(item, 'background')} alt="small-slider1" />
                                                 <div className={s.smallSlider__info}>
-                                                    <div className={s.smallSlider__infoTitle}>{item.text_elements[0] ? item.text_elements[0].text : ''}</div>
-                                                    <div className={s.smallSlider__infoSubTitle}>{item.text_elements[1] ? item.text_elements[1].text : ''}</div>
+                                                    <div className={s.smallSlider__infoTitle}>{getTextInTextBlockFromElement(item, 'nazvanie')}</div>
+                                                    <div className={s.smallSlider__infoSubTitle}>{getTextInTextBlockFromElement(item, 'opisanie')}</div>
                                                     <div className={s.smallSlider__infoChart}>
                                                         <div className={s.smallSlider__infoPriceWrap}>
-                                                            <div className={s.smallSlider__infoPrice}>{item.text_elements[2] ? item.text_elements[2].text + ' ₽' : ''}</div>
+                                                            <div className={s.smallSlider__infoPrice}>{getTextInTextBlockFromElement(item, 'cena') + ' ₽'}</div>
                                                             <div className={s.smallSlider__infoCrossPrice}>{getTextInTextBlockFromElement(item, 'staraya-cena') + ' ₽'}</div>
                                                         </div>
                                                         <div className={s.smallSlider__infoBtn}>
