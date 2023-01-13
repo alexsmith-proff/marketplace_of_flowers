@@ -3,7 +3,8 @@ import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { CreateImgElementInput } from './dto/create-imgelement.input';
 import { Repository } from 'typeorm';
-import { createFile } from '../util/file';
+import { createFile, deleteFile } from '../util/file';
+import { DeleteImgElementInput } from './dto/delete-imgelement.input';
 
 @Injectable()
 export class ImgElementService {
@@ -50,14 +51,13 @@ export class ImgElementService {
   //   return await this.findOne(id)
   // }
 
-  // async remove(id: number): Promise<ImgElementEntity> {
-  //   const imgElement = await this.findOne(id)
-  //   await this.imgElementRepository.delete(id)
-  //   return imgElement
-  // }
-
-   createImgBlock(): string {
-    return 'Created image block'
+  async remove(deleteImgElementInput: DeleteImgElementInput): Promise<number> {
+    console.log('deleteImgElementInput', deleteImgElementInput);
+    
+    await this.imgElementRepository.delete(deleteImgElementInput.id)
+    
+    deleteFile(deleteImgElementInput.fileName)
+    return deleteImgElementInput.id
   }
 
 }
