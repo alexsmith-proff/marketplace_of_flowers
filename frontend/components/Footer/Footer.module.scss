@@ -1,6 +1,8 @@
 .footer {
     padding-top: 40px;
     background: #F2F6F7;
+    position: relative;
+    z-index: 99;
 
     &__top {
         display: flex;

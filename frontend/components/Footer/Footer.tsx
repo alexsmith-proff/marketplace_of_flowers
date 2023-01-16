@@ -1,11 +1,15 @@
 import React, { FC } from 'react'
+import { IMenu } from '../../interfaces/menu.interface';
 
 import s from './Footer.module.scss'
 
 interface FooterProps {
+    menu: IMenu
 }
 
-const Footer: FC<FooterProps> = ({ }) => {
+const Footer: FC<FooterProps> = ({ menu }) => {
+    console.log('menu', menu);
+    
 
     return (
         <>
