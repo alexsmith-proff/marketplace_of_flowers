@@ -1,5 +1,6 @@
 import React, { FC } from 'react'
 import { IMenu } from '../../interfaces/menu.interface';
+import { getMenuItemNameBySlugFromMenu, getSubMenuItemsArrBySlugFromMenu } from '../../services/core/parse';
 
 import s from './Footer.module.scss'
 
@@ -9,7 +10,7 @@ interface FooterProps {
 
 const Footer: FC<FooterProps> = ({ menu }) => {
     console.log('menu', menu);
-    
+
 
     return (
         <>
@@ -18,67 +19,66 @@ const Footer: FC<FooterProps> = ({ menu }) => {
                     <div className={s.footer__top}>
                         <ul className={s.footer__menu}>
                             <li className={s.footer__item}>
-                                Цветы поштучно
+                                {
+                                    getMenuItemNameBySlugFromMenu(menu, 'cvety-poshtuchno')
+                                }
                                 <ul className={s.footer__menuChild}>
-                                    <li className={s.footer__menuChildItem}>Розы поштучно</li>
-                                    <li className={s.footer__menuChildItem}>Кустовая роза</li>
-                                    <li className={s.footer__menuChildItem}>Пионовидная роза</li>
-                                    <li className={s.footer__menuChildItem}>Хризантемы поштучно</li>
-                                    <li className={s.footer__menuChildItem}>Альстромерия</li>
-                                    <li className={s.footer__menuChildItem}>Тюльпаны</li>
-                                    <li className={s.footer__menuChildItem}>Герберы поштучно</li>
-                                    <li className={s.footer__menuChildItem}>Лилии поштучно</li>
-                                    <li className={s.footer__menuChildItem}>Пионы</li>
-                                    <li className={s.footer__menuChildItem}>Эустома</li>
-                                    <li className={s.footer__menuChildItem}>Каллы поштучно</li>
-                                    <li className={s.footer__menuChildItem}>Маттиола</li>
+                                    {
+                                        menu && getSubMenuItemsArrBySlugFromMenu(menu, 'cvety-poshtuchno').map(subItem => <li className={s.footer__menuChildItem} key={subItem.id}>{subItem.name}</li>)
+                                    }
+
                                 </ul>
 
                             </li>
                             <li className={s.footer__item}>
-                                Розы
+                                {
+                                    getMenuItemNameBySlugFromMenu(menu, 'rozy')
+                                }
                                 <ul className={s.footer__menuChild}>
-                                    <li className={s.footer__menuChildItem}>Голландские розы</li>
-                                    <li className={s.footer__menuChildItem}>Местная роза</li>
-                                    <li className={s.footer__menuChildItem}>Кустовые розы</li>
-                                    <li className={s.footer__menuChildItem}>Пионовидные розы</li>
-                                    <li className={s.footer__menuChildItem}>Букет из 101 розы</li>
+                                    {
+                                        menu && getSubMenuItemsArrBySlugFromMenu(menu, 'rozy').map(subItem => <li className={s.footer__menuChildItem} key={subItem.id}>{subItem.name}</li>)
+                                    }
                                 </ul>
                             </li>
                             <li className={s.footer__item}>
-                                Букеты
+                                {
+                                    getMenuItemNameBySlugFromMenu(menu, 'bukety')
+                                }
                                 <ul className={s.footer__menuChild}>
-                                    <li className={s.footer__menuChildItem}>Сборные букеты</li>
-                                    <li className={s.footer__menuChildItem}>Букеты из хризантем</li>
-                                    <li className={s.footer__menuChildItem}>Букеты из Альстромерий</li>
-                                    <li className={s.footer__menuChildItem}>Букеты из эустом</li>
-                                    <li className={s.footer__menuChildItem}>Букеты Гипсофилы</li>
-                                    <li className={s.footer__menuChildItem}>Букеты из гербер</li>
-                                    <li className={s.footer__menuChildItem}>Букеты из пионов</li>
-                                    <li className={s.footer__menuChildItem}>Букеты из тюльпанов</li>
+                                    {
+                                        menu && getSubMenuItemsArrBySlugFromMenu(menu, 'bukety').map(subItem => <li className={s.footer__menuChildItem} key={subItem.id}>{subItem.name}</li>)
+                                    }
+
                                 </ul>
                             </li>
                             <li className={s.footer__item}>
-                                Композиции
+                                {
+                                    getMenuItemNameBySlugFromMenu(menu, 'kompozicii')
+                                }
                                 <ul className={s.footer__menuChild}>
-                                    <li className={s.footer__menuChildItem}>Ящики с цветами</li>
-                                    <li className={s.footer__menuChildItem}>Коробки с цветами</li>
-                                    <li className={s.footer__menuChildItem}>Корзины с цветами</li>
+                                    {
+                                        menu && getSubMenuItemsArrBySlugFromMenu(menu, 'kompozicii').map(subItem => <li className={s.footer__menuChildItem} key={subItem.id}>{subItem.name}</li>)
+                                    }
                                 </ul>
                             </li>
                             <li className={s.footer__item}>
-                                Подарки
+                                {
+                                    getMenuItemNameBySlugFromMenu(menu, 'podarki')
+                                }
                                 <ul className={s.footer__menuChild}>
-                                    <li className={s.footer__menuChildItem}>Мягкие игрушки</li>
-                                    <li className={s.footer__menuChildItem}>Коробки конфет</li>
+                                    {
+                                        menu && getSubMenuItemsArrBySlugFromMenu(menu, 'podarki').map(subItem => <li className={s.footer__menuChildItem} key={subItem.id}>{subItem.name}</li>)
+                                    }
                                 </ul>
                             </li>
                             <li className={s.footer__item}>
-                                Шары
+                                {
+                                    getMenuItemNameBySlugFromMenu(menu, 'shary')
+                                }
                                 <ul className={s.footer__menuChild}>
-                                    <li className={s.footer__menuChildItem}>Шары в виде цифр</li>
-                                    <li className={s.footer__menuChildItem}>Фольгированные шары</li>
-                                    <li className={s.footer__menuChildItem}>Латексные шары</li>
+                                    {
+                                        menu && getSubMenuItemsArrBySlugFromMenu(menu, 'shary').map(subItem => <li className={s.footer__menuChildItem} key={subItem.id}>{subItem.name}</li>)
+                                    }
                                 </ul>
                             </li>
                             <li className={s.footer__item}>

@@ -1,4 +1,4 @@
-import { IMenu, IMenuItem } from '../../interfaces/menu.interface';
+import { IMenu, IMenuItem, ISubMenu } from '../../interfaces/menu.interface';
 import { IElement, ISection } from '../../interfaces/section.interface'
 
 // Menus
@@ -8,6 +8,27 @@ export const getMenuItemBySlugFromMenu = (menu: IMenu, menuItemSlug: string): IM
         if(menuItem) return menuItem
         return null
     }
+}
+
+export const getMenuItemNameBySlugFromMenu = (menu: IMenu, menuItemSlug: string): string => {
+    const menuItem = getMenuItemBySlugFromMenu(menu, menuItemSlug)
+    if(menuItem) return menuItem.name
+    return null
+}
+
+export const getSubMenuItemBySlugFromMenu = (menu: IMenu, menuItemSlug: string, subMenuItemSlug: string): ISubMenu => {
+    const menuItem = getMenuItemBySlugFromMenu(menu, menuItemSlug)
+    if(menuItem) {
+        const subMenuItem = menuItem.submenuitems.find(subItem => subItem.slug === subMenuItemSlug)
+        if(subMenuItem) return subMenuItem
+    }
+        return null
+}
+
+export const getSubMenuItemsArrBySlugFromMenu = (menu: IMenu, menuItemSlug: string): ISubMenu[] => {
+    const menuItem = getMenuItemBySlugFromMenu(menu, menuItemSlug)
+    if(menuItem) return menuItem.submenuitems
+    return null
 }
 ///////////////////////////////////////
 
