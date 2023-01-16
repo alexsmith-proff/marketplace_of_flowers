@@ -63,7 +63,7 @@ export async function getServerSideProps() {
   const headerMenu = await GetMenu('menyu-v-khedere') 
   const bigSlider = await GetSection('bigSlider')
   const smallSlider = await GetSection('smallSlider')
-  const privilege = await GetSection('privileges')
+  const privilege = await GetSection('privilegii')
 
   return {
       props: { topMenu, headerMenu, bigSlider, smallSlider, privilege }

@@ -1,5 +1,6 @@
 import React, { FC } from 'react';
 import { ISection } from '../../interfaces/section.interface';
+import { getFileNameInImgBlockFromElement, getTextInTextBlockFromElement } from '../../services/core/parse';
 
 import s from './Privileges.module.scss'
 
@@ -15,10 +16,10 @@ const Privileges: FC<PrivilegesProps> = ({ privilegeSection }) => {
                 <div className="container">
                     <ul className={s.privileges__list}>
                         {
-                            privilegeSection && privilegeSection.elements.map(item => (
-                                <li className={s.privileges__card} key={item.id}>
-                                    <img className={s.privileges__cardImg} src={process.env.SERVER_URL + '/' + item.img_elements[0].filename} alt="delivery-ico" />
-                                    <h4 className={s.privileges__cardText}>{item.text_elements[0].text}</h4>
+                            privilegeSection && privilegeSection.elements.map(el => (
+                                <li className={s.privileges__card} key={el.id}>
+                                    <img className={s.privileges__cardImg} src={process.env.API_URI + '/' + getFileNameInImgBlockFromElement(el, 'img')} alt="delivery-ico" />
+                                    <h4 className={s.privileges__cardText}>{getTextInTextBlockFromElement(el, 'tekst')}</h4>
                                 </li>
                             ))
                         }
