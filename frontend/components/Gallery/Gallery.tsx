@@ -5,11 +5,14 @@ import 'slick-carousel/slick/slick-theme.css';
 import Slider, { Settings } from "react-slick";
 
 import s from './Gallery.module.scss'
+import { ISection } from '../../interfaces/section.interface';
+import { getFileNameInImgBlockFromElement, getTextInTextBlockFromElement } from '../../services/core/parse';
 
 interface GalleryProps {
+    gallerySection: ISection
 }
 
-const Gallery: FC<GalleryProps> = ({ }) => {
+const Gallery: FC<GalleryProps> = ({ gallerySection }) => {
 
     const settings: Settings = {
         // dots: true,
@@ -33,31 +36,13 @@ const Gallery: FC<GalleryProps> = ({ }) => {
                     <h2 className={s.gallery__mainTitle}>Галерея</h2>
                     <div className={s.gallery__list}>
                         <Slider className='gallery' {...settings}>
-                            <div className={s.gallery__item}>
-                                <img src="../../../img/gallery1.png" alt="gallery1" />
-                            </div>
-                            <div className={s.gallery__item}>
-                                <img src="../../../img/gallery2.png" alt="gallery2" />
-                            </div>
-                            <div className={s.gallery__item}>
-                                <img src="../../../img/gallery3.png" alt="gallery3" />
-                            </div>
-                            <div className={s.gallery__item}>
-                                <img src="../../../img/gallery4.png" alt="gallery4" />
-                            </div>
-
-                            <div className={s.gallery__item}>
-                                <img src="../../../img/gallery1.png" alt="gallery1" />
-                            </div>
-                            <div className={s.gallery__item}>
-                                <img src="../../../img/gallery2.png" alt="gallery2" />
-                            </div>
-                            <div className={s.gallery__item}>
-                                <img src="../../../img/gallery3.png" alt="gallery3" />
-                            </div>
-                            <div className={s.gallery__item}>
-                                <img src="../../../img/gallery4.png" alt="gallery4" />
-                            </div>
+                            {
+                                gallerySection && gallerySection.elements.map(el => (
+                                    <div className={s.gallery__item}>
+                                        <img src={process.env.API_URI + '/' + getFileNameInImgBlockFromElement(el, 'image')} alt={getTextInTextBlockFromElement(el, 'alt')} />
+                                    </div>
+                                ))
+                            }
                         </Slider>
                     </div>
                 </div>
