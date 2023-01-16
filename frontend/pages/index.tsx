@@ -31,9 +31,11 @@ interface IndexProps {
   gallery: ISection
   reviews: ISection
   news: ISection
+  seoOne: ISection
+  seoTwo: ISection
 }
 
-const Index: FC<IndexProps> = ({ topMenu, headerMenu, bigSlider, smallSlider, privilege, mainCard, partition, gallery, reviews, news }) => {
+const Index: FC<IndexProps> = ({ topMenu, headerMenu, bigSlider, smallSlider, privilege, mainCard, partition, gallery, reviews, news, seoOne, seoTwo }) => {
 
   
 
@@ -50,8 +52,8 @@ const Index: FC<IndexProps> = ({ topMenu, headerMenu, bigSlider, smallSlider, pr
         <Gallery gallerySection={gallery}/>
         <Reviews reviewSection={reviews}/>
         <News newsSection={news} />
-        <SeoOne />
-        <SeoTwo />
+        <SeoOne seoSection={seoOne}/>
+        <SeoTwo seoSection={seoTwo} />
         <Footer />
       </MainLayout>
     </div>
@@ -74,10 +76,12 @@ export async function getServerSideProps() {
   const gallery = await GetSection('gallery')
   const reviews = await GetSection('reviews')
   const news = await GetSection('novosti')
+  const seoOne = await GetSection('seo-1')
+  const seoTwo = await GetSection('seo-2')
   
 
   return {
-      props: { topMenu, headerMenu, bigSlider, smallSlider, privilege, mainCard, partition, gallery, reviews, news }
+      props: { topMenu, headerMenu, bigSlider, smallSlider, privilege, mainCard, partition, gallery, reviews, news, seoOne, seoTwo }
   }
 }
 
