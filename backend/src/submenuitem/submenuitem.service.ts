@@ -19,7 +19,8 @@ export class SubmenuItemService {
     const newSubMenu = {
       ...createSubmenuItemInput,
       menuitem: { id: createSubmenuItemInput.menuitem_id },
-      link: getSlug(createSubmenuItemInput.name) 
+      link: getSlug(createSubmenuItemInput.name) ,
+      slug: getSlug(createSubmenuItemInput.name) 
     };
     console.log('newSubMenu', newSubMenu);
 

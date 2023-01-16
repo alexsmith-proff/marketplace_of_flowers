@@ -15,6 +15,9 @@ export class UpdateMenuItemInput extends PartialType(CreateMenuItemInput) {
   @Field(() => String, { description: 'name menuitem', nullable: true })
   link: string;
 
+  @Field(() => String, {description: "This is slug menu", nullable: true })
+  slug: string
+
   @Field(() => Number, { description: 'Serial menu ID', nullable: true })
   menu_id: number
 }

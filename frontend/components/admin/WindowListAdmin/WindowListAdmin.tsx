@@ -37,6 +37,7 @@ interface WindowListAdminProps {
   updateSerialNumberByIndex?: (index: number, serial_number: number) => void;
   updateSerialNumberById?: (id: number, serial_number: number) => void;
   updateLink?: (index: number, link: string) => void;
+  updateSlug?: (index: number, slug: string) => void;
 }
 
 const WindowListAdmin = ({
@@ -52,16 +53,15 @@ const WindowListAdmin = ({
   updateSerialNumberByIndex,
   updateSerialNumberById,
   updateLink,
+  updateSlug,
 }: WindowListAdminProps) => {
   const [currentIndexMenu, setCurrentIndexMenu] = useState<number>(null);
   const [itemBottomActive, setItemBottomActive] = useState<boolean>(false);
   const [dragIndex, setDragIndex] = useState<number>(null);
   const [futureIndex, setFutureIndex] = useState<number>(null);
 
-  const [editMenuItemUpdateActive, setEditMenuItemUpdateActive] =
-    useState<boolean>(false);
-  const [editMenuItemCreateActive, setEditMenuItemCreateActive] =
-    useState<boolean>(false);
+  const [editMenuItemUpdateActive, setEditMenuItemUpdateActive] = useState<boolean>(false);
+  const [editMenuItemCreateActive, setEditMenuItemCreateActive] = useState<boolean>(false);
 
   const editUpdateMenuItemRef = useRef(null);
   const editCreateMenuItemRef = useRef(null);
@@ -91,12 +91,12 @@ const WindowListAdmin = ({
 
   const handleClickOptions = (index) => {
     if (index !== currentIndexMenu) return;
-    console.log("handleClickOptions");
+    // console.log("handleClickOptions");
     setItemBottomActive(!itemBottomActive);
   };
 
   function handleDragStart(e, index) {
-    console.log("handleDragStart", index);
+    // console.log("handleDragStart", index);
     setItemBottomActive(false);
     setDragIndex(index);
   }
@@ -112,13 +112,13 @@ const WindowListAdmin = ({
     e.target.classList.remove("menuListDragOver");
   }
   function handleDragEnd(e, index) {
-    console.log("handleDragEnd", index);
+    // console.log("handleDragEnd", index);
     e.preventDefault();
     e.target.classList.remove("menuListDragOver");
     setFutureIndex(null);
   }
   function handleDrop(e: React.DragEvent<HTMLLIElement>, index) {
-    console.log("handleDrop", index);
+    // console.log("handleDrop", index);
     e.preventDefault();
     ////e.target.classList.remove("menuListDragOver");
 
@@ -134,7 +134,7 @@ const WindowListAdmin = ({
       ) {
         updateSerialNumberByIndex(dragIndex, serial_number);
       } else {
-        console.log("else");
+        // console.log("else");
 
         const itemArrID = [];
         itemArrID.push({
@@ -142,7 +142,7 @@ const WindowListAdmin = ({
           serial_number: itemArr[index].serial_number + 100,
           name: itemArr[dragIndex].name,
         });
-        console.log("itemArrID", itemArrID);
+        // console.log("itemArrID", itemArrID);
 
         for (let i = index + 1; i < itemArr.length; i++) {
           itemArrID.push({
@@ -317,6 +317,11 @@ const WindowListAdmin = ({
                               label="Ссылка"
                               textInputInit={item.link}
                               inputConfirm={(data) => updateLink(index, data)}
+                            />
+                            <OptionsItemAdmin
+                              label="slug"
+                              textInputInit={item.slug}
+                              inputConfirm={(data) => updateSlug(index, data)}
                             />
                           </div>
                         </div>

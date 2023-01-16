@@ -27,6 +27,10 @@ export class MenuItemEntity {
   @Column({ default: "" })
   link: string
 
+  @Field(() => String)
+  @Column({ default: "" })
+  slug: string
+
   @Field(() => MenuEntity)
   @ManyToOne(() => MenuEntity, menu => menu.items, {onDelete: 'CASCADE'})
   menu: MenuEntity

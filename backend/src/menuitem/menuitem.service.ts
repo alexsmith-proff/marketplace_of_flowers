@@ -20,7 +20,8 @@ export class MenuItemService {
     return await this.menuItemRepository.save({
       ...createMenuItemInput,
       menu: { id: createMenuItemInput.menu_id },
-      link: getSlug(createMenuItemInput.name) 
+      link: getSlug(createMenuItemInput.name), 
+      slug: getSlug(createMenuItemInput.name)
     });
   }
 

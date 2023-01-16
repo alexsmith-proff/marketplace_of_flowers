@@ -21,7 +21,8 @@ export class SubmenuItemTwoService {
     const newSubMenu = {
       ...createSubmenuItemTwoInput,
       submenuitem: { id: createSubmenuItemTwoInput.menuitem_id },
-      link: getSlug(createSubmenuItemTwoInput.name)
+      link: getSlug(createSubmenuItemTwoInput.name),
+      slug: getSlug(createSubmenuItemTwoInput.name)
     };
     console.log('newSubMenu', newSubMenu);
     return this.submenuItemRepository.save(newSubMenu);

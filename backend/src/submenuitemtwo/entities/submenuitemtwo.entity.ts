@@ -35,6 +35,10 @@ export class SubmenuItemTwoEntity {
   @Column({ default: '' })
   link: string;
 
+  @Field(() => String)
+  @Column({ default: '' })
+  slug: string;
+
   @Field(() => SubmenuItemEntity)
   @ManyToOne(() => SubmenuItemEntity, (submenuitem) => submenuitem.submenuitems, {
     onDelete: 'CASCADE',

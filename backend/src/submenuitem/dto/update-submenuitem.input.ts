@@ -15,6 +15,9 @@ export class UpdateSubmenuItemInput extends PartialType(CreateSubmenuItemInput) 
   @Field(() => String, { description: 'link submenuitem)', nullable: true })
   link: string;
 
+  @Field(() => String, { description: 'link submenuitem)', nullable: true })
+  slug: string;
+
   @Field(() => Number, { description: 'Serial menu ID)', nullable: true })
   menuitem_id: number
 }

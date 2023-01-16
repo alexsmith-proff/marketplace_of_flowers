@@ -208,6 +208,16 @@ const ContentAdminMenu = ({ }: ContentAdminMenuProps) => {
       }
     })
   }
+  const handleUpdateSlugMenuItem = (index, slug) => {
+    updateMenuItemName({
+      variables: {
+        updateMenuItemInput: {
+          id: +menus.data.getAllMenus[currentIndexMenu].items[index].id,
+          slug: slug
+        },
+      }
+    })
+  }
   const handleEditDeleteMenuItemName = (index) => {
     setCurrentIndexSubMenuItemTwo(null)
     setCurrentIndexSubMenuItem(null)
@@ -288,6 +298,16 @@ const ContentAdminMenu = ({ }: ContentAdminMenuProps) => {
         updateSubmenuItemInput: {
           id: +menus.data.getAllMenus[currentIndexMenu].items[currentIndexMenuItem].submenuitems[index].id,
           link: link
+        },
+      }
+    })
+  }
+  const handleUpdateSlugSubMenuItem = (index, slug) => {
+    updateSubMenuItemName({
+      variables: {
+        updateSubmenuItemInput: {
+          id: +menus.data.getAllMenus[currentIndexMenu].items[currentIndexMenuItem].submenuitems[index].id,
+          slug: slug
         },
       }
     })
@@ -374,6 +394,16 @@ const ContentAdminMenu = ({ }: ContentAdminMenuProps) => {
       }
     })
   }
+  const handleUpdateSlugSubMenuItemTwo = (index, slug) => {
+    updateSubMenuItemTwoName({
+      variables: {
+        updateSubmenuItemTwoInput: {
+          id: +menus.data.getAllMenus[currentIndexMenu].items[currentIndexMenuItem].submenuitems[currentIndexSubmenuItem].submenuitems[index].id,
+          slug: slug
+        },
+      }
+    })
+  }
   const handleEditDeleteSubMenuItemTwoName = (index) => {
     deleteSubMenuItemTwoName({
       variables: {
@@ -455,6 +485,7 @@ const ContentAdminMenu = ({ }: ContentAdminMenuProps) => {
                 updateSerialNumberByIndex={handleupdateSerialNumberByIndexMenuItem}
                 updateSerialNumberById={handleupdateSerialNumberByIDMenuItem}
                 updateLink={handleUpdateLinkMenuItem}
+                updateSlug={handleUpdateSlugMenuItem}
               />
             }
             {
@@ -470,6 +501,7 @@ const ContentAdminMenu = ({ }: ContentAdminMenuProps) => {
                 updateSerialNumberByIndex={handleUpdateSerialNumberByIndexSubMenuItem}
                 updateSerialNumberById={handleUpdateSerialNumberByIDSubMenuItem}
                 updateLink={handleUpdateLinkSubMenuItem}
+                updateSlug={handleUpdateSlugSubMenuItem}
               />
             }
             {
@@ -486,6 +518,7 @@ const ContentAdminMenu = ({ }: ContentAdminMenuProps) => {
                 updateSerialNumberByIndex={handleUpdateSerialNumberByIndexSubMenuItemTwo}
                 updateSerialNumberById={handleUpdateSerialNumberByIDSubMenuItem}
                 updateLink={handleUpdateLinkSubMenuItemTwo}
+                updateSlug={handleUpdateSlugSubMenuItemTwo}
               />
             }
           </>

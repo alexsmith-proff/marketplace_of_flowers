@@ -32,20 +32,24 @@ export const GET_ALL_MENU = gql`
     getAllMenus {
       id
       name
+      slug
       items {
         id
         name
         serial_number
+        slug
         link
         submenuitems {
           id
           name
           serial_number
+          slug
           link
           submenuitems {
             id
             name
             serial_number
+            slug
             link
           }
         }
@@ -60,20 +64,24 @@ export const GET_MENU_BY_SLUG = gql`
     getMenuBySlug(slug: $slug) {
       id
       name
+      slug
       items {
         id
         name
         serial_number
+        slug
         link
         submenuitems {
           id
           name
           serial_number
+          slug
           link
           submenuitems {
             id
             name
             serial_number
+            slug
             link
           }
         }
@@ -88,15 +96,18 @@ export const GET_MENU_BY_ID = gql`
     getMenuByID(id: $id) {
       id
       name
+      slug
       items {
         id
         name
         serial_number
+        slug
         link
         submenuitems {
           id
           name
           serial_number
+          slug
           link
         }
       }
@@ -111,6 +122,7 @@ export const CREATE_MENU_ITEM_NAME = gql`
       name
       serial_number
       link
+      slug
     }
   }
 `;
@@ -122,6 +134,7 @@ export const UPDATE_MENU_ITEM_NAME = gql`
       name
       serial_number
       link
+      slug
     }
   }
 `;
@@ -142,6 +155,7 @@ export const CREATE_SUBMENU_ITEM_NAME = gql`
       name
       serial_number
       link
+      slug
     }
   }
 `;
@@ -153,6 +167,7 @@ export const UPDATE_SUBMENU_ITEM_NAME = gql`
       name
       serial_number
       link
+      slug
     }
   }
 `;
@@ -173,6 +188,7 @@ export const CREATE_SUBMENU_ITEM_TWO_NAME = gql`
       name
       serial_number
       link
+      slug
     }
   }
 `;
@@ -184,6 +200,7 @@ export const UPDATE_SUBMENU_ITEM_TWO_NAME = gql`
       name
       serial_number
       link
+      slug
     }
   }
 `;

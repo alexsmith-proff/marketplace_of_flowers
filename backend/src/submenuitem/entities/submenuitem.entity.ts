@@ -35,6 +35,10 @@ export class SubmenuItemEntity {
   @Column({ default: '' })
   link: string;
 
+  @Field(() => String)
+  @Column({ default: '' })
+  slug: string;
+
   @Field(() => MenuItemEntity)
   @ManyToOne(() => MenuItemEntity, (menuitem) => menuitem.submenuitems, {
     onDelete: 'CASCADE',
