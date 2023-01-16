@@ -6,6 +6,7 @@ import Slider, { Settings } from "react-slick";
 import s from './Reviews.module.scss'
 import { ISection } from '../../interfaces/section.interface';
 import ReviewsStar from '../ReviewsStar/ReviewsStar';
+import { getFileNameInImgBlockFromElement, getTextInTextBlockFromElement } from '../../services/core/parse';
 
 interface ReviewsProps {
     reviewSection: ISection
@@ -22,6 +23,7 @@ const Reviews: FC<ReviewsProps> = ({ reviewSection }) => {
         slidesToScroll: 1,
     };
 
+    // console.log('reviewSection', reviewSection);
     return (
         <>
             <section className={s.reviews}>
@@ -31,48 +33,23 @@ const Reviews: FC<ReviewsProps> = ({ reviewSection }) => {
                         <button className={s.reviews__sendReviewBtn}>Оставить отзыв</button>
                     </div>
                     <Slider className='reviews' {...settings}>
-                        <div className={s.reviews__slider}>
-                            <div className={s.reviews__sliderContainer}>
-                                <div className={s.reviews__sliderLeft}>
-                                   <ReviewsStar stars={4} />
-                                    <div className={s.reviews__sliderName}>Мередова Елена Григорьевна</div>
-                                    <div className={s.reviews__sliderText}>Хочу выразить свою благодарность коллективу, за великолепную работу и профессионализм! Заказываю уже 3 раз и каждый раз се полный восторг! Букеты красивые, цветочки свежие, стоят долго! Заказывала и готовые и собирал по своему желанию- все чудесно! Спасибо Мегацвет24 - вы тот случай, когда точно знаешь куда возвращаться за цветочками.  </div>
-                                    <div className={s.reviews__sliderBouquet}>Отзыв к букету: <span>Розы 80 см</span></div>
+                        {
+                            reviewSection && reviewSection.elements.map(el => (
+                                <div className={s.reviews__slider} key={el.id}>
+                                    <div className={s.reviews__sliderContainer}>
+                                        <div className={s.reviews__sliderLeft}>
+                                            <ReviewsStar stars={Number(getTextInTextBlockFromElement(el, 'ocenka'))} />
+                                            <div className={s.reviews__sliderName}>{getTextInTextBlockFromElement(el, 'name')}</div>
+                                            <div className={s.reviews__sliderText}>{getTextInTextBlockFromElement(el, 'otzyv')}</div>
+                                            <div className={s.reviews__sliderBouquet}>Отзыв к букету: <span>{getTextInTextBlockFromElement(el, 'otzyv-k-buketu')}</span></div>
+                                        </div>
+                                        <div className={s.reviews__sliderRight}>
+                                            <img src={process.env.API_URI + '/' + getFileNameInImgBlockFromElement(el, 'izobrazhenie')} alt={getTextInTextBlockFromElement(el, 'alt')} />
+                                        </div>
+                                    </div>
                                 </div>
-                                <div className={s.reviews__sliderRight}>
-                                    <img src="../../img/review1.png" alt="review1" />
-                                </div>
-                            </div>
-                        </div>
-                        {/* <div className={s.reviews__slider}>
-                            <div className={s.reviews__sliderContainer}>
-                                <div className={s.reviews__sliderLeft}>
-                                    <ul className={s.reviews__sliderStarsList}>
-                                        <li className={s.reviews__sliderStar}>
-                                            <img src="../../img/star.png" alt="star" />
-                                        </li>
-                                        <li className={s.reviews__sliderStar}>
-                                            <img src="../../img/star.png" alt="star" />
-                                        </li>
-                                        <li className={s.reviews__sliderStar}>
-                                            <img src="../../img/star.png" alt="star" />
-                                        </li>
-                                        <li className={s.reviews__sliderStar}>
-                                            <img src="../../img/star.png" alt="star" />
-                                        </li>
-                                        <li className={s.reviews__sliderStar}>
-                                            <img src="../../img/star.png" alt="star" />
-                                        </li>
-                                    </ul>
-                                    <div className={s.reviews__sliderName}>Мередова Елена Григорьевна</div>
-                                    <div className={s.reviews__sliderText}>Хочу выразить свою благодарность коллективу, за великолепную работу и профессионализм! Заказываю уже 3 раз и каждый раз се полный восторг! Букеты красивые, цветочки свежие, стоят долго! Заказывала и готовые и собирал по своему желанию- все чудесно! Спасибо Мегацвет24 - вы тот случай, когда точно знаешь куда возвращаться за цветочками.  </div>
-                                    <div className={s.reviews__sliderBouquet}>Отзыв к букету: <span>Розы 80 см</span></div>
-                                </div>
-                                <div className={s.reviews__sliderRight}>
-                                    <img src="../../img/review1.png" alt="review1" />
-                                </div>
-                            </div>
-                        </div> */}
+                            ))
+                        }
                     </Slider>
                     <div className={s.reviews__BtnWrap}>
                         <button className={s.reviews__Btn}>Все отзывы</button>

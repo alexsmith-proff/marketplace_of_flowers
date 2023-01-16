@@ -38,7 +38,7 @@ const Gallery: FC<GalleryProps> = ({ gallerySection }) => {
                         <Slider className='gallery' {...settings}>
                             {
                                 gallerySection && gallerySection.elements.map(el => (
-                                    <div className={s.gallery__item}>
+                                    <div className={s.gallery__item} key={el.id}>
                                         <img src={process.env.API_URI + '/' + getFileNameInImgBlockFromElement(el, 'image')} alt={getTextInTextBlockFromElement(el, 'alt')} />
                                     </div>
                                 ))

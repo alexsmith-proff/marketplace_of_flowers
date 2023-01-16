@@ -36,8 +36,7 @@ const MainSlider: FC<MainSliderProps> = ({ bigSliderSection, smallSliderSection 
         slidesToScroll: 1
     };
 
-    console.log('bigSliderSection', bigSliderSection);
-
+    // console.log('bigSliderSection', bigSliderSection);
 
     return (
         <div className={s.mainSlider}>

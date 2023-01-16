@@ -38,7 +38,7 @@ const MainCards: FC<MainCardsProps> = ({ mainCardSection }) => {
                         <Slider className='mainCards' {...settings}>
                             {
                                 mainCardSection && mainCardSection.elements.map(el => (
-                                    <div className={s.mainCards__item}>
+                                    <div className={s.mainCards__item} key={el.id}>
                                         <img className={s.mainCards__img} src={process.env.API_URI + '/' + getFileNameInImgBlockFromElement(el, 'background')} alt={getTextInTextBlockFromElement(el, 'alt')} />
                                         <img className={s.mainCards__imgHeart} src="img/heart.png" alt="heart-ico" />
                                         <div className={s.mainCards__info}>

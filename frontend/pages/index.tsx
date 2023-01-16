@@ -71,7 +71,7 @@ export async function getServerSideProps() {
   const mainCard = await GetSection('mainCard')
   const partition = await GetSection('partition')
   const gallery = await GetSection('gallery')
-  const review = await GetSection('Review')
+  const review = await GetSection('reviews')
   
 
   return {

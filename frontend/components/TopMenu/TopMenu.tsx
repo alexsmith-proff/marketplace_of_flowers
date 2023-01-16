@@ -9,8 +9,8 @@ interface TopMenuProps {
 
 const TopMenu: FC<TopMenuProps> = ({ menu }) => {
     const [menuItemActive, setMenuItemActive] = useState<boolean>(false)
-    console.log('menuuuuuuuuuuuu', menu);
 
+    // console.log('menuuuuuuuuuuuu', menu);
 
     return (
         <div className={s.topmenu}>

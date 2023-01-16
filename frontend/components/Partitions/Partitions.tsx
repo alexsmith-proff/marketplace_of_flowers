@@ -18,7 +18,7 @@ const Partitions: FC<PartitionsProps> = ({ partitionSection }) => {
                     <ul className={s.partitions__list}>
                         {
                             partitionSection && partitionSection.elements.map(el => (
-                                <li className={s.partitions__item}>
+                                <li className={s.partitions__item} key={el.id}>
                                     <img className={s.partitions__img} src={process.env.API_URI + '/' + getFileNameInImgBlockFromElement(el, 'image')} alt={getTextInTextBlockFromElement(el, 'alt')} />
                                     <div className={s.partitions__info}>
                                         <h3 className={s.partitions__title}>{getTextInTextBlockFromElement(el, 'title')}</h3>
