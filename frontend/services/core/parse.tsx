@@ -32,7 +32,7 @@ export const getSubMenuItemsArrBySlugFromMenu = (menu: IMenu, menuItemSlug: stri
 }
 ///////////////////////////////////////
 
-// Sections? Blocks
+// Sections, Blocks
 export const getTextInTextBlockFromSection = (section: ISection, elementSlug: string, textSlug: string) => {
     if (section) {
         const element = section.elements.find(el => el.slug === elementSlug)

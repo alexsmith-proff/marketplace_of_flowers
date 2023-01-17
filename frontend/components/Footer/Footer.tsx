@@ -1,14 +1,18 @@
 import React, { FC } from 'react'
 import { IMenu } from '../../interfaces/menu.interface';
-import { getMenuItemNameBySlugFromMenu, getSubMenuItemsArrBySlugFromMenu } from '../../services/core/parse';
+import { ISection } from '../../interfaces/section.interface';
+import { getMenuItemNameBySlugFromMenu, getSubMenuItemsArrBySlugFromMenu, getTextInTextBlockFromElement, getTextInTextBlockFromSection } from '../../services/core/parse';
 
 import s from './Footer.module.scss'
 
 interface FooterProps {
-    menu: IMenu
+    menu: IMenu,
+    menuInfo?: IMenu
+    menuCoordinates?: ISection
+    menuEmail?: ISection
 }
 
-const Footer: FC<FooterProps> = ({ menu }) => {
+const Footer: FC<FooterProps> = ({ menu, menuInfo, menuCoordinates, menuEmail }) => {
     console.log('menu', menu);
 
 
@@ -82,40 +86,39 @@ const Footer: FC<FooterProps> = ({ menu }) => {
                                 </ul>
                             </li>
                             <li className={s.footer__item}>
-                                Информация
+                                {
+                                    menuInfo && menuInfo.name
+                                }
+                                {/* Информация */}
                                 <ul className={s.footer__menuChild}>
-                                    <li className={s.footer__menuChildItem}>Доставка</li>
-                                    <li className={s.footer__menuChildItem}>Оплата</li>
-                                    <li className={s.footer__menuChildItem}>Отзывы</li>
-                                    <li className={s.footer__menuChildItem}>Блог</li>
-                                    <li className={s.footer__menuChildItem}>Гарантии</li>
-                                    <li className={s.footer__menuChildItem}>Вопрос и ответ</li>
-                                    <li className={s.footer__menuChildItem}>Корпоративным клиентам</li>
-                                    <li className={s.footer__menuChildItem}>О компании</li>
-                                    <li className={s.footer__menuChildItem}>Контакты</li>
+                                    {
+                                        menuInfo && menuInfo.items.map(item => <li className={s.footer__menuChildItem} key={item.id}>{item.name}</li>)
+                                    }
+
                                 </ul>
                             </li>
                         </ul>
 
-                        <div className={s.footer__contacts}>
-                            <div className={s.contacts__title}>Наши координаты</div>
-                            <div className={s.contacts__point}>
-                                <div className={s.contacts__pointName}>Служба Доставки</div>
-                                <div className={s.contacts__pointPhone}>+7 (920) 211-49-03</div>
-                            </div>
-                            <div className={s.contacts__point}>
-                                <div className={s.contacts__pointName}>Ул. Вл. Невского 17</div>
-                                <div className={s.contacts__pointPhone}>+7 (920) 211-49-03</div>
-                            </div>
-                            <div className={s.contacts__point}>
-                                <div className={s.contacts__pointName}>Ул. Революции 1905 года 80</div>
-                                <div className={s.contacts__pointPhone}>+7 (906) 678-65-99</div>
-                            </div>
-                            <div className={s.contacts__email}>
-                                <div className={s.contacts__emailName}>E-mail:</div>
-                                <div className={s.contacts__emailText}>info@lavkaroz.ru</div>
-                            </div>
-                        </div>
+                        {
+                            menuCoordinates && (
+                                <div className={s.footer__contacts}>
+                                    <div className={s.contacts__title}>{menuCoordinates.name}</div>
+                                    {
+                                        menuCoordinates.elements.map((el, index) => (
+                                            <div className={s.contacts__point}>
+                                                <div className={s.contacts__pointName}>{getTextInTextBlockFromElement(el, 'title')}</div>
+                                                <div className={s.contacts__pointPhone}>{getTextInTextBlockFromElement(el, 'telefon')}</div>
+                                            </div>
+                                        ))
+                                    }
+                                    
+                                    <div className={s.contacts__email}>
+                                        <div className={s.contacts__emailName}>{getTextInTextBlockFromSection(menuEmail, 'e-mail', 'title')}</div>
+                                        <div className={s.contacts__emailText}>{getTextInTextBlockFromSection(menuEmail, 'e-mail', 'soderzhimoe')}</div>
+                                    </div>
+                                </div>
+                            )
+                        }
                     </div>
                 </div>
             </footer>

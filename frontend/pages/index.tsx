@@ -27,16 +27,19 @@ interface IndexProps {
   smallSlider: ISection,
   privilege: ISection,
   mainCard: ISection,
-  partition: ISection
-  gallery: ISection
-  reviews: ISection
-  news: ISection
-  seoOne: ISection
-  seoTwo: ISection
-  footerMenu: IMenu
+  partition: ISection,
+  gallery: ISection,
+  reviews: ISection,
+  news: ISection,
+  seoOne: ISection,
+  seoTwo: ISection,
+  footerMenu: IMenu,
+  footerMenuInfo: IMenu,
+  footerMenuCoordinates: ISection,
+  footerMenuEmail: ISection
 }
 
-const Index: FC<IndexProps> = ({ topMenu, headerMenu, bigSlider, smallSlider, privilege, mainCard, partition, gallery, reviews, news, seoOne, seoTwo, footerMenu }) => {
+const Index: FC<IndexProps> = ({ topMenu, headerMenu, bigSlider, smallSlider, privilege, mainCard, partition, gallery, reviews, news, seoOne, seoTwo, footerMenu, footerMenuInfo, footerMenuCoordinates, footerMenuEmail }) => {
 
   
 
@@ -55,7 +58,7 @@ const Index: FC<IndexProps> = ({ topMenu, headerMenu, bigSlider, smallSlider, pr
         <News newsSection={news} />
         <SeoOne seoSection={seoOne}/>
         <SeoTwo seoSection={seoTwo} />
-        <Footer menu={footerMenu}/>
+        <Footer menu={footerMenu} menuInfo={footerMenuInfo} menuCoordinates={footerMenuCoordinates} menuEmail={footerMenuEmail} />
       </MainLayout>
     </div>
   )
@@ -63,9 +66,6 @@ const Index: FC<IndexProps> = ({ topMenu, headerMenu, bigSlider, smallSlider, pr
 
 
 export async function getServerSideProps() {
-  // const text = await GetTextByBlock('main_text')
-  // const img_filename = await GetImgByBlock('capt_im')
-
   const topMenu = await GetMenu('verkhnee-menyu') 
 
   const headerMenu = await GetMenu('menyu-v-khedere') 
@@ -80,10 +80,12 @@ export async function getServerSideProps() {
   const seoOne = await GetSection('seo-1')
   const seoTwo = await GetSection('seo-2')
   const footerMenu = await GetMenu('menyu-v-futere')
-  
+  const footerMenuInfo = await GetMenu('menyu-informaciya')
+  const footerMenuCoordinates = await GetSection('nashi-koordinaty')
+  const footerMenuEmail = await GetSection('e-mail')
 
   return {
-      props: { topMenu, headerMenu, bigSlider, smallSlider, privilege, mainCard, partition, gallery, reviews, news, seoOne, seoTwo, footerMenu }
+      props: { topMenu, headerMenu, bigSlider, smallSlider, privilege, mainCard, partition, gallery, reviews, news, seoOne, seoTwo, footerMenu, footerMenuInfo, footerMenuCoordinates, footerMenuEmail }
   }
 }
 
