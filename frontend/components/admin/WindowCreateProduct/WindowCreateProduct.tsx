@@ -1,5 +1,6 @@
 import { useMutation, useQuery } from "@apollo/client";
 import React, { FC, useEffect, useRef, useState } from "react";
+import { FaBeer } from "@react-icons/all-files/fa/FaBeer"
 import { AdminButtonFunctional, AdminButtonType } from "../../../enums/AdminButtons.enum";
 import { CREATE_PRODUCT, GET_ALL_PRODUCTS } from "../../../graphql/admin-product.graphql";
 import { GET_ALL_BRANDS } from "../../../graphql/brand.graphql";
@@ -30,9 +31,12 @@ const WindowCreateProduct: FC<WindowCreateProductProps> = ({ visible, createProd
     const [productCatalog, setProductCatalog] = useState<ICatalog>(null)
     const [productDescription, setProductDescription] = useState<string>(null)
     const [filesArr, setFilesArr] = useState([])
+    const [previewImages, setPreviewImages] = useState([])
 
     const [brandsArr, setBrandsArr] = useState<IBrand[]>(null)
     const [catalogArr, setCatalogArr] = useState<ICatalog[]>(null)
+
+    // const [fileDataURL, setFileDataURL] = useState(null)
 
     useEffect(() => {
         if (brandsData) {
@@ -98,33 +102,20 @@ const WindowCreateProduct: FC<WindowCreateProductProps> = ({ visible, createProd
         setProductDescription(null)
     }
 
+
+    // const handleChangeBlockFile = (e: any) => {
+    //     setFile(e.target.files[0])
+
+    //     // setFiles(e.target.files)
+    // }
+
     const handleChangeImages = (e: any) => {
-        // console.log(e.target.files[0]);
-        // setFilesArr(e.target.files)
-
-        // const reader = new FileReader()
-        // reader.onload = () => {
-        //     setFilesArr(reader.result)
-        //     console.log('reader.result', reader.result);
-
-        // }
-        // reader.readAsDataURL(e.target.files[0])
-
-
-
-        // //Блок изображений
-        // if (blockType == BlockTypeArr[1]) {
-        //     if(!file) return
-        //     let formData = new FormData()
-        //     formData.append('file', file)
-        //     formData.append('name', titleName)
-        //     formData.append('slug', slugName)
-
-        //     createBlockImg(formData)
-        // }
-
-
-
+        if (e.target.files) {
+            const fileArray = Array.from(e.target.files).map((file) => URL.createObjectURL(file as Blob))
+            console.log('fileArray', fileArray);
+            setPreviewImages((prevImages) => prevImages.concat(fileArray))
+            Array.from(e.target.files).map((file) => URL.revokeObjectURL(file as string))
+        }
     }
 
     const handleClickCreateProduct = () => {
@@ -134,8 +125,8 @@ const WindowCreateProduct: FC<WindowCreateProductProps> = ({ visible, createProd
                 price: productPrice,
                 vendor_code: productVendor,
                 count_in_stock: productCount,
-                brand_id: +productBrand.id,
-                catalog_id: +productCatalog.id,
+                brand_id: productBrand ? +productBrand.id : null,
+                catalog_id: productCatalog ? +productCatalog.id : null,
             })
 
             ProductFieldsNull()
@@ -202,23 +193,29 @@ const WindowCreateProduct: FC<WindowCreateProductProps> = ({ visible, createProd
                         </div>
 
                         <div className={s.LabelEdit}>
+                            <span className={s.title}>Изображения</span>
+                            <input type="file" accept="image/*" multiple={true} onChange={handleChangeImages} />
+                            <div className={s.preview}>
+                                {
+                                    filesArr &&
+                                    <>
+                                        {
+                                            previewImages.map((photo, ind) => (
+                                                <>
+                                                    <img className={s.previewImages} src={photo} key={ind} />
+                                                    <FaBeer />
+                                                </>
+                                            ))
+                                        }
+                                    </>
+                                }
+                            </div>
+                        </div>
+
+                        <div className={s.LabelEdit}>
                             <span className={s.title}>Описание</span>
                             <textarea className={s.description} rows={8} cols={50} onChange={handleChangeProductDescription}></textarea>
                         </div>
-
-                        {/* <input type="file" accept="image/*" multiple={true} onChange={handleChangeImages} />
-                        <div className={s.preview}>
-                            {
-                                filesArr &&
-                                <>
-                                    {
-                                        filesArr.map((item) => <img className={s.previewImages} src={item} />)
-                                    }
-                                </>
-
-                            }
-                        </div> */}
-
 
                         <div className={s.buttons}>
                             <ButtonAdmin typeBtn={AdminButtonType.Text} functionalBtn={AdminButtonFunctional.Standard} border={true} clickBtn={handleClickCreateProduct}>Создать товар</ButtonAdmin>

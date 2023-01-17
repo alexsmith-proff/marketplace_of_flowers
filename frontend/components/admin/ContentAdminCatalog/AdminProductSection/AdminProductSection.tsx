@@ -117,6 +117,7 @@ const AdminProductSection: FC<AdminProductSectionProps> = () => {
   // end POPUP ///////////////////////////////
 
   const handleCreateProduct = (createProductInput: ICreateProductInput) => {
+    
     // Save DB
     createProduct({
       variables: {

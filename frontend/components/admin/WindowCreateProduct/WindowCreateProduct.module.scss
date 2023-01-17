@@ -36,12 +36,38 @@
 }
 
 .preview{
-    padding-top: 20px;
+    margin-top: 20px;
+    width: 550px;
+    height: 265px;
+    overflow-y: auto;
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
     &Images{
-        width: 150px;
-        height: 200px;
+        display: block;
+        width: 100px;
+        height: 120px;
         object-fit: cover;
+        margin-bottom: 5px;
+        border: 2px solid transparent;
+        cursor: pointer;
+        &:hover{
+            border-color: #000;
+        }
     }
+}
+.preview::-webkit-scrollbar {
+    width: 7px; /* ширина для вертикального скролла */
+    height: 8px; /* высота для горизонтального скролла */
+    background-color: #fff;
+}
+/* ползунок скроллбара */
+.preview::-webkit-scrollbar-thumb {
+    background-color: #fac8df;
+    border-radius: 10px;
+}
+.preview::-webkit-scrollbar-thumb:hover {
+    background-color: #e9adc6;
 }
 
 .title {
