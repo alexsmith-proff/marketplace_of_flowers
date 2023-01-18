@@ -1,11 +1,13 @@
 import { useMutation, useQuery } from "@apollo/client";
 import React, { FC, useEffect, useRef, useState } from "react";
-import { FaBeer } from "@react-icons/all-files/fa/FaBeer"
+import { AiFillHome } from "react-icons/ai";
+import { MdClose } from "react-icons/md";
 import { AdminButtonFunctional, AdminButtonType } from "../../../enums/AdminButtons.enum";
 import { CREATE_PRODUCT, GET_ALL_PRODUCTS } from "../../../graphql/admin-product.graphql";
 import { GET_ALL_BRANDS } from "../../../graphql/brand.graphql";
 import { GET_ALL_CATALOG_NO_TREE } from "../../../graphql/catalog.graphql";
 import { ICatalog } from "../../../interfaces/catalog.interface";
+import { IPreviewProductImage } from "../../../interfaces/products.interface";
 import { IBrand, ICreateProductInput } from "../../../interfaces/products.interface";
 import ButtonAdmin from "../Buttons/ButtonAdmin/ButtonAdmin";
 
@@ -31,12 +33,13 @@ const WindowCreateProduct: FC<WindowCreateProductProps> = ({ visible, createProd
     const [productCatalog, setProductCatalog] = useState<ICatalog>(null)
     const [productDescription, setProductDescription] = useState<string>(null)
     const [filesArr, setFilesArr] = useState([])
-    const [previewImages, setPreviewImages] = useState([])
-
+    
     const [brandsArr, setBrandsArr] = useState<IBrand[]>(null)
     const [catalogArr, setCatalogArr] = useState<ICatalog[]>(null)
-
+    
+    const [previewImages, setPreviewImages] = useState<IPreviewProductImage[]>([])
     // const [fileDataURL, setFileDataURL] = useState(null)
+    const [numPreviewPhotoHover, setNumPreviewPhotoHover] = useState(null)
 
     useEffect(() => {
         if (brandsData) {
@@ -111,11 +114,41 @@ const WindowCreateProduct: FC<WindowCreateProductProps> = ({ visible, createProd
 
     const handleChangeImages = (e: any) => {
         if (e.target.files) {
-            const fileArray = Array.from(e.target.files).map((file) => URL.createObjectURL(file as Blob))
-            console.log('fileArray', fileArray);
-            setPreviewImages((prevImages) => prevImages.concat(fileArray))
-            Array.from(e.target.files).map((file) => URL.revokeObjectURL(file as string))
+            // const fileArray = Array.from(e.target.files).map((file) => URL.createObjectURL(file as Blob))
+            const ArrayObj: IPreviewProductImage[] = Array.from(e.target.files).map((f) => {
+                return {
+                    file: URL.createObjectURL(f as Blob),
+                    isMainPhoto: false
+                }
+            })
+            // const fileArrayy='jnkjnkjnk'
+            // console.log('fileArray', fileArray);
+            setPreviewImages((prevImages) => prevImages.concat(ArrayObj))
+            // setPreviewImages([...previewImages, {file: fileArrayy, isMainPhoto: false}])
+            // Array.from(e.target.files).map((file) => URL.revokeObjectURL(file as string))
         }
+    }
+    const handlePreviewMainPhoto = (index: number) => {
+        setPreviewImages((prevImages) => prevImages.map((image, ind) => {
+            if(ind === index){
+                return {...image, isMainPhoto: true}
+            }
+            return {...image, isMainPhoto: false}
+        }))
+    }
+
+    // Удаление preview фото
+    const handleDeletePreviewPhoto = (index: number) => {
+        setPreviewImages(previewImages.filter((_, ind) => {
+            // if(mainPhoto === index) {
+            //     setMainPhoto(0)
+            // }
+            if(ind != index) {
+                return true
+            }
+
+            return false            
+        }))
     }
 
     const handleClickCreateProduct = () => {
@@ -201,10 +234,16 @@ const WindowCreateProduct: FC<WindowCreateProductProps> = ({ visible, createProd
                                     <>
                                         {
                                             previewImages.map((photo, ind) => (
-                                                <>
-                                                    <img className={s.previewImages} src={photo} key={ind} />
-                                                    <FaBeer />
-                                                </>
+                                                <div className={s.previewImages}>
+                                                    <img src={photo.file} key={ind} onClick={() => handlePreviewMainPhoto(ind)} onMouseEnter={() => setNumPreviewPhotoHover(ind)}/>
+                                                    {
+                                                        photo.isMainPhoto && <AiFillHome className={s.previewHome} />
+                                                    }
+                                                    {
+                                                        numPreviewPhotoHover === ind && <MdClose className={s.previewDelete} onClick={() => handleDeletePreviewPhoto(ind)}/>
+                                                    }
+                                                    
+                                                </div>
                                             ))
                                         }
                                     </>

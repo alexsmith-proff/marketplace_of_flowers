@@ -38,3 +38,8 @@ export interface IUpdateProductRelationsInput {
   brand_id: number,
   catalog_id: number,
 }
+
+export interface IPreviewProductImage {
+  file : string,
+  isMainPhoto: boolean
+}
