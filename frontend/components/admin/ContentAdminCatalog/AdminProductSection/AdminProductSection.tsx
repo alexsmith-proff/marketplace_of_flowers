@@ -11,6 +11,7 @@ import { IPopupMenuItems } from "../../../../interfaces/popup-menu.intrface";
 import { ICoordinate } from "../../../../interfaces/coordinate.interface";
 import WindowCreateProduct from "../../WindowCreateProduct/WindowCreateProduct";
 import WindowUpdateProduct from "../../WindowUpdateProduct/WindowUpdateProduct";
+import axios from "axios";
 
 const menuItems: IPopupMenuItems[] = [
   {
@@ -117,24 +118,50 @@ const AdminProductSection: FC<AdminProductSectionProps> = () => {
   // end POPUP ///////////////////////////////
 
   const handleCreateProduct = (createProductInput: ICreateProductInput) => {
+    let formData = new FormData()
+    formData.append('images', createProductInput.images.map((file) => file.fileFromTarget)[0])
+    formData.append('name', createProductInput.name)
+    formData.append('slug', createProductInput.slug)
+    formData.append('price', String(createProductInput.price ? createProductInput.price : 0))
+    formData.append('count_in_stock', String(createProductInput.count_in_stock ? createProductInput.count_in_stock : 0))
+    formData.append('vendor_code', createProductInput.vendor_code)
+    formData.append('brand_id', String(createProductInput.brand_id))
+    formData.append('catalog_id', String(createProductInput.catalog_id))
+    // formData.append('images', createProductInput.images[0].fileFromTarget)
+
+    // console.log('createProductInput.images.map((file) => file.fileFromTarget)', Array.from(createProductInput.images).map((file) => file.fileFromTarget));
+    console.log('createProductInput.images.map((file) => file.fileFromTarget)', createProductInput.images.map((file) => file.fileFromTarget)[0]);
+    
+
+    axios.post(process.env.API_URI + '/api/product/create', formData)
+      .then((res) => {
+        console.log('Success' + res.data);
+        // RefeachAllSections()
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+    
+
+
     
     // Save DB
-    createProduct({
-      variables: {
-        createProductInput: createProductInput
-      },
-      refetchQueries: [
-        {
-          query: GET_ALL_PRODUCTS_BY_SORT,
-          variables: {
-            sortProductInput: {
-              sort_field: "count_in_stock",
-              sort_order: "ASC"
-            }
-          }
-        }
-      ]
-    })
+    // createProduct({
+    //   variables: {
+    //     createProductInput: createProductInput
+    //   },
+    //   refetchQueries: [
+    //     {
+    //       query: GET_ALL_PRODUCTS_BY_SORT,
+    //       variables: {
+    //         sortProductInput: {
+    //           sort_field: "count_in_stock",
+    //           sort_order: "ASC"
+    //         }
+    //       }
+    //     }
+    //   ]
+    // })
   }
 
   const handleUpdateProduct = async (updateProductInput: IUpdateProductInput, updateProductRelationsInput: IUpdateProductRelationsInput) => {

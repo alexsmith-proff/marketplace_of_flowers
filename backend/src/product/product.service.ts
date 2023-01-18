@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { createFile } from 'src/util/file';
 import { Repository } from 'typeorm';
 import { CreateProductInput } from './dto/create-product.input';
 import { SortProductInput } from './dto/sort-product.input';
@@ -11,9 +12,16 @@ import { ProductEntity } from './entities/product.entity';
 export class ProductService {
   constructor(@InjectRepository(ProductEntity) private readonly productRepository: Repository<ProductEntity>){}
 
-  async create(createProductInput: CreateProductInput): Promise<ProductEntity> {
-    return await this.productRepository.save({...createProductInput, brand: {id: createProductInput.brand_id}, catalog: {id: createProductInput.catalog_id}})
+  async create(file: Express.Multer.File, createProductInput: CreateProductInput): Promise<ProductEntity> {
+    console.log('file', file);
+    // const fileName = createFile(file)
+    const newProduct = {...createProductInput}
+    console.log(newProduct);
+    
+    return await this.productRepository.save(newProduct)
   }
+
+
 
   async findAll(): Promise<ProductEntity[]> {
     return await this.productRepository.find({

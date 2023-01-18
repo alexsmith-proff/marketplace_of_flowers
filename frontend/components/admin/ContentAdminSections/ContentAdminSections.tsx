@@ -65,8 +65,6 @@ const ContentAdminSections = ({ }: ContentAdminSectionsProps) => {
 
 
   const handleCreateSection = (createSectionInput: INameSlugInput) => {
-    console.log('saveeee');
-
     // Save DB
     createSection({
       variables: {
@@ -81,7 +79,6 @@ const ContentAdminSections = ({ }: ContentAdminSectionsProps) => {
   }
 
   const handleUpdateSection = (sectionInput: INameSlugInput) => {
-
     // Update DB
     updateSection({
       variables: {
@@ -297,11 +294,6 @@ const ContentAdminSections = ({ }: ContentAdminSectionsProps) => {
 
 
   const handleClickUpdateTextBlock = (textblock: ITextElement) => {
-    console.log('textblock.name', textblock.name);
-    console.log('textblock.slug', textblock.slug);
-    console.log('textblock.text', textblock.text);
-    console.log('textblock.id', textblock.id);
-
     setCurrentName(textblock.name)
     setCurrentSlug(textblock.slug)
     setCurrentTextValue(textblock.text)

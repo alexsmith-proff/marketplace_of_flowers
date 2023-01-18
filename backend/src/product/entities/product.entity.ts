@@ -14,16 +14,20 @@ export class ProductEntity {
   @Column()
   name: string;
 
-  @Field(() => Number, { description: 'Price'})
-  @Column()
+  @Field(() => String, { description: 'Slug' })
+  @Column({ nullable: false, default: '' })
+  slug: string;
+
+  @Field(() => Number, { description: 'Price' })
+  @Column({ nullable: false, default: 0 })
   price: number
 
   @Field(() => Number, { description: 'Count in stock'})
-  @Column()
+  @Column({ nullable: false, default: 0 })
   count_in_stock: number
 
   @Field(() => String, { description: 'Vendor code'})
-  @Column()
+  @Column({ nullable: false, default: '' })
   vendor_code: string
 
   @Field(() => BrandEntity, { description: 'Brand', nullable: true})

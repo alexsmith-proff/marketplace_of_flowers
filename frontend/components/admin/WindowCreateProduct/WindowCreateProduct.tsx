@@ -13,19 +13,24 @@ import ButtonAdmin from "../Buttons/ButtonAdmin/ButtonAdmin";
 
 import s from "./WindowCreateProduct.module.scss";
 
+let getSlug = require('speakingurl');
+
 interface WindowCreateProductProps {
     visible: boolean
+    name?: string
+    slug?: string
     createProduct: (createProductInput: ICreateProductInput) => void
     closeWindow: () => void
 }
 
-const WindowCreateProduct: FC<WindowCreateProductProps> = ({ visible, createProduct, closeWindow }) => {
+const WindowCreateProduct: FC<WindowCreateProductProps> = ({ visible, name, slug, createProduct, closeWindow }) => {
     const { loading: loadingBrands, error: errorBrands, data: brandsData } = useQuery(GET_ALL_BRANDS)
     const { loading: loadingCatalog, error: errorCatalog, data: catalogData } = useQuery(GET_ALL_CATALOG_NO_TREE)
 
     const windowRef = useRef()
 
-    const [productName, setProductName] = useState<string>(null)
+    const [productName, setProductName] = useState<string>(name)
+    const [slugName, setSlugName] = useState<string>(slug)
     const [productVendor, setProductVendor] = useState<string>(null)
     const [productPrice, setProductPrice] = useState<number>(null)
     const [productCount, setProductCount] = useState<number>(null)
@@ -62,6 +67,7 @@ const WindowCreateProduct: FC<WindowCreateProductProps> = ({ visible, createProd
 
     const handleChangeProductName = (e: React.ChangeEvent<HTMLInputElement>) => {
         setProductName(e.target.value)
+        setSlugName(getSlug(e.target.value))
     }
     const handleChangeProductVendor = (e: React.ChangeEvent<HTMLInputElement>) => {
         setProductVendor(e.target.value)
@@ -103,6 +109,7 @@ const WindowCreateProduct: FC<WindowCreateProductProps> = ({ visible, createProd
         setProductBrand(brandsArr ? brandsArr[0] : null)
         setProductCatalog(catalogArr ? catalogArr[0] : null)
         setProductDescription(null)
+        setPreviewImages([])
     }
 
 
@@ -113,19 +120,18 @@ const WindowCreateProduct: FC<WindowCreateProductProps> = ({ visible, createProd
     // }
 
     const handleChangeImages = (e: any) => {
+        console.log(e.target.files[0]);
+        
         if (e.target.files) {
             // const fileArray = Array.from(e.target.files).map((file) => URL.createObjectURL(file as Blob))
             const ArrayObj: IPreviewProductImage[] = Array.from(e.target.files).map((f) => {
                 return {
+                    fileFromTarget: f,
                     file: URL.createObjectURL(f as Blob),
                     isMainPhoto: false
                 }
             })
-            // const fileArrayy='jnkjnkjnk'
-            // console.log('fileArray', fileArray);
             setPreviewImages((prevImages) => prevImages.concat(ArrayObj))
-            // setPreviewImages([...previewImages, {file: fileArrayy, isMainPhoto: false}])
-            // Array.from(e.target.files).map((file) => URL.revokeObjectURL(file as string))
         }
     }
     const handlePreviewMainPhoto = (index: number) => {
@@ -140,9 +146,6 @@ const WindowCreateProduct: FC<WindowCreateProductProps> = ({ visible, createProd
     // Удаление preview фото
     const handleDeletePreviewPhoto = (index: number) => {
         setPreviewImages(previewImages.filter((_, ind) => {
-            // if(mainPhoto === index) {
-            //     setMainPhoto(0)
-            // }
             if(ind != index) {
                 return true
             }
@@ -151,15 +154,20 @@ const WindowCreateProduct: FC<WindowCreateProductProps> = ({ visible, createProd
         }))
     }
 
+    // Клик на кнопку "Создать товар"
     const handleClickCreateProduct = () => {
-        if (productName && productVendor && productPrice && productCount) {
+        console.log('previewImage', previewImages);        
+        
+        if (productName) {
             createProduct({
                 name: productName,
+                slug: slugName,
                 price: productPrice,
                 vendor_code: productVendor,
                 count_in_stock: productCount,
                 brand_id: productBrand ? +productBrand.id : null,
                 catalog_id: productCatalog ? +productCatalog.id : null,
+                images: previewImages,
             })
 
             ProductFieldsNull()

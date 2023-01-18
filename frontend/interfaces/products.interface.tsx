@@ -18,11 +18,13 @@ export interface IAdminProduct extends IBase {
 
 export interface ICreateProductInput {
   name: string,
+  slug: string,
   price: number,
   vendor_code: string,
   count_in_stock: number,
   brand_id: number,
   catalog_id: number,
+  images: IPreviewProductImage[]
 }
 
 export interface IUpdateProductInput {
@@ -40,6 +42,7 @@ export interface IUpdateProductRelationsInput {
 }
 
 export interface IPreviewProductImage {
+  fileFromTarget: any,
   file : string,
   isMainPhoto: boolean
 }
