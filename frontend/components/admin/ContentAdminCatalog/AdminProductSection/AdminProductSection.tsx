@@ -69,8 +69,10 @@ const AdminProductSection: FC<AdminProductSectionProps> = () => {
 
   // POPUP ////////////////////////////////////
   const outsideClick = (e) => {
-    if (!e.path.includes(popupRef.current)) {
-      setPopupMenuVisible(false)
+    if (e.path) {
+      if (!e.path.includes(popupRef.current)) {
+        setPopupMenuVisible(false)
+      }
     }
   }
   const handleOpenPopupMenu = (e: React.MouseEvent, product: IAdminProduct, index: number) => {
@@ -119,7 +121,6 @@ const AdminProductSection: FC<AdminProductSectionProps> = () => {
 
   const handleCreateProduct = (createProductInput: ICreateProductInput) => {
     let formData = new FormData()
-    formData.append('images', createProductInput.images.map((file) => file.fileFromTarget)[0])
     formData.append('name', createProductInput.name)
     formData.append('slug', createProductInput.slug)
     formData.append('price', String(createProductInput.price ? createProductInput.price : 0))
@@ -127,11 +128,16 @@ const AdminProductSection: FC<AdminProductSectionProps> = () => {
     formData.append('vendor_code', createProductInput.vendor_code)
     formData.append('brand_id', String(createProductInput.brand_id))
     formData.append('catalog_id', String(createProductInput.catalog_id))
-    // formData.append('images', createProductInput.images[0].fileFromTarget)
+    for(let i = 0; i < createProductInput.images.length; i++){
+      formData.append('images', createProductInput.images.map((file) => file.fileFromTarget)[i])
+    }
+    const mainImageIndex = createProductInput.images.findIndex((img) => img.isMainPhoto)
+    formData.append('main_image_index', String(mainImageIndex))
+    
 
     // console.log('createProductInput.images.map((file) => file.fileFromTarget)', Array.from(createProductInput.images).map((file) => file.fileFromTarget));
-    console.log('createProductInput.images.map((file) => file.fileFromTarget)', createProductInput.images.map((file) => file.fileFromTarget)[0]);
-    
+    // console.log('mainImageIndex', mainImageIndex);
+
 
     axios.post(process.env.API_URI + '/api/product/create', formData)
       .then((res) => {
@@ -141,10 +147,10 @@ const AdminProductSection: FC<AdminProductSectionProps> = () => {
       .catch((err) => {
         console.log(err);
       })
-    
 
 
-    
+
+
     // Save DB
     // createProduct({
     //   variables: {
@@ -188,71 +194,71 @@ const AdminProductSection: FC<AdminProductSectionProps> = () => {
     })
   }
 
-const closeWindow = () => {
-  setWindowCreateProductVisible(false)
-  setWindowUpdateProductVisible(false)
-  setProductIndexActive(null)
-}
+  const closeWindow = () => {
+    setWindowCreateProductVisible(false)
+    setWindowUpdateProductVisible(false)
+    setProductIndexActive(null)
+  }
 
-return (
-  <div className={s.section}>
-    <WindowCreateProduct visible={windowCreateProductVisible} createProduct={handleCreateProduct} closeWindow={closeWindow} />
-    {
-      currentProduct &&
-      <WindowUpdateProduct visible={windowUpdateProductVisible} product={currentProduct} updateProduct={handleUpdateProduct} closeWindow={closeWindow} />
-    }
-    {
-      popupMenuVisible && <PopupMenu menuItems={menuItems} coordinate={popupCoordinate} clickMenuItem={handleSelectMenuItem} popupRef={popupRef} />
-    }
+  return (
+    <div className={s.section}>
+      <WindowCreateProduct visible={windowCreateProductVisible} createProduct={handleCreateProduct} closeWindow={closeWindow} />
+      {
+        currentProduct &&
+        <WindowUpdateProduct visible={windowUpdateProductVisible} product={currentProduct} updateProduct={handleUpdateProduct} closeWindow={closeWindow} />
+      }
+      {
+        popupMenuVisible && <PopupMenu menuItems={menuItems} coordinate={popupCoordinate} clickMenuItem={handleSelectMenuItem} popupRef={popupRef} />
+      }
 
-    <div className={s.createProduct}>
-      <ButtonAdmin typeBtn={AdminButtonType.Text} functionalBtn={AdminButtonFunctional.Standard} border={true} clickBtn={() => setWindowCreateProductVisible(true)}>
-        Создать товар
-      </ButtonAdmin>
-    </div>
+      <div className={s.createProduct}>
+        <ButtonAdmin typeBtn={AdminButtonType.Text} functionalBtn={AdminButtonFunctional.Standard} border={true} clickBtn={() => setWindowCreateProductVisible(true)}>
+          Создать товар
+        </ButtonAdmin>
+      </div>
 
 
-    <table className={s.table}>
-      <thead>
-        <tr>
-          <th>№</th>
-          <th>Название</th>
-          <th>Артикул</th>
-          <th>Цена, руб</th>
-          <th>Производитель</th>
-          <th>Кол.-во</th>
-          <th>Категория</th>
-          <th>Create</th>
-          <th>Update</th>
+      <table className={s.table}>
+        <thead>
+          <tr>
+            <th>№</th>
+            <th>Название</th>
+            <th>Артикул</th>
+            <th>Цена, руб</th>
+            <th>Производитель</th>
+            <th>Кол.-во</th>
+            <th>Категория</th>
+            <th>Create</th>
+            <th>Update</th>
 
-        </tr>
-      </thead>
-      <tbody>
-        {
-          products &&
-          <>
-            {
-              products.map((item, index) => (
-                <tr className={index == productIndexActive ? (s.tr + ' ' + s.activeRow) : s.tr} key={item.id} onClick={(e) => handleOpenPopupMenu(e, item, index)} onContextMenu={(e) => handleOpenPopupMenu(e, item, index)}>
-                  <td>{index + 1}</td>
-                  <td>{item.name}</td>
-                  <td>{item.vendor_code}</td>
-                  <td>{item.price}</td>
-                  <td>{item.brand ? item.brand.name : null}</td>
-                  <td>{item.count_in_stock}</td>
-                  <td>{item.catalog ? item.catalog.name : null}</td>
-                  <td>{item.catalog ? String(item.createdAt) : null}</td>
-                  <td>{item.catalog ? String(item.updatedAt) : null}</td>
-                </tr>
-              ))
-            }
-          </>
-        }
+          </tr>
+        </thead>
+        <tbody>
+          {
+            products &&
+            <>
+              {
+                products.map((item, index) => (
+                  <tr className={index == productIndexActive ? (s.tr + ' ' + s.activeRow) : s.tr} key={item.id} onClick={(e) => handleOpenPopupMenu(e, item, index)} onContextMenu={(e) => handleOpenPopupMenu(e, item, index)}>
+                    <td>{index + 1}</td>
+                    <td>{item.name}</td>
+                    <td>{item.vendor_code}</td>
+                    <td>{item.price}</td>
+                    <td>{item.brand ? item.brand.name : null}</td>
+                    <td>{item.count_in_stock}</td>
+                    <td>{item.catalog ? item.catalog.name : null}</td>
+                    <td>{item.catalog ? String(item.createdAt) : null}</td>
+                    <td>{item.catalog ? String(item.updatedAt) : null}</td>
+                  </tr>
+                ))
+              }
+            </>
+          }
 
-      </tbody>
-    </table>
+        </tbody>
+      </table>
 
-    {/* {products && (
+      {/* {products && (
         <ul>
           {products.map((item) => (
             <li key={item.id}>{item.name}</li>
@@ -261,8 +267,8 @@ return (
       )} */}
 
 
-  </div>
-);
+    </div>
+  );
 };
 
 export default AdminProductSection;

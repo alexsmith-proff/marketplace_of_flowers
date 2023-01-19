@@ -26,6 +26,9 @@ export class CreateProductInput {
   @Field(() => Number, { description: 'Catalog', nullable: true})
   catalog_id: number
 
+  @Field(() => Number, { description: 'Main image index', nullable: true})
+  main_image_index: number
+
   @Field(() => String, { description: 'Images', nullable: true})
   images: string  
 }

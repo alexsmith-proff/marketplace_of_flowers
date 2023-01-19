@@ -38,13 +38,18 @@ export class ProductEntity {
   @ManyToOne(() => CatalogEntity, catalog => catalog.product)
   catalog: CatalogEntity
 
-  // @Field(() => String, { description: 'filename main image', nullable: true })
-  // @Column()
-  // filename_main_image?: string
+  // @Field(() => Number, { description: 'Main Image index', nullable: true})
+  // @Column({ nullable: false, default: -1 })
+  // main_image_index: number
+
+  @Field(() => String, { description: 'Main Image', nullable: true})
+  @Column({ nullable: false, default: '' })
+  main_image: String
 
   // @Field(() => [String], { description: 'filenames images', nullable: true })
-  // @Column()
-  // filenames_images: string[]
+  @Column("text", { array: true, default: [] })
+  filenames_images: string[]
+
 
   @Field(() => Date)
   @CreateDateColumn()
