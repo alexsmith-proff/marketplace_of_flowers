@@ -32,7 +32,17 @@ const menuItems: IPopupMenuItems[] = [
 interface AdminProductSectionProps { }
 
 const AdminProductSection: FC<AdminProductSectionProps> = () => {
-  const { loading, error, data } = useQuery(GET_ALL_PRODUCTS_BY_SORT,
+  // const { loading, error, data } = useQuery(GET_ALL_PRODUCTS_BY_SORT,
+  //   {
+  //     variables: {
+  //       sortProductInput: {
+  //         sort_field: "count_in_stock",
+  //         sort_order: "ASC"
+  //       }
+  //     }
+  //   }
+  // )
+  const { loading, error, data, refetch: RefeachAllProductsBySort } = useQuery(GET_ALL_PRODUCTS_BY_SORT,
     {
       variables: {
         sortProductInput: {
@@ -40,8 +50,7 @@ const AdminProductSection: FC<AdminProductSectionProps> = () => {
           sort_order: "ASC"
         }
       }
-    }
-  )
+    });
   const [createProduct, dataCreateProduct] = useMutation(CREATE_PRODUCT)
   const [updateProduct, dataUpdateProduct] = useMutation(UPDATE_PRODUCT)
   const [updateRelationsProduct, dataUpdateRelationsProduct] = useMutation(UPDATE_RELATIONS_PRODUCT)
@@ -142,7 +151,7 @@ const AdminProductSection: FC<AdminProductSectionProps> = () => {
     axios.post(process.env.API_URI + '/api/product/create', formData)
       .then((res) => {
         console.log('Success' + res.data);
-        // RefeachAllSections()
+        RefeachAllProductsBySort()
       })
       .catch((err) => {
         console.log(err);
