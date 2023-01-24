@@ -1,6 +1,6 @@
 import { Resolver, Query, Mutation, Args, Int } from '@nestjs/graphql';
 import { FilterService } from './filter.service';
-import { Filter, FilterEntity } from './entities/filter.entity';
+import { FilterEntity } from './entities/filter.entity';
 import { CreateFilterInput } from './dto/create-filter.input';
 import { UpdateFilterInput } from './dto/update-filter.input';
 
