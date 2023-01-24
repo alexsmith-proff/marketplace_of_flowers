@@ -11,12 +11,12 @@ export class FilterValueService {
     @InjectRepository(FilterValueEntity)
     private readonly filterValueRepository: Repository<FilterValueEntity>,
   ) {}
-  create(createFilterValueInput: CreateFilterValueInput) {
-    return 'This action adds a new filtervalue';
+  async create(createFilterValueInput: CreateFilterValueInput): Promise<FilterValueEntity> {
+    return await this.filterValueRepository.save({...createFilterValueInput})
   }
 
-  findAll() {
-    return `This action returns all filtervalue`;
+  async findAll(): Promise<FilterValueEntity[]> {
+    return await this.filterValueRepository.find()
   }
 
   findOne(id: number) {

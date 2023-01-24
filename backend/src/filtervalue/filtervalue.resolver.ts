@@ -13,7 +13,7 @@ export class FiltervalueResolver {
     return this.filterValueService.create(createFilterValueInput);
   }
 
-  @Query(() => [FilterValueEntity], { name: 'filtervalue' })
+  @Query(() => [FilterValueEntity], { name: 'getAllFilterValues' })
   findAll() {
     return this.filterValueService.findAll();
   }

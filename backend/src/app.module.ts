@@ -34,8 +34,11 @@ import { UploadModule } from './upload/upload.module';
 import { ServeStaticModule } from '@nestjs/serve-static';
 import { FilterModule } from './filter/filter.module';
 import { FilterelementModule } from './filterelement/filterelement.module';
-import { FiltervalueModule } from './filtervalue/filtervalue.module';
+import { FilterValueModule } from './filtervalue/filtervalue.module';
 import * as path from 'path';
+import { FilterEntity } from './filter/entities/filter.entity';
+import { FilterElementEntity } from './filterelement/entities/filterelement.entity';
+import { FilterValueEntity } from './filtervalue/entities/filtervalue.entity';
 
 @Module({
   imports: [
@@ -44,7 +47,7 @@ import * as path from 'path';
       envFilePath: '.env'
     }),
     // С ServeStaticModule playground GraphQL http://localhost:5000/graphql - не работает
-    ServeStaticModule.forRoot({ rootPath: path.resolve(__dirname, 'static')}),
+    // ServeStaticModule.forRoot({ rootPath: path.resolve(__dirname, 'static')}),
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],
       inject: [ConfigService],
@@ -55,7 +58,21 @@ import * as path from 'path';
         username: configService.get<string>('TYPEORM_USERNAME'),
         password: configService.get<string>('TYPEORM_PASSWORD'),
         database: configService.get<string>('TYPEORM_DATABASE'),
-        entities: [UserEntity, MenuEntity, MenuItemEntity, SubmenuItemEntity, SubmenuItemTwoEntity, CatalogEntity, SectionEntity, ElementEntity, TextElementEntity, ImgElementEntity, ProductEntity, BrandEntity],
+        entities: [UserEntity,
+          MenuEntity,
+          MenuItemEntity,
+          SubmenuItemEntity,
+          SubmenuItemTwoEntity,
+          CatalogEntity,
+          SectionEntity,
+          ElementEntity,
+          TextElementEntity,
+          ImgElementEntity,
+          ProductEntity,
+          BrandEntity,
+          FilterEntity,
+          FilterElementEntity,
+          FilterValueEntity],
         synchronize: true,        
       })
     }),
@@ -66,7 +83,23 @@ import * as path from 'path';
       playground: true 
     }),
   
-    UserModule, AuthModule, MenuModule, MenuItemModule, SubmenuItemModule, SubmenuItemTwoModule, SectionModule, ElementModule, TextElementModule, ImgElementModule, CatalogModule, ProductModule, BrandModule, UploadModule, FilterModule, FilterelementModule, FiltervalueModule
+    UserModule,
+    AuthModule,
+    MenuModule,
+    MenuItemModule,
+    SubmenuItemModule,
+    SubmenuItemTwoModule,
+    SectionModule,
+    ElementModule,
+    TextElementModule,
+    ImgElementModule,
+    CatalogModule,
+    ProductModule,
+    BrandModule,
+    UploadModule,
+    FilterModule,
+    FilterelementModule,
+    FilterValueModule
   ],
   controllers: [AppController],
   providers: [AppService],
