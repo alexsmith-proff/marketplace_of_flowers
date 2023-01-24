@@ -32,6 +32,7 @@ import { ProductEntity } from './product/entities/product.entity';
 import { BrandEntity } from './brand/entities/brand.entity';
 import { UploadModule } from './upload/upload.module';
 import { ServeStaticModule } from '@nestjs/serve-static';
+import { FilterModule } from './filter/filter.module';
 import * as path from 'path';
 
 @Module({
@@ -63,7 +64,7 @@ import * as path from 'path';
       playground: true 
     }),
   
-    UserModule, AuthModule, MenuModule, MenuItemModule, SubmenuItemModule, SubmenuItemTwoModule, SectionModule, ElementModule, TextElementModule, ImgElementModule, CatalogModule, ProductModule, BrandModule, UploadModule
+    UserModule, AuthModule, MenuModule, MenuItemModule, SubmenuItemModule, SubmenuItemTwoModule, SectionModule, ElementModule, TextElementModule, ImgElementModule, CatalogModule, ProductModule, BrandModule, UploadModule, FilterModule
   ],
   controllers: [AppController],
   providers: [AppService],

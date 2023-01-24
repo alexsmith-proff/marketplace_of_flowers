@@ -57,7 +57,7 @@ export class MenuService {
         
       }
     });
-    console.log('menu', menu);
+    // console.log('menu', menu);
     return menu;
   }
 
