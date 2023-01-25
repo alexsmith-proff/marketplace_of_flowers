@@ -15,7 +15,7 @@ export class FilterElementService {
     private readonly filterRepository: Repository<FilterElementEntity>,
   ) {}
   async create(createFilterElementInput: CreateFilterElementInput): Promise<FilterElementEntity> {
-    return await this.filterRepository.save({...createFilterElementInput, slug: getSlug(createFilterElementInput.name)})
+    return await this.filterRepository.save({...createFilterElementInput, slug: getSlug(createFilterElementInput.name), filter_item: { id: createFilterElementInput.filter_id }})
   }
 
   async findAll(): Promise<FilterElementEntity[]> {

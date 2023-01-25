@@ -5,6 +5,8 @@ import { CreateFilterInput } from './dto/create-filter.input';
 import { UpdateFilterInput } from './dto/update-filter.input';
 import { FilterEntity } from './entities/filter.entity';
 
+var getSlug = require('speakingurl'); 
+
 @Injectable()
 export class FilterService {
   constructor(
@@ -12,12 +14,13 @@ export class FilterService {
     private readonly filterRepository: Repository<FilterEntity>,
   ) {}
 
-  create(createFilterInput: CreateFilterInput) {
-    return 'This action adds a new filter';
+  async create(createFilterInput: CreateFilterInput): Promise<FilterEntity> {
+    // console.log('createFilterInput', createFilterInput);
+    return await this.filterRepository.save({...createFilterInput, slug: getSlug(createFilterInput.name)})
   }
 
-  findAll() {
-    return `This action returns all filter`;
+  async findAll(): Promise<FilterEntity[]> {
+    return await this.filterRepository.find()
   }
 
   findOne(id: number) {

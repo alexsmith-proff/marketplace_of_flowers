@@ -1,6 +1,7 @@
 import { ObjectType, Field, Int } from '@nestjs/graphql';
+import { FilterEntity } from 'src/filter/entities/filter.entity';
 import { FilterValueEntity } from 'src/filtervalue/entities/filtervalue.entity';
-import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import { Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 
 @ObjectType()
 @Entity('filterelement')
@@ -20,4 +21,8 @@ export class FilterElementEntity {
   @Field(() => [FilterValueEntity], { description: 'Array FilterValues' })
   @OneToMany(() => FilterValueEntity, values => values.filter_element, {eager: true, cascade: true})
   values: FilterValueEntity[]
+
+  @Field(() => FilterEntity)
+  @ManyToOne(() => FilterEntity, filter => filter.elements, {onDelete: 'CASCADE'})
+  filter_item: FilterEntity
 }
