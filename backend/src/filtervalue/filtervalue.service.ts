@@ -5,14 +5,18 @@ import { CreateFilterValueInput } from './dto/create-filtervalue.input';
 import { UpdateFilterValueInput } from './dto/update-filtervalue.input';
 import { FilterValueEntity } from './entities/filtervalue.entity';
 
+var getSlug = require('speakingurl')
+
 @Injectable()
 export class FilterValueService {
   constructor(
     @InjectRepository(FilterValueEntity)
     private readonly filterValueRepository: Repository<FilterValueEntity>,
-  ) {}
+  ) { }
   async create(createFilterValueInput: CreateFilterValueInput): Promise<FilterValueEntity> {
-    return await this.filterValueRepository.save({...createFilterValueInput})
+    console.log('createFilterValueInput.filter_element_id', createFilterValueInput.filter_element_id);
+    
+    return await this.filterValueRepository.save({ ...createFilterValueInput, slug: getSlug(createFilterValueInput.name), filter_element: { id: createFilterValueInput.filter_element_id } })
   }
 
   async findAll(): Promise<FilterValueEntity[]> {

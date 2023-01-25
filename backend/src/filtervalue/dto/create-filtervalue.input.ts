@@ -11,6 +11,7 @@ export class CreateFilterValueInput {
   @Field(() => String, { description: 'Value FilterValue', nullable: true })
   value: string
 
-
+  @Field(() => Number, { description: 'FilterElement id' })
+  filter_element_id: number
 
 }

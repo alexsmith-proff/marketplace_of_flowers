@@ -9,11 +9,11 @@ export class FilterElementResolver {
   constructor(private readonly filterElementService: FilterElementService) {}
 
   @Mutation(() => FilterElementEntity)
-  createFilterelement(@Args('createFilterElementInput') createFilterElementInput: CreateFilterElementInput) {
+  createFilterElement(@Args('createFilterElementInput') createFilterElementInput: CreateFilterElementInput) {
     return this.filterElementService.create(createFilterElementInput);
   }
 
-  @Query(() => [FilterElementEntity], { name: 'filterelement' })
+  @Query(() => [FilterElementEntity], { name: 'getFilterElement' })
   findAll() {
     return this.filterElementService.findAll();
   }

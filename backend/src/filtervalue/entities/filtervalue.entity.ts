@@ -1,5 +1,6 @@
 import { ObjectType, Field, Int } from '@nestjs/graphql';
-import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { FilterElementEntity } from 'src/filterelement/entities/filterelement.entity';
+import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 
 @ObjectType()
 @Entity('filtervalue')
@@ -19,4 +20,8 @@ export class FilterValueEntity {
   @Field(() => String, { description: 'Value FilterValue', nullable: true })
   @Column({ nullable: true })
   value: string
+
+  @Field(() => FilterElementEntity, { description: 'Filter values' })
+  @ManyToOne(() => FilterElementEntity, filter_element => filter_element.values, {onDelete: 'CASCADE'})
+  filter_element: FilterElementEntity
 }
