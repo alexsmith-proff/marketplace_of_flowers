@@ -13,6 +13,10 @@ export class BrandEntity {
   @Column()
   name: string
 
+  @Field(() => String, { description: 'Slug brand' })
+  @Column()
+  slug: string
+
   @Field(() => ProductEntity)
   @OneToMany(() => ProductEntity, product => product.brand )
   product: ProductEntity[]

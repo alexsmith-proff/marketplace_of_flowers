@@ -14,6 +14,10 @@ export class CatalogEntity {
   @Column()
   name: string
 
+  @Field(() => String, { description: 'Slug catalog' })
+  @Column()
+  slug: string
+
   @Field(() => Number, { description: 'Serial number'})
   @Column()
   serial_number: number

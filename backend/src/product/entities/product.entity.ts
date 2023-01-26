@@ -51,7 +51,7 @@ export class ProductEntity {
   @Column({ nullable: false, default: '' })
   main_image: String
 
-  // @Field(() => [String], { description: 'filenames images', nullable: true })
+  @Field(() => [String], { description: 'filenames images', nullable: true })
   @Column("text", { array: true, default: [] })
   filenames_images: string[]
 
