@@ -15,8 +15,9 @@ export class FilterValueService {
   ) { }
   async create(createFilterValueInput: CreateFilterValueInput): Promise<FilterValueEntity> {
     console.log('createFilterValueInput.filter_element_id', createFilterValueInput.filter_element_id);
-    
-    return await this.filterValueRepository.save({ ...createFilterValueInput, slug: getSlug(createFilterValueInput.name), filter_element: { id: createFilterValueInput.filter_element_id } })
+
+    return await this.filterValueRepository.save({ ...createFilterValueInput, slug: getSlug(createFilterValueInput.name),
+      filter_element: { id: createFilterValueInput.filter_element_id }, product_element: {id: createFilterValueInput.product_element_id} })
   }
 
   async findAll(): Promise<FilterValueEntity[]> {

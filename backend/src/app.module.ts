@@ -39,6 +39,7 @@ import * as path from 'path';
 import { FilterEntity } from './filter/entities/filter.entity';
 import { FilterElementEntity } from './filterelement/entities/filterelement.entity';
 import { FilterValueEntity } from './filtervalue/entities/filtervalue.entity';
+import { ProductFilterModule } from './product-filter/product-filter.module';
 
 @Module({
   imports: [
@@ -99,7 +100,8 @@ import { FilterValueEntity } from './filtervalue/entities/filtervalue.entity';
     UploadModule,
     FilterModule,
     FilterelementModule,
-    FilterValueModule
+    FilterValueModule,
+    ProductFilterModule
   ],
   controllers: [AppController],
   providers: [AppService],

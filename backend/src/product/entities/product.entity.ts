@@ -1,7 +1,8 @@
 import { ObjectType, Field, ID } from '@nestjs/graphql'
 import { BrandEntity } from 'src/brand/entities/brand.entity';
 import { CatalogEntity } from 'src/catalog/entities/catalog.entity';
-import { Column, CreateDateColumn, Entity, JoinColumn, JoinTable, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
+import { ProductFilterEntity } from 'src/product-filter/entities/product-filter.entity';
+import { Column, CreateDateColumn, Entity, JoinColumn, JoinTable, ManyToOne, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
 
 @ObjectType()
 @Entity('product')
@@ -37,6 +38,10 @@ export class ProductEntity {
   @Field(() => CatalogEntity, { description: 'Catalog', nullable: true})
   @ManyToOne(() => CatalogEntity, catalog => catalog.product)
   catalog: CatalogEntity
+
+  @Field(() => [ProductFilterEntity])
+  @OneToMany(() => ProductFilterEntity, filter => filter.product, { eager: true, cascade: true })
+  filters: ProductFilterEntity[]
 
   // @Field(() => Number, { description: 'Main Image index', nullable: true})
   // @Column({ nullable: false, default: -1 })

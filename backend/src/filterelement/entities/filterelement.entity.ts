@@ -17,12 +17,13 @@ export class FilterElementEntity {
   @Field(() => String, { description: 'Slug FilterElement', nullable: true })
   @Column({ nullable: true })
   slug: string
+  
+  @Field(() => FilterEntity)
+  @ManyToOne(() => FilterEntity, filter => filter.elements, {onDelete: 'CASCADE'})
+  filter_item: FilterEntity
 
   @Field(() => [FilterValueEntity], { description: 'Array FilterValues' })
   @OneToMany(() => FilterValueEntity, values => values.filter_element, {eager: true, cascade: true})
   values: FilterValueEntity[]
 
-  @Field(() => FilterEntity)
-  @ManyToOne(() => FilterEntity, filter => filter.elements, {onDelete: 'CASCADE'})
-  filter_item: FilterEntity
 }
