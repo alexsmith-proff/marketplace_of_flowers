@@ -22,11 +22,11 @@ export class FilterValueEntity {
   @Column({ nullable: true })
   value: string
 
-  @Field(() => FilterElementEntity, { description: 'Filter values' })
-  @ManyToOne(() => FilterElementEntity, filter_element => filter_element.values, {onDelete: 'CASCADE'})
+  @Field(() => FilterElementEntity, { description: 'Filter values', nullable: true })
+  @ManyToOne(() => FilterElementEntity, filter_element => filter_element.values, {nullable:true, onDelete: 'CASCADE'})
   filter_element: FilterElementEntity
 
   @Field(() => ProductFilterEntity)
-  @ManyToOne(() => ProductFilterEntity, product => product.values, { onDelete: 'CASCADE' })
+  @ManyToOne(() => ProductFilterEntity, product => product.values, {nullable:true, onDelete: 'CASCADE' })
   product_element: ProductFilterEntity
 }

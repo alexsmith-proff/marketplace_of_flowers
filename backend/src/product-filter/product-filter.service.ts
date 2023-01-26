@@ -1,15 +1,25 @@
 import { Injectable } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
 import { CreateProductFilterInput } from './dto/create-product-filter.input';
 import { UpdateProductFilterInput } from './dto/update-product-filter.input';
+import { ProductFilterEntity } from './entities/product-filter.entity';
 
 @Injectable()
 export class ProductFilterService {
-  create(createProductFilterInput: CreateProductFilterInput) {
-    return 'This action adds a new productFilter';
+  constructor(
+    @InjectRepository(ProductFilterEntity)
+    private readonly productFilterRepository: Repository<ProductFilterEntity>,
+  ) { }
+
+  async create(createProductFilterInput: CreateProductFilterInput): Promise<ProductFilterEntity> {
+    return await this.productFilterRepository.save({...createProductFilterInput,
+      product: { id: createProductFilterInput.product_id }    
+    })
   }
 
-  findAll() {
-    return `This action returns all productFilter`;
+  async findAll(): Promise<ProductFilterEntity[]> {
+    return await this.productFilterRepository.find()
   }
 
   findOne(id: number) {

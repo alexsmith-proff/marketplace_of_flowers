@@ -14,10 +14,10 @@ export class FilterValueService {
     private readonly filterValueRepository: Repository<FilterValueEntity>,
   ) { }
   async create(createFilterValueInput: CreateFilterValueInput): Promise<FilterValueEntity> {
-    console.log('createFilterValueInput.filter_element_id', createFilterValueInput.filter_element_id);
-
     return await this.filterValueRepository.save({ ...createFilterValueInput, slug: getSlug(createFilterValueInput.name),
-      filter_element: { id: createFilterValueInput.filter_element_id }, product_element: {id: createFilterValueInput.product_element_id} })
+      filter_element: createFilterValueInput.filter_element_id ? { id: createFilterValueInput.filter_element_id } : null, 
+      product_element: createFilterValueInput.product_element_id ? { id: createFilterValueInput.product_element_id } : null
+       })
   }
 
   async findAll(): Promise<FilterValueEntity[]> {
@@ -28,11 +28,11 @@ export class FilterValueService {
     return `This action returns a #${id} filtervalue`;
   }
 
-  update(id: number, updateFilterValueInput: UpdateFilterValueInput) {
-    return `This action updates a #${id} filtervalue`;
-  }
+  // update(id: number, updateFilterValueInput: UpdateFilterValueInput) {
+  //   return `This action updates a #${id} filtervalue`;
+  // }
 
-  remove(id: number) {
-    return `This action removes a #${id} filtervalue`;
-  }
+  // remove(id: number) {
+  //   return `This action removes a #${id} filtervalue`;
+  // }
 }

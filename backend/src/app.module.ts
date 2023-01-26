@@ -40,6 +40,7 @@ import { FilterEntity } from './filter/entities/filter.entity';
 import { FilterElementEntity } from './filterelement/entities/filterelement.entity';
 import { FilterValueEntity } from './filtervalue/entities/filtervalue.entity';
 import { ProductFilterModule } from './product-filter/product-filter.module';
+import { ProductFilterEntity } from './product-filter/entities/product-filter.entity';
 
 @Module({
   imports: [
@@ -70,6 +71,7 @@ import { ProductFilterModule } from './product-filter/product-filter.module';
           TextElementEntity,
           ImgElementEntity,
           ProductEntity,
+          ProductFilterEntity,
           BrandEntity,
           FilterEntity,
           FilterElementEntity,
@@ -96,12 +98,12 @@ import { ProductFilterModule } from './product-filter/product-filter.module';
     ImgElementModule,
     CatalogModule,
     ProductModule,
+    ProductFilterModule,
     BrandModule,
     UploadModule,
     FilterModule,
     FilterelementModule,
     FilterValueModule,
-    ProductFilterModule
   ],
   controllers: [AppController],
   providers: [AppService],
