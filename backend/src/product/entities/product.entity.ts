@@ -15,31 +15,31 @@ export class ProductEntity {
   @Column()
   name: string;
 
-  @Field(() => String, { description: 'Slug' })
-  @Column({ nullable: false, default: '' })
+  @Field(() => String, { description: 'Slug', nullable: true })
+  @Column({ nullable: true })
   slug: string;
 
-  @Field(() => Number, { description: 'Price' })
-  @Column({ nullable: false, default: 0 })
+  @Field(() => Number, { description: 'Price', nullable: true })
+  @Column({ nullable: true })
   price: number
 
-  @Field(() => Number, { description: 'Count in stock'})
-  @Column({ nullable: false, default: 0 })
+  @Field(() => Number, { description: 'Count in stock', nullable: true })
+  @Column({ nullable: true })
   count_in_stock: number
 
-  @Field(() => String, { description: 'Vendor code'})
-  @Column({ nullable: false, default: '' })
+  @Field(() => String, { description: 'Vendor code', nullable: true })
+  @Column({ nullable: true })
   vendor_code: string
 
   @Field(() => BrandEntity, { description: 'Brand', nullable: true})
-  @ManyToOne(() => BrandEntity, brand => brand.product)
+  @ManyToOne(() => BrandEntity, brand => brand.product, {onDelete: 'CASCADE', nullable: true})
   brand: BrandEntity
 
   @Field(() => CatalogEntity, { description: 'Catalog', nullable: true})
-  @ManyToOne(() => CatalogEntity, catalog => catalog.product)
+  @ManyToOne(() => CatalogEntity, catalog => catalog.product, { onDelete: 'CASCADE' })
   catalog: CatalogEntity
 
-  @Field(() => [ProductFilterEntity])
+  @Field(() => [ProductFilterEntity], { nullable: true })
   @OneToMany(() => ProductFilterEntity, filter => filter.product, { eager: true, cascade: true })
   filters: ProductFilterEntity[]
 
@@ -48,7 +48,7 @@ export class ProductEntity {
   // main_image_index: number
 
   @Field(() => String, { description: 'Main Image', nullable: true})
-  @Column({ nullable: false, default: '' })
+  @Column({ nullable: true })
   main_image: String
 
   @Field(() => [String], { description: 'filenames images', nullable: true })

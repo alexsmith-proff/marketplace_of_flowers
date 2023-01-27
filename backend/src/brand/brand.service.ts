@@ -5,11 +5,13 @@ import { CreateBrandInput } from './dto/create-brand.input';
 import { UpdateBrandInput } from './dto/update-brand.input';
 import { BrandEntity } from './entities/brand.entity';
 
+let getSlug = require('speakingurl')
+
 @Injectable()
 export class BrandService {
   constructor(@InjectRepository(BrandEntity) private readonly brandRepository: Repository<BrandEntity>){}
   async create(createBrandInput: CreateBrandInput): Promise<BrandEntity> {
-    return await this.brandRepository.save({...createBrandInput})
+    return await this.brandRepository.save({...createBrandInput, slug: createBrandInput.slug ? createBrandInput.slug : getSlug(createBrandInput.name)})
   }
 
   async findAll(): Promise<BrandEntity[]> {

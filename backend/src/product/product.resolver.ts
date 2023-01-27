@@ -10,10 +10,10 @@ import { SortProductInput } from './dto/sort-product.input';
 export class ProductResolver {
   constructor(private readonly productService: ProductService) {}
 
-  // @Mutation(() => ProductEntity)
-  // createProduct(@Args('createProductInput') createProductInput: CreateProductInput) {
-  //   return this.productService.create(createProductInput);
-  // }
+  @Mutation(() => ProductEntity)
+  createProduct(@Args('createProductInput') createProductInput: CreateProductInput) {
+    return this.productService.createNoFiles(createProductInput);
+  }
 
   @Query(() => [ProductEntity], { name: 'getAllProducts' })
   findAll() {

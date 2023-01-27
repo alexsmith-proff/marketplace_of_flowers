@@ -1,10 +1,13 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { from } from 'rxjs';
 import { IsNull, Repository } from 'typeorm';
 import { CreateCatalogInput } from './dto/create-catalog.input';
 import { FindCatalogInput } from './dto/find-catalog.input';
 import { UpdateCatalogInput } from './dto/update-catalog.input';
 import { CatalogEntity } from './entities/catalog.entity';
+
+let getSlug = require('speakingurl')
 
 const sortingArr = (arr) => {
   arr.sort((a, b) => a.serial_number - b.serial_number);
@@ -36,6 +39,7 @@ export class CatalogService {
 
     return await this.catalogRepository.save({
       ...createCatalogInput,
+      slug: createCatalogInput.slug ? createCatalogInput.slug : getSlug(createCatalogInput.name),
       parent: catalogParent,
     });
   }

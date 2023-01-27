@@ -14,7 +14,7 @@ export class CatalogEntity {
   @Column()
   name: string
 
-  @Field(() => String, { description: 'Slug catalog' })
+  @Field(() => String, { description: 'Slug catalog', nullable: true })
   @Column()
   slug: string
 
@@ -31,6 +31,6 @@ export class CatalogEntity {
   parent: CatalogEntity
 
   @Field(() => ProductEntity)
-  @OneToMany(() => ProductEntity, product => product.catalog )
+  @OneToMany(() => ProductEntity, product => product.catalog, { eager: true, cascade: true })
   product: ProductEntity[]
 }

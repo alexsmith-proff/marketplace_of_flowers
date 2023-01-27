@@ -10,7 +10,7 @@ export class ProductController {
   @Post('create')
   @UseInterceptors(FilesInterceptor('images'))
   create(@UploadedFiles() files: Array<Express.Multer.File>, @Body() createProductInput: CreateProductInput) { 
-    return this.productService.create(files, createProductInput)
+    return this.productService.createAPI(files, createProductInput)
   }
 
 

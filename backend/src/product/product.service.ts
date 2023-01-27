@@ -8,11 +8,13 @@ import { UpdateProductRelationsInput } from './dto/update-product-relations.inpu
 import { UpdateProductInput } from './dto/update-product.input';
 import { ProductEntity } from './entities/product.entity';
 
+let getSlug = require('speakingurl')
+
 @Injectable()
 export class ProductService {
   constructor(@InjectRepository(ProductEntity) private readonly productRepository: Repository<ProductEntity>) { }
 
-  async create(files: Array<Express.Multer.File>, createProductInput: CreateProductInput): Promise<ProductEntity> {
+  async createAPI(files: Array<Express.Multer.File>, createProductInput: CreateProductInput): Promise<ProductEntity> {
     // console.log('file', file);
 
     const fileNames: string[] = []
@@ -37,6 +39,13 @@ export class ProductService {
     return await this.productRepository.save(newProduct)
   }
 
+  async createNoFiles(createProductInput: CreateProductInput): Promise<ProductEntity> {
+    return await this.productRepository.save({...createProductInput,
+      slug: createProductInput.slug ? createProductInput.slug : getSlug(createProductInput.name),
+      brand: createProductInput.brand_id ? {id: createProductInput.brand_id} : null,
+      catalog: createProductInput.catalog_id ? {id: createProductInput.catalog_id} : null    
+    })
+  }
 
 
   async findAll(): Promise<ProductEntity[]> {

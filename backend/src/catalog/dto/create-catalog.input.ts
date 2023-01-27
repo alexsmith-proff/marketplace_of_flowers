@@ -6,6 +6,9 @@ export class CreateCatalogInput {
   @Field(() => String, { description: 'Name' })
   name: string;
 
+  @Field(() => String, { description: 'Slug', nullable: true })
+  slug: string;
+
   @Field(() => Number, { description: 'Serial number'})
   serial_number: number
 

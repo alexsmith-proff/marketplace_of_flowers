@@ -18,6 +18,6 @@ export class BrandEntity {
   slug: string
 
   @Field(() => ProductEntity)
-  @OneToMany(() => ProductEntity, product => product.brand )
+  @OneToMany(() => ProductEntity, product => product.brand, { eager: true, cascade: true })
   product: ProductEntity[]
 }
