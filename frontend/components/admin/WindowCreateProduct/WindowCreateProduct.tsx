@@ -23,11 +23,15 @@ interface WindowCreateProductProps {
     closeWindow: () => void
 }
 
+const tabsName = ['Основное', 'Фильтры']
+
 const WindowCreateProduct: FC<WindowCreateProductProps> = ({ visible, name, slug, createProduct, closeWindow }) => {
     const { loading: loadingBrands, error: errorBrands, data: brandsData } = useQuery(GET_ALL_BRANDS)
     const { loading: loadingCatalog, error: errorCatalog, data: catalogData } = useQuery(GET_ALL_CATALOG_NO_TREE)
 
     const windowRef = useRef()
+
+    const [tabIndex, setTabIndex] = useState<number>(1)
 
     const [productName, setProductName] = useState<string>(name)
     const [slugName, setSlugName] = useState<string>(slug)
@@ -38,10 +42,10 @@ const WindowCreateProduct: FC<WindowCreateProductProps> = ({ visible, name, slug
     const [productCatalog, setProductCatalog] = useState<ICatalog>(null)
     const [productDescription, setProductDescription] = useState<string>(null)
     const [filesArr, setFilesArr] = useState([])
-    
+
     const [brandsArr, setBrandsArr] = useState<IBrand[]>(null)
     const [catalogArr, setCatalogArr] = useState<ICatalog[]>(null)
-    
+
     const [previewImages, setPreviewImages] = useState<IPreviewProductImage[]>([])
     // const [fileDataURL, setFileDataURL] = useState(null)
     const [numPreviewPhotoHover, setNumPreviewPhotoHover] = useState(null)
@@ -121,7 +125,7 @@ const WindowCreateProduct: FC<WindowCreateProductProps> = ({ visible, name, slug
 
     const handleChangeImages = (e: any) => {
         console.log(e.target.files[0]);
-        
+
         if (e.target.files) {
             // const fileArray = Array.from(e.target.files).map((file) => URL.createObjectURL(file as Blob))
             const ArrayObj: IPreviewProductImage[] = Array.from(e.target.files).map((f) => {
@@ -136,28 +140,28 @@ const WindowCreateProduct: FC<WindowCreateProductProps> = ({ visible, name, slug
     }
     const handlePreviewMainPhoto = (index: number) => {
         setPreviewImages((prevImages) => prevImages.map((image, ind) => {
-            if(ind === index){
-                return {...image, isMainPhoto: true}
+            if (ind === index) {
+                return { ...image, isMainPhoto: true }
             }
-            return {...image, isMainPhoto: false}
+            return { ...image, isMainPhoto: false }
         }))
     }
 
     // Удаление preview фото
     const handleDeletePreviewPhoto = (index: number) => {
         setPreviewImages(previewImages.filter((_, ind) => {
-            if(ind != index) {
+            if (ind != index) {
                 return true
             }
 
-            return false            
+            return false
         }))
     }
 
     // Клик на кнопку "Создать товар"
     const handleClickCreateProduct = () => {
-        console.log('previewImage', previewImages);        
-        
+        console.log('previewImage', previewImages);
+
         if (productName) {
             createProduct({
                 name: productName,
@@ -181,95 +185,111 @@ const WindowCreateProduct: FC<WindowCreateProductProps> = ({ visible, name, slug
                 visible &&
                 <div className={s.background} onClick={handleCloseWindow} ref={windowRef}>
                     <div className={s.window}>
-                        <div className={s.LabelEdit}>
-                            <span className={s.title}>Название товара</span>
-                            <input className={!productName ? (s.nameInput + ' ' + s.error) : s.nameInput} type="text" onChange={handleChangeProductName} />
-                        </div>
-                        <div className={s.secondLevel}>
-                            <div className={s.LabelEdit}>
-                                <span className={s.title}>Артикул</span>
-                                <input className={!productVendor ? (s.vendorInput + ' ' + s.nameInput + ' ' + s.error) : (s.vendorInput + ' ' + s.nameInput)} type="text" onChange={handleChangeProductVendor} />
-                            </div>
-                            <div className={s.LabelEdit}>
-                                <span className={s.title}>Цена</span>
-                                <input className={!productPrice ? (s.priceInput + ' ' + s.nameInput + ' ' + s.error) : (s.priceInput + ' ' + s.nameInput)} type="text" onInput={e => onlyNumber(e, 8)} onChange={handleChangeProductPrice} />
-                            </div>
-                            <div className={s.LabelEdit}>
-                                <span className={s.title}>Кол.-во</span>
-                                <input className={!productCount ? (s.countInput + ' ' + s.nameInput + ' ' + s.error) : (s.countInput + ' ' + s.nameInput)} type="text" onInput={e => onlyNumber(e, 6)} onChange={handleChangeProductCount} />
-                            </div>
-                        </div>
+                        <ul className={s.tabs}>
+                            {
+                                tabsName.map((item, index) => <li className={s.tabsItem + ' ' + (tabIndex == index + 1 ? s.active : '')} onClick={() => setTabIndex(index + 1)} key={index}>{item}</li>)
+                            }
+                        </ul>
+                        {
+                            tabIndex == 1 &&
+                            <div className={s.tabsContent}>
+                                <div className={s.LabelEdit}>
+                                    <span className={s.title}>Название товара</span>
+                                    <input className={!productName ? (s.nameInput + ' ' + s.error) : s.nameInput} type="text" onChange={handleChangeProductName} />
+                                </div>
+                                <div className={s.secondLevel}>
+                                    <div className={s.LabelEdit}>
+                                        <span className={s.title}>Артикул</span>
+                                        <input className={!productVendor ? (s.vendorInput + ' ' + s.nameInput + ' ' + s.error) : (s.vendorInput + ' ' + s.nameInput)} type="text" onChange={handleChangeProductVendor} />
+                                    </div>
+                                    <div className={s.LabelEdit}>
+                                        <span className={s.title}>Цена</span>
+                                        <input className={!productPrice ? (s.priceInput + ' ' + s.nameInput + ' ' + s.error) : (s.priceInput + ' ' + s.nameInput)} type="text" onInput={e => onlyNumber(e, 8)} onChange={handleChangeProductPrice} />
+                                    </div>
+                                    <div className={s.LabelEdit}>
+                                        <span className={s.title}>Кол.-во</span>
+                                        <input className={!productCount ? (s.countInput + ' ' + s.nameInput + ' ' + s.error) : (s.countInput + ' ' + s.nameInput)} type="text" onInput={e => onlyNumber(e, 6)} onChange={handleChangeProductCount} />
+                                    </div>
+                                </div>
 
-                        <div className={s.thirdLevel}>
-                            <div className={s.LabelEdit}>
-                                <span className={s.title}>Бренд</span>
-                                <div className={s.dropdown} data-itemChart="1">
-                                    <select name="one" className={s.dropdownSelect} onChange={handleChangeProductBrand} >
+                                <div className={s.thirdLevel}>
+                                    <div className={s.LabelEdit}>
+                                        <span className={s.title}>Бренд</span>
+                                        <div className={s.dropdown} data-itemChart="1">
+                                            <select name="one" className={s.dropdownSelect} onChange={handleChangeProductBrand} >
+                                                {
+                                                    brandsArr &&
+                                                    <>
+                                                        {
+                                                            brandsArr.map((item) => <option key={item.id}>{item.name}</option>)
+                                                        }
+                                                    </>
+                                                }
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <div className={s.LabelEdit}>
+                                        <span className={s.title}>Категория</span>
+                                        <div className={s.dropdown} data-itemChart="1">
+                                            <select name="one" className={s.dropdownSelect} onChange={handleChangeProductCatalog} >
+                                                {
+                                                    catalogArr &&
+                                                    <>
+                                                        {
+                                                            catalogArr.map((item) => <option key={item.id}>{item.name}</option>)
+                                                        }
+                                                    </>
+                                                }
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div className={s.LabelEdit}>
+                                    <span className={s.title}>Изображения</span>
+                                    <input type="file" accept="image/*" multiple={true} onChange={handleChangeImages} />
+                                    <div className={s.preview}>
                                         {
-                                            brandsArr &&
+                                            filesArr &&
                                             <>
                                                 {
-                                                    brandsArr.map((item) => <option key={item.id}>{item.name}</option>)
+                                                    previewImages.map((photo, ind) => (
+                                                        <div className={s.previewImages}>
+                                                            <img src={photo.file} key={ind} onClick={() => handlePreviewMainPhoto(ind)} onMouseEnter={() => setNumPreviewPhotoHover(ind)} />
+                                                            {
+                                                                photo.isMainPhoto && <AiFillHome className={s.previewHome} />
+                                                            }
+                                                            {
+                                                                numPreviewPhotoHover === ind && <MdClose className={s.previewDelete} onClick={() => handleDeletePreviewPhoto(ind)} />
+                                                            }
+
+                                                        </div>
+                                                    ))
                                                 }
                                             </>
                                         }
-                                    </select>
+                                    </div>
                                 </div>
-                            </div>
-                            <div className={s.LabelEdit}>
-                                <span className={s.title}>Категория</span>
-                                <div className={s.dropdown} data-itemChart="1">
-                                    <select name="one" className={s.dropdownSelect} onChange={handleChangeProductCatalog} >
-                                        {
-                                            catalogArr &&
-                                            <>
-                                                {
-                                                    catalogArr.map((item) => <option key={item.id}>{item.name}</option>)
-                                                }
-                                            </>
-                                        }
-                                    </select>
+
+                                <div className={s.LabelEdit}>
+                                    <span className={s.title}>Описание</span>
+                                    <textarea className={s.description} rows={8} cols={50} onChange={handleChangeProductDescription}></textarea>
                                 </div>
+
                             </div>
-                        </div>
-
-                        <div className={s.LabelEdit}>
-                            <span className={s.title}>Изображения</span>
-                            <input type="file" accept="image/*" multiple={true} onChange={handleChangeImages} />
-                            <div className={s.preview}>
-                                {
-                                    filesArr &&
-                                    <>
-                                        {
-                                            previewImages.map((photo, ind) => (
-                                                <div className={s.previewImages}>
-                                                    <img src={photo.file} key={ind} onClick={() => handlePreviewMainPhoto(ind)} onMouseEnter={() => setNumPreviewPhotoHover(ind)}/>
-                                                    {
-                                                        photo.isMainPhoto && <AiFillHome className={s.previewHome} />
-                                                    }
-                                                    {
-                                                        numPreviewPhotoHover === ind && <MdClose className={s.previewDelete} onClick={() => handleDeletePreviewPhoto(ind)}/>
-                                                    }
-                                                    
-                                                </div>
-                                            ))
-                                        }
-                                    </>
-                                }
+                        }
+                        {
+                            tabIndex == 2 &&
+                            <div className={s.tabsContent}>
                             </div>
-                        </div>
-
-                        <div className={s.LabelEdit}>
-                            <span className={s.title}>Описание</span>
-                            <textarea className={s.description} rows={8} cols={50} onChange={handleChangeProductDescription}></textarea>
-                        </div>
-
+                        }
                         <div className={s.buttons}>
                             <ButtonAdmin typeBtn={AdminButtonType.Text} functionalBtn={AdminButtonFunctional.Standard} border={true} clickBtn={handleClickCreateProduct}>Создать товар</ButtonAdmin>
                             <div className={s.btnClose} onClick={closeWindow}>
                                 <ButtonAdmin typeBtn={AdminButtonType.Text} functionalBtn={AdminButtonFunctional.Standard} border={true} clickBtn={() => closeWindow()}>Закрыть</ButtonAdmin>
                             </div>
                         </div>
+
                     </div>
                 </div>
             }

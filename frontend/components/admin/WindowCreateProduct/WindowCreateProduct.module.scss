@@ -15,18 +15,40 @@
 }
 
 .window {
-    padding: 25px;
-    background-color: #fff;
-
+    background-color: rgb(245, 245, 245);    
+    width: 600px;
     &Wrap {
         display: flex;
+    }
+}
+
+.tabs {
+    display: flex;
+    
+    &Item {
+        padding: 5px 15px;
+        background-color: #eee; 
+        border-right: 1px solid #000;
+        border-bottom: 1px solid #000;
+        cursor: pointer;
+        &.active{
+            background-color: #fff;
+            border-bottom: none;
+        }
+    }
+    
+    &Content {
+        padding: 25px 25px 0;
+        height: 600px;
+        background-color: #fff;
     }
 }
 
 .LabelEdit {
     display: flex;
     flex-direction: column;
-    margin-bottom: 20px;
+    padding-bottom: 20px;
+    // margin-bottom: 20px;
 
     input {
         font-size: 16px;
@@ -48,13 +70,13 @@
     &Images {
         position: relative;
         cursor: pointer;
-        
+
         &:hover {
             img {
                 border-color: #000;
             }
         }
-        
+
         img {
             display: block;
             width: 100px;
@@ -163,7 +185,7 @@
 .buttons {
     display: flex;
     justify-content: center;
-    padding-top: 20px;
+    padding: 10px 0;
 }
 
 .btnClose {
