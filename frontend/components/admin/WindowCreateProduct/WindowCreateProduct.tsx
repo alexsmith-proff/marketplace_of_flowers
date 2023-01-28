@@ -281,6 +281,32 @@ const WindowCreateProduct: FC<WindowCreateProductProps> = ({ visible, name, slug
                         {
                             tabIndex == 2 &&
                             <div className={s.tabsContent}>
+                                <table className={s.table}>
+                                    <thead>
+                                        <tr>
+                                            <th>№</th>
+                                            <th>Фильтр</th>
+                                            <th>Значение</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr className={s.tr}>
+                                            {/* <td>1</td>
+                                            <td>
+                                                <select className={s.filterCkeckbox}>
+                                                    <option>Фильтр 1</option>
+                                                    <option>Фильтр 1</option>
+                                                    <option>Фильтр 1</option>
+                                                </select>
+                                            </td>
+                                            <td>
+                                                <input className={s.inputValue} type="text" />
+                                            </td> */}
+                                        </tr>
+
+                                    </tbody>
+                                </table>
+                                <ButtonAdmin typeBtn={AdminButtonType.Text} functionalBtn={AdminButtonFunctional.Standard} border={true} clickBtn={null}>Добавить фильтр</ButtonAdmin>
                             </div>
                         }
                         <div className={s.buttons}>
