@@ -41,6 +41,7 @@
         padding: 25px 25px 0;
         height: 600px;
         background-color: #fff;
+        overflow-y: scroll;
     }
 }
 
@@ -194,60 +195,3 @@
 
 
 
-.table {
-    width: 100%;
-    margin-bottom: 20px;
-    border: 1px solid rgb(230, 230, 255);
-    border-collapse: collapse;
-}
-
-.tr:nth-child(2n) {
-    background-color: rgb(250, 250, 255);
-}
-
-.table th {
-    font-weight: bold;
-    padding: 8px;
-    background-color: rgb(198, 198, 255);
-    border: 1px solid #888;
-}
-
-.table td {
-    border: 1px solid #ccc;
-    padding: 7px;
-    text-align: center;
-}
-
-.tr.activeRow {
-    background-color: rgb(191, 191, 255);
-}
-
-.table td:nth-child(2) {
-    text-align: center;
-}
-
-// Порядковый номер
-.table th:nth-child(1) {
-    width: 3%;
-}
-
-// Фильтр
-.table th:nth-child(2) {
-    width: 50%;
-}
-
-// Значение
-.table th:nth-child(3) {
-    width: 47%;
-}
-
-.filterCkeckbox{
-    width: 100%;
-    font-size: 16px;
-    padding: 5px 0;
-}
-
-.inputValue{
-    width: 50%;
-    font-size: 16px;
-}

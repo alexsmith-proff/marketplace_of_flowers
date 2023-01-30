@@ -49,6 +49,7 @@ export interface IPreviewProductImage {
 }
 
 export interface IProductFilter extends IBase {
-  slug: string
-  values: IFilterValue
+  slug: string,
+  values: IFilterValue,
+  activeIndexFilterElement: number
 }

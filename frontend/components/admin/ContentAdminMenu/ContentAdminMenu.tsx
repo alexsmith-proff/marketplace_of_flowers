@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import { RiEdit2Line } from 'react-icons/ri';
-import { AiOutlinePlus, AiOutlineDelete } from 'react-icons/ai';
+import { AiOutlinePlus } from 'react-icons/ai';
 import { MdDeleteOutline } from 'react-icons/md';
 
 import ButtonAdmin from "../Buttons/ButtonAdmin/ButtonAdmin";

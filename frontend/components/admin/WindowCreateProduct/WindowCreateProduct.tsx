@@ -11,6 +11,7 @@ import { IFilterElement, IFilterValue } from "../../../interfaces/filter.interfa
 import { IPreviewProductImage, IProductFilter } from "../../../interfaces/products.interface";
 import { IBrand, ICreateProductInput } from "../../../interfaces/products.interface";
 import ButtonAdmin from "../Buttons/ButtonAdmin/ButtonAdmin";
+import FilterTable from "./FilterTable/FilterTable";
 
 import s from "./WindowCreateProduct.module.scss";
 
@@ -194,17 +195,9 @@ const WindowCreateProduct: FC<WindowCreateProductProps> = ({ visible, name, slug
         }
     }
 
-    const addEmptyFilter = () => {
-        setfilterArrInTable([...filterArrInTable, {
-            id: null,
-            name: null,
-            slug: null,
-            values: null
-        }])
-    }
 
     console.log('filterElementArr', filterElementArr);
-    
+
 
     return (
         <>
@@ -308,36 +301,7 @@ const WindowCreateProduct: FC<WindowCreateProductProps> = ({ visible, name, slug
                         {
                             tabIndex == 2 &&
                             <div className={s.tabsContent}>
-                                <table className={s.table}>
-                                    <thead>
-                                        <tr>
-                                            <th>№</th>
-                                            <th>Фильтр</th>
-                                            <th>Значение</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        {
-                                            filterArrInTable.map((item, index) => (
-                                                <tr className={s.tr}>
-                                                    <td>{index + 1}</td>
-                                                    <td>
-                                                        <select className={s.filterCkeckbox}>
-                                                            {
-                                                                filterElementArr.map((itemCheckBox, index) => <option key={index}>{itemCheckBox.name}</option>)
-                                                            }
-                                                        </select>
-                                                    </td>
-                                                    <td>
-                                                        <input className={s.inputValue} type="text" />
-                                                    </td>
-                                                </tr>
-                                            ))
-                                        }
-
-                                    </tbody>
-                                </table>
-                                <ButtonAdmin typeBtn={AdminButtonType.Text} functionalBtn={AdminButtonFunctional.Standard} border={true} clickBtn={addEmptyFilter}>Добавить фильтр</ButtonAdmin>
+                                <FilterTable filterArrInTable={filterArrInTable} filterElementArr={filterElementArr} />
                             </div>
                         }
                         <div className={s.buttons}>
