@@ -86,4 +86,20 @@ mutation DeleteCatalog($id: Int!) {
   }
 `;
 
+export const GET_ALL_FILTER_ELEMENT = gql`
+  query GetFilterElement{
+    getFilterElement{
+      id
+      name
+      slug
+      values{
+        id
+        name
+        slug
+        value
+      }
+    }
+  }
+`;
+
 

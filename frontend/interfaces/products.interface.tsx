@@ -1,4 +1,5 @@
 import { ICatalog } from "./catalog.interface";
+import { IFilterValue } from "./filter.interface";
 
 interface IBase {
   id: number;
@@ -45,4 +46,9 @@ export interface IPreviewProductImage {
   fileFromTarget: any,
   file : string,
   isMainPhoto: boolean
+}
+
+export interface IProductFilter extends IBase {
+  slug: string
+  values: IFilterValue
 }

@@ -5,15 +5,21 @@ import { MdClose } from "react-icons/md";
 import { AdminButtonFunctional, AdminButtonType } from "../../../enums/AdminButtons.enum";
 import { CREATE_PRODUCT, GET_ALL_PRODUCTS } from "../../../graphql/admin-product.graphql";
 import { GET_ALL_BRANDS } from "../../../graphql/brand.graphql";
-import { GET_ALL_CATALOG_NO_TREE } from "../../../graphql/catalog.graphql";
+import { GET_ALL_CATALOG_NO_TREE, GET_ALL_FILTER_ELEMENT } from "../../../graphql/catalog.graphql";
 import { ICatalog } from "../../../interfaces/catalog.interface";
-import { IPreviewProductImage } from "../../../interfaces/products.interface";
+import { IFilterElement, IFilterValue } from "../../../interfaces/filter.interface";
+import { IPreviewProductImage, IProductFilter } from "../../../interfaces/products.interface";
 import { IBrand, ICreateProductInput } from "../../../interfaces/products.interface";
 import ButtonAdmin from "../Buttons/ButtonAdmin/ButtonAdmin";
 
 import s from "./WindowCreateProduct.module.scss";
 
 let getSlug = require('speakingurl');
+
+// interface IFilterInTable {
+//     id: number
+//     product_filter: IProductFilter
+// }
 
 interface WindowCreateProductProps {
     visible: boolean
@@ -28,6 +34,7 @@ const tabsName = ['Основное', 'Фильтры']
 const WindowCreateProduct: FC<WindowCreateProductProps> = ({ visible, name, slug, createProduct, closeWindow }) => {
     const { loading: loadingBrands, error: errorBrands, data: brandsData } = useQuery(GET_ALL_BRANDS)
     const { loading: loadingCatalog, error: errorCatalog, data: catalogData } = useQuery(GET_ALL_CATALOG_NO_TREE)
+    const { loading: filterElements, error: errorFilterElements, data: filterElementsData } = useQuery(GET_ALL_FILTER_ELEMENT)
 
     const windowRef = useRef()
 
@@ -45,6 +52,9 @@ const WindowCreateProduct: FC<WindowCreateProductProps> = ({ visible, name, slug
 
     const [brandsArr, setBrandsArr] = useState<IBrand[]>(null)
     const [catalogArr, setCatalogArr] = useState<ICatalog[]>(null)
+    const [filterElementArr, setFilterElementArr] = useState<IFilterElement[]>([])
+    const [filterValueArr, setFilterValueArr] = useState<IFilterValue[]>(null)
+    const [filterArrInTable, setfilterArrInTable] = useState<IProductFilter[]>([])
 
     const [previewImages, setPreviewImages] = useState<IPreviewProductImage[]>([])
     // const [fileDataURL, setFileDataURL] = useState(null)
@@ -62,6 +72,11 @@ const WindowCreateProduct: FC<WindowCreateProductProps> = ({ visible, name, slug
             setProductCatalog(catalogData.getAllCatalogNoTree[0])
         }
     }, [catalogData])
+    useEffect(() => {
+        if (filterElementsData) {
+            setFilterElementArr(filterElementsData.getFilterElement)
+        }
+    }, [filterElementsData])
 
     const handleCloseWindow = (e) => {
         if (e.target === windowRef.current) {
@@ -179,6 +194,18 @@ const WindowCreateProduct: FC<WindowCreateProductProps> = ({ visible, name, slug
         }
     }
 
+    const addEmptyFilter = () => {
+        setfilterArrInTable([...filterArrInTable, {
+            id: null,
+            name: null,
+            slug: null,
+            values: null
+        }])
+    }
+
+    console.log('filterElementArr', filterElementArr);
+    
+
     return (
         <>
             {
@@ -290,23 +317,27 @@ const WindowCreateProduct: FC<WindowCreateProductProps> = ({ visible, name, slug
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr className={s.tr}>
-                                            {/* <td>1</td>
-                                            <td>
-                                                <select className={s.filterCkeckbox}>
-                                                    <option>Фильтр 1</option>
-                                                    <option>Фильтр 1</option>
-                                                    <option>Фильтр 1</option>
-                                                </select>
-                                            </td>
-                                            <td>
-                                                <input className={s.inputValue} type="text" />
-                                            </td> */}
-                                        </tr>
+                                        {
+                                            filterArrInTable.map((item, index) => (
+                                                <tr className={s.tr}>
+                                                    <td>{index + 1}</td>
+                                                    <td>
+                                                        <select className={s.filterCkeckbox}>
+                                                            {
+                                                                filterElementArr.map((itemCheckBox, index) => <option key={index}>{itemCheckBox.name}</option>)
+                                                            }
+                                                        </select>
+                                                    </td>
+                                                    <td>
+                                                        <input className={s.inputValue} type="text" />
+                                                    </td>
+                                                </tr>
+                                            ))
+                                        }
 
                                     </tbody>
                                 </table>
-                                <ButtonAdmin typeBtn={AdminButtonType.Text} functionalBtn={AdminButtonFunctional.Standard} border={true} clickBtn={null}>Добавить фильтр</ButtonAdmin>
+                                <ButtonAdmin typeBtn={AdminButtonType.Text} functionalBtn={AdminButtonFunctional.Standard} border={true} clickBtn={addEmptyFilter}>Добавить фильтр</ButtonAdmin>
                             </div>
                         }
                         <div className={s.buttons}>
