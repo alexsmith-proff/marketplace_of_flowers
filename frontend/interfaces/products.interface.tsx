@@ -55,4 +55,5 @@ export interface IProductFilter extends IBase {
   isActiveCreateBtn: boolean,
   isActiveEditBtn: boolean,
   isActiveDeleteBtn: boolean,
+  hover: boolean,
 }

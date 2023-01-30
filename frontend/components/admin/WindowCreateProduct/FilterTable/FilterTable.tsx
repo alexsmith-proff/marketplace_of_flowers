@@ -24,23 +24,26 @@ interface FilterTableProps {
 
 const FilterTable: FC<FilterTableProps> = ({ filterArrInTable, filterElementArr }) => {
     const [dataArrInTable, setDataArrInTable] = useState<IProductFilter[]>(filterArrInTable)
-    const [isFilterCreate, setIsFilterCreate] = useState<boolean>(false)
+    const [isFilterCreate, setIsFilterCreate] = useState<boolean>(false) // Фильтр создан? Если false, то кнопка 'Добавить фильтр' работает, также задает логику кнопок: 'редактировать', 'удалить'
 
 
 
 
     const addEmptyFilter = () => {
-        setDataArrInTable([...dataArrInTable, {
-            id: null,
-            name: null,
-            slug: null,
-            values: null,
-            activeIndexFilterElement: 0,
-            isActiveCreateBtn: true,
-            isActiveEditBtn: false,
-            isActiveDeleteBtn: false,
-        }])
-        setIsFilterCreate(false)
+        if (!isFilterCreate) {
+            setDataArrInTable([...dataArrInTable, {
+                id: null,
+                name: null,
+                slug: null,
+                values: null,
+                activeIndexFilterElement: 0,
+                isActiveCreateBtn: true,
+                isActiveEditBtn: false,
+                isActiveDeleteBtn: false,
+                hover: false
+            }])
+            setIsFilterCreate(true)
+        }
     }
 
     const handleChangeFilterElementCheckBox = (e: React.ChangeEvent<HTMLSelectElement>, indexCheckBox: number) => {
@@ -52,9 +55,26 @@ const FilterTable: FC<FilterTableProps> = ({ filterArrInTable, filterElementArr 
         console.log('indexFilterElement', indexFilterElement);
 
 
-        setDataArrInTable(dataArrInTable.map((item, index) => index === indexCheckBox ? { ...item, activeIndexFilterElement: indexFilterElement } : item))
+        setDataArrInTable(dataArrInTable.map((item, index) => index === indexCheckBox ? {...item, activeIndexFilterElement: indexFilterElement } : item))
         // setCheckBoxFilterElementValue(e.target.value)
         console.log('dataArrInTableeeee', dataArrInTable);
+    }
+
+    const handleClickCreateFilterBtn = (indexFilterRow: number) => {
+        // Запись данных в GraphQL
+        //////////////////////////
+        
+        setIsFilterCreate(false)
+        setDataArrInTable(dataArrInTable.map((item, index) => index === indexFilterRow ? {...item, isActiveCreateBtn: false, isActiveEditBtn: true, isActiveDeleteBtn: true} : item))
+    }
+
+    const handleHoverOn = (indexFilterRow: number) => {
+        setDataArrInTable(()=>dataArrInTable.map((item, index) => index === indexFilterRow ? {...item, hover: true} : item))
+    }
+    const handleHoverOff = (indexFilterRow: number) => {
+        setDataArrInTable(()=>dataArrInTable.map((item) => {
+            return {...item, hover: false}      
+        }))
     }
 
 
@@ -71,7 +91,7 @@ const FilterTable: FC<FilterTableProps> = ({ filterArrInTable, filterElementArr 
                 <tbody>
                     {
                         dataArrInTable.map((item, index) => (
-                            <tr className={s.tr}>
+                            <tr className={s.tr} onMouseEnter={() => handleHoverOn(index)} onMouseLeave={() => handleHoverOff(index)}>
                                 <td>{index + 1}</td>
                                 <td>
                                     <select className={s.filterCkeckbox} onChange={(e) => handleChangeFilterElementCheckBox(e, index)}>
@@ -90,23 +110,23 @@ const FilterTable: FC<FilterTableProps> = ({ filterArrInTable, filterElementArr 
                                         {
                                             item.isActiveCreateBtn && (
                                                 <div className={s.button}>
-                                                    <ButtonAdmin typeBtn={AdminButtonType.Ico} functionalBtn={AdminButtonFunctional.Standard} border={false} ico={<AiOutlineCheck />} sizeIco={20} />
+                                                    <ButtonAdmin typeBtn={AdminButtonType.Ico} functionalBtn={AdminButtonFunctional.Standard} border={false} clickBtn={() => handleClickCreateFilterBtn(index)} ico={<AiOutlineCheck />} sizeIco={22} />
                                                 </div>
                                             )
                                         }
                                         {
-                                            item.isActiveEditBtn && (
+                                            item.hover && item.isActiveEditBtn && (
                                                 <div className={s.button}>
-                                                    <ButtonAdmin typeBtn={AdminButtonType.Ico} functionalBtn={AdminButtonFunctional.Standard} border={false} ico={<RiEdit2Line />} sizeIco={20} />
+                                                    <ButtonAdmin typeBtn={AdminButtonType.Ico} functionalBtn={AdminButtonFunctional.Standard} border={false} ico={<RiEdit2Line />} sizeIco={18} />
                                                 </div>
                                             )
                                         }
                                     </div>
                                     <div className={s.valueRight}>
                                         {
-                                            item.isActiveDeleteBtn && (
+                                            item.hover && item.isActiveDeleteBtn && (
                                                 <div className={s.button}>
-                                                    <ButtonAdmin typeBtn={AdminButtonType.Ico} functionalBtn={AdminButtonFunctional.Standard} border={false} ico={<MdDeleteOutline />} sizeIco={20} />
+                                                    <ButtonAdmin typeBtn={AdminButtonType.Ico} functionalBtn={AdminButtonFunctional.Standard} border={false} ico={<MdDeleteOutline />} sizeIco={18} />
                                                 </div>
                                             )
                                         }

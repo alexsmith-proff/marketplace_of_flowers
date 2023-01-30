@@ -32,12 +32,13 @@
 
 // Порядковый номер
 .table th:nth-child(1) {
-    width: 3%;
+    width: 50px;
 }
 
 // Фильтр
 .table th:nth-child(2) {
-    width: 50%;
+    // width: 50%;
+    width: 200px;
 }
 
 // Значение
