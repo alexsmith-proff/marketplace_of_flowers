@@ -24,9 +24,9 @@ interface FilterTableProps {
 
 const FilterTable: FC<FilterTableProps> = ({ filterArrInTable, filterElementArr }) => {
     const [dataArrInTable, setDataArrInTable] = useState<IProductFilter[]>(filterArrInTable)
+    const [isFilterCreate, setIsFilterCreate] = useState<boolean>(false)
 
 
-    const [CheckBoxFilterElementValue, setCheckBoxFilterElementValue] = useState<string>('')
 
 
     const addEmptyFilter = () => {
@@ -35,8 +35,12 @@ const FilterTable: FC<FilterTableProps> = ({ filterArrInTable, filterElementArr 
             name: null,
             slug: null,
             values: null,
-            activeIndexFilterElement: 0
+            activeIndexFilterElement: 0,
+            isActiveCreateBtn: true,
+            isActiveEditBtn: false,
+            isActiveDeleteBtn: false,
         }])
+        setIsFilterCreate(false)
     }
 
     const handleChangeFilterElementCheckBox = (e: React.ChangeEvent<HTMLSelectElement>, indexCheckBox: number) => {
@@ -77,11 +81,36 @@ const FilterTable: FC<FilterTableProps> = ({ filterArrInTable, filterElementArr 
                                     </select>
                                 </td>
                                 <td className={s.value}>
-                                    <select className={s.filterCheckboxValue}>
+                                    <div className={s.valueLeft}>
+                                        <select className={s.filterCheckboxValue}>
+                                            {
+                                                filterElementArr[item.activeIndexFilterElement].values.map((itemCheckBox, index) => <option key={index}>{itemCheckBox.name}</option>)
+                                            }
+                                        </select>
                                         {
-                                            filterElementArr[item.activeIndexFilterElement].values.map((itemCheckBox, index) => <option key={index}>{itemCheckBox.name}</option>)
+                                            item.isActiveCreateBtn && (
+                                                <div className={s.button}>
+                                                    <ButtonAdmin typeBtn={AdminButtonType.Ico} functionalBtn={AdminButtonFunctional.Standard} border={false} ico={<AiOutlineCheck />} sizeIco={20} />
+                                                </div>
+                                            )
                                         }
-                                    </select>                                    
+                                        {
+                                            item.isActiveEditBtn && (
+                                                <div className={s.button}>
+                                                    <ButtonAdmin typeBtn={AdminButtonType.Ico} functionalBtn={AdminButtonFunctional.Standard} border={false} ico={<RiEdit2Line />} sizeIco={20} />
+                                                </div>
+                                            )
+                                        }
+                                    </div>
+                                    <div className={s.valueRight}>
+                                        {
+                                            item.isActiveDeleteBtn && (
+                                                <div className={s.button}>
+                                                    <ButtonAdmin typeBtn={AdminButtonType.Ico} functionalBtn={AdminButtonFunctional.Standard} border={false} ico={<MdDeleteOutline />} sizeIco={20} />
+                                                </div>
+                                            )
+                                        }
+                                    </div>
                                 </td>
                             </tr>
                         ))

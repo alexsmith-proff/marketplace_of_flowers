@@ -46,22 +46,31 @@
 }
 
 .value{
-    text-align: left!important;
+    // text-align: left!important;
     display: flex;
-    // justify-content: space-between;
+    justify-content: space-between;
     align-items: center;
+    &Left{
+        display: flex;
+        align-items: center;
+    }
+    &Right{
+        margin-right: 3px;
+    }
 }
 
 .filterCkeckbox{
     width: 100%;
     font-size: 16px;
     padding: 5px 0;
+    cursor: pointer;
 }
 
 .filterCheckboxValue{
-    width: 50%;
+    width: 150px;
     font-size: 16px;
     padding: 5px 0;
+    cursor: pointer;
 }
 .button{
     margin-left: 5px;

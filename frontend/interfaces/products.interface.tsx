@@ -51,5 +51,8 @@ export interface IPreviewProductImage {
 export interface IProductFilter extends IBase {
   slug: string,
   values: IFilterValue,
-  activeIndexFilterElement: number
+  activeIndexFilterElement: number,
+  isActiveCreateBtn: boolean,
+  isActiveEditBtn: boolean,
+  isActiveDeleteBtn: boolean,
 }
