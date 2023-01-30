@@ -40,7 +40,7 @@ const FilterTable: FC<FilterTableProps> = ({ filterArrInTable, filterElementArr 
                 isActiveCreateBtn: true,
                 isActiveEditBtn: false,
                 isActiveDeleteBtn: false,
-                hover: true
+                hover: false
             }])
             setIsFilterCreate(true)
         }
