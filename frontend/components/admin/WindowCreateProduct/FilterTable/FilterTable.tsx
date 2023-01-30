@@ -37,7 +37,7 @@ const FilterTable: FC<FilterTableProps> = ({ filterArrInTable, filterElementArr 
                 slug: null,
                 values: null,
                 activeIndexFilterElement: 0,
-                isActiveCreateBtn: false,
+                isActiveCreateBtn: true,
                 isActiveEditBtn: false,
                 isActiveDeleteBtn: false,
                 hover: false
