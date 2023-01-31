@@ -1,10 +1,10 @@
 import { useState } from "react"
-import { IProductFilter } from "../interfaces/products.interface"
+import { IProductFilterRowTable } from "../interfaces/products.interface"
 
 export const useProductFilter = (initialProductFilterArr) => {
-    const [productFilterArr, setProductFilterArr] = useState<IProductFilter[]>(initialProductFilterArr)
+    const [productFilterArr, setProductFilterArr] = useState<IProductFilterRowTable[]>(initialProductFilterArr)
 
-    const change = (filterItems: IProductFilter[]) => {
+    const change = (filterItems: IProductFilterRowTable[]) => {
         setProductFilterArr(filterItems)
     }
 

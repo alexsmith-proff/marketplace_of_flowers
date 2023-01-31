@@ -10,17 +10,16 @@ import ButtonAdmin from "../Buttons/ButtonAdmin/ButtonAdmin";
 import s from "./WindowUpdateProduct.module.scss";
 
 interface WindowUpdateProductProps {
-    visible: boolean
     product: IAdminProduct
     updateProduct: (updateProductInput: IUpdateProductInput, updateProductRelationsInput: IUpdateProductRelationsInput) => void
     closeWindow: () => void
 }
 
-const WindowUpdateProduct: FC<WindowUpdateProductProps> = ({ visible, product, updateProduct, closeWindow }) => {
+const WindowUpdateProduct: FC<WindowUpdateProductProps> = ({ product, updateProduct, closeWindow }) => {
 
     const { loading: loadingBrands, error: errorBrands, data: brandsData } = useQuery(GET_ALL_BRANDS)
     const { loading: loadingCatalog, error: errorCatalog, data: catalogData } = useQuery(GET_ALL_CATALOG_NO_TREE)
-    
+
     const windowRef = useRef()
 
     const [productName, setProductName] = useState<string>(null)
@@ -61,7 +60,7 @@ const WindowUpdateProduct: FC<WindowUpdateProductProps> = ({ visible, product, u
         }
     }
 
-    
+
     const handleChangeProductName = (e: React.ChangeEvent<HTMLInputElement>) => {
         setProductName(e.target.value)
     }
@@ -97,7 +96,7 @@ const WindowUpdateProduct: FC<WindowUpdateProductProps> = ({ visible, product, u
 
     }
 
-    const handleClickUpdateProduct = async() => {
+    const handleClickUpdateProduct = async () => {
         if (productName && productVendor && productPrice && productCount) {
             updateProduct({
                 id: +product.id,
@@ -106,11 +105,11 @@ const WindowUpdateProduct: FC<WindowUpdateProductProps> = ({ visible, product, u
                 price: +productPrice,
                 count_in_stock: +productCount,
             },
-            {
-                id: +product.id,
-                brand_id: +productBrand.id,
-                catalog_id: +productCatalog.id                
-            })
+                {
+                    id: +product.id,
+                    brand_id: +productBrand.id,
+                    catalog_id: +productCatalog.id
+                })
 
             closeWindow()
         }
@@ -118,77 +117,74 @@ const WindowUpdateProduct: FC<WindowUpdateProductProps> = ({ visible, product, u
 
     return (
         <>
-            {
-                visible &&
-                <div className={s.background} onClick={handleCloseWindow} ref={windowRef}>
-                    <div className={s.window}>
+            <div className={s.background} onClick={handleCloseWindow} ref={windowRef}>
+                <div className={s.window}>
+                    <div className={s.LabelEdit}>
+                        <span className={s.title}>Название товара</span>
+                        <input className={!productName ? (s.nameInput + ' ' + s.error) : s.nameInput} type="text" onChange={handleChangeProductName} value={productName} />
+                    </div>
+                    <div className={s.secondLevel}>
                         <div className={s.LabelEdit}>
-                            <span className={s.title}>Название товара</span>
-                            <input className={!productName ? (s.nameInput + ' ' + s.error) : s.nameInput} type="text" onChange={handleChangeProductName} value={productName} />
+                            <span className={s.title}>Артикул</span>
+                            <input className={!productVendor ? (s.vendorInput + ' ' + s.nameInput + ' ' + s.error) : (s.vendorInput + ' ' + s.nameInput)} type="text" onChange={handleChangeProductVendor} value={productVendor} />
                         </div>
-                        <div className={s.secondLevel}>
-                            <div className={s.LabelEdit}>
-                                <span className={s.title}>Артикул</span>
-                                <input className={!productVendor ? (s.vendorInput + ' ' + s.nameInput + ' ' + s.error) : (s.vendorInput + ' ' +s.nameInput)} type="text" onChange={handleChangeProductVendor} value={productVendor} />
-                            </div>
-                            <div className={s.LabelEdit}>
-                                <span className={s.title}>Цена</span>
-                                <input className={!productPrice ? (s.priceInput + ' ' + s.nameInput + ' ' + s.error) : (s.priceInput + ' ' + s.nameInput)} type="text" onInput={e => onlyNumber(e, 8)} onChange={handleChangeProductPrice} value={productPrice} />
-                            </div>
-                            <div className={s.LabelEdit}>
-                                <span className={s.title}>Кол.-во</span>
-                                <input className={!productCount ? (s.countInput + ' ' + s.nameInput + ' ' + s.error) : (s.countInput + ' ' + s.nameInput)} type="text" onInput={e => onlyNumber(e, 6)} onChange={handleChangeProductCount} value={productCount} />                            </div>
-                        </div>
-
-                        <div className={s.thirdLevel}>
-                            <div className={s.LabelEdit}>
-                                <span className={s.title}>Бренд</span>
-                                <div className={s.dropdown} data-itemChart="1">
-                                    <select name="one" className={s.dropdownSelect} onChange={handleChangeProductBrand} value={productBrand.name} >
-                                        {
-                                            brandsArr &&
-                                            <>
-                                                {
-                                                    brandsArr.map((item) => <option key={item.id}>{item.name}</option>)
-                                                }
-                                            </>
-                                        }
-                                    </select>
-                                </div>
-                            </div>
-                            <div className={s.LabelEdit}>
-                                <span className={s.title}>Категория</span>
-                                <div className={s.dropdown} data-itemChart="1">
-                                    <select name="one" className={s.dropdownSelect} onChange={handleChangeProductCatalog} value={productCatalog ? productCatalog.name : null} >
-                                        {
-                                            catalogArr &&
-                                            <>
-                                                {
-                                                    catalogArr.map((item) => <option key={item.id}>{item.name}</option>)
-                                                }
-                                            </>
-                                        }
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-
                         <div className={s.LabelEdit}>
-                            <span className={s.title}>Описание</span>
-                            <textarea className={s.description} rows={8} cols={50} onChange={handleChangeProductDescription}></textarea>
+                            <span className={s.title}>Цена</span>
+                            <input className={!productPrice ? (s.priceInput + ' ' + s.nameInput + ' ' + s.error) : (s.priceInput + ' ' + s.nameInput)} type="text" onInput={e => onlyNumber(e, 8)} onChange={handleChangeProductPrice} value={productPrice} />
                         </div>
+                        <div className={s.LabelEdit}>
+                            <span className={s.title}>Кол.-во</span>
+                            <input className={!productCount ? (s.countInput + ' ' + s.nameInput + ' ' + s.error) : (s.countInput + ' ' + s.nameInput)} type="text" onInput={e => onlyNumber(e, 6)} onChange={handleChangeProductCount} value={productCount} />                            </div>
+                    </div>
 
-
-
-                        <div className={s.buttons}>
-                            <ButtonAdmin typeBtn={AdminButtonType.Text} functionalBtn={AdminButtonFunctional.Standard} border={true} clickBtn={handleClickUpdateProduct}>Редактировать товар</ButtonAdmin>
-                            <div className={s.btnClose} onClick={closeWindow}>
-                                <ButtonAdmin typeBtn={AdminButtonType.Text} functionalBtn={AdminButtonFunctional.Standard} border={true} clickBtn={() => closeWindow()}>Закрыть</ButtonAdmin>
+                    <div className={s.thirdLevel}>
+                        <div className={s.LabelEdit}>
+                            <span className={s.title}>Бренд</span>
+                            <div className={s.dropdown} data-itemChart="1">
+                                <select name="one" className={s.dropdownSelect} onChange={handleChangeProductBrand} value={productBrand.name} >
+                                    {
+                                        brandsArr &&
+                                        <>
+                                            {
+                                                brandsArr.map((item) => <option key={item.id}>{item.name}</option>)
+                                            }
+                                        </>
+                                    }
+                                </select>
+                            </div>
+                        </div>
+                        <div className={s.LabelEdit}>
+                            <span className={s.title}>Категория</span>
+                            <div className={s.dropdown} data-itemChart="1">
+                                <select name="one" className={s.dropdownSelect} onChange={handleChangeProductCatalog} value={productCatalog ? productCatalog.name : null} >
+                                    {
+                                        catalogArr &&
+                                        <>
+                                            {
+                                                catalogArr.map((item) => <option key={item.id}>{item.name}</option>)
+                                            }
+                                        </>
+                                    }
+                                </select>
                             </div>
                         </div>
                     </div>
+
+                    <div className={s.LabelEdit}>
+                        <span className={s.title}>Описание</span>
+                        <textarea className={s.description} rows={8} cols={50} onChange={handleChangeProductDescription}></textarea>
+                    </div>
+
+
+
+                    <div className={s.buttons}>
+                        <ButtonAdmin typeBtn={AdminButtonType.Text} functionalBtn={AdminButtonFunctional.Standard} border={true} clickBtn={handleClickUpdateProduct}>Редактировать товар</ButtonAdmin>
+                        <div className={s.btnClose} onClick={closeWindow}>
+                            <ButtonAdmin typeBtn={AdminButtonType.Text} functionalBtn={AdminButtonFunctional.Standard} border={true} clickBtn={() => closeWindow()}>Закрыть</ButtonAdmin>
+                        </div>
+                    </div>
                 </div>
-            }
+            </div>
         </>
     );
 };

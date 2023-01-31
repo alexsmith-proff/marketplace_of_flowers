@@ -51,6 +51,11 @@ export interface IPreviewProductImage {
 export interface IProductFilter extends IBase {
   slug: string,
   values: IFilterValue,
+}
+
+export interface IProductFilterRowTable {
+  filterElementName: string,
+  filterValueName: string,
   activeIndexFilterElement: number,
   isActiveCreateBtn: boolean,
   isActiveEditBtn: boolean,

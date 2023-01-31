@@ -1,30 +1,24 @@
 import React, { FC, useState } from "react";
-import { IProductFilter } from "../../../../interfaces/products.interface";
 import { IFilterElement } from "../../../../interfaces/filter.interface";
 import ButtonAdmin from "../../Buttons/ButtonAdmin/ButtonAdmin";
 import { AdminButtonFunctional, AdminButtonType } from "../../../../enums/AdminButtons.enum";
 // import { AiOutlinePlus } from 'react-icons/ai';
-import {
-    AiOutlinePlus,
-    AiOutlineRight,
-    AiOutlineMore,
-    AiOutlineCheck,
-} from "react-icons/ai";
+import { AiOutlineCheck } from "react-icons/ai";
 import { MdDeleteOutline } from "react-icons/md";
-import { RiEdit2Line } from 'react-icons/ri';
 
 
 import s from "./FilterTable.module.scss";
+import { IProductFilterRowTable } from "../../../../interfaces/products.interface";
 
 interface FilterTableProps {
-    filterArrInTable: IProductFilter[]
-    change: (items: IProductFilter[]) => void 
+    filterArrInTable: IProductFilterRowTable[]
+    change: (items: IProductFilterRowTable[]) => void
     filterElementArr: IFilterElement[]
 }
 
 
 const FilterTable: FC<FilterTableProps> = ({ filterArrInTable, change, filterElementArr }) => {
-    // const [dataArrInTable, setDataArrInTable] = useState<IProductFilter[]>(filterArrInTable)
+    // const [dataArrInTable, setDataArrInTable] = useState<IProductFilterRowTable[]>(filterArrInTable)
     const [isFilterCreate, setIsFilterCreate] = useState<boolean>(false) // Фильтр создан? Если false, то кнопка 'Добавить фильтр' работает, также задает логику кнопок: 'редактировать', 'удалить'
 
 
@@ -32,22 +26,9 @@ const FilterTable: FC<FilterTableProps> = ({ filterArrInTable, change, filterEle
 
     const addEmptyFilter = () => {
         if (!isFilterCreate) {
-            // change({
-            //     id: null,
-            //     name: null,
-            //     slug: null,
-            //     values: null,
-            //     activeIndexFilterElement: 0,
-            //     isActiveCreateBtn: true,
-            //     isActiveEditBtn: false,
-            //     isActiveDeleteBtn: false,
-            //     hover: false
-            // })
             change([...filterArrInTable, {
-                id: null,
-                name: null,
-                slug: null,
-                values: null,
+                filterElementName: '',
+                filterValueName: '',
                 activeIndexFilterElement: 0,
                 isActiveCreateBtn: true,
                 isActiveEditBtn: false,
@@ -61,29 +42,20 @@ const FilterTable: FC<FilterTableProps> = ({ filterArrInTable, change, filterEle
     const handleChangeFilterElementCheckBox = (e: React.ChangeEvent<HTMLSelectElement>, indexCheckBox: number) => {
         e.preventDefault()
         const indexFilterElement = filterElementArr.findIndex((item) => item.name === e.target.value)
-
-        change(filterArrInTable.map((item, index) => index === indexCheckBox ? {...item, activeIndexFilterElement: indexFilterElement } : item))
-        // setCheckBoxFilterElementValue(e.target.value)
-        console.log('filterArrInTable', filterArrInTable);
+        change(filterArrInTable.map((item, index) => index === indexCheckBox ? { ...item, activeIndexFilterElement: indexFilterElement, filterElementName: e.target.value } : item))
+    }
+    const handleChangeFilterValueCheckBox = (e: React.ChangeEvent<HTMLSelectElement>, indexCheckBox: number) => {
+        e.preventDefault()
+        change(filterArrInTable.map((item, index) => index === indexCheckBox ? { ...item, filterValueName: e.target.value } : item))
     }
 
     const handleClickCreateFilterBtn = (indexFilterRow: number) => {
         // Запись данных в GraphQL
         //////////////////////////
-        
+
         setIsFilterCreate(false)
-        change(filterArrInTable.map((item, index) => index === indexFilterRow ? {...item, isActiveCreateBtn: false, isActiveEditBtn: true, isActiveDeleteBtn: true} : item))
+        change(filterArrInTable.map((item, index) => index === indexFilterRow ? { ...item, isActiveCreateBtn: false, isActiveEditBtn: true, isActiveDeleteBtn: true } : item))
     }
-
-    const handleHoverOn = (indexFilterRow: number) => {
-        change(filterArrInTable.map((item, index) => index === indexFilterRow ? {...item, hover: true} : item))
-    }
-    const handleHoverOff = (indexFilterRow: number) => {
-        change(filterArrInTable.map((item) => {
-            return {...item, hover: false}      
-        }))
-    }
-
 
     return (
         <>
@@ -98,10 +70,11 @@ const FilterTable: FC<FilterTableProps> = ({ filterArrInTable, change, filterEle
                 <tbody>
                     {
                         filterArrInTable.map((item, index) => (
-                            <tr className={s.tr} onMouseEnter={() => handleHoverOn(index)} onMouseLeave={() => handleHoverOff(index)}>
+                            <tr className={s.tr} >
                                 <td>{index + 1}</td>
                                 <td>
                                     <select className={s.filterCkeckbox} onChange={(e) => handleChangeFilterElementCheckBox(e, index)}>
+                                        <option>{item.filterElementName}</option>
                                         {
                                             filterElementArr.map((itemCheckBox, index) => <option key={index}>{itemCheckBox.name}</option>)
                                         }
@@ -109,29 +82,25 @@ const FilterTable: FC<FilterTableProps> = ({ filterArrInTable, change, filterEle
                                 </td>
                                 <td className={s.value}>
                                     <div className={s.valueLeft}>
-                                        <select className={s.filterCheckboxValue}>
+                                        <select className={s.filterCheckboxValue} onChange={(e) => handleChangeFilterValueCheckBox(e, index)}>
+                                            <option>{item.filterValueName}</option>
                                             {
                                                 filterElementArr[item.activeIndexFilterElement].values.map((itemCheckBox, index) => <option key={index}>{itemCheckBox.name}</option>)
                                             }
                                         </select>
                                         {
                                             item.isActiveCreateBtn && (
+                                                // Кнопка создать
                                                 <div className={s.button}>
                                                     <ButtonAdmin typeBtn={AdminButtonType.Ico} functionalBtn={AdminButtonFunctional.Standard} border={false} clickBtn={() => handleClickCreateFilterBtn(index)} ico={<AiOutlineCheck />} sizeIco={22} />
-                                                </div>
-                                            )
-                                        }
-                                        {
-                                            item.hover && item.isActiveEditBtn && (
-                                                <div className={s.button}>
-                                                    <ButtonAdmin typeBtn={AdminButtonType.Ico} functionalBtn={AdminButtonFunctional.Standard} border={false} ico={<RiEdit2Line />} sizeIco={18} />
                                                 </div>
                                             )
                                         }
                                     </div>
                                     <div className={s.valueRight}>
                                         {
-                                            item.hover && item.isActiveDeleteBtn && (
+                                            item.isActiveDeleteBtn && (
+                                                // Кнопка удалить
                                                 <div className={s.button}>
                                                     <ButtonAdmin typeBtn={AdminButtonType.Ico} functionalBtn={AdminButtonFunctional.Standard} border={false} ico={<MdDeleteOutline />} sizeIco={18} />
                                                 </div>

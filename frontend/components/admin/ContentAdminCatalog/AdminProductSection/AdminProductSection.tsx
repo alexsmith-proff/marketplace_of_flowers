@@ -211,10 +211,11 @@ const AdminProductSection: FC<AdminProductSectionProps> = () => {
 
   return (
     <div className={s.section}>
-      <WindowCreateProduct visible={windowCreateProductVisible} createProduct={handleCreateProduct} closeWindow={closeWindow} />
       {
-        currentProduct &&
-        <WindowUpdateProduct visible={windowUpdateProductVisible} product={currentProduct} updateProduct={handleUpdateProduct} closeWindow={closeWindow} />
+        windowCreateProductVisible && <WindowCreateProduct createProduct={handleCreateProduct} closeWindow={closeWindow} />
+      }
+      {
+        currentProduct && windowUpdateProductVisible && <WindowUpdateProduct product={currentProduct} updateProduct={handleUpdateProduct} closeWindow={closeWindow} />
       }
       {
         popupMenuVisible && <PopupMenu menuItems={menuItems} coordinate={popupCoordinate} clickMenuItem={handleSelectMenuItem} popupRef={popupRef} />
