@@ -18,12 +18,13 @@ import s from "./FilterTable.module.scss";
 
 interface FilterTableProps {
     filterArrInTable: IProductFilter[]
+    change: (items: IProductFilter[]) => void 
     filterElementArr: IFilterElement[]
 }
 
 
-const FilterTable: FC<FilterTableProps> = ({ filterArrInTable, filterElementArr }) => {
-    const [dataArrInTable, setDataArrInTable] = useState<IProductFilter[]>(filterArrInTable)
+const FilterTable: FC<FilterTableProps> = ({ filterArrInTable, change, filterElementArr }) => {
+    // const [dataArrInTable, setDataArrInTable] = useState<IProductFilter[]>(filterArrInTable)
     const [isFilterCreate, setIsFilterCreate] = useState<boolean>(false) // Фильтр создан? Если false, то кнопка 'Добавить фильтр' работает, также задает логику кнопок: 'редактировать', 'удалить'
 
 
@@ -31,7 +32,18 @@ const FilterTable: FC<FilterTableProps> = ({ filterArrInTable, filterElementArr 
 
     const addEmptyFilter = () => {
         if (!isFilterCreate) {
-            setDataArrInTable([...dataArrInTable, {
+            // change({
+            //     id: null,
+            //     name: null,
+            //     slug: null,
+            //     values: null,
+            //     activeIndexFilterElement: 0,
+            //     isActiveCreateBtn: true,
+            //     isActiveEditBtn: false,
+            //     isActiveDeleteBtn: false,
+            //     hover: false
+            // })
+            change([...filterArrInTable, {
                 id: null,
                 name: null,
                 slug: null,
@@ -47,17 +59,12 @@ const FilterTable: FC<FilterTableProps> = ({ filterArrInTable, filterElementArr 
     }
 
     const handleChangeFilterElementCheckBox = (e: React.ChangeEvent<HTMLSelectElement>, indexCheckBox: number) => {
-        console.log('e', e.target.value);
-
         e.preventDefault()
         const indexFilterElement = filterElementArr.findIndex((item) => item.name === e.target.value)
 
-        console.log('indexFilterElement', indexFilterElement);
-
-
-        setDataArrInTable(dataArrInTable.map((item, index) => index === indexCheckBox ? {...item, activeIndexFilterElement: indexFilterElement } : item))
+        change(filterArrInTable.map((item, index) => index === indexCheckBox ? {...item, activeIndexFilterElement: indexFilterElement } : item))
         // setCheckBoxFilterElementValue(e.target.value)
-        console.log('dataArrInTableeeee', dataArrInTable);
+        console.log('filterArrInTable', filterArrInTable);
     }
 
     const handleClickCreateFilterBtn = (indexFilterRow: number) => {
@@ -65,14 +72,14 @@ const FilterTable: FC<FilterTableProps> = ({ filterArrInTable, filterElementArr 
         //////////////////////////
         
         setIsFilterCreate(false)
-        setDataArrInTable(dataArrInTable.map((item, index) => index === indexFilterRow ? {...item, isActiveCreateBtn: false, isActiveEditBtn: true, isActiveDeleteBtn: true} : item))
+        change(filterArrInTable.map((item, index) => index === indexFilterRow ? {...item, isActiveCreateBtn: false, isActiveEditBtn: true, isActiveDeleteBtn: true} : item))
     }
 
     const handleHoverOn = (indexFilterRow: number) => {
-        setDataArrInTable(()=>dataArrInTable.map((item, index) => index === indexFilterRow ? {...item, hover: true} : item))
+        change(filterArrInTable.map((item, index) => index === indexFilterRow ? {...item, hover: true} : item))
     }
     const handleHoverOff = (indexFilterRow: number) => {
-        setDataArrInTable(()=>dataArrInTable.map((item) => {
+        change(filterArrInTable.map((item) => {
             return {...item, hover: false}      
         }))
     }
@@ -90,7 +97,7 @@ const FilterTable: FC<FilterTableProps> = ({ filterArrInTable, filterElementArr 
                 </thead>
                 <tbody>
                     {
-                        dataArrInTable.map((item, index) => (
+                        filterArrInTable.map((item, index) => (
                             <tr className={s.tr} onMouseEnter={() => handleHoverOn(index)} onMouseLeave={() => handleHoverOff(index)}>
                                 <td>{index + 1}</td>
                                 <td>

@@ -6,6 +6,7 @@ import { AdminButtonFunctional, AdminButtonType } from "../../../enums/AdminButt
 import { CREATE_PRODUCT, GET_ALL_PRODUCTS } from "../../../graphql/admin-product.graphql";
 import { GET_ALL_BRANDS } from "../../../graphql/brand.graphql";
 import { GET_ALL_CATALOG_NO_TREE, GET_ALL_FILTER_ELEMENT } from "../../../graphql/catalog.graphql";
+import { useProductFilter } from "../../../hooks/useProductFilter";
 import { ICatalog } from "../../../interfaces/catalog.interface";
 import { IFilterElement, IFilterValue } from "../../../interfaces/filter.interface";
 import { IPreviewProductImage, IProductFilter } from "../../../interfaces/products.interface";
@@ -55,7 +56,12 @@ const WindowCreateProduct: FC<WindowCreateProductProps> = ({ visible, name, slug
     const [catalogArr, setCatalogArr] = useState<ICatalog[]>(null)
     const [filterElementArr, setFilterElementArr] = useState<IFilterElement[]>([])
     const [filterValueArr, setFilterValueArr] = useState<IFilterValue[]>(null)
-    const [filterArrInTable, setfilterArrInTable] = useState<IProductFilter[]>([])
+
+
+
+    const filterArrInTable = useProductFilter([])
+
+
 
     const [previewImages, setPreviewImages] = useState<IPreviewProductImage[]>([])
     // const [fileDataURL, setFileDataURL] = useState(null)
@@ -301,7 +307,7 @@ const WindowCreateProduct: FC<WindowCreateProductProps> = ({ visible, name, slug
                         {
                             tabIndex == 2 &&
                             <div className={s.tabsContent}>
-                                <FilterTable filterArrInTable={filterArrInTable} filterElementArr={filterElementArr} />
+                                <FilterTable filterArrInTable={filterArrInTable.productFilterArr} change={filterArrInTable.change} filterElementArr={filterElementArr} />
                             </div>
                         }
                         <div className={s.buttons}>
