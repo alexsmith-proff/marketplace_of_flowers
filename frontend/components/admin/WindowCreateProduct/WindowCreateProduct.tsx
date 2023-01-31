@@ -6,7 +6,9 @@ import { AdminButtonFunctional, AdminButtonType } from "../../../enums/AdminButt
 import { CREATE_PRODUCT, GET_ALL_PRODUCTS } from "../../../graphql/admin-product.graphql";
 import { GET_ALL_BRANDS } from "../../../graphql/brand.graphql";
 import { GET_ALL_CATALOG_NO_TREE, GET_ALL_FILTER_ELEMENT } from "../../../graphql/catalog.graphql";
+import { useInput } from "../../../hooks/useInput";
 import { useProductFilter } from "../../../hooks/useProductFilter";
+import { useTextArea } from "../../../hooks/useTextArea";
 import { ICatalog } from "../../../interfaces/catalog.interface";
 import { IFilterElement, IFilterValue } from "../../../interfaces/filter.interface";
 import { IPreviewProductImage, IProductFilter } from "../../../interfaces/products.interface";
@@ -41,15 +43,23 @@ const WindowCreateProduct: FC<WindowCreateProductProps> = ({ name, slug, createP
 
     const [tabIndex, setTabIndex] = useState<number>(1)
 
-    const [productName, setProductName] = useState<string>(name)
-    const [slugName, setSlugName] = useState<string>(slug)
-    const [productVendor, setProductVendor] = useState<string>(null)
-    const [productPrice, setProductPrice] = useState<number>(null)
-    const [productCount, setProductCount] = useState<number>(null)
+    const productName = useInput('', 'string')
+    const slugName = useInput('', 'string')
+    const productVendor = useInput('', 'string')
+    const productPrice = useInput('', 'number')
+    const productCount = useInput('', 'number')
+
+    const productDescription = useTextArea('')
+
+    // const [productName, setProductName] = useState<string>(name)
+    // const [slugName, setSlugName] = useState<string>(slug)
+    // const [productVendor, setProductVendor] = useState<string>(null)
+    // const [productPrice, setProductPrice] = useState<number>(null)
+    // const [productCount, setProductCount] = useState<number>(null)
     const [productBrand, setProductBrand] = useState<IBrand>(null)
     const [productCatalog, setProductCatalog] = useState<ICatalog>(null)
-    const [productDescription, setProductDescription] = useState<string>(null)
     const [filesArr, setFilesArr] = useState([])
+    // const [productDescription, setProductDescription] = useState<string>(null)
 
     const [brandsArr, setBrandsArr] = useState<IBrand[]>(null)
     const [catalogArr, setCatalogArr] = useState<ICatalog[]>(null)
@@ -90,19 +100,19 @@ const WindowCreateProduct: FC<WindowCreateProductProps> = ({ name, slug, createP
         }
     }
 
-    const handleChangeProductName = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setProductName(e.target.value)
-        setSlugName(getSlug(e.target.value))
-    }
-    const handleChangeProductVendor = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setProductVendor(e.target.value)
-    }
-    const handleChangeProductPrice = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setProductPrice(Number(e.target.value))
-    }
-    const handleChangeProductCount = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setProductCount(Number(e.target.value))
-    }
+    // const handleChangeProductName = (e: React.ChangeEvent<HTMLInputElement>) => {
+    //     setProductName(e.target.value)
+    //     setSlugName(getSlug(e.target.value))
+    // }
+    // const handleChangeProductVendor = (e: React.ChangeEvent<HTMLInputElement>) => {
+    //     setProductVendor(e.target.value)
+    // }
+    // const handleChangeProductPrice = (e: React.ChangeEvent<HTMLInputElement>) => {
+    //     setProductPrice(Number(e.target.value))
+    // }
+    // const handleChangeProductCount = (e: React.ChangeEvent<HTMLInputElement>) => {
+    //     setProductCount(Number(e.target.value))
+    // }
     const handleChangeProductBrand = (e: React.ChangeEvent<HTMLSelectElement>) => {
         const brand = brandsArr.find((item) => item.name == e.target.value)
         setProductBrand(brand)
@@ -111,29 +121,28 @@ const WindowCreateProduct: FC<WindowCreateProductProps> = ({ name, slug, createP
         const catalog = catalogArr.find((item) => item.name == e.target.value)
         setProductCatalog(catalog)
     }
-    const handleChangeProductDescription = (e: any) => {
-        setProductDescription(e.target.value)
-    }
+    // const handleChangeProductDescription = (e: any) => {
+    //     setProductDescription(e.target.value)
+    // }
 
 
-    const onlyNumber = (e: any, digits: number) => {
-        if (e.target.value)
-            if (e.target.value.length <= digits) {
-                e.target.value = e.target.value.replace(/\D/g, '')
-            } else {
-                e.target.value = e.target.value.replace(/\D/g, '')
-                e.target.value = e.target.value.slice(0, digits)
-            }
-
-    }
+    // const onlyNumber = (e: any, digits: number) => {
+    //     if (e.target.value)
+    //         if (e.target.value.length <= digits) {
+    //             e.target.value = e.target.value.replace(/\D/g, '')
+    //         } else {
+    //             e.target.value = e.target.value.replace(/\D/g, '')
+    //             e.target.value = e.target.value.slice(0, digits)
+    //         }
+    // }
     const ProductFieldsNull = () => {
-        setProductName(null)
-        setProductVendor(null)
-        setProductPrice(null)
-        setProductCount(null)
+        // setProductName(null)
+        // setProductVendor(null)
+        // setProductPrice(null)
+        // setProductCount(null)
         setProductBrand(brandsArr ? brandsArr[0] : null)
         setProductCatalog(catalogArr ? catalogArr[0] : null)
-        setProductDescription(null)
+        // setProductDescription(null)
         setPreviewImages([])
     }
 
@@ -181,23 +190,23 @@ const WindowCreateProduct: FC<WindowCreateProductProps> = ({ name, slug, createP
 
     // Клик на кнопку "Создать товар"
     const handleClickCreateProduct = () => {
-        console.log('previewImage', previewImages);
+        // console.log('previewImage', previewImages);
 
-        if (productName) {
-            createProduct({
-                name: productName,
-                slug: slugName,
-                price: productPrice,
-                vendor_code: productVendor,
-                count_in_stock: productCount,
-                brand_id: productBrand ? +productBrand.id : null,
-                catalog_id: productCatalog ? +productCatalog.id : null,
-                images: previewImages,
-            })
+        // if (productName) {
+        //     createProduct({
+        //         name: productName,
+        //         slug: slugName,
+        //         price: productPrice,
+        //         vendor_code: productVendor,
+        //         count_in_stock: productCount,
+        //         brand_id: productBrand ? +productBrand.id : null,
+        //         catalog_id: productCatalog ? +productCatalog.id : null,
+        //         images: previewImages,
+        //     })
 
-            ProductFieldsNull()
-            closeWindow()
-        }
+        //     ProductFieldsNull()
+        //     closeWindow()
+        // }
     }
 
 
@@ -218,20 +227,20 @@ const WindowCreateProduct: FC<WindowCreateProductProps> = ({ name, slug, createP
                         <div className={s.tabsContent}>
                             <div className={s.LabelEdit}>
                                 <span className={s.title}>Название товара</span>
-                                <input className={!productName ? (s.nameInput + ' ' + s.error) : s.nameInput} type="text" value={productName} onChange={handleChangeProductName} />
+                                <input className={!productName ? (s.nameInput + ' ' + s.error) : s.nameInput} type="text" value={productName.value} onChange={productName.onChange} />
                             </div>
                             <div className={s.secondLevel}>
                                 <div className={s.LabelEdit}>
                                     <span className={s.title}>Артикул</span>
-                                    <input className={!productVendor ? (s.vendorInput + ' ' + s.nameInput + ' ' + s.error) : (s.vendorInput + ' ' + s.nameInput)} type="text" value={productVendor} onChange={handleChangeProductVendor} />
+                                    <input className={!productVendor ? (s.vendorInput + ' ' + s.nameInput + ' ' + s.error) : (s.vendorInput + ' ' + s.nameInput)} type="text" value={productVendor.value} onChange={productVendor.onChange} />
                                 </div>
                                 <div className={s.LabelEdit}>
                                     <span className={s.title}>Цена</span>
-                                    <input className={!productPrice ? (s.priceInput + ' ' + s.nameInput + ' ' + s.error) : (s.priceInput + ' ' + s.nameInput)} type="text" value={productPrice} onInput={e => onlyNumber(e, 8)} onChange={handleChangeProductPrice} />
+                                    <input className={!productPrice ? (s.priceInput + ' ' + s.nameInput + ' ' + s.error) : (s.priceInput + ' ' + s.nameInput)} type="text" value={productPrice.value} onInput={(e) => productPrice.onInput(e, 4)} onChange={productPrice.onChange} />
                                 </div>
                                 <div className={s.LabelEdit}>
                                     <span className={s.title}>Кол.-во</span>
-                                    <input className={!productCount ? (s.countInput + ' ' + s.nameInput + ' ' + s.error) : (s.countInput + ' ' + s.nameInput)} type="text" value={productCount} onInput={e => onlyNumber(e, 6)} onChange={handleChangeProductCount} />
+                                    <input className={!productCount ? (s.countInput + ' ' + s.nameInput + ' ' + s.error) : (s.countInput + ' ' + s.nameInput)} type="text" value={productCount.value} onInput={(e) => productCount.onInput(e, 4)} onChange={productCount.onChange} />
                                 </div>
                             </div>
 
@@ -298,7 +307,7 @@ const WindowCreateProduct: FC<WindowCreateProductProps> = ({ name, slug, createP
 
                             <div className={s.LabelEdit}>
                                 <span className={s.title}>Описание</span>
-                                <textarea className={s.description} rows={8} cols={50} onChange={handleChangeProductDescription}></textarea>
+                                <textarea className={s.description} rows={8} cols={50} value={productDescription.value} onChange={productDescription.onChange}></textarea>
                             </div>
 
                         </div>
