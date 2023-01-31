@@ -51,15 +51,9 @@ const WindowCreateProduct: FC<WindowCreateProductProps> = ({ name, slug, createP
 
     const productDescription = useTextArea('')
 
-    // const [productName, setProductName] = useState<string>(name)
-    // const [slugName, setSlugName] = useState<string>(slug)
-    // const [productVendor, setProductVendor] = useState<string>(null)
-    // const [productPrice, setProductPrice] = useState<number>(null)
-    // const [productCount, setProductCount] = useState<number>(null)
     const [productBrand, setProductBrand] = useState<IBrand>(null)
     const [productCatalog, setProductCatalog] = useState<ICatalog>(null)
     const [filesArr, setFilesArr] = useState([])
-    // const [productDescription, setProductDescription] = useState<string>(null)
 
     const [brandsArr, setBrandsArr] = useState<IBrand[]>(null)
     const [catalogArr, setCatalogArr] = useState<ICatalog[]>(null)
