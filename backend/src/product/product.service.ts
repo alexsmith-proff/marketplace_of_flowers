@@ -32,7 +32,11 @@ export class ProductService {
         main_image = fileNames[0]
       }
     }
-    const newProduct = { ...createProductInput, main_image, filenames_images: fileNames }
+    const newProduct = { ...createProductInput,
+      brand: createProductInput.brand_id ? {id: createProductInput.brand_id} : null,
+      catalog: createProductInput.catalog_id ? {id: createProductInput.catalog_id} : null,
+      main_image, filenames_images: fileNames
+    }
     delete newProduct.main_image_index
     console.log(newProduct);
 

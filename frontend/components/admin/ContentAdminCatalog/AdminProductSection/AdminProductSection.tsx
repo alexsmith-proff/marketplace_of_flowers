@@ -129,6 +129,12 @@ const AdminProductSection: FC<AdminProductSectionProps> = () => {
   // end POPUP ///////////////////////////////
 
   const handleCreateProduct = (createProductInput: ICreateProductInput) => {
+
+    console.log('createProductInput.brand_id', createProductInput.brand_id);
+    console.log('createProductInput.catalog_id', createProductInput.catalog_id);
+    
+
+
     let formData = new FormData()
     formData.append('name', createProductInput.name)
     formData.append('slug', createProductInput.slug)
