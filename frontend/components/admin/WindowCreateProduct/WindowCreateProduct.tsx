@@ -94,19 +94,6 @@ const WindowCreateProduct: FC<WindowCreateProductProps> = ({ name, slug, createP
         }
     }
 
-    // const handleChangeProductName = (e: React.ChangeEvent<HTMLInputElement>) => {
-    //     setProductName(e.target.value)
-    //     setSlugName(getSlug(e.target.value))
-    // }
-    // const handleChangeProductVendor = (e: React.ChangeEvent<HTMLInputElement>) => {
-    //     setProductVendor(e.target.value)
-    // }
-    // const handleChangeProductPrice = (e: React.ChangeEvent<HTMLInputElement>) => {
-    //     setProductPrice(Number(e.target.value))
-    // }
-    // const handleChangeProductCount = (e: React.ChangeEvent<HTMLInputElement>) => {
-    //     setProductCount(Number(e.target.value))
-    // }
     const handleChangeProductBrand = (e: React.ChangeEvent<HTMLSelectElement>) => {
         const brand = brandsArr.find((item) => item.name == e.target.value)
         setProductBrand(brand)
@@ -115,20 +102,7 @@ const WindowCreateProduct: FC<WindowCreateProductProps> = ({ name, slug, createP
         const catalog = catalogArr.find((item) => item.name == e.target.value)
         setProductCatalog(catalog)
     }
-    // const handleChangeProductDescription = (e: any) => {
-    //     setProductDescription(e.target.value)
-    // }
-
-
-    // const onlyNumber = (e: any, digits: number) => {
-    //     if (e.target.value)
-    //         if (e.target.value.length <= digits) {
-    //             e.target.value = e.target.value.replace(/\D/g, '')
-    //         } else {
-    //             e.target.value = e.target.value.replace(/\D/g, '')
-    //             e.target.value = e.target.value.slice(0, digits)
-    //         }
-    // }
+    
     const ProductFieldsNull = () => {
         // setProductName(null)
         // setProductVendor(null)
@@ -139,13 +113,6 @@ const WindowCreateProduct: FC<WindowCreateProductProps> = ({ name, slug, createP
         // setProductDescription(null)
         setPreviewImages([])
     }
-
-
-    // const handleChangeBlockFile = (e: any) => {
-    //     setFile(e.target.files[0])
-
-    //     // setFiles(e.target.files)
-    // }
 
     const handleChangeImages = (e: any) => {
         console.log(e.target.files[0]);
@@ -186,21 +153,21 @@ const WindowCreateProduct: FC<WindowCreateProductProps> = ({ name, slug, createP
     const handleClickCreateProduct = () => {
         // console.log('previewImage', previewImages);
 
-        // if (productName) {
-        //     createProduct({
-        //         name: productName,
-        //         slug: slugName,
-        //         price: productPrice,
-        //         vendor_code: productVendor,
-        //         count_in_stock: productCount,
-        //         brand_id: productBrand ? +productBrand.id : null,
-        //         catalog_id: productCatalog ? +productCatalog.id : null,
-        //         images: previewImages,
-        //     })
+        if (productName) {
+            createProduct({
+                name: String(productName.value),
+                slug: '',
+                price: Number(productPrice.value),
+                vendor_code: String(productVendor.value),
+                count_in_stock: Number(productCount.value),
+                brand_id: productBrand ? Number(productBrand.id) : null,
+                catalog_id: productCatalog ? Number(productCatalog.id) : null,
+                images: previewImages,
+            })
 
-        //     ProductFieldsNull()
-        //     closeWindow()
-        // }
+            // ProductFieldsNull()
+            closeWindow()
+        }
     }
 
 
