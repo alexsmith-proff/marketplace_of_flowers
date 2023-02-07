@@ -41,7 +41,11 @@ const FilterTable: FC<FilterTableProps> = ({ filterArrInTable, change, isReadyCr
     const handleChangeFilterElementCheckBox = (e: React.ChangeEvent<HTMLSelectElement>, indexCheckBox: number) => {
         e.preventDefault()
         const indexFilterElement = filterElementArr.findIndex((item) => item.name === e.target.value)
-        change(filterArrInTable.map((item, index) => index === indexCheckBox ? { ...item, activeIndexFilterElement: indexFilterElement, filterElementName: e.target.value } : item))
+        if(indexFilterElement == -1){
+            change(filterArrInTable.map((item, index) => index === indexCheckBox ? { ...item, activeIndexFilterElement: 0, filterElementName: '' } : item))
+        }else{
+            change(filterArrInTable.map((item, index) => index === indexCheckBox ? { ...item, activeIndexFilterElement: indexFilterElement, filterElementName: e.target.value } : item))
+        }
     }
     const handleChangeFilterValueCheckBox = (e: React.ChangeEvent<HTMLSelectElement>, indexCheckBox: number) => {
         e.preventDefault()
@@ -54,6 +58,21 @@ const FilterTable: FC<FilterTableProps> = ({ filterArrInTable, change, isReadyCr
             change(filterArrInTable.map((item, index) => index === indexFilterRow ? { ...item, isActiveCreateBtn: false, isActiveEditBtn: true, isActiveDeleteBtn: true } : item))
         }
     }
+
+    const handleClickDeleteFilterBtn = async(indexFilterRow: number) => {
+        // console.log('filterArrInTable_Before', filterArrInTable);
+        // const arr = filterArrInTable.filter((_, index) => index == indexFilterRow)
+        // console.log('arr', arr);
+        // await change([...arr])
+
+        change([...filterArrInTable.filter((_, index) => index !== indexFilterRow)])
+
+        // console.log('filterArrInTable_After', filterArrInTable);
+    }
+
+    console.log('filterArrInTableeeee', filterArrInTable);
+    console.log('filterElementArrrrrr', filterElementArr);
+    
 
     return (
         <>
@@ -68,11 +87,11 @@ const FilterTable: FC<FilterTableProps> = ({ filterArrInTable, change, isReadyCr
                 <tbody>
                     {
                         filterArrInTable.map((item, index) => (
-                            <tr className={s.tr} >
+                            <tr className={s.tr} key={index}>
                                 <td>{index + 1}</td>
                                 <td>
-                                    <select className={s.filterCkeckbox} onChange={(e) => handleChangeFilterElementCheckBox(e, index)}>
-                                        <option>{item.filterElementName}</option>
+                                    <select className={s.filterCkeckbox} onChange={(e) => handleChangeFilterElementCheckBox(e, index)}  value={item.filterElementName}>
+                                        <option></option>
                                         {
                                             filterElementArr.map((itemCheckBox, index) => <option key={index}>{itemCheckBox.name}</option>)
                                         }
@@ -80,8 +99,8 @@ const FilterTable: FC<FilterTableProps> = ({ filterArrInTable, change, isReadyCr
                                 </td>
                                 <td className={s.value}>
                                     <div className={s.valueLeft}>
-                                        <select className={s.filterCheckboxValue} onChange={(e) => handleChangeFilterValueCheckBox(e, index)}>
-                                            <option>{item.filterValueName}</option>
+                                        <select className={s.filterCheckboxValue} onChange={(e) => handleChangeFilterValueCheckBox(e, index)} value={item.filterValueName}>
+                                            <option></option>
                                             {
                                                 filterElementArr[item.activeIndexFilterElement].values.map((itemCheckBox, index) => <option key={index}>{itemCheckBox.name}</option>)
                                             }
@@ -100,7 +119,7 @@ const FilterTable: FC<FilterTableProps> = ({ filterArrInTable, change, isReadyCr
                                             item.isActiveDeleteBtn && (
                                                 // Кнопка удалить
                                                 <div className={s.button}>
-                                                    <ButtonAdmin typeBtn={AdminButtonType.Ico} functionalBtn={AdminButtonFunctional.Standard} border={false} ico={<MdDeleteOutline />} sizeIco={18} />
+                                                    <ButtonAdmin typeBtn={AdminButtonType.Ico} functionalBtn={AdminButtonFunctional.Standard} border={false} clickBtn={() => handleClickDeleteFilterBtn(index)} ico={<MdDeleteOutline />} sizeIco={18} />
                                                 </div>
                                             )
                                         }
