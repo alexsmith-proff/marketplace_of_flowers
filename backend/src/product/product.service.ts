@@ -1,5 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { CreateProductFilterInput } from 'src/product-filter/dto/create-product-filter.input';
+import { ProductFilterEntity } from 'src/product-filter/entities/product-filter.entity';
 import { createFile } from 'src/util/file';
 import { Repository } from 'typeorm';
 import { CreateProductInput } from './dto/create-product.input';
@@ -12,10 +14,11 @@ let getSlug = require('speakingurl')
 
 @Injectable()
 export class ProductService {
-  constructor(@InjectRepository(ProductEntity) private readonly productRepository: Repository<ProductEntity>) { }
+  constructor( @InjectRepository(ProductEntity) private readonly productRepository: Repository<ProductEntity> ) { }
 
   async createAPI(files: Array<Express.Multer.File>, createProductInput: CreateProductInput): Promise<ProductEntity> {
     // console.log('file', file);
+    // console.log('createProductInput', createProductInput);
 
     const fileNames: string[] = []
     let main_image = ''
@@ -32,15 +35,21 @@ export class ProductService {
         main_image = fileNames[0]
       }
     }
-    const newProduct = { ...createProductInput,
+  
+    const prepareProduct = { ...createProductInput,
       brand: createProductInput.brand_id ? {id: createProductInput.brand_id} : null,
       catalog: createProductInput.catalog_id ? {id: createProductInput.catalog_id} : null,
       main_image, filenames_images: fileNames
     }
-    delete newProduct.main_image_index
-    console.log(newProduct);
+    delete prepareProduct.main_image_index
+    const newProduct = await this.productRepository.save(prepareProduct)
 
-    return await this.productRepository.save(newProduct)
+    // const prepareProductFilter: CreateProductFilterInput = { name: createProductInput.name, slug: getSlug(createProductInput.name), value: 'sdsd' }
+    // const newProductFilter = await this.productFilterRepository.save(prepareProductFilter)
+
+    // console.log(newProduct);
+
+    return newProduct 
   }
 
   async createNoFiles(createProductInput: CreateProductInput): Promise<ProductEntity> {

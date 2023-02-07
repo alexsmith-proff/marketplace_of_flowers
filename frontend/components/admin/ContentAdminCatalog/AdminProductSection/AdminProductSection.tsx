@@ -1,6 +1,7 @@
 import { useMutation, useQuery } from "@apollo/client";
 import React, { FC, useEffect, useRef, useState } from "react";
 import { CREATE_PRODUCT, DELETE_PRODUCT, GET_ALL_PRODUCTS, GET_ALL_PRODUCTS_BY_SORT, UPDATE_PRODUCT, UPDATE_RELATIONS_PRODUCT } from "../../../../graphql/admin-product.graphql";
+import { CREATE_PRODUCT_FILTER } from "../../../../graphql/product-filter.graphql";
 import { IAdminProduct, ICreateProductInput, IUpdateProductInput, IUpdateProductRelationsInput } from "../../../../interfaces/products.interface";
 import ButtonAdmin from "../../Buttons/ButtonAdmin/ButtonAdmin";
 import { AdminButtonType, AdminButtonFunctional } from "../../../../enums/AdminButtons.enum";
@@ -13,6 +14,7 @@ import WindowCreateProduct from "../../WindowCreateProduct/WindowCreateProduct";
 import WindowUpdateProduct from "../../WindowUpdateProduct/WindowUpdateProduct";
 import axios from "axios";
 
+// Контекстное меню
 const menuItems: IPopupMenuItems[] = [
   {
     indexItem: 1,
@@ -26,7 +28,6 @@ const menuItems: IPopupMenuItems[] = [
     indexItem: 3,
     name: 'Удалить товар'
   }
-
 ]
 
 interface AdminProductSectionProps { }
@@ -51,10 +52,12 @@ const AdminProductSection: FC<AdminProductSectionProps> = () => {
         }
       }
     });
-  const [createProduct, dataCreateProduct] = useMutation(CREATE_PRODUCT)
+  // const [createProduct, dataCreateProduct] = useMutation(CREATE_PRODUCT)
   const [updateProduct, dataUpdateProduct] = useMutation(UPDATE_PRODUCT)
   const [updateRelationsProduct, dataUpdateRelationsProduct] = useMutation(UPDATE_RELATIONS_PRODUCT)
   const [deleteProduct, dataDeleteProduct] = useMutation(DELETE_PRODUCT)
+
+  const [createProductFilter, dataCreateProductFilter] = useMutation(CREATE_PRODUCT_FILTER)
 
   const [products, setProducts] = useState<IAdminProduct[]>(null)
   const [currentProduct, setCurrentProduct] = useState<IAdminProduct>(null)
@@ -128,13 +131,7 @@ const AdminProductSection: FC<AdminProductSectionProps> = () => {
   }
   // end POPUP ///////////////////////////////
 
-  const handleCreateProduct = (createProductInput: ICreateProductInput) => {
-
-    console.log('createProductInput.brand_id', createProductInput.brand_id);
-    console.log('createProductInput.catalog_id', createProductInput.catalog_id);
-    
-
-
+  const handleCreateProduct = async(createProductInput: ICreateProductInput) => {
     let formData = new FormData()
     formData.append('name', createProductInput.name)
     formData.append('slug', createProductInput.slug)
@@ -148,20 +145,38 @@ const AdminProductSection: FC<AdminProductSectionProps> = () => {
     }
     const mainImageIndex = createProductInput.images.findIndex((img) => img.isMainPhoto)
     formData.append('main_image_index', String(mainImageIndex))
-    
 
     // console.log('createProductInput.images.map((file) => file.fileFromTarget)', Array.from(createProductInput.images).map((file) => file.fileFromTarget));
     // console.log('mainImageIndex', mainImageIndex);
 
 
-    axios.post(process.env.API_URI + '/api/product/create', formData)
-      .then((res) => {
-        console.log('Success' + res.data);
-        RefeachAllProductsBySort()
+    const product = await axios.post(process.env.API_URI + '/api/product/create', formData) 
+    
+    for(let i = 0; i < createProductInput.filters.length; i++){
+      await createProductFilter({
+        variables: {
+          createProductFilterInput: {
+            name: createProductInput.filters[i].filterElementName,
+            // slug: createProductInput.filters[i].filterElementName,
+            value: createProductInput.filters[i].filterValueName,
+            product_id: +product.data.id
+          }
+        }
       })
-      .catch((err) => {
-        console.log(err);
-      })
+    }
+
+    RefeachAllProductsBySort()
+    
+
+
+    // axios.post(process.env.API_URI + '/api/product/create', formData)
+    //   .then((res) => {
+    //     console.log('Success' + res.data);
+    //     RefeachAllProductsBySort()
+    //   })
+    //   .catch((err) => {
+    //     console.log(err);
+    //   })
 
 
 

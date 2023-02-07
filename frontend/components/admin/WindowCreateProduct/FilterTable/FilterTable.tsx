@@ -13,15 +13,14 @@ import { IProductFilterRowTable } from "../../../../interfaces/products.interfac
 interface FilterTableProps {
     filterArrInTable: IProductFilterRowTable[]
     change: (items: IProductFilterRowTable[]) => void
+    isReadyCreate: boolean
     filterElementArr: IFilterElement[]
 }
 
 
-const FilterTable: FC<FilterTableProps> = ({ filterArrInTable, change, filterElementArr }) => {
+const FilterTable: FC<FilterTableProps> = ({ filterArrInTable, change, isReadyCreate, filterElementArr }) => {
     // const [dataArrInTable, setDataArrInTable] = useState<IProductFilterRowTable[]>(filterArrInTable)
     const [isFilterCreate, setIsFilterCreate] = useState<boolean>(false) // Фильтр создан? Если false, то кнопка 'Добавить фильтр' работает, также задает логику кнопок: 'редактировать', 'удалить'
-
-
 
 
     const addEmptyFilter = () => {
@@ -50,11 +49,10 @@ const FilterTable: FC<FilterTableProps> = ({ filterArrInTable, change, filterEle
     }
 
     const handleClickCreateFilterBtn = (indexFilterRow: number) => {
-        // Запись данных в GraphQL
-        //////////////////////////
-
-        setIsFilterCreate(false)
-        change(filterArrInTable.map((item, index) => index === indexFilterRow ? { ...item, isActiveCreateBtn: false, isActiveEditBtn: true, isActiveDeleteBtn: true } : item))
+        if (isReadyCreate) {
+            setIsFilterCreate(false)
+            change(filterArrInTable.map((item, index) => index === indexFilterRow ? { ...item, isActiveCreateBtn: false, isActiveEditBtn: true, isActiveDeleteBtn: true } : item))
+        }
     }
 
     return (

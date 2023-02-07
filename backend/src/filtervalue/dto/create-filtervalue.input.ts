@@ -13,7 +13,4 @@ export class CreateFilterValueInput {
 
   @Field(() => Number, { description: 'FilterElement id', nullable: true })
   filter_element_id: number
-
-  @Field(() => Number, { description: 'ProductElement id', nullable: true })
-  product_element_id: number
 }

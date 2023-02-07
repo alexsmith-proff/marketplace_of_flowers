@@ -14,8 +14,7 @@ export class ProductFilterService {
 
   async create(createProductFilterInput: CreateProductFilterInput): Promise<ProductFilterEntity> {
     return await this.productFilterRepository.save({...createProductFilterInput,
-      product: { id: createProductFilterInput.product_id }    
-    })
+      product: createProductFilterInput.product_id ? {id: createProductFilterInput.product_id} : null})
   }
 
   async findAll(): Promise<ProductFilterEntity[]> {

@@ -25,7 +25,8 @@ export interface ICreateProductInput {
   count_in_stock: number,
   brand_id: number,
   catalog_id: number,
-  images: IPreviewProductImage[]
+  images: IPreviewProductImage[],
+  filters: IProductFilterRowTable[]
 }
 
 export interface IUpdateProductInput {

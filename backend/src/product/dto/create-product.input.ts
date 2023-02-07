@@ -1,6 +1,4 @@
 import { InputType, Field } from '@nestjs/graphql'
-import { BrandEntity } from 'src/brand/entities/brand.entity'
-import { Column } from 'typeorm'
 
 @InputType()
 export class CreateProductInput {

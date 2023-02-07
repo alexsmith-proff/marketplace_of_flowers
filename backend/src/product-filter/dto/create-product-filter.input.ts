@@ -8,6 +8,9 @@ export class CreateProductFilterInput {
   @Field(() => String, { description: 'Slug ProductName', nullable: true })
   slug: string;
 
-  @Field(() => Number, { description: 'Product ID' })
-  product_id: number;
+  @Field(() => String, { description: 'Slug ProductName', nullable: true })
+  value: string;
+
+  @Field(() => Number, { description: 'Catalog', nullable: true })
+  product_id: number
 }

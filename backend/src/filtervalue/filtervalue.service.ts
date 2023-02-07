@@ -14,10 +14,10 @@ export class FilterValueService {
     private readonly filterValueRepository: Repository<FilterValueEntity>,
   ) { }
   async create(createFilterValueInput: CreateFilterValueInput): Promise<FilterValueEntity> {
-    return await this.filterValueRepository.save({ ...createFilterValueInput, slug: getSlug(createFilterValueInput.name),
-      filter_element: createFilterValueInput.filter_element_id ? { id: createFilterValueInput.filter_element_id } : null, 
-      product_element: createFilterValueInput.product_element_id ? { id: createFilterValueInput.product_element_id } : null
-       })
+    return await this.filterValueRepository.save({
+      ...createFilterValueInput, slug: getSlug(createFilterValueInput.name),
+      filter_element: createFilterValueInput.filter_element_id ? { id: createFilterValueInput.filter_element_id } : null
+    })
   }
 
   async findAll(): Promise<FilterValueEntity[]> {

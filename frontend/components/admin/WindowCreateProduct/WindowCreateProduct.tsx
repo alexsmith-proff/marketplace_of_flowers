@@ -32,6 +32,7 @@ interface WindowCreateProductProps {
     closeWindow: () => void
 }
 
+// Вкладки
 const tabsName = ['Основное', 'Фильтры']
 
 const WindowCreateProduct: FC<WindowCreateProductProps> = ({ name, slug, createProduct, closeWindow }) => {
@@ -144,16 +145,13 @@ const WindowCreateProduct: FC<WindowCreateProductProps> = ({ name, slug, createP
             if (ind != index) {
                 return true
             }
-
             return false
         }))
     }
 
     // Клик на кнопку "Создать товар"
     const handleClickCreateProduct = () => {
-        // console.log('previewImage', previewImages);
-
-        if (productName) {
+        if (productName && filterArrInTable.isReadyToFeach) {
             createProduct({
                 name: String(productName.value),
                 slug: '',
@@ -163,15 +161,12 @@ const WindowCreateProduct: FC<WindowCreateProductProps> = ({ name, slug, createP
                 brand_id: productBrand ? Number(productBrand.id) : null,
                 catalog_id: productCatalog ? Number(productCatalog.id) : null,
                 images: previewImages,
+                filters: filterArrInTable.productFilterArr
             })
 
-            // ProductFieldsNull()
             closeWindow()
         }
     }
-
-
-    console.log('filterArrInTable', filterArrInTable.productFilterArr);
 
     return (
         <>
@@ -249,7 +244,7 @@ const WindowCreateProduct: FC<WindowCreateProductProps> = ({ name, slug, createP
                                         <>
                                             {
                                                 previewImages.map((photo, ind) => (
-                                                    <div className={s.previewImages}>
+                                                    <div className={s.previewImages} key={ind}>
                                                         <img src={photo.file} key={ind} onClick={() => handlePreviewMainPhoto(ind)} onMouseEnter={() => setNumPreviewPhotoHover(ind)} />
                                                         {
                                                             photo.isMainPhoto && <AiFillHome className={s.previewHome} />
@@ -277,9 +272,10 @@ const WindowCreateProduct: FC<WindowCreateProductProps> = ({ name, slug, createP
                     {
                         tabIndex == 2 &&
                         <div className={s.tabsContent}>
-                            <FilterTable filterArrInTable={filterArrInTable.productFilterArr} change={filterArrInTable.change} filterElementArr={filterElementArr} />
+                            <FilterTable filterArrInTable={filterArrInTable.productFilterArr} change={filterArrInTable.change} isReadyCreate={filterArrInTable.isReadyCreate} filterElementArr={filterElementArr} />
                         </div>
                     }
+
                     <div className={s.buttons}>
                         <ButtonAdmin typeBtn={AdminButtonType.Text} functionalBtn={AdminButtonFunctional.Standard} border={true} clickBtn={handleClickCreateProduct}>Создать товар</ButtonAdmin>
                         <div className={s.btnClose} onClick={closeWindow}>
