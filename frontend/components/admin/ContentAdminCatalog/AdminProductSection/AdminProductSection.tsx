@@ -1,6 +1,6 @@
 import { useMutation, useQuery } from "@apollo/client";
 import React, { FC, useEffect, useRef, useState } from "react";
-import { CREATE_PRODUCT, DELETE_PRODUCT, GET_ALL_PRODUCTS, GET_ALL_PRODUCTS_BY_SORT, UPDATE_PRODUCT, UPDATE_RELATIONS_PRODUCT } from "../../../../graphql/admin-product.graphql";
+import { DELETE_PRODUCT, GET_ALL_PRODUCTS_BY_SORT, UPDATE_PRODUCT, UPDATE_RELATIONS_PRODUCT } from "../../../../graphql/admin-product.graphql";
 import { CREATE_PRODUCT_FILTER } from "../../../../graphql/product-filter.graphql";
 import { IAdminProduct, ICreateProductInput, IUpdateProductInput, IUpdateProductRelationsInput } from "../../../../interfaces/products.interface";
 import ButtonAdmin from "../../Buttons/ButtonAdmin/ButtonAdmin";
@@ -33,16 +33,6 @@ const menuItems: IPopupMenuItems[] = [
 interface AdminProductSectionProps { }
 
 const AdminProductSection: FC<AdminProductSectionProps> = () => {
-  // const { loading, error, data } = useQuery(GET_ALL_PRODUCTS_BY_SORT,
-  //   {
-  //     variables: {
-  //       sortProductInput: {
-  //         sort_field: "count_in_stock",
-  //         sort_order: "ASC"
-  //       }
-  //     }
-  //   }
-  // )
   const { loading, error, data, refetch: RefeachAllProductsBySort } = useQuery(GET_ALL_PRODUCTS_BY_SORT,
     {
       variables: {
@@ -52,7 +42,6 @@ const AdminProductSection: FC<AdminProductSectionProps> = () => {
         }
       }
     });
-  // const [createProduct, dataCreateProduct] = useMutation(CREATE_PRODUCT)
   const [updateProduct, dataUpdateProduct] = useMutation(UPDATE_PRODUCT)
   const [updateRelationsProduct, dataUpdateRelationsProduct] = useMutation(UPDATE_RELATIONS_PRODUCT)
   const [deleteProduct, dataDeleteProduct] = useMutation(DELETE_PRODUCT)
@@ -98,11 +87,8 @@ const AdminProductSection: FC<AdminProductSectionProps> = () => {
     if (e.type === 'click') {
       setPopupMenuVisible(false)
     }
-
   }
   const handleSelectMenuItem = (indexItem: number) => {
-    console.log('Popup menu', indexItem);
-    console.log('currentProduct', currentProduct);
     setPopupMenuVisible(false)
     //Popup menu - Редактировать
     if (indexItem == 2) {
@@ -146,10 +132,6 @@ const AdminProductSection: FC<AdminProductSectionProps> = () => {
     const mainImageIndex = createProductInput.images.findIndex((img) => img.isMainPhoto)
     formData.append('main_image_index', String(mainImageIndex))
 
-    // console.log('createProductInput.images.map((file) => file.fileFromTarget)', Array.from(createProductInput.images).map((file) => file.fileFromTarget));
-    // console.log('mainImageIndex', mainImageIndex);
-
-
     const product = await axios.post(process.env.API_URI + '/api/product/create', formData) 
     
     for(let i = 0; i < createProductInput.filters.length; i++){
@@ -166,38 +148,6 @@ const AdminProductSection: FC<AdminProductSectionProps> = () => {
     }
 
     RefeachAllProductsBySort()
-    
-
-
-    // axios.post(process.env.API_URI + '/api/product/create', formData)
-    //   .then((res) => {
-    //     console.log('Success' + res.data);
-    //     RefeachAllProductsBySort()
-    //   })
-    //   .catch((err) => {
-    //     console.log(err);
-    //   })
-
-
-
-
-    // Save DB
-    // createProduct({
-    //   variables: {
-    //     createProductInput: createProductInput
-    //   },
-    //   refetchQueries: [
-    //     {
-    //       query: GET_ALL_PRODUCTS_BY_SORT,
-    //       variables: {
-    //         sortProductInput: {
-    //           sort_field: "count_in_stock",
-    //           sort_order: "ASC"
-    //         }
-    //       }
-    //     }
-    //   ]
-    // })
   }
 
   const handleUpdateProduct = async (updateProductInput: IUpdateProductInput, updateProductRelationsInput: IUpdateProductRelationsInput) => {
@@ -288,16 +238,6 @@ const AdminProductSection: FC<AdminProductSectionProps> = () => {
 
         </tbody>
       </table>
-
-      {/* {products && (
-        <ul>
-          {products.map((item) => (
-            <li key={item.id}>{item.name}</li>
-          ))}
-        </ul>
-      )} */}
-
-
     </div>
   );
 };

@@ -1,9 +1,8 @@
-import { useMutation, useQuery } from "@apollo/client";
+import { useQuery } from "@apollo/client";
 import React, { FC, useEffect, useRef, useState } from "react";
 import { AiFillHome } from "react-icons/ai";
 import { MdClose } from "react-icons/md";
 import { AdminButtonFunctional, AdminButtonType } from "../../../enums/AdminButtons.enum";
-import { CREATE_PRODUCT, GET_ALL_PRODUCTS } from "../../../graphql/admin-product.graphql";
 import { GET_ALL_BRANDS } from "../../../graphql/brand.graphql";
 import { GET_ALL_CATALOG_NO_TREE, GET_ALL_FILTER_ELEMENT } from "../../../graphql/catalog.graphql";
 import { useInput } from "../../../hooks/useInput";
@@ -59,16 +58,10 @@ const WindowCreateProduct: FC<WindowCreateProductProps> = ({ name, slug, createP
     const [brandsArr, setBrandsArr] = useState<IBrand[]>(null)
     const [catalogArr, setCatalogArr] = useState<ICatalog[]>(null)
     const [filterElementArr, setFilterElementArr] = useState<IFilterElement[]>([])
-    const [filterValueArr, setFilterValueArr] = useState<IFilterValue[]>(null)
-
-
 
     const filterArrInTable = useProductFilter([])
 
-
-
     const [previewImages, setPreviewImages] = useState<IPreviewProductImage[]>([])
-    // const [fileDataURL, setFileDataURL] = useState(null)
     const [numPreviewPhotoHover, setNumPreviewPhotoHover] = useState(null)
 
     useEffect(() => {
@@ -103,23 +96,9 @@ const WindowCreateProduct: FC<WindowCreateProductProps> = ({ name, slug, createP
         const catalog = catalogArr.find((item) => item.name == e.target.value)
         setProductCatalog(catalog)
     }
-    
-    const ProductFieldsNull = () => {
-        // setProductName(null)
-        // setProductVendor(null)
-        // setProductPrice(null)
-        // setProductCount(null)
-        setProductBrand(brandsArr ? brandsArr[0] : null)
-        setProductCatalog(catalogArr ? catalogArr[0] : null)
-        // setProductDescription(null)
-        setPreviewImages([])
-    }
 
     const handleChangeImages = (e: any) => {
-        console.log(e.target.files[0]);
-
         if (e.target.files) {
-            // const fileArray = Array.from(e.target.files).map((file) => URL.createObjectURL(file as Blob))
             const ArrayObj: IPreviewProductImage[] = Array.from(e.target.files).map((f) => {
                 return {
                     fileFromTarget: f,
@@ -177,7 +156,7 @@ const WindowCreateProduct: FC<WindowCreateProductProps> = ({ name, slug, createP
                             tabsName.map((item, index) => <li className={s.tabsItem + ' ' + (tabIndex == index + 1 ? s.active : '')} onClick={() => setTabIndex(index + 1)} key={index}>{item}</li>)
                         }
                     </ul>
-                    {/* Вкладка Основное */}
+                    {/* Вкладка 'Основное' */}
                     {
                         tabIndex == 1 &&
                         <div className={s.tabsContent}>
@@ -268,7 +247,7 @@ const WindowCreateProduct: FC<WindowCreateProductProps> = ({ name, slug, createP
 
                         </div>
                     }
-                    {/* Вкладка Фильтры */}
+                    {/* Вкладка 'Фильтры' */}
                     {
                         tabIndex == 2 &&
                         <div className={s.tabsContent}>

@@ -58,6 +58,7 @@ export interface IProductFilterRowTable {
   filterElementName: string,
   filterValueName: string,
   activeIndexFilterElement: number,
+  isDisabledCheckBox: boolean,
   isActiveCreateBtn: boolean,
   isActiveEditBtn: boolean,
   isActiveDeleteBtn: boolean,
