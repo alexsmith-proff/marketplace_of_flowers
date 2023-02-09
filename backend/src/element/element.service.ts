@@ -1,5 +1,5 @@
 import { ElementEntity } from './entities/element.entity';
-import { Injectable } from '@nestjs/common';
+import { Injectable, Logger } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { CreateElementInput } from './dto/create-element.input';
@@ -47,10 +47,20 @@ export class ElementService {
     })
   }
 
-  async update(id: number, updateElementInput: UpdateElementInput): Promise<ElementEntity> {
-    await this.elementRepository.update(id, updateElementInput)    
-    return await this.findOne(id)
+  async update(id: number, updateElementInput: UpdateElementInput) {
+    const element = await this.findOne(id);
+    const newElement = {
+      ...element,
+      ...updateElementInput,
+      // product: updateElementInput.product_id ? {id: updateElementInput.product_id} : null
+    };
+    // delete newElement.product_id
+    console.log('newElementnewElementnewElement', newElement);
+    
+    return await this.elementRepository.save(newElement);
   }
+
+
 
   async remove(id: number): Promise<ElementEntity> {
     const element = await this.findOne(id)

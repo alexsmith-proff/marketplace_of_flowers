@@ -22,7 +22,9 @@ export class SectionService {
         createdAt: 'ASC'
       },
       relations:{
-        elements: true,
+        elements: {
+          product: true
+        },
       }
     })
   }

@@ -8,10 +8,10 @@ import { IconContext } from "react-icons";
 import s from "./ButtonAdmin.module.scss";
 
 interface ButtonAdminProps {
-  typeBtn: AdminButtonType;
-  functionalBtn: AdminButtonFunctional;
+  typeBtn?: AdminButtonType;
+  functionalBtn?: AdminButtonFunctional;
   enabled?: boolean
-  border: boolean
+  border?: boolean
   editVisible?: boolean;
   setEditActive?: Dispatch<SetStateAction<boolean>>;
   URef?: any;
@@ -24,16 +24,16 @@ interface ButtonAdminProps {
 }
 
 const ButtonAdmin: FC<ButtonAdminProps> = ({
-  typeBtn,
-  functionalBtn,
+  typeBtn = AdminButtonType.Text,
+  functionalBtn = AdminButtonFunctional.Standard,
   enabled = true,
-  border,
+  border = true,
   editVisible,
   setEditActive,
   URef,
   confirm,
   confirmTitle,
-  clickBtn,
+  clickBtn = () => null,
   ico,
   sizeIco,
   children,

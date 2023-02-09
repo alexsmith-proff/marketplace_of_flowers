@@ -11,4 +11,7 @@ export class UpdateElementInput extends PartialType(CreateElementInput) {
 
   @Field(() => String, { description: 'slug element' })
   slug: string;
+
+  @Field(() => Number, { nullable: true })
+  product_id: number
 }

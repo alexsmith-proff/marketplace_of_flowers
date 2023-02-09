@@ -25,7 +25,7 @@ export class ElementResolver {
 
   @Mutation(() => ElementEntity)
   updateElement(@Args('updateElementInput') updateElementInput: UpdateElementInput) {
-    return this.elementService.update(updateElementInput.id, updateElementInput);
+    return this.elementService.update(updateElementInput.id,  updateElementInput);
   }
 
   @Mutation(() => ElementEntity)

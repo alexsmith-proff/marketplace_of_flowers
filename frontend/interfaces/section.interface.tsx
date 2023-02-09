@@ -1,3 +1,5 @@
+import { IAdminProduct } from "./products.interface"
+
 interface IBase {
     id: number
     name: string
@@ -13,6 +15,7 @@ export interface IImgElement extends IBase {
 export interface IElement extends IBase{
     text_elements: ITextElement[]
     img_elements: IImgElement[]
+    product: IAdminProduct
 }
 export interface ISection extends IBase {
     elements: IElement[]
@@ -21,6 +24,7 @@ export interface ISection extends IBase {
 export interface INameSlugInput {
     name: string
     slug: string
+    product_id: number
 }
 
 

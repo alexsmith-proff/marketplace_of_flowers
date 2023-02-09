@@ -50,9 +50,15 @@ const ContentAdminSections = ({ }: ContentAdminSectionsProps) => {
 
   const [currentName, setCurrentName] = useState<string>('')
   const [currentSlug, setCurrentSlug] = useState<string>('')
+  const [currentProductName, setCurrentProductName] = useState<string>(null)
   const [currentTextValue, setCurrentTextValue] = useState<string>('')
   // const [currentFileName, setCurrentFileName] = useState<string>('')
   const [currentTypeBlock, setCurrentTypeBlock] = useState<AdminBlockType>(AdminBlockType.Text)
+
+
+
+
+  const [productKey, setProductKey] = useState<string>('')
 
 
 
@@ -60,6 +66,7 @@ const ContentAdminSections = ({ }: ContentAdminSectionsProps) => {
     if (data) {
       setSections(data.getAllSections);
     }
+    
   }, [data]);
 
 
@@ -224,6 +231,8 @@ const ContentAdminSections = ({ }: ContentAdminSectionsProps) => {
   const handleClickUpdateElement = (element: IElement) => {
     setCurrentName(element.name)
     setCurrentSlug(element.slug)
+    console.log('aaaaaaaaaaaa', element.product?.name);
+    setCurrentProductName(element.product?.name)
     setCurrentIdElement(element.id)
     setWindowUpdateElementVisible(true)
   }
@@ -303,17 +312,18 @@ const ContentAdminSections = ({ }: ContentAdminSectionsProps) => {
     setWindowUpdateBlockVisible(true)
   }
 
+
   return (
     <div className={s.section}>
       {/* Создать секцию */}
-      <WindowCreateNameSlug visible={windowCreateSectionVisible} modeWindow={AdminWindowMode.Create} typeSection={AdminSectionType.Section} createNameSlug={handleCreateSection} closeWindow={closeWindow} />
+      <WindowCreateNameSlug visible={windowCreateSectionVisible} modeWindow={AdminWindowMode.Create} typeSection={AdminSectionType.Section} create={handleCreateSection} closeWindow={closeWindow} />
       {/* Редактировать секцию */}
-      <WindowCreateNameSlug visible={windowUpdateSectionVisible} modeWindow={AdminWindowMode.Update} typeSection={AdminSectionType.Section} name={currentName} slug={currentSlug} updateNameSlug={handleUpdateSection} closeWindow={closeWindow} />
+      <WindowCreateNameSlug visible={windowUpdateSectionVisible} modeWindow={AdminWindowMode.Update} typeSection={AdminSectionType.Section} name={currentName} slug={currentSlug} update={handleUpdateSection} closeWindow={closeWindow} />
 
       {/* Создать элемент */}
-      <WindowCreateNameSlug visible={windowCreateElementVisible} modeWindow={AdminWindowMode.Create} typeSection={AdminSectionType.Element} createNameSlug={(data) => handleCreateElement(data, currentIdSection)} closeWindow={closeWindow} />
+      <WindowCreateNameSlug visible={windowCreateElementVisible} modeWindow={AdminWindowMode.Create} typeSection={AdminSectionType.Element} create={(data) => handleCreateElement(data, currentIdSection)} closeWindow={closeWindow} />
       {/* Редактировать элемент */}
-      <WindowCreateNameSlug visible={windowUpdateElementVisible} modeWindow={AdminWindowMode.Update} typeSection={AdminSectionType.Element} name={currentName} slug={currentSlug} updateNameSlug={(data) => handleUpdateElement(data)} closeWindow={closeWindow} />
+      <WindowCreateNameSlug visible={windowUpdateElementVisible} modeWindow={AdminWindowMode.Update} typeSection={AdminSectionType.Element} name={currentName} slug={currentSlug} initProductName={currentProductName} update={(data) => handleUpdateElement(data)} closeWindow={closeWindow} />
 
       {/* Создать текст/изображение блок */}
       <WindowCreateBlock visible={windowCreateBlockVisible} modeWindow={AdminWindowMode.Create} typeBlock={AdminBlockType.Text} createBlockText={(data) => handleCreateBlockText(data, currentIdElement)} createBlockImg={(data) => handleCreateBlockImg(data, currentIdElement)} closeWindow={closeWindow} />
@@ -325,6 +335,17 @@ const ContentAdminSections = ({ }: ContentAdminSectionsProps) => {
           <>
             {sections.map((section, indexSection) => (
               <li className={s.sectionItem} key={section.id}>
+
+                <select onChange={(e) => setProductKey(e.target.value)} value={productKey}>
+                  <option></option>
+                  {
+                    Object.keys(section).map((item, index) => <option key={index}>{item}</option>)
+                  }
+                </select>
+
+                <div>{section[productKey]}</div>
+
+
                 <div className={s.titleWrap} onMouseEnter={() => handleMouseEnterSection(indexSection)} onMouseLeave={handleMouseLeave}>
                   <div className={s.sectionTitle}>{`Секция - ${section.name} (${section.slug})`}</div>
                   {

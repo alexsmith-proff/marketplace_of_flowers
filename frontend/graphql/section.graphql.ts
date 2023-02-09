@@ -111,6 +111,28 @@ query GetAllSections{
           slug
           filename
         }
+        product{
+          id
+          name
+          price
+          vendor_code
+          count_in_stock
+          brand{
+            id
+            name
+          }
+          catalog{
+            id
+            name
+          }
+          main_image
+          filenames_images
+          filters{
+            id
+            name
+            value
+          }
+        }        
       }
     }
   }
