@@ -2,7 +2,8 @@ import { SectionEntity } from './../../section/entities/section.entity';
 import { TextElementEntity } from '../../textelement/entities/textelement.entity';
 import { ImgElementEntity } from '../../imgelement/entities/imgelement.entity';
 import { ObjectType, Field, ID } from '@nestjs/graphql';
-import { Column, Entity, PrimaryGeneratedColumn, OneToMany, ManyToOne, CreateDateColumn, UpdateDateColumn } from 'typeorm';
+import { Column, Entity, PrimaryGeneratedColumn, OneToMany, ManyToOne, CreateDateColumn, UpdateDateColumn, JoinColumn, OneToOne } from 'typeorm';
+import { ProductEntity } from 'src/product/entities/product.entity';
 
 @ObjectType()
 @Entity('element')
@@ -30,6 +31,11 @@ export class ElementEntity {
   @Field(() => SectionEntity)
   @ManyToOne(() => SectionEntity, section => section.elements, {onDelete: 'CASCADE'})
   section_ref: SectionEntity
+
+  @Field(() => ProductEntity, { nullable: true })
+  @OneToOne(() => ProductEntity)
+  @JoinColumn()
+  product: ProductEntity
 
   @Field(() => Date)
   @CreateDateColumn()

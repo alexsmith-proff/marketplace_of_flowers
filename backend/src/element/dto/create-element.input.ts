@@ -10,4 +10,7 @@ export class CreateElementInput {
 
   @Field(() => Number)
   section_id: number
+
+  @Field(() => Number, { nullable: true })
+  product_id: number
 }

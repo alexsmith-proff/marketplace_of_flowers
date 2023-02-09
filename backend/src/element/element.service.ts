@@ -13,7 +13,10 @@ export class ElementService {
     ){}
 
   async create(createElementInput: CreateElementInput): Promise<ElementEntity> {
-    const newElement = {...createElementInput, section_ref: {id: createElementInput.section_id}}
+    const newElement = {...createElementInput,
+      section_ref: {id: createElementInput.section_id}, 
+      product: createElementInput.product_id ? {id: createElementInput.product_id} : null
+    }
     return await this.elementRepository.save(newElement)
   }
 
@@ -21,7 +24,8 @@ export class ElementService {
     return await this.elementRepository.find({
       relations:{
         text_elements: true,
-        img_elements: true        
+        img_elements: true,
+        product: true
       },
       order: {
         createdAt: 'DESC'
@@ -36,7 +40,8 @@ export class ElementService {
       },
       relations: {
         text_elements: true,
-        img_elements: true
+        img_elements: true,
+        product: true,
       }
       
     })
