@@ -1,6 +1,7 @@
 import { ObjectType, Field, ID } from '@nestjs/graphql'
 import { BrandEntity } from 'src/brand/entities/brand.entity';
 import { CatalogEntity } from 'src/catalog/entities/catalog.entity';
+import { ElementEntity } from 'src/element/entities/element.entity';
 import { ProductFilterEntity } from 'src/product-filter/entities/product-filter.entity';
 import { Column, CreateDateColumn, Entity, JoinColumn, JoinTable, ManyToOne, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from 'typeorm';
 
@@ -55,6 +56,9 @@ export class ProductEntity {
   @Column("text", { array: true, default: [] })
   filenames_images: string[]
 
+  @Field(() => [ElementEntity], { nullable: true })
+  @OneToMany(() => ElementEntity, element => element.product_ref )
+  elements: ElementEntity[]
 
   @Field(() => Date)
   @CreateDateColumn()

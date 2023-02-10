@@ -111,7 +111,7 @@ query GetAllSections{
           slug
           filename
         }
-        product{
+        product_ref{
           id
           name
           price

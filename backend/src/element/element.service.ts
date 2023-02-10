@@ -13,10 +13,16 @@ export class ElementService {
     ){}
 
   async create(createElementInput: CreateElementInput): Promise<ElementEntity> {
+    console.log('createElementInputcreateElementInput', createElementInput);
+    
+    
     const newElement = {...createElementInput,
-      section_ref: {id: createElementInput.section_id}, 
-      product: createElementInput.product_id ? {id: createElementInput.product_id} : null
+      section_ref: {id: createElementInput.section_id},
+      product_ref: createElementInput.product_id ? {id: createElementInput.product_id} : null
+      // product: createElementInput.product_id ? {id: createElementInput.product_id} : null
     }
+    console.log('createcreatecreate', newElement);
+    
     return await this.elementRepository.save(newElement)
   }
 
@@ -25,7 +31,11 @@ export class ElementService {
       relations:{
         text_elements: true,
         img_elements: true,
-        product: true
+        product_ref: true
+        // product_ref: {
+        //   name: true
+        // }
+        // product: true
       },
       order: {
         createdAt: 'DESC'
@@ -41,7 +51,7 @@ export class ElementService {
       relations: {
         text_elements: true,
         img_elements: true,
-        product: true,
+        // product: true,
       }
       
     })
@@ -49,15 +59,24 @@ export class ElementService {
 
   async update(id: number, updateElementInput: UpdateElementInput) {
     const element = await this.findOne(id);
+    console.log('elementelementelement', element);
+    
     const newElement = {
       ...element,
       ...updateElementInput,
       // product: updateElementInput.product_id ? {id: updateElementInput.product_id} : null
+      product_ref: updateElementInput.product_id ? {id: updateElementInput.product_id} : null
     };
-    // delete newElement.product_id
+    // // delete newElement.product_id
     console.log('newElementnewElementnewElement', newElement);
+
     
     return await this.elementRepository.save(newElement);
+    
+    // console.log('updateElementInputupdateElementInput', updateElementInput);
+
+    // await this.elementRepository.update(id, {...updateElementInput, product: updateElementInput.product_id ? {id: updateElementInput.product_id} : null })
+    // return await this.findOne(id)
   }
 
 

@@ -15,7 +15,7 @@ export interface IImgElement extends IBase {
 export interface IElement extends IBase{
     text_elements: ITextElement[]
     img_elements: IImgElement[]
-    product: IAdminProduct
+    product_ref: IAdminProduct
 }
 export interface ISection extends IBase {
     elements: IElement[]

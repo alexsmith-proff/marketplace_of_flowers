@@ -32,10 +32,18 @@ export class ElementEntity {
   @ManyToOne(() => SectionEntity, section => section.elements, {onDelete: 'CASCADE'})
   section_ref: SectionEntity
 
-  @Field(() => ProductEntity, { nullable: true })
-  @OneToOne(() => ProductEntity)
-  @JoinColumn()
-  product: ProductEntity
+  // @Field(() => Number, { nullable: })One
+  // @Column()
+  // product_id: number
+
+  // @Field(() => ProductEntity, { nullable: true, })
+  // @OneToOne(() => ProductEntity, product => product.id, { onDelete: 'SET NULL' })
+  // @JoinColumn()
+  // product: ProductEntity
+
+  @Field(() => ProductEntity, {nullable: true})
+  @ManyToOne(() => ProductEntity, product => product.elements, {onDelete: 'CASCADE'})
+  product_ref: ProductEntity
 
   @Field(() => Date)
   @CreateDateColumn()

@@ -63,10 +63,7 @@ const ContentAdminSections = ({ }: ContentAdminSectionsProps) => {
 
 
   useEffect(() => {
-    if (data) {
-      setSections(data.getAllSections);
-    }
-    
+    setSections(data?.getAllSections);
   }, [data]);
 
 
@@ -158,7 +155,6 @@ const ContentAdminSections = ({ }: ContentAdminSectionsProps) => {
   const handleCreateBlockImg = (formData: any, element_id: number) => {
     formData.append('element_id', element_id)
     axios.post(process.env.API_URI + '/api/imgelement/create', formData)
-      // axios.post('http://localhost:5000' + '/api/imgelement/create', formData)
       .then((res) => {
         console.log('Success' + res.data);
         RefeachAllSections()
@@ -166,7 +162,6 @@ const ContentAdminSections = ({ }: ContentAdminSectionsProps) => {
       .catch((err) => {
         console.log(err);
       })
-
   }
 
 
@@ -231,8 +226,9 @@ const ContentAdminSections = ({ }: ContentAdminSectionsProps) => {
   const handleClickUpdateElement = (element: IElement) => {
     setCurrentName(element.name)
     setCurrentSlug(element.slug)
-    console.log('aaaaaaaaaaaa', element.product?.name);
-    setCurrentProductName(element.product?.name)
+    RefeachAllSections()
+    // console.log('aaaaaaaaaaaa', element.product_ref?.name);
+    setCurrentProductName(element.product_ref?.name ? element.product_ref?.name : '')
     setCurrentIdElement(element.id)
     setWindowUpdateElementVisible(true)
   }
@@ -316,14 +312,26 @@ const ContentAdminSections = ({ }: ContentAdminSectionsProps) => {
   return (
     <div className={s.section}>
       {/* Создать секцию */}
-      <WindowCreateNameSlug visible={windowCreateSectionVisible} modeWindow={AdminWindowMode.Create} typeSection={AdminSectionType.Section} create={handleCreateSection} closeWindow={closeWindow} />
+      {
+        windowCreateSectionVisible && <WindowCreateNameSlug modeWindow={AdminWindowMode.Create} typeSection={AdminSectionType.Section} create={handleCreateSection} closeWindow={closeWindow} />
+      }
+      
       {/* Редактировать секцию */}
-      <WindowCreateNameSlug visible={windowUpdateSectionVisible} modeWindow={AdminWindowMode.Update} typeSection={AdminSectionType.Section} name={currentName} slug={currentSlug} update={handleUpdateSection} closeWindow={closeWindow} />
+      {
+        windowUpdateSectionVisible && <WindowCreateNameSlug modeWindow={AdminWindowMode.Update} typeSection={AdminSectionType.Section} name={currentName} slug={currentSlug} update={handleUpdateSection} closeWindow={closeWindow} />
+      }
+      
 
       {/* Создать элемент */}
-      <WindowCreateNameSlug visible={windowCreateElementVisible} modeWindow={AdminWindowMode.Create} typeSection={AdminSectionType.Element} create={(data) => handleCreateElement(data, currentIdSection)} closeWindow={closeWindow} />
+      {
+        windowCreateElementVisible && <WindowCreateNameSlug modeWindow={AdminWindowMode.Create} typeSection={AdminSectionType.Element} create={(data) => handleCreateElement(data, currentIdSection)} closeWindow={closeWindow} />
+      }
+      
       {/* Редактировать элемент */}
-      <WindowCreateNameSlug visible={windowUpdateElementVisible} modeWindow={AdminWindowMode.Update} typeSection={AdminSectionType.Element} name={currentName} slug={currentSlug} initProductName={currentProductName} update={(data) => handleUpdateElement(data)} closeWindow={closeWindow} />
+      {
+        windowUpdateElementVisible && <WindowCreateNameSlug modeWindow={AdminWindowMode.Update} typeSection={AdminSectionType.Element} name={currentName} slug={currentSlug} initProductName={currentProductName} update={(data) => handleUpdateElement(data)} closeWindow={closeWindow} />
+      }
+
 
       {/* Создать текст/изображение блок */}
       <WindowCreateBlock visible={windowCreateBlockVisible} modeWindow={AdminWindowMode.Create} typeBlock={AdminBlockType.Text} createBlockText={(data) => handleCreateBlockText(data, currentIdElement)} createBlockImg={(data) => handleCreateBlockImg(data, currentIdElement)} closeWindow={closeWindow} />

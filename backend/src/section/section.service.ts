@@ -23,8 +23,8 @@ export class SectionService {
       },
       relations:{
         elements: {
-          product: true
-        },
+          product_ref: true
+        }
       }
     })
   }

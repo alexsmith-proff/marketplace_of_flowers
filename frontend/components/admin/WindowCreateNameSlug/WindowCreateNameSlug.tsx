@@ -1,4 +1,4 @@
-import { useLazyQuery } from "@apollo/client";
+import { useLazyQuery, useQuery } from "@apollo/client";
 import React, { FC, useEffect, useRef, useState } from "react";
 import { AdminButtonFunctional, AdminButtonType } from "../../../enums/AdminButtons.enum";
 import { AdminSectionType } from "../../../enums/AdminSections.enum";
@@ -16,7 +16,6 @@ import s from "./WindowCreateNameSlug.module.scss";
 let getSlug = require('speakingurl');
 
 interface WindowCreateNameSlugProps {
-    visible: boolean
     modeWindow: AdminWindowMode
     typeSection: AdminSectionType
     name?: string
@@ -28,14 +27,14 @@ interface WindowCreateNameSlugProps {
     closeWindow: () => void
 }
 
-const WindowCreateNameSlug: FC<WindowCreateNameSlugProps> = ({ visible, modeWindow, typeSection, name, slug, initProductName, create, update, closeWindow }) => {
+const WindowCreateNameSlug: FC<WindowCreateNameSlugProps> = ({ modeWindow, typeSection, name, slug, initProductName, create, update, closeWindow }) => {
 
     const [products, setProducts] = useState<IAdminProduct[]>([])
     const [productName, setProductName] = useState<string>(initProductName)
 
-    const [getProducts, { loading, data }] = useLazyQuery(GET_ALL_PRODUCTS)
+    const { loading, error, data, refetch: RefeachAllProducts } = useQuery(GET_ALL_PRODUCTS)
+    // const [getProducts, { loading, data }] = useLazyQuery(GET_ALL_PRODUCTS)
 
-    const [isVisibleProduct, setIsVisibleProduct] = useState<boolean>(false)
 
 
     const [titleName, setTitleName] = useState<string>(name)
@@ -67,7 +66,7 @@ const WindowCreateNameSlug: FC<WindowCreateNameSlugProps> = ({ visible, modeWind
             create({
                 name: titleName,
                 slug: slugName,
-                product_id: isVisibleProduct ? +products.find((item) => item.name === productName).id : null
+                product_id: productName ? +products.find((item) => item.name === productName).id : null
             })
             productFieldsNull()
         }
@@ -75,8 +74,8 @@ const WindowCreateNameSlug: FC<WindowCreateNameSlugProps> = ({ visible, modeWind
             update({
                 name: titleName,
                 slug: slugName,
-                // product_id: isVisibleProduct ? +products.find((item) => item.name === productName).id : null
-                product_id: 55
+                product_id: productName ? +products.find((item) => item.name === productName).id : null
+                // product_id: 55
             })
         }
 
@@ -93,12 +92,9 @@ const WindowCreateNameSlug: FC<WindowCreateNameSlugProps> = ({ visible, modeWind
 
     useEffect(() => {
         setProductName(initProductName)
-        if (initProductName) {
-            getProducts()
-            setIsVisibleProduct((prev) => !prev)
-            // setIsVisibleProduct(true)
-        }
     }, [initProductName])
+
+
 
     useEffect(() => {
         setProducts(data?.getAllProducts)
@@ -106,11 +102,6 @@ const WindowCreateNameSlug: FC<WindowCreateNameSlugProps> = ({ visible, modeWind
 
     // console.log('nameee', name);
     // console.log('slugggg', slug);
-
-    const handleAddProduct = () => {
-        getProducts()
-        setIsVisibleProduct((prev) => !prev)
-    }
 
     const handleChangeProduct = (e) => {
         setProductName(e.target.value)
@@ -122,45 +113,41 @@ const WindowCreateNameSlug: FC<WindowCreateNameSlugProps> = ({ visible, modeWind
 
     return (
         <>
-            {
-                visible &&
-                <div className={s.background} onMouseDown={handleCloseWindow} ref={windowRef}>
-                    <div className={s.window}>
-                        <div className={s.LabelEdit}>
-                            <span className={s.title}>{typeSection == AdminSectionType.Section ? 'Имя секции' : 'Имя элемента'}</span>
-                            <input className={!titleName ? (s.nameInput + ' ' + s.error) : s.nameInput} type="text" onChange={handleChangeTitleName} value={titleName} />
-                        </div>
-
-                        <div className={s.LabelEdit}>
-                            <span className={s.title}>Имя слага</span>
-                            <input className={!setSlugName ? (s.nameInput + ' ' + s.error) : s.nameInput} type="text" onChange={handleChangeSlugName} value={slugName} />
-                        </div>
-
-                        <div className={s.useProduct}>
-                            <ButtonAdmin typeBtn={AdminButtonType.Ico} ico={<FcDataRecovery />} sizeIco={20} clickBtn={handleAddProduct} />
-                            {
-                                isVisibleProduct &&
-                                <select className={s.checkBoxProducts} onChange={(e) => handleChangeProduct(e)} value={productName} >
-                                    <option></option>
-                                    {
-                                        products?.map((product, index) => <option key={index} >{product.name}</option>)
-                                    }
-                                </select>
-                            }
-                        </div>
-
-
-
-                        <div className={s.buttons}>
-                            <ButtonAdmin typeBtn={AdminButtonType.Text} functionalBtn={AdminButtonFunctional.Standard} border={true} clickBtn={handleClickCreateProduct}>{modeWindow == AdminWindowMode.Create ? 'Создать' : 'Редактировать'} {typeSection == AdminSectionType.Section ? 'секцию' : 'элемент'}</ButtonAdmin>
-                            <div className={s.btnClose} onClick={closeWindow}>
-                                <ButtonAdmin typeBtn={AdminButtonType.Text} functionalBtn={AdminButtonFunctional.Standard} border={true} clickBtn={() => closeWindow()}>Закрыть</ButtonAdmin>
-                            </div>
-                        </div>
-                        <div className={s.close} onMouseDown={closeWindow}></div>
+            <div className={s.background} onMouseDown={handleCloseWindow} ref={windowRef}>
+                <div className={s.window}>
+                    <div className={s.LabelEdit}>
+                        <span className={s.title}>{typeSection == AdminSectionType.Section ? 'Имя секции' : 'Имя элемента'}</span>
+                        <input className={!titleName ? (s.nameInput + ' ' + s.error) : s.nameInput} type="text" onChange={handleChangeTitleName} value={titleName} />
                     </div>
+
+                    <div className={s.LabelEdit}>
+                        <span className={s.title}>Имя слага</span>
+                        <input className={!setSlugName ? (s.nameInput + ' ' + s.error) : s.nameInput} type="text" onChange={handleChangeSlugName} value={slugName} />
+                    </div>
+
+                    <div className={s.useProduct}>
+                        <div>Продукт</div>
+                        {
+                            <select className={s.checkBoxProducts} onChange={(e) => handleChangeProduct(e)} value={productName} >
+                                <option></option>
+                                {
+                                    products?.map((product, index) => <option key={index} >{product.name}</option>)
+                                }
+                            </select>
+                        }
+                    </div>
+
+
+
+                    <div className={s.buttons}>
+                        <ButtonAdmin typeBtn={AdminButtonType.Text} functionalBtn={AdminButtonFunctional.Standard} border={true} clickBtn={handleClickCreateProduct}>{modeWindow == AdminWindowMode.Create ? 'Создать' : 'Редактировать'} {typeSection == AdminSectionType.Section ? 'секцию' : 'элемент'}</ButtonAdmin>
+                        <div className={s.btnClose} onClick={closeWindow}>
+                            <ButtonAdmin typeBtn={AdminButtonType.Text} functionalBtn={AdminButtonFunctional.Standard} border={true} clickBtn={() => closeWindow()}>Закрыть</ButtonAdmin>
+                        </div>
+                    </div>
+                    <div className={s.close} onMouseDown={closeWindow}></div>
                 </div>
-            }
+            </div>
         </>
     );
 };
