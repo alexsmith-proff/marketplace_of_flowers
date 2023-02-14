@@ -100,16 +100,9 @@ const WindowCreateNameSlug: FC<WindowCreateNameSlugProps> = ({ modeWindow, typeS
         setProducts(data?.getAllProducts)
     }, [data])
 
-    // console.log('nameee', name);
-    // console.log('slugggg', slug);
-
     const handleChangeProduct = (e) => {
         setProductName(e.target.value)
     }
-
-
-    console.log('initProductNameinitProductName', initProductName);
-
 
     return (
         <>

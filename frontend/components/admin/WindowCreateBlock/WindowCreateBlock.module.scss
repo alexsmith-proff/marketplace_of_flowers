@@ -67,6 +67,26 @@
         border-radius: 5px;
     }
 }
+.radio{
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 7px;
+    &Button{
+        display: flex;
+        flex-direction: row;
+        justify-content: left;
+        align-items: center;
+        height: 30px;
+        cursor: pointer;
+        input{
+            width: 20px;
+            height: 14px;
+            display: flex;
+            align-items: center;
+        }
+    }
+}
 
 .title {
     font-size: 16px;

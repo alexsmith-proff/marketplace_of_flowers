@@ -2,6 +2,7 @@ import React, { FC, useEffect, useRef, useState } from "react";
 import { AdminBlockType } from "../../../enums/AdminBlock.enum";
 // import { URL } from "url";
 import { AdminButtonFunctional, AdminButtonType } from "../../../enums/AdminButtons.enum";
+import { AdminSectionRadioButtons } from "../../../enums/AdminSections.enum";
 import { AdminWindowMode } from "../../../enums/Mode.enum";
 import { ICreateBlockTextInput } from "../../../interfaces/section.interface";
 import ButtonAdmin from "../Buttons/ButtonAdmin/ButtonAdmin";
@@ -36,6 +37,8 @@ const WindowCreateBlock: FC<WindowCreateBlockProps> = ({ visible, modeWindow, na
     const [text, setText] = useState<string>(textValue)
     const [file, setFile] = useState(null)
     const [fileDataURL, setFileDataURL] = useState(null)
+
+    const [radioButtonValue, setRadioButtonValue] = useState(AdminSectionRadioButtons.Text)
 
     const windowRef = useRef()
 
@@ -87,7 +90,7 @@ const WindowCreateBlock: FC<WindowCreateBlockProps> = ({ visible, modeWindow, na
             if (blockType == BlockTypeArr[0]) {
                 if (modeWindow == AdminWindowMode.Create) {
                     console.log('creaate');
-                    
+
                     if (!text) return
                     createBlockText({
                         name: titleName,
@@ -167,8 +170,32 @@ const WindowCreateBlock: FC<WindowCreateBlockProps> = ({ visible, modeWindow, na
                             // Блок текстовый
                             blockType == BlockTypeArr[0] && (
                                 <div className={s.LabelEdit}>
-                                    <span className={s.title}>Текст</span>
-                                    <textarea className={s.description} rows={8} cols={50} onChange={handleChangeBlockText}>{textValue}</textarea>
+                                    <div className={s.radio}>
+                                        <label className={s.radioButton}>
+                                            <input type="radio" name="block" checked={radioButtonValue === AdminSectionRadioButtons.Text ? true : false} onChange={() => setRadioButtonValue(AdminSectionRadioButtons.Text)} />
+                                            Текст
+                                        </label>
+                                        <label className={s.radioButton}>
+                                            <input type="radio" name="block" checked={radioButtonValue === AdminSectionRadioButtons.Product ? true : false} onChange={() => setRadioButtonValue(AdminSectionRadioButtons.Product)} />
+                                            Продукт
+                                        </label>
+                                    </div>
+
+                                    {/* <span className={s.title}>Текст</span> */}
+                                    {
+                                        radioButtonValue === AdminSectionRadioButtons.Text && <textarea className={s.description} rows={8} cols={50} onChange={handleChangeBlockText}>{textValue}</textarea>
+                                    }
+                                    {
+                                        // radioButtonValue === AdminSectionRadioButtons.Product &&
+                                        // <>
+                                        //     <select onChange={(e) => setProductKey(e.target.value)} value={productKey}>
+                                        //         <option></option>
+                                        //         {
+                                        //             Object.keys(section).map((item, index) => <option key={index}>{item}</option>)
+                                        //         }
+                                        //     </select>
+                                        // </>
+                                    }
                                 </div>
                             )
                         }
@@ -192,7 +219,7 @@ const WindowCreateBlock: FC<WindowCreateBlockProps> = ({ visible, modeWindow, na
                         }
 
                         <div className={s.buttons}>
-                            <ButtonAdmin typeBtn={AdminButtonType.Text} functionalBtn={AdminButtonFunctional.Standard} border={true} clickBtn={handleClickCreateBlock}>{modeWindow==AdminWindowMode.Create?'Создать':'Редактировать'} блок</ButtonAdmin>
+                            <ButtonAdmin typeBtn={AdminButtonType.Text} functionalBtn={AdminButtonFunctional.Standard} border={true} clickBtn={handleClickCreateBlock}>{modeWindow == AdminWindowMode.Create ? 'Создать' : 'Редактировать'} блок</ButtonAdmin>
                             <div className={s.btnClose} onClick={closeWindow}>
                                 <ButtonAdmin typeBtn={AdminButtonType.Text} functionalBtn={AdminButtonFunctional.Standard} border={true} clickBtn={() => closeWindow()}>Закрыть</ButtonAdmin>
                             </div>
