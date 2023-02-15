@@ -228,11 +228,12 @@ const ContentAdminSections = ({ }: ContentAdminSectionsProps) => {
   const handleClickUpdateElement = (element: IElement) => {
     setCurrentName(element.name)
     setCurrentSlug(element.slug)
-    RefeachAllSections()
+    setCurrentElement(element)
     // console.log('aaaaaaaaaaaa', element.product_ref?.name);
     setCurrentProductName(element.product_ref?.name ? element.product_ref?.name : '')
     setCurrentIdElement(element.id)
     setWindowUpdateElementVisible(true)
+    // RefeachAllSections()
   }
 
   const handleClickDeleteElement = (element: IElement) => {
@@ -301,9 +302,10 @@ const ContentAdminSections = ({ }: ContentAdminSectionsProps) => {
   }
 
 
-  const handleClickUpdateTextBlock = (textblock: ITextElement) => {
+  const handleClickUpdateTextBlock = (element: IElement, textblock: ITextElement) => {
     setCurrentName(textblock.name)
     setCurrentSlug(textblock.slug)
+    setCurrentElement(element)
     setCurrentTextValue(textblock.text)
     setCurrentIdBlock(textblock.id)
 
@@ -337,9 +339,13 @@ const ContentAdminSections = ({ }: ContentAdminSectionsProps) => {
 
 
       {/* Создать текст/изображение блок */}
-      <WindowCreateBlock visible={windowCreateBlockVisible} modeWindow={AdminWindowMode.Create} typeBlock={AdminBlockType.Text} product={currentElement?.product_ref} createBlockText={(data) => handleCreateBlockText(data, currentIdElement)} createBlockImg={(data) => handleCreateBlockImg(data, currentIdElement)} closeWindow={closeWindow} />
+      {
+        windowCreateBlockVisible && <WindowCreateBlock modeWindow={AdminWindowMode.Create} typeBlock={AdminBlockType.Text} product={currentElement?.product_ref} createBlockText={(data) => handleCreateBlockText(data, currentIdElement)} createBlockImg={(data) => handleCreateBlockImg(data, currentIdElement)} closeWindow={closeWindow} />
+      }
       {/* Редактировать текст/изображение блок */}
-      <WindowCreateBlock visible={windowUpdateBlockVisible} modeWindow={AdminWindowMode.Update} name={currentName} slug={currentSlug} textValue={currentTextValue} typeBlock={currentTypeBlock} product={currentElement?.product_ref} updateBlockText={(data) => handleUpdateBlockText(data)} closeWindow={closeWindow} />
+      {
+       windowUpdateBlockVisible && <WindowCreateBlock modeWindow={AdminWindowMode.Update} name={currentName} slug={currentSlug} textValue={currentTextValue} typeBlock={currentTypeBlock} product={currentElement?.product_ref} updateBlockText={(data) => handleUpdateBlockText(data)} closeWindow={closeWindow} />
+      }
 
       <ul className={s.sectionlist}>
         {sections && (
@@ -396,7 +402,7 @@ const ContentAdminSections = ({ }: ContentAdminSectionsProps) => {
                                           activeBlockText === indexBlockText &&
                                           <>
                                             {/* <ButtonAdmin typeBtn={AdminButtonType.Ico} functionalBtn={AdminButtonFunctional.Standard} border={false} ico={<AiOutlinePlus />} sizeIco={16} /> */}
-                                            <ButtonAdmin typeBtn={AdminButtonType.Ico} functionalBtn={AdminButtonFunctional.Standard} border={false} ico={<RiEdit2Line />} sizeIco={16} clickBtn={() => handleClickUpdateTextBlock(text)} />
+                                            <ButtonAdmin typeBtn={AdminButtonType.Ico} functionalBtn={AdminButtonFunctional.Standard} border={false} ico={<RiEdit2Line />} sizeIco={16} clickBtn={() => handleClickUpdateTextBlock(elem, text)} />
                                             <ButtonAdmin typeBtn={AdminButtonType.Ico} functionalBtn={AdminButtonFunctional.Standard} border={false} ico={<MdDeleteOutline />} sizeIco={16} clickBtn={() => handleClickDeleteTextBlock(text)} />
                                           </>
                                         }

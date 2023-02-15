@@ -15,7 +15,7 @@ import TopMenu from '../components/TopMenu/TopMenu';
 import { IMenu } from '../interfaces/menu.interface';
 import { ISection } from '../interfaces/section.interface';
 import MainLayout from '../layouts/MainLayout/MainLayout'
-import { GetImgByBlock, GetMenu, GetSection, GetTextByBlock } from '../services/core/requests';
+import { GetMenu, GetSection } from '../services/core/requests';
 
 import s from './index.module.scss'
 
