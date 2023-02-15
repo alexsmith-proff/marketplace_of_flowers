@@ -48,6 +48,8 @@ const ContentAdminSections = ({ }: ContentAdminSectionsProps) => {
   const [currentIdElement, setCurrentIdElement] = useState<number>(null)
   const [currentIdBlock, setCurrentIdBlock] = useState<number>(null)
 
+  const [currentElement, setCurrentElement] = useState<IElement>(null)
+
   const [currentName, setCurrentName] = useState<string>('')
   const [currentSlug, setCurrentSlug] = useState<string>('')
   const [currentProductName, setCurrentProductName] = useState<string>(null)
@@ -252,6 +254,7 @@ const ContentAdminSections = ({ }: ContentAdminSectionsProps) => {
 
 
   const handleClickCreateBlock = (element: IElement) => {
+    setCurrentElement(element)
     setCurrentIdElement(element.id)
     setWindowCreateBlockVisible(true)
   }
@@ -334,9 +337,9 @@ const ContentAdminSections = ({ }: ContentAdminSectionsProps) => {
 
 
       {/* Создать текст/изображение блок */}
-      <WindowCreateBlock visible={windowCreateBlockVisible} modeWindow={AdminWindowMode.Create} typeBlock={AdminBlockType.Text} createBlockText={(data) => handleCreateBlockText(data, currentIdElement)} createBlockImg={(data) => handleCreateBlockImg(data, currentIdElement)} closeWindow={closeWindow} />
+      <WindowCreateBlock visible={windowCreateBlockVisible} modeWindow={AdminWindowMode.Create} typeBlock={AdminBlockType.Text} product={currentElement?.product_ref} createBlockText={(data) => handleCreateBlockText(data, currentIdElement)} createBlockImg={(data) => handleCreateBlockImg(data, currentIdElement)} closeWindow={closeWindow} />
       {/* Редактировать текст/изображение блок */}
-      <WindowCreateBlock visible={windowUpdateBlockVisible} modeWindow={AdminWindowMode.Update} name={currentName} slug={currentSlug} textValue={currentTextValue} typeBlock={currentTypeBlock} updateBlockText={(data) => handleUpdateBlockText(data)} closeWindow={closeWindow} />
+      <WindowCreateBlock visible={windowUpdateBlockVisible} modeWindow={AdminWindowMode.Update} name={currentName} slug={currentSlug} textValue={currentTextValue} typeBlock={currentTypeBlock} product={currentElement?.product_ref} updateBlockText={(data) => handleUpdateBlockText(data)} closeWindow={closeWindow} />
 
       <ul className={s.sectionlist}>
         {sections && (

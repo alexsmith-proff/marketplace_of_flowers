@@ -4,7 +4,8 @@ import { AdminBlockType } from "../../../enums/AdminBlock.enum";
 import { AdminButtonFunctional, AdminButtonType } from "../../../enums/AdminButtons.enum";
 import { AdminSectionRadioButtons } from "../../../enums/AdminSections.enum";
 import { AdminWindowMode } from "../../../enums/Mode.enum";
-import { ICreateBlockTextInput } from "../../../interfaces/section.interface";
+import { IAdminProduct } from "../../../interfaces/products.interface";
+import { ICreateBlockTextInput, IElement } from "../../../interfaces/section.interface";
 import ButtonAdmin from "../Buttons/ButtonAdmin/ButtonAdmin";
 
 import s from "./WindowCreateBlock.module.scss";
@@ -13,6 +14,9 @@ const BlockTypeArr = [
     'Блок текстовый',
     'Блок изображений'
 ]
+
+// Поля, которые надо исключить из объекта product для текстового блока
+const productItemsTextExcludeArr = ['__typename', 'id', 'filenames_images', 'main_image', 'filters']
 
 let getSlug = require('speakingurl');
 
@@ -23,13 +27,14 @@ interface WindowCreateBlockProps {
     slug?: string
     textValue?: string
     typeBlock: AdminBlockType //Text, Image
+    product: IAdminProduct
     createBlockText?: (createInput: ICreateBlockTextInput) => void
     updateBlockText?: (updateInput: ICreateBlockTextInput) => void
     createBlockImg?: (formData: any) => void
     closeWindow: () => void
 }
 
-const WindowCreateBlock: FC<WindowCreateBlockProps> = ({ visible, modeWindow, name, slug, textValue, typeBlock, createBlockText, updateBlockText, createBlockImg, closeWindow }) => {
+const WindowCreateBlock: FC<WindowCreateBlockProps> = ({ visible, modeWindow, name, slug, textValue, typeBlock, product, createBlockText, updateBlockText, createBlockImg, closeWindow }) => {
 
     const [titleName, setTitleName] = useState<string>(name)
     const [slugName, setSlugName] = useState<string>(slug)
@@ -39,6 +44,7 @@ const WindowCreateBlock: FC<WindowCreateBlockProps> = ({ visible, modeWindow, na
     const [fileDataURL, setFileDataURL] = useState(null)
 
     const [radioButtonValue, setRadioButtonValue] = useState(AdminSectionRadioButtons.Text)
+    const [productKey, setProductKey] = useState<string>('')
 
     const windowRef = useRef()
 
@@ -89,7 +95,6 @@ const WindowCreateBlock: FC<WindowCreateBlockProps> = ({ visible, modeWindow, na
             // Блок текстовый',
             if (blockType == BlockTypeArr[0]) {
                 if (modeWindow == AdminWindowMode.Create) {
-                    console.log('creaate');
 
                     if (!text) return
                     createBlockText({
@@ -129,8 +134,12 @@ const WindowCreateBlock: FC<WindowCreateBlockProps> = ({ visible, modeWindow, na
         setText(textValue)
     }, [name, slug, textValue])
 
+    const handleChangeProductKey = (e) => {
+        setProductKey(e.target.value)
+        setText(`{${e.target.value}}=${product[e.target.value]}`)
+    }
 
-    console.log('textValue', textValue);
+    console.log('productcccc', product)
 
     return (
         <>
@@ -170,32 +179,33 @@ const WindowCreateBlock: FC<WindowCreateBlockProps> = ({ visible, modeWindow, na
                             // Блок текстовый
                             blockType == BlockTypeArr[0] && (
                                 <div className={s.LabelEdit}>
-                                    <div className={s.radio}>
-                                        <label className={s.radioButton}>
-                                            <input type="radio" name="block" checked={radioButtonValue === AdminSectionRadioButtons.Text ? true : false} onChange={() => setRadioButtonValue(AdminSectionRadioButtons.Text)} />
-                                            Текст
-                                        </label>
-                                        <label className={s.radioButton}>
-                                            <input type="radio" name="block" checked={radioButtonValue === AdminSectionRadioButtons.Product ? true : false} onChange={() => setRadioButtonValue(AdminSectionRadioButtons.Product)} />
-                                            Продукт
-                                        </label>
-                                    </div>
+                                    {
+                                        product ?
+                                            <div className={s.radio}>
+                                                <label className={s.radioButton}>
+                                                    <input type="radio" name="block" checked={radioButtonValue === AdminSectionRadioButtons.Text ? true : false} onChange={() => setRadioButtonValue(AdminSectionRadioButtons.Text)} />
+                                                    Текст
+                                                </label>
+                                                <label className={s.radioButton}>
+                                                    <input type="radio" name="block" checked={radioButtonValue === AdminSectionRadioButtons.Product ? true : false} onChange={() => setRadioButtonValue(AdminSectionRadioButtons.Product)} />
+                                                    Продукт
+                                                </label>
+                                                {
+                                                    radioButtonValue === AdminSectionRadioButtons.Product &&
 
-                                    {/* <span className={s.title}>Текст</span> */}
-                                    {
-                                        radioButtonValue === AdminSectionRadioButtons.Text && <textarea className={s.description} rows={8} cols={50} onChange={handleChangeBlockText}>{textValue}</textarea>
+                                                    <select onChange={handleChangeProductKey} value={productKey}>
+                                                        <option></option>
+                                                        {
+                                                            Object.keys(product).filter((item) => !productItemsTextExcludeArr.includes(item)).map((item, index) => <option key={index}>{item}</option>)
+                                                        }
+                                                    </select>
+                                                }
+
+                                            </div>
+                                            :
+                                            <span className={s.title}>Текст</span>
                                     }
-                                    {
-                                        // radioButtonValue === AdminSectionRadioButtons.Product &&
-                                        // <>
-                                        //     <select onChange={(e) => setProductKey(e.target.value)} value={productKey}>
-                                        //         <option></option>
-                                        //         {
-                                        //             Object.keys(section).map((item, index) => <option key={index}>{item}</option>)
-                                        //         }
-                                        //     </select>
-                                        // </>
-                                    }
+                                    <textarea className={s.description} rows={8} cols={50} disabled={radioButtonValue === AdminSectionRadioButtons.Product} value={text} onChange={handleChangeBlockText}></textarea>
                                 </div>
                             )
                         }
