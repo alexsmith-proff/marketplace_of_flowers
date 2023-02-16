@@ -306,7 +306,7 @@ const ContentAdminSections = ({ }: ContentAdminSectionsProps) => {
     setCurrentName(textblock.name)
     setCurrentSlug(textblock.slug)
     setCurrentElement(element)
-    setCurrentTextValue(textblock.text)
+    setCurrentTextValue(String(textblock.text))
     setCurrentIdBlock(textblock.id)
 
     setCurrentTypeBlock(AdminBlockType.Text)

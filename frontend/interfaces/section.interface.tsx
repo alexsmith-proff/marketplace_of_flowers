@@ -7,7 +7,7 @@ interface IBase {
 
 }
 export interface ITextElement extends IBase {
-    text: string
+    text: any
 }
 export interface IImgElement extends IBase {
     filename: string

@@ -61,6 +61,5 @@ export const GetSection = async (slug: string) => {
   } catch (error) {
     console.log('error', error);
   }
-  console.log('dattaaaaaaaaaa_section', dataQuery)
   return dataQuery
 }

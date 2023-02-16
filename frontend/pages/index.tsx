@@ -17,9 +17,6 @@ import { ISection } from '../interfaces/section.interface';
 import MainLayout from '../layouts/MainLayout/MainLayout'
 import { GetMenu, GetSection } from '../services/core/requests';
 
-import s from './index.module.scss'
-
-
 interface IndexProps {
   topMenu :IMenu,
   headerMenu: IMenu,
@@ -40,8 +37,6 @@ interface IndexProps {
 }
 
 const Index: FC<IndexProps> = ({ topMenu, headerMenu, bigSlider, smallSlider, privilege, mainCard, partition, gallery, reviews, news, seoOne, seoTwo, footerMenu, footerMenuInfo, footerMenuCoordinates, footerMenuEmail }) => {
-
-  
 
   return (
     <div>

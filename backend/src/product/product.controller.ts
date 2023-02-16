@@ -13,6 +13,11 @@ export class ProductController {
     return this.productService.createAPI(files, createProductInput)
   }
 
+  @Get(':id')
+  findOne(@Param() params) {
+    return this.productService.findOne(params.id)
+  }
+
 
 
 

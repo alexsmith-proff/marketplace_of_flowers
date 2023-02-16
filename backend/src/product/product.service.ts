@@ -83,6 +83,8 @@ export class ProductService {
   }
 
   async findOne(id: number): Promise<ProductEntity> {
+    console.log('qqqqqqqqqqqiddd', id);
+    
     return this.productRepository.findOne({
       where:
         { id },
