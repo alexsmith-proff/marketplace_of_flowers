@@ -46,23 +46,14 @@ export const getTextInTextBlockFromSection = (section: ISection, elementSlug: st
     return ''
 }
 
-export const getTextInTextBlockFromElement = async(element: IElement, textSlug: string) => {
+export const getTextInTextBlockFromElement = (element: IElement, textSlug: string) => {
     const textElement = element.text_elements.find(t_el => t_el.slug == textSlug)
     if (textElement){
         if(isJSONString(textElement.text)){
-            console.log('1111');
             const JSONObj = JSON.parse(textElement.text)
             if(JSONObj.name == 'product'){
-                console.log('2222');
-                let dataQuery = null
-                try {
-                    dataQuery = allEndPoints.product.getById(JSONObj.id)                   
-                } catch (error) {
-                    console.log('error', error);
-                }
-                console.log('dataQueryyyyyyy', dataQuery);
+                return element.product_ref[JSONObj.field]
             }
-
         }else return textElement.text        
     }
     else return ''

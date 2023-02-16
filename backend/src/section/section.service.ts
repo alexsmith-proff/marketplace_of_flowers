@@ -34,6 +34,11 @@ export class SectionService {
       where: {
         slug
       },
+      relations: {
+        elements: {
+          product_ref: true
+        }
+      },
       order: {
         elements: {
           id: 'ASC',

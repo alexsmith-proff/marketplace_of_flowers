@@ -62,7 +62,6 @@ const Index: FC<IndexProps> = ({ topMenu, headerMenu, bigSlider, smallSlider, pr
 
 export async function getServerSideProps() {
   const topMenu = await GetMenu('verkhnee-menyu') 
-
   const headerMenu = await GetMenu('menyu-v-khedere') 
   const bigSlider = await GetSection('bigSlider')
   const smallSlider = await GetSection('smallSlider')
