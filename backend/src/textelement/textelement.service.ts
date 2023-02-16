@@ -53,8 +53,9 @@ export class TextElementService {
   }
 
   async remove(id: number): Promise<TextElementEntity> {
-    const textElement = this.findOne(id)
+    const textElement = await this.findOne(id)
     await this.textElementRepository.delete(id)
+    
     return textElement
   }
 }
