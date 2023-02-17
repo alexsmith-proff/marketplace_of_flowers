@@ -352,17 +352,6 @@ const ContentAdminSections = ({ }: ContentAdminSectionsProps) => {
           <>
             {sections.map((section, indexSection) => (
               <li className={s.sectionItem} key={section.id}>
-
-                <select onChange={(e) => setProductKey(e.target.value)} value={productKey}>
-                  <option></option>
-                  {
-                    Object.keys(section).map((item, index) => <option key={index}>{item}</option>)
-                  }
-                </select>
-
-                <div>{section[productKey]}</div>
-
-
                 <div className={s.titleWrap} onMouseEnter={() => handleMouseEnterSection(indexSection)} onMouseLeave={handleMouseLeave}>
                   <div className={s.sectionTitle}>{`Секция - ${section.name} (${section.slug})`}</div>
                   {
