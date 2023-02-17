@@ -2,7 +2,7 @@ import React from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { IconContext } from "react-icons";
-import { AiOutlineFundProjectionScreen, AiOutlineMenuUnfold, AiOutlineRead, AiOutlineTeam } from "react-icons/ai";
+import { AiOutlineFundProjectionScreen, AiOutlineMenuUnfold, AiOutlineRead, AiOutlineFilter, AiOutlineTeam } from "react-icons/ai";
 import { TbNewSection } from "react-icons/tb";
 import { IoSettingsOutline } from "react-icons/io5";
 
@@ -26,6 +26,11 @@ const sidebarItems = [
         name: 'Каталог',
         ico: <AiOutlineRead />,
         link: '/admin/catalog'
+    },
+    {
+        name: 'Фильтры',
+        ico: <AiOutlineFilter />,
+        link: '/admin/filters'
     },
     {
         name: 'Секции',
