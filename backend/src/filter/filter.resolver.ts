@@ -23,13 +23,13 @@ export class FilterResolver {
     return this.filterService.findOne(id);
   }
 
-  // @Mutation(() => FilterEntity)
-  // updateFilter(@Args('updateFilterInput') updateFilterInput: UpdateFilterInput) {
-  //   return this.filterService.update(updateFilterInput.id, updateFilterInput);
-  // }
+  @Mutation(() => FilterEntity)
+  updateFilter(@Args('updateFilterInput') updateFilterInput: UpdateFilterInput) {
+    return this.filterService.update(updateFilterInput.id, updateFilterInput);
+  }
 
-  // @Mutation(() => FilterEntity)
-  // removeFilter(@Args('id', { type: () => Int }) id: number) {
-  //   return this.filterService.remove(id);
-  // }
+  @Mutation(() => FilterEntity)
+  removeFilter(@Args('id', { type: () => Int }) id: number) {
+    return this.filterService.remove(id);
+  }
 }

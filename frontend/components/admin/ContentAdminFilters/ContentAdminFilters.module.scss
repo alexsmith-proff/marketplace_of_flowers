@@ -1,0 +1,28 @@
+.top {
+    display: flex;
+    align-items: center;
+    margin-bottom: 40px;
+}
+
+.dropdown {
+    margin-right: 10px;
+    position: relative;
+    
+    select {
+        font-size: 16px;
+        padding: 5px;
+        border-radius: 5px;
+        width: 320px;
+        cursor: pointer;
+    }
+    
+}
+
+.ButtonAdminEdit {
+    margin-right: 10px;
+}
+
+.menuContainer{
+    display: flex;
+    
+}
