@@ -12,25 +12,38 @@ var getSlug = require('speakingurl');
 export class FilterElementService {
   constructor(
     @InjectRepository(FilterElementEntity)
-    private readonly filterRepository: Repository<FilterElementEntity>,
+    private readonly filterElementRepository: Repository<FilterElementEntity>,
   ) {}
   async create(createFilterElementInput: CreateFilterElementInput): Promise<FilterElementEntity> {
-    return await this.filterRepository.save({...createFilterElementInput, slug: getSlug(createFilterElementInput.name), filter_item: { id: createFilterElementInput.filter_id }})
+    return await this.filterElementRepository.save({...createFilterElementInput, slug: getSlug(createFilterElementInput.name), filter_item: { id: createFilterElementInput.filter_id }})
   }
 
   async findAll(): Promise<FilterElementEntity[]> {
-    return await this.filterRepository.find()
+    return await this.filterElementRepository.find()
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} filterelement`;
+  async findOne(id: number) {
+    return await this.filterElementRepository.findOne({
+      where:
+        { id }
+    })
   }
 
-  update(id: number, updateFilterElementInput: UpdateFilterElementInput) {
-    return `This action updates a #${id} filterelement`;
+  async update(id: number, updateFilterElementInput: UpdateFilterElementInput) {
+    const filterElement = await this.findOne(id);
+    const newFilterElement = {...filterElement, 
+      ...updateFilterElementInput, 
+      slug: updateFilterElementInput.slug ? updateFilterElementInput.slug : getSlug(updateFilterElementInput.name)
+    };
+
+    console.log('newFilterrr', newFilterElement);
+
+    return await this.filterElementRepository.save(newFilterElement);
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} filterelement`;
+  async remove(id: number) {
+    const filterElement = await this.findOne(id)
+    await this.filterElementRepository.delete(id)
+    return filterElement
   }
 }

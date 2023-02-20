@@ -10,10 +10,10 @@ import s from "./ContentAdminFilters.module.scss";
 import { useLazyQuery, useMutation, useQuery } from "@apollo/client";
 import InputAdminMenu from "../Inputs/InputMenu/InputAdminMenu";
 import { AdminButtonFunctional, AdminButtonType } from "../../../enums/AdminButtons.enum";
-import { IMenu, IMenuItem } from "../../../interfaces/menu.interface";
 import WindowListAdmin from "../WindowListAdmin/WindowListAdmin";
 import { CREATE_FILTER, CREATE_FILTER_ELEMENT, DELETE_FILTER, DELETE_FILTER_ELEMENT, GET_ALL_FILTERS, UPDATE_FILTER, UPDATE_FILTER_ELEMENT } from "../../../graphql/filters.graphql";
 import { IFilter } from "../../../interfaces/filter.interface";
+import { AdminListType } from "../../../enums/AdminList.enum";
 
 interface ContentAdminFiltersProps { }
 
@@ -35,6 +35,8 @@ const ContentAdminFilters = ({ }: ContentAdminFiltersProps) => {
     const [currentIndexFilterItem, setCurrentIndexFilterItem] = useState<number>(0)
     const [editFilterUpdateActive, setEditFilterUpdateActive] = useState<boolean>(false)
     const [editFilterCreateActive, setEditFilterCreateActive] = useState<boolean>(false)
+
+    const [filterItemActive, setFilterItemActive] = useState<boolean>(true)
 
 
 //   const [menuItemActive, setMenuItemActive] = useState<boolean>(true)
@@ -78,14 +80,14 @@ const ContentAdminFilters = ({ }: ContentAdminFiltersProps) => {
     setCurrentIndexFilterItem(null)
   };
 
-//   const clickToItemMenuItem = (index) => {
-//     setCurrentIndexMenuItem(index)
-//     setCurrentIndexSubMenuItem(null)
-//     setCurrentIndexSubMenuItemTwo(null)
+  const clickToItemFilterItem = (index) => {
+    setCurrentIndexFilterItem(index)
+    // setCurrentIndexSubMenuItem(null)
+    // setCurrentIndexSubMenuItemTwo(null)
 
-//     setSubMenuItemActive(true)
-//     setSubMenuItemTwoActive(false)
-//   }
+    // setSubMenuItemActive(true)
+    // setSubMenuItemTwoActive(false)
+  }
 //   const clickToItemSubMenuItem = (index) => {
 //     setCurrentIndexSubMenuItem(index)
 //     setCurrentIndexSubMenuItemTwo(null)
@@ -138,99 +140,76 @@ const ContentAdminFilters = ({ }: ContentAdminFiltersProps) => {
     setCurrentIndexFilter(0)
   }
 
-//   const handleEditCreateMenuItemName = (name) => {
-//     createMenuItemName({
-//       variables: {
-//         createMenuItemInput: {
-//           name: name,
-//           menu_id: +menus.data.getAllMenus[currentIndexMenu].id,
-//           serial_number: +menus.data.getAllMenus[currentIndexMenu].items.length * 100
-//         }
-//       },
-//       refetchQueries: [
-//         {
-//           query: GET_ALL_MENU
-//         }
-//       ]
-//     })
-//   }
-//   const handleEditUpdateMenuItemName = (index, name) => {
-//     updateMenuItemName({
-//       variables: {
-//         updateMenuItemInput: {
-//           id: +menus.data.getAllMenus[currentIndexMenu].items[index].id,
-//           name: name
-//         }
-//       }
-//     })
-//   }
-//   const handleupdateSerialNumberByIndexMenuItem = (index, serialNumber) => {
-//     updateMenuItemName({
-//       variables: {
-//         updateMenuItemInput: {
-//           id: +menus.data.getAllMenus[currentIndexMenu].items[index].id,
-//           serial_number: serialNumber
-//         }
-//       },
-//       refetchQueries: [
-//         {
-//           query: GET_ALL_MENU
-//         }
-//       ]
-//     })
-//   }
-//   const handleupdateSerialNumberByIDMenuItem = (id: number, serialNumber: number) => {
-//     updateMenuItemName({
-//       variables: {
-//         updateMenuItemInput: {
-//           id: +id,
-//           serial_number: +serialNumber
-//         }
-//       },
-//       refetchQueries: [
-//         {
-//           query: GET_ALL_MENU
-//         }
-//       ]
-//     })
-//   }
-//   const handleUpdateLinkMenuItem = (index, link) => {
-//     updateMenuItemName({
-//       variables: {
-//         updateMenuItemInput: {
-//           id: +menus.data.getAllMenus[currentIndexMenu].items[index].id,
-//           link: link
-//         },
-//       }
-//     })
-//   }
-//   const handleUpdateSlugMenuItem = (index, slug) => {
-//     updateMenuItemName({
-//       variables: {
-//         updateMenuItemInput: {
-//           id: +menus.data.getAllMenus[currentIndexMenu].items[index].id,
-//           slug: slug
-//         },
-//       }
-//     })
-//   }
-//   const handleEditDeleteMenuItemName = (index) => {
-//     setCurrentIndexSubMenuItemTwo(null)
-//     setCurrentIndexSubMenuItem(null)
-//     setSubMenuItemActive(false)
-//     setSubMenuItemTwoActive(false)
 
-//     deleteMenuItemName({
-//       variables: {
-//         id: +menus.data.getAllMenus[currentIndexMenu].items[index].id
-//       },
-//       refetchQueries: [
-//         {
-//           query: GET_ALL_MENU
-//         }
-//       ]
-//     })
-//   }
+  const handleEditCreateFilterElement = (name) => {
+    console.log('handleEditCreateFilterElement');
+    
+    createFilterElement({
+      variables: {
+        createFilterElementInput: {
+          name: name,
+          filter_id: +filters.data.getAllFilter[currentIndexFilter].id,
+        }
+      },
+      refetchQueries: [
+        {
+          query: GET_ALL_FILTERS
+        }
+      ]
+    })
+  }
+  const handleEditUpdateFilterElement = (index, name) => {
+    console.log('handleEditUpdateFilterElement');
+    updateFilterElement({
+      variables: {
+        updateFilterElementInput: {
+          id: +filters.data.getAllFilter[currentIndexFilter].elements[index].id,
+          name: name
+        }
+      }
+    })
+  }
+  
+  const handleUpdateSlugFilterElement = (index, slug) => {
+    console.log('handleUpdateSlugFilterElement');
+    updateFilterElement({
+      variables: {
+        updateFilterElementInput: {
+          id: +filters.data.getAllFilter[currentIndexFilter].elements[index].id,
+          slug: slug
+        },
+      }
+    })
+  }
+
+  // const handleUpdateLinkFilterItem = (index, link) => {
+  //   updateFilterItemName({
+  //     variables: {
+  //       updateMenuItemInput: {
+  //         id: +menus.data.getAllMenus[currentIndexMenu].items[index].id,
+  //         link: link
+  //       },
+  //     }
+  //   })
+  // }
+  const handleEditDeleteFilterElement = (index) => {
+    console.log('handleEditDeleteFilterElement');
+    // setCurrentIndexSubMenuItemTwo(null)
+    // setCurrentIndexSubMenuItem(null)
+    // setSubMenuItemActive(false)
+    // setSubMenuItemTwoActive(false)
+
+    deleteFilterElement({
+      variables: {
+        id: +filters.data.getAllFilter[currentIndexFilter].elements[index].id
+      },
+      refetchQueries: [
+        {
+          query: GET_ALL_FILTERS
+        }
+      ]
+    })
+  }
 
 //   const handleEditCreateSubMenuItemName = (name) => {
 //     createSubMenuItemName({
@@ -414,6 +393,8 @@ const ContentAdminFilters = ({ }: ContentAdminFiltersProps) => {
 //   }
 
   useEffect(() => {
+    // console.log(filters);
+    
     if (filters.data) {
       setFilterArr(filters.data.getAllFilter);
     }
@@ -452,27 +433,25 @@ const ContentAdminFilters = ({ }: ContentAdminFiltersProps) => {
           <ButtonAdmin typeBtn={AdminButtonType.Ico} functionalBtn={AdminButtonFunctional.Standard} border={true} clickBtn={handleDeleteFilter} ico={<MdDeleteOutline />} sizeIco={22} />
         </div>
       </div>
-      {/* <div className={s.menuContainer}>
+      <div className={s.menuContainer}>
         {
-          menuArr != null && menuArr.length > 0 &&
+          filterArr != null && filterArr.length > 0 &&
           <>
             {
-              menuItemActive &&
+              filterItemActive &&
               <WindowListAdmin
-                visible={menuItemActive}
-                title={menus.data.getAllMenus[currentIndexMenu].name}
-                itemArr={menus.data.getAllMenus[currentIndexMenu].items}
-                clickToItem={clickToItemMenuItem}
-                createItemName={handleEditCreateMenuItemName}
-                updateItemName={handleEditUpdateMenuItemName}
-                deleteItemName={handleEditDeleteMenuItemName}
-                updateSerialNumberByIndex={handleupdateSerialNumberByIndexMenuItem}
-                updateSerialNumberById={handleupdateSerialNumberByIDMenuItem}
-                updateLink={handleUpdateLinkMenuItem}
-                updateSlug={handleUpdateSlugMenuItem}
+              typeList={AdminListType.Filter}
+                visible={filterItemActive}
+                title={filters.data.getAllFilter[currentIndexFilter].name}
+                itemArr={filters.data.getAllFilter[currentIndexFilter].elements}
+                clickToItem={clickToItemFilterItem}
+                createItemName={handleEditCreateFilterElement}
+                updateItemName={handleEditUpdateFilterElement}
+                deleteItemName={handleEditDeleteFilterElement}
+                updateSlug={handleUpdateSlugFilterElement}
               />
             }
-            {
+            {/* {
               submenuItemActive &&
               <WindowListAdmin
                 visible={submenuItemActive}
@@ -487,8 +466,8 @@ const ContentAdminFilters = ({ }: ContentAdminFiltersProps) => {
                 updateLink={handleUpdateLinkSubMenuItem}
                 updateSlug={handleUpdateSlugSubMenuItem}
               />
-            }
-            {
+            } */}
+            {/* {
               // currentIndexSubmenuItem != null &&
               submenuItemTwoActive &&
               <WindowListAdmin
@@ -504,10 +483,10 @@ const ContentAdminFilters = ({ }: ContentAdminFiltersProps) => {
                 updateLink={handleUpdateLinkSubMenuItemTwo}
                 updateSlug={handleUpdateSlugSubMenuItemTwo}
               />
-            }
+            } */}
           </>
         }
-      </div> */}
+      </div>
     </>
   );
 };

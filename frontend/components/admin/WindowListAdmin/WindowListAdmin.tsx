@@ -96,32 +96,34 @@ const WindowListAdmin = ({
   };
 
   function handleDragStart(e, index) {
-    // console.log("handleDragStart", index);
-    setItemBottomActive(false);
-    setDragIndex(index);
+    if (typeList != AdminListType.Filter) {
+      setItemBottomActive(false);
+      setDragIndex(index);
+    }
   }
   function handleDragOver(e: React.DragEvent<HTMLLIElement>, index: number) {
-    // console.log("handleDragOver", e.target);
-    e.preventDefault();
-    ////e.target.classList.add("menuListDragOver");
-    setFutureIndex(index);
+    if (typeList != AdminListType.Filter) {
+      e.preventDefault();
+      setFutureIndex(index);
+    }
   }
   function handleDragLeave(e) {
-    // console.log("handleDragLeave");
-    e.preventDefault();
-    e.target.classList.remove("menuListDragOver");
+    if (typeList != AdminListType.Filter) {
+      e.preventDefault();
+      e.target.classList.remove("menuListDragOver");
+    }
   }
   function handleDragEnd(e, index) {
-    // console.log("handleDragEnd", index);
-    e.preventDefault();
-    e.target.classList.remove("menuListDragOver");
-    setFutureIndex(null);
+    if (typeList != AdminListType.Filter) {
+      e.preventDefault();
+      e.target.classList.remove("menuListDragOver");
+      setFutureIndex(null);
+    }
   }
   function handleDrop(e: React.DragEvent<HTMLLIElement>, index) {
-    // console.log("handleDrop", index);
-    e.preventDefault();
-    ////e.target.classList.remove("menuListDragOver");
-
+    if (typeList != AdminListType.Filter) {
+      e.preventDefault();
+    }
     if (index === itemArr.length - 1) {
       updateSerialNumberByIndex(dragIndex, itemArr[index].serial_number + 100);
     } else {
@@ -187,7 +189,7 @@ const WindowListAdmin = ({
                   functionalBtn={AdminButtonFunctional.ToggleVisibleEdit}
                   enabled={
                     currentIndexMenu != null &&
-                    currentIndexMenu <= itemArr.length - 1
+                      currentIndexMenu <= itemArr.length - 1
                       ? true
                       : false
                   }
@@ -205,7 +207,7 @@ const WindowListAdmin = ({
                   functionalBtn={AdminButtonFunctional.Standard}
                   enabled={
                     currentIndexMenu != null &&
-                    currentIndexMenu <= itemArr.length - 1
+                      currentIndexMenu <= itemArr.length - 1
                       ? true
                       : false
                   }
@@ -313,11 +315,14 @@ const WindowListAdmin = ({
                                 setCurrentIndexMenu(null);
                               }}
                             /> */}
-                            <OptionsItemAdmin
-                              label="Ссылка"
-                              textInputInit={item.link}
-                              inputConfirm={(data) => updateLink(index, data)}
-                            />
+                            {
+                              typeList != AdminListType.Filter &&
+                              <OptionsItemAdmin
+                                label="Ссылка"
+                                textInputInit={item.link}
+                                inputConfirm={(data) => updateLink(index, data)}
+                              />
+                            }
                             <OptionsItemAdmin
                               label="slug"
                               textInputInit={item.slug}

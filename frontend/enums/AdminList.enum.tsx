@@ -1,5 +1,6 @@
 //Тип админ списка
 export enum AdminListType {
     Menu,
-    Catalog
+    Catalog,
+    Filter,
 }
