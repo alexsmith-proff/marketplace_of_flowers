@@ -11,4 +11,7 @@ export class UpdateFilterElementInput extends PartialType(CreateFilterElementInp
 
   @Field(() => String, { nullable: true })
   slug: string;
+
+  @Field(() => String, { nullable: true })
+  value: string;
 }

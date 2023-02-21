@@ -29,7 +29,7 @@ export class FiltervalueResolver {
   }
 
   @Mutation(() => FilterValueEntity)
-  removeFiltervalue(@Args('id', { type: () => Int }) id: number) {
+  removeFilterValue(@Args('id', { type: () => Int }) id: number) {
     return this.filterValueService.remove(id);
   }
 }

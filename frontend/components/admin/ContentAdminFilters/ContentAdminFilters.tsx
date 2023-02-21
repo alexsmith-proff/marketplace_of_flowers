@@ -55,7 +55,7 @@ const ContentAdminFilters = ({ }: ContentAdminFiltersProps) => {
 
   const clickToItemFilterElement = (index) => {
     console.log('clickToItemFilterElement index', index);
-    
+
     setCurrentIndexFilterElement(index)
     setCurrentIndexFilterValue(null)
     setFilterValueActive(true)
@@ -146,6 +146,7 @@ const ContentAdminFilters = ({ }: ContentAdminFiltersProps) => {
   }
 
   const handleEditDeleteFilterElement = (index) => {
+    setFilterValueActive(false)
     deleteFilterElement({
       variables: {
         id: +filters.data.getAllFilter[currentIndexFilter].elements[index].id
@@ -186,7 +187,12 @@ const ContentAdminFilters = ({ }: ContentAdminFiltersProps) => {
           id: +filters.data.getAllFilter[currentIndexFilter].elements[currentIndexFilterElement].values[index].id,
           name: name
         }
-      }
+      },
+      refetchQueries: [
+        {
+          query: GET_ALL_FILTERS
+        }
+      ]
     })
   }
 
@@ -200,6 +206,18 @@ const ContentAdminFilters = ({ }: ContentAdminFiltersProps) => {
       }
     })
   }
+
+  const handleUpdateValueFilterValue = (index, value) => {
+    updateFilterValue({
+      variables: {
+        updateFilterValueInput: {
+          id: +filters.data.getAllFilter[currentIndexFilter].elements[currentIndexFilterElement].values[index].id,
+          value: value
+        },
+      }
+    })
+  }
+
   const handleEditDeleteFilterValue = (index) => {
     deleteFilterValue({
       variables: {
@@ -276,7 +294,7 @@ const ContentAdminFilters = ({ }: ContentAdminFiltersProps) => {
             {
               filterValueActive &&
               <WindowListAdmin
-                typeList={AdminListType.Filter}
+                typeList={AdminListType.FilterValue}
                 visible={filterValueActive}
                 title={filters.data.getAllFilter[currentIndexFilter].elements[currentIndexFilterElement].name}
                 itemArr={filters.data.getAllFilter[currentIndexFilter].elements[currentIndexFilterElement].values}
@@ -285,6 +303,7 @@ const ContentAdminFilters = ({ }: ContentAdminFiltersProps) => {
                 updateItemName={handleEditUpdateFilterValue}
                 deleteItemName={handleEditDeleteFilterValue}
                 updateSlug={handleUpdateSlugFilterValue}
+                updateValue={handleUpdateValueFilterValue}
               />
             }
           </>

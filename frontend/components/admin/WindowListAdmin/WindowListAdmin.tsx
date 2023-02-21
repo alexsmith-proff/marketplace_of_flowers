@@ -38,6 +38,7 @@ interface WindowListAdminProps {
   updateSerialNumberById?: (id: number, serial_number: number) => void;
   updateLink?: (index: number, link: string) => void;
   updateSlug?: (index: number, slug: string) => void;
+  updateValue?: (index: number, value: string) => void;
 }
 
 const WindowListAdmin = ({
@@ -54,6 +55,7 @@ const WindowListAdmin = ({
   updateSerialNumberById,
   updateLink,
   updateSlug,
+  updateValue,
 }: WindowListAdminProps) => {
   const [currentIndexMenu, setCurrentIndexMenu] = useState<number>(null);
   const [itemBottomActive, setItemBottomActive] = useState<boolean>(false);
@@ -316,7 +318,7 @@ const WindowListAdmin = ({
                               }}
                             /> */}
                             {
-                              typeList != AdminListType.Filter &&
+                              typeList !== AdminListType.Filter && typeList !== AdminListType.FilterValue &&
                               <OptionsItemAdmin
                                 label="Ссылка"
                                 textInputInit={item.link}
@@ -328,6 +330,14 @@ const WindowListAdmin = ({
                               textInputInit={item.slug}
                               inputConfirm={(data) => updateSlug(index, data)}
                             />
+                            {
+                              typeList === AdminListType.FilterValue &&
+                              <OptionsItemAdmin
+                                label="Значение"
+                                textInputInit={item.value}
+                                inputConfirm={(data) => updateValue(index, data)}
+                              />
+                            }
                           </div>
                         </div>
                       )}

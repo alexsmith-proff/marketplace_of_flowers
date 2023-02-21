@@ -3,4 +3,5 @@ export enum AdminListType {
     Menu,
     Catalog,
     Filter,
+    FilterValue,
 }
