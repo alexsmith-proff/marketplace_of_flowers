@@ -24,15 +24,28 @@ export class FilterValueService {
     return await this.filterValueRepository.find()
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} filtervalue`;
+  async findOne(id: number) {
+    return await this.filterValueRepository.findOne({
+      where:
+        { id }
+    })
   }
 
-  // update(id: number, updateFilterValueInput: UpdateFilterValueInput) {
-  //   return `This action updates a #${id} filtervalue`;
-  // }
+  async update(id: number, updateFilterValueInput: UpdateFilterValueInput) {
+    const filterValue = await this.findOne(id);
+    const newFilterValue = {...filterValue, 
+      ...updateFilterValueInput, 
+      slug: updateFilterValueInput.slug ? updateFilterValueInput.slug : getSlug(updateFilterValueInput.name)
+    }
 
-  // remove(id: number) {
-  //   return `This action removes a #${id} filtervalue`;
-  // }
+    console.log('newFilterValue', newFilterValue);
+
+    return await this.filterValueRepository.save(newFilterValue);
+  }
+
+  async remove(id: number) {
+    const filterValue = await this.findOne(id)
+    await this.filterValueRepository.delete(id)
+    return filterValue
+  }
 }

@@ -75,3 +75,33 @@ export const DELETE_FILTER_ELEMENT = gql`
   }
 `;
 
+
+
+
+export const CREATE_FILTER_VALUE = gql`
+  mutation CreateFilterValue($createFilterValueInput: CreateFilterValueInput!) {
+    createFilterValue(createFilterValueInput: $createFilterValueInput) {
+      id
+      name
+    }
+  }
+`;
+
+export const UPDATE_FILTER_VALUE = gql`
+  mutation UpdateFilterValue($updateFilterValueInput: UpdateFilterValueInput!) {
+    updateFilterValue(updateFilterValueInput: $updateFilterValueInput) {
+      id
+      name
+    }
+  }
+`;
+
+export const DELETE_FILTER_VALUE = gql`
+  mutation RemoveFilterValue($id: Int!) {
+    removeFilterValue(id: $id) {
+      id
+      name
+    }
+  }
+`;
+
