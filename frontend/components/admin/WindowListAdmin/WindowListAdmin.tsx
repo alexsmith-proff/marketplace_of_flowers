@@ -98,34 +98,24 @@ const WindowListAdmin = ({
   };
 
   function handleDragStart(e, index) {
-    if (typeList != AdminListType.Filter) {
       setItemBottomActive(false);
       setDragIndex(index);
-    }
   }
   function handleDragOver(e: React.DragEvent<HTMLLIElement>, index: number) {
-    if (typeList != AdminListType.Filter) {
       e.preventDefault();
       setFutureIndex(index);
-    }
   }
   function handleDragLeave(e) {
-    if (typeList != AdminListType.Filter) {
       e.preventDefault();
       e.target.classList.remove("menuListDragOver");
-    }
   }
   function handleDragEnd(e, index) {
-    if (typeList != AdminListType.Filter) {
       e.preventDefault();
       e.target.classList.remove("menuListDragOver");
       setFutureIndex(null);
-    }
   }
   function handleDrop(e: React.DragEvent<HTMLLIElement>, index) {
-    if (typeList != AdminListType.Filter) {
       e.preventDefault();
-    }
     if (index === itemArr.length - 1) {
       updateSerialNumberByIndex(dragIndex, itemArr[index].serial_number + 100);
     } else {
@@ -250,7 +240,7 @@ const WindowListAdmin = ({
                   <li
                     className={s.item}
                     key={item.id}
-                    draggable={true}
+                    draggable={(typeList !== AdminListType.Filter) && (typeList !== AdminListType.FilterValue) ? true : false}
                     onDragStart={(e) => handleDragStart(e, index)}
                     onDragOver={(e) => handleDragOver(e, index)}
                     onDragLeave={(e) => handleDragLeave(e)}
