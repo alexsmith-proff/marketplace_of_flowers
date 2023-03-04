@@ -18,7 +18,8 @@ import MainLayout from '../layouts/MainLayout/MainLayout'
 import { GetMenu, GetSection } from '../services/core/requests';
 
 interface IndexProps {
-  topMenu :IMenu,
+  topMenu: IMenu,
+  footerMenu: IMenu,
   headerMenu: IMenu,
   bigSlider: ISection,
   smallSlider: ISection,
@@ -30,7 +31,6 @@ interface IndexProps {
   news: ISection,
   seoOne: ISection,
   seoTwo: ISection,
-  footerMenu: IMenu,
   footerMenuInfo: IMenu,
   footerMenuCoordinates: ISection,
   footerMenuEmail: ISection
@@ -40,29 +40,28 @@ const Index: FC<IndexProps> = ({ topMenu, headerMenu, bigSlider, smallSlider, pr
 
   return (
     <div>
-      <MainLayout>
-        <TopInfo menu={topMenu} />
-        <Header />
-        <TopMenu menu={headerMenu} />
-        <MainSlider bigSliderSection={bigSlider} smallSliderSection={smallSlider}/>
-        <Privileges privilegeSection={privilege} />
-        <MainCards mainCardSection={mainCard} />
-        <Partitions partitionSection={partition}/>
-        <Gallery gallerySection={gallery}/>
-        <Reviews reviewSection={reviews}/>
-        <News newsSection={news} />
-        <SeoOne seoSection={seoOne}/>
-        <SeoTwo seoSection={seoTwo} />
-        <Footer menu={footerMenu} menuInfo={footerMenuInfo} menuCoordinates={footerMenuCoordinates} menuEmail={footerMenuEmail} />
-      </MainLayout>
-    </div>
+      <MainLayout topMenu={topMenu} footerMenu={footerMenu} footerMenuInfo={footerMenuInfo} footerMenuCoordinates={footerMenuCoordinates} footerMenuEmail={footerMenuEmail}>
+
+      <TopMenu menu={headerMenu} />
+      <MainSlider bigSliderSection={bigSlider} smallSliderSection={smallSlider} />
+      <Privileges privilegeSection={privilege} />
+      <MainCards mainCardSection={mainCard} />
+      <Partitions partitionSection={partition} />
+      <Gallery gallerySection={gallery} />
+      <Reviews reviewSection={reviews} />
+      <News newsSection={news} />
+      <SeoOne seoSection={seoOne} />
+      <SeoTwo seoSection={seoTwo} />
+
+    </MainLayout>
+    </div >
   )
 }
 
 
 export async function getServerSideProps() {
-  const topMenu = await GetMenu('verkhnee-menyu') 
-  const headerMenu = await GetMenu('menyu-v-khedere') 
+  const topMenu = await GetMenu('verkhnee-menyu')
+  const headerMenu = await GetMenu('menyu-v-khedere')
   const bigSlider = await GetSection('bigSlider')
   const smallSlider = await GetSection('smallSlider')
   const privilege = await GetSection('privilegii')
@@ -79,7 +78,7 @@ export async function getServerSideProps() {
   const footerMenuEmail = await GetSection('e-mail')
 
   return {
-      props: { topMenu, headerMenu, bigSlider, smallSlider, privilege, mainCard, partition, gallery, reviews, news, seoOne, seoTwo, footerMenu, footerMenuInfo, footerMenuCoordinates, footerMenuEmail }
+    props: { topMenu, headerMenu, bigSlider, smallSlider, privilege, mainCard, partition, gallery, reviews, news, seoOne, seoTwo, footerMenu, footerMenuInfo, footerMenuCoordinates, footerMenuEmail }
   }
 }
 
