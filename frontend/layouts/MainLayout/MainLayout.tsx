@@ -2,6 +2,7 @@
 import Footer from '../../components/Footer/Footer';
 import Header from '../../components/Header/Header';
 import TopInfo from '../../components/TopInfo/TopInfo';
+import TopMenu from '../../components/TopMenu/TopMenu';
 import { IMenu } from '../../interfaces/menu.interface';
 import { ISection } from '../../interfaces/section.interface';
 
@@ -9,6 +10,7 @@ import s from './MainLayout.module.scss'
 
 interface MainLayoutProps {
     topMenu: IMenu,
+    headerMenu: IMenu,
     footerMenu: IMenu,
     footerMenuInfo: IMenu,
     footerMenuCoordinates: ISection,
@@ -16,11 +18,12 @@ interface MainLayoutProps {
     children: React.ReactNode
 }
 
-const MainLayout = ({ topMenu, footerMenu, footerMenuInfo, footerMenuCoordinates, footerMenuEmail, children }: MainLayoutProps) => {
+const MainLayout = ({ topMenu, headerMenu, footerMenu, footerMenuInfo, footerMenuCoordinates, footerMenuEmail, children }: MainLayoutProps) => {
     return (
         <>
             <TopInfo menu={topMenu} />
             <Header />
+            <TopMenu menu={headerMenu} />
             {children}
             <Footer menu={footerMenu} menuInfo={footerMenuInfo} menuCoordinates={footerMenuCoordinates} menuEmail={footerMenuEmail} />
         </>

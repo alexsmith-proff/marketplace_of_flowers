@@ -1,7 +1,5 @@
 ﻿import React, { FC } from 'react'
-import Footer from '../components/Footer/Footer';
 import Gallery from '../components/Gallery/Gallery';
-import Header from '../components/Header/Header';
 import MainCards from '../components/MainCards/MainCards';
 import MainSlider from '../components/MainSlider/MainSlider';
 import News from '../components/News/News';
@@ -10,7 +8,6 @@ import Privileges from '../components/Privileges/Privileges';
 import Reviews from '../components/Reviews/Reviews';
 import SeoOne from '../components/SeoOne/SeoOne';
 import SeoTwo from '../components/SeoTwo/SeoTwo';
-import TopInfo from '../components/TopInfo/TopInfo';
 import TopMenu from '../components/TopMenu/TopMenu';
 import { IMenu } from '../interfaces/menu.interface';
 import { ISection } from '../interfaces/section.interface';
@@ -40,9 +37,7 @@ const Index: FC<IndexProps> = ({ topMenu, headerMenu, bigSlider, smallSlider, pr
 
   return (
     <div>
-      <MainLayout topMenu={topMenu} footerMenu={footerMenu} footerMenuInfo={footerMenuInfo} footerMenuCoordinates={footerMenuCoordinates} footerMenuEmail={footerMenuEmail}>
-
-      <TopMenu menu={headerMenu} />
+      <MainLayout topMenu={topMenu} headerMenu={headerMenu} footerMenu={footerMenu} footerMenuInfo={footerMenuInfo} footerMenuCoordinates={footerMenuCoordinates} footerMenuEmail={footerMenuEmail}>
       <MainSlider bigSliderSection={bigSlider} smallSliderSection={smallSlider} />
       <Privileges privilegeSection={privilege} />
       <MainCards mainCardSection={mainCard} />
