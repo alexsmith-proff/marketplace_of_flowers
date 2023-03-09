@@ -22,6 +22,10 @@ export class CatalogEntity {
   @Column()
   serial_number: number
 
+  @Field(() => [String], { description: 'filenames images', nullable: true })
+  @Column("text", { array: true, default: [] })
+  filenames_images: string[]
+
   @Field(() => [CatalogEntity], { description: 'Children' })
   @TreeChildren()
   children: CatalogEntity[];

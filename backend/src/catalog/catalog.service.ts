@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { from } from 'rxjs';
+import { createFile } from 'src/util/file';
 import { IsNull, Repository } from 'typeorm';
 import { CreateCatalogInput } from './dto/create-catalog.input';
 import { FindCatalogInput } from './dto/find-catalog.input';
@@ -43,6 +44,36 @@ export class CatalogService {
       parent: catalogParent,
     });
   }
+
+  async createAPI(files: Array<Express.Multer.File>, createCatalogInput: CreateCatalogInput): Promise<CatalogEntity> {
+    let catalogParent;
+    if (typeof createCatalogInput['parent_id'] !== 'undefined') {
+      if (createCatalogInput.parent_id == null) {
+        catalogParent = null;
+      } else {
+        catalogParent = await this.findOne(createCatalogInput.parent_id);
+      }
+    }
+    console.log('createCatalogInput', { ...createCatalogInput });
+
+    const fileNames: string[] = []
+      if (files.length > 0) {
+        for (let i = 0; i < files.length; i++) {
+          let fileName = createFile(files[i])
+          //no save to 'static'
+          fileNames.push(fileName)
+        }
+      }
+
+
+    return await this.catalogRepository.save({
+      ...createCatalogInput,
+      slug: createCatalogInput.slug ? createCatalogInput.slug : getSlug(createCatalogInput.name),
+      parent: catalogParent,
+      filenames_images: fileNames
+    });
+  }
+
 
   async findAll() {
     return this.catalogRepository.find()
