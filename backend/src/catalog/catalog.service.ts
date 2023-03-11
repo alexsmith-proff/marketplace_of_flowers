@@ -123,6 +123,32 @@ export class CatalogService {
     // }
   }
 
+
+
+  async updateAPI(files: Array<Express.Multer.File>, updateCatalogInput: UpdateCatalogInput): Promise<CatalogEntity> {
+    console.log('updateCatalogInput', { ...updateCatalogInput });
+
+    const item = await this.findOne(updateCatalogInput.id)
+
+    const fileNames: string[] = []
+      if (files.length > 0) {
+        for (let i = 0; i < files.length; i++) {
+          let fileName = createFile(files[i])
+          //no save to 'static'
+          fileNames.push(fileName)
+        }
+      }
+
+
+    return await this.catalogRepository.save({
+      ...item,
+      ...updateCatalogInput,
+      filenames_images: fileNames
+    });
+  }
+
+
+
   async update(
     id: number,
     updateCatalogInput: UpdateCatalogInput,

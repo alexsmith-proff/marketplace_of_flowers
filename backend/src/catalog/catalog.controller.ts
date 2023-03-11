@@ -2,6 +2,7 @@ import { Body, Controller, Get, Param, Post, UploadedFile, UploadedFiles, UseInt
 import { FilesInterceptor } from '@nestjs/platform-express';
 import { CatalogService } from './catalog.service';
 import { CreateCatalogInput } from './dto/create-catalog.input';
+import { UpdateCatalogInput } from './dto/update-catalog.input';
 
 @Controller('api/catalog')
 export class CatalogController {
@@ -16,6 +17,12 @@ export class CatalogController {
   @Get(':id')
   findOne(@Param() params) {
     return this.catalogService.findOne(params.id)
+  }
+
+  @Post('update')
+  @UseInterceptors(FilesInterceptor('images'))
+  update(@UploadedFiles() files: Array<Express.Multer.File>, @Body() updateCatalogInput: UpdateCatalogInput) { 
+    return this.catalogService.updateAPI(files, updateCatalogInput)
   }
 
 }

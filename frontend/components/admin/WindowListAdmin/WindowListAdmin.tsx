@@ -23,6 +23,7 @@ import { ICatalog } from "../../../interfaces/catalog.interface";
 
 import s from "./WindowListAdmin.module.scss";
 import { IPreviewProductImage } from "../../../interfaces/products.interface";
+import axios from "axios";
 
 interface WindowListAdminProps {
   typeList?: AdminListType;
@@ -159,28 +160,46 @@ const WindowListAdmin = ({
 
   const handleChangeImages = (e: any) => {
     if (e.target.files) {
-        const ArrayObj: IPreviewProductImage[] = Array.from(e.target.files).map((f) => {
-            return {
-                fileFromTarget: f,
-                file: URL.createObjectURL(f as Blob),
-                isMainPhoto: false
-            }
-        })
-        setPreviewImages((prevImages) => prevImages.concat(ArrayObj))
+      const ArrayObj: IPreviewProductImage[] = Array.from(e.target.files).map((f) => {
+        return {
+          fileFromTarget: f,
+          file: URL.createObjectURL(f as Blob),
+          isMainPhoto: false
+        }
+      })
+      setPreviewImages((prevImages) => prevImages.concat(ArrayObj))
     }
   }
 
   // Удаление preview фото
   const handleDeletePreviewPhoto = (index: number) => {
     setPreviewImages(previewImages.filter((_, ind) => {
-        if (ind != index) {
-            return true
-        }
-        return false
+      if (ind != index) {
+        return true
+      }
+      return false
     }))
+  }
+
+  // Клик на кнопку "Создать товар"
+  const handleClickLoadPhoto = async() => {
+    let formData = new FormData()
+    for(let i = 0; i < previewImages.length; i++){
+      formData.append('images', previewImages.map((file) => file.fileFromTarget)[i])
+    }
+    await axios.post(process.env.API_URI + '/api/catalog/update', formData) 
+
 }
 
-  // console.log("iiitemArr", itemArr);
+
+
+
+
+
+
+
+
+  console.log("previewImages", previewImages);
 
   return (
     <>
@@ -376,9 +395,19 @@ const WindowListAdmin = ({
                                           </div>
                                         ))
                                       }
+
                                     </>
                                   }
                                 </div>
+                                {
+                                  previewImages.length != 0 ? 
+                                    <div className={s.loadBtn}>
+                                      <button onClick={handleClickLoadPhoto}>Загрузить фото на сервер</button>
+                                    </div>
+                                  :
+                                  <></>
+                                }
+
                               </div>
                             }
                           </div>

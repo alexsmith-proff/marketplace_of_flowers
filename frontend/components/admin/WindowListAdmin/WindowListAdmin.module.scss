@@ -147,7 +147,7 @@
         img {
             display: block;
             width: 80px;
-            height: 100px;
+            height: 85px;
             object-fit: cover;
             margin-bottom: 5px;
             border: 2px solid transparent;
@@ -165,3 +165,17 @@
         border-radius: 50%;
     }
 }
+.loadBtn{
+    padding-top: 7px;
+    text-align: center;
+    button{
+        outline: none;
+        border: 0;
+        padding: 5px;
+        cursor: pointer;
+        &:hover{
+            background-color: #e9e8e8;
+        }
+    }
+}
+
