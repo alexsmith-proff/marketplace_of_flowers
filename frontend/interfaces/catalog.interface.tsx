@@ -6,5 +6,6 @@ export interface ICatalogBase {
     serial_number: number
     children: ICatalog[]
     parent: ICatalog
+    filenames_images: string[]
   }
   

@@ -127,8 +127,10 @@ export class CatalogService {
 
   async updateAPI(files: Array<Express.Multer.File>, updateCatalogInput: UpdateCatalogInput): Promise<CatalogEntity> {
     console.log('updateCatalogInput', { ...updateCatalogInput });
-
+    console.log('updateCatalogInput.id', updateCatalogInput.id);
+    
     const item = await this.findOne(updateCatalogInput.id)
+    console.log('updateCatalogInputitemmmm', item);
 
     const fileNames: string[] = []
       if (files.length > 0) {

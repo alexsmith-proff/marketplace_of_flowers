@@ -10,7 +10,7 @@ export function createFile(file: Express.Multer.File): string {
   if (!fs.existsSync(filePath)) {
     fs.mkdirSync(filePath, { recursive: true })
   }
-  // fs.writeFileSync(path.resolve(filePath, filename), file.buffer)
+  fs.writeFileSync(path.resolve(filePath, filename), file.buffer)
   return filename
 }
 

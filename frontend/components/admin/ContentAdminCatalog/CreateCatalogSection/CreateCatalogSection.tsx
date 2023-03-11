@@ -248,7 +248,7 @@ const CreateCatalogSection: FC<CreateCatalogSectionProps> = () => {
 
   }
 
-  console.log(catalogArr);
+  console.log('catalogArrrr', catalogArr);
   
 
   return (

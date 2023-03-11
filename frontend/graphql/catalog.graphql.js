@@ -50,6 +50,7 @@ export const GET_CATALOG_BY_PARENT_ID = gql`
         id
         name
         serial_number
+        filenames_images
         children{
             id
             name

@@ -29,7 +29,8 @@ interface WindowListAdminProps {
   typeList?: AdminListType;
   visible: boolean;
   title: string;
-  itemArr: IMenuItem[] | ICatalog[];
+  // itemArr: IMenuItem[] | ICatalog[];
+  itemArr: any;
   optionsBtnVisible?: boolean;
   clickToItem?: (index: number) => void;
   createItemName: (name: string) => void;
@@ -93,6 +94,7 @@ const WindowListAdmin = ({
 
   const handleClickMenuItem = (index) => {
     setCurrentIndexMenu(index);
+    setPreviewImages([])
     clickToItem(index);
     if (itemBottomActive) setItemBottomActive(false);
   };
@@ -158,6 +160,10 @@ const WindowListAdmin = ({
     }
   }
 
+
+
+
+
   const handleChangeImages = (e: any) => {
     if (e.target.files) {
       const ArrayObj: IPreviewProductImage[] = Array.from(e.target.files).map((f) => {
@@ -170,6 +176,10 @@ const WindowListAdmin = ({
       setPreviewImages((prevImages) => prevImages.concat(ArrayObj))
     }
   }
+  
+
+
+
 
   // Удаление preview фото
   const handleDeletePreviewPhoto = (index: number) => {
@@ -181,25 +191,45 @@ const WindowListAdmin = ({
     }))
   }
 
+
+
+
+
   // Клик на кнопку "Создать товар"
-  const handleClickLoadPhoto = async() => {
+  const handleClickLoadPhoto = async () => {
     let formData = new FormData()
-    for(let i = 0; i < previewImages.length; i++){
+    console.log('previewImagesssssssssssssssssss', previewImages);
+    
+    for (let i = 0; i < previewImages.length; i++) {
       formData.append('images', previewImages.map((file) => file.fileFromTarget)[i])
+      formData.append('filenames_images', previewImages[i].file)
+      
     }
-    await axios.post(process.env.API_URI + '/api/catalog/update', formData) 
+    await axios.post(process.env.API_URI + '/api/catalog/update', formData)
 
-}
-
-
+  }
 
 
+  useEffect(() =>{
+    const newPreviewImages = [...previewImages, ...itemArr[currentIndexMenu ? currentIndexMenu : 0].filenames_images.map(item => {
+      const obj = {file: process.env.API_URI + '/' + item}
+      return obj
+    } )]
+    setPreviewImages(newPreviewImages)
+    console.log('newPreviewImages', newPreviewImages);
+    
+  }, [itemArr, itemBottomActive])
 
 
 
 
 
-  console.log("previewImages", previewImages);
+
+
+  console.log("currentIndexMenu", currentIndexMenu);
+
+  // console.log("previewImages", previewImages);
+  // console.log("itemArrrrr", itemArr);
 
   return (
     <>
@@ -400,12 +430,12 @@ const WindowListAdmin = ({
                                   }
                                 </div>
                                 {
-                                  previewImages.length != 0 ? 
+                                  previewImages.length != 0 ?
                                     <div className={s.loadBtn}>
                                       <button onClick={handleClickLoadPhoto}>Загрузить фото на сервер</button>
                                     </div>
-                                  :
-                                  <></>
+                                    :
+                                    <></>
                                 }
 
                               </div>

@@ -11,4 +11,7 @@ export class UpdateCatalogInput extends PartialType(CreateCatalogInput) {
 
   @Field(() => Number, { description: 'Serial number', nullable: true })
   serial_number: number
+
+  @Field(() => [String], { description: 'filenames photo', nullable: true })
+  filenames_images: string[]
 }
