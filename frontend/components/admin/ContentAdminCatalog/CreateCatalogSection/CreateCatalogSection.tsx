@@ -54,8 +54,6 @@ const CreateCatalogSection: FC<CreateCatalogSectionProps> = () => {
 
 
   useEffect(() => {
-    console.log('---------------------------', dataGetCatalogByID);
-
     if (actionWindow.current === AdminActionWindowType.Initial) {
       let InitialCatalogArr = []
       if (dataGetCatalogByID) {
@@ -250,8 +248,8 @@ const CreateCatalogSection: FC<CreateCatalogSectionProps> = () => {
 
   }
 
-  console.log('catalogArrrrr', catalogArr);
-
+  console.log(catalogArr);
+  
 
   return (
     <>
@@ -273,7 +271,7 @@ const CreateCatalogSection: FC<CreateCatalogSectionProps> = () => {
                 title={titleWindows[index]}
                 itemArr={item}
                 visible={true}
-                optionsBtnVisible={false}
+                optionsBtnVisible={true}
                 clickToItem={(itemIndex) => handleClickToItem(index, itemIndex)}
                 createItemName={(name) => handleCreateItemName(name, index != 0 ? (parentArr[index].children.length + 1) * 100 : (catalogArr[0].length + 1) * 100, index != 0 ? Number(parentArr[index].id) : null, index)}
                 updateItemName={(indexItem, name) => handleUpdateItemName(catalogArr[index][indexItem].id, name, index)}

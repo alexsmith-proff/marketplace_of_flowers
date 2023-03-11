@@ -46,7 +46,7 @@ export interface IUpdateProductRelationsInput {
 export interface IPreviewProductImage {
   fileFromTarget: any,
   file : string,
-  isMainPhoto: boolean
+  isMainPhoto?: boolean
 }
 
 export interface IProductFilter extends IBase {

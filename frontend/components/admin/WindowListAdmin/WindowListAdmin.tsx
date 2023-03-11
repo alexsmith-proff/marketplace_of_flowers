@@ -6,7 +6,7 @@ import {
   AiOutlineMore,
   AiOutlineCheck,
 } from "react-icons/ai";
-import { MdDeleteOutline } from "react-icons/md";
+import { MdClose, MdDeleteOutline } from "react-icons/md";
 
 import {
   AdminButtonFunctional,
@@ -22,6 +22,7 @@ import OptionsItemAdmin from "../OptionsItemAdmin/OptionsItemAdmin";
 import { ICatalog } from "../../../interfaces/catalog.interface";
 
 import s from "./WindowListAdmin.module.scss";
+import { IPreviewProductImage } from "../../../interfaces/products.interface";
 
 interface WindowListAdminProps {
   typeList?: AdminListType;
@@ -68,6 +69,10 @@ const WindowListAdmin = ({
   const editUpdateMenuItemRef = useRef(null);
   const editCreateMenuItemRef = useRef(null);
 
+  const [imagesArr, setImagesArr] = useState([])
+  const [previewImages, setPreviewImages] = useState<IPreviewProductImage[]>([])
+  const [numPreviewPhotoHover, setNumPreviewPhotoHover] = useState(null)
+
   const handleEditUpdateMenuItemName = () => {
     updateItemName(currentIndexMenu, editUpdateMenuItemRef.current.value);
     setEditMenuItemUpdateActive(false);
@@ -98,24 +103,24 @@ const WindowListAdmin = ({
   };
 
   function handleDragStart(e, index) {
-      setItemBottomActive(false);
-      setDragIndex(index);
+    setItemBottomActive(false);
+    setDragIndex(index);
   }
   function handleDragOver(e: React.DragEvent<HTMLLIElement>, index: number) {
-      e.preventDefault();
-      setFutureIndex(index);
+    e.preventDefault();
+    setFutureIndex(index);
   }
   function handleDragLeave(e) {
-      e.preventDefault();
-      e.target.classList.remove("menuListDragOver");
+    e.preventDefault();
+    e.target.classList.remove("menuListDragOver");
   }
   function handleDragEnd(e, index) {
-      e.preventDefault();
-      e.target.classList.remove("menuListDragOver");
-      setFutureIndex(null);
+    e.preventDefault();
+    e.target.classList.remove("menuListDragOver");
+    setFutureIndex(null);
   }
   function handleDrop(e: React.DragEvent<HTMLLIElement>, index) {
-      e.preventDefault();
+    e.preventDefault();
     if (index === itemArr.length - 1) {
       updateSerialNumberByIndex(dragIndex, itemArr[index].serial_number + 100);
     } else {
@@ -151,6 +156,29 @@ const WindowListAdmin = ({
       }
     }
   }
+
+  const handleChangeImages = (e: any) => {
+    if (e.target.files) {
+        const ArrayObj: IPreviewProductImage[] = Array.from(e.target.files).map((f) => {
+            return {
+                fileFromTarget: f,
+                file: URL.createObjectURL(f as Blob),
+                isMainPhoto: false
+            }
+        })
+        setPreviewImages((prevImages) => prevImages.concat(ArrayObj))
+    }
+  }
+
+  // Удаление preview фото
+  const handleDeletePreviewPhoto = (index: number) => {
+    setPreviewImages(previewImages.filter((_, ind) => {
+        if (ind != index) {
+            return true
+        }
+        return false
+    }))
+}
 
   // console.log("iiitemArr", itemArr);
 
@@ -308,7 +336,7 @@ const WindowListAdmin = ({
                               }}
                             /> */}
                             {
-                              typeList !== AdminListType.Filter && typeList !== AdminListType.FilterValue &&
+                              typeList !== AdminListType.Filter && typeList !== AdminListType.FilterValue && typeList !== AdminListType.Catalog &&
                               <OptionsItemAdmin
                                 label="Ссылка"
                                 textInputInit={item.link}
@@ -327,6 +355,31 @@ const WindowListAdmin = ({
                                 textInputInit={item.value}
                                 inputConfirm={(data) => updateValue(index, data)}
                               />
+                            }
+                            {
+                              typeList === AdminListType.Catalog &&
+                              <div className={s.images}>
+                                <div className={s.imagesTitle}>Изображения</div>
+                                <input type="file" accept="image/*" multiple={true} onChange={handleChangeImages} />
+                                <div className={s.preview}>
+                                  {
+                                    imagesArr &&
+                                    <>
+                                      {
+                                        previewImages.map((photo, ind) => (
+                                          <div className={s.previewImages} key={ind}>
+                                            <img src={photo.file} key={ind} onMouseEnter={() => setNumPreviewPhotoHover(ind)} />
+                                            {
+                                              numPreviewPhotoHover === ind && <MdClose className={s.previewDelete} onClick={() => handleDeletePreviewPhoto(ind)} />
+                                            }
+
+                                          </div>
+                                        ))
+                                      }
+                                    </>
+                                  }
+                                </div>
+                              </div>
                             }
                           </div>
                         </div>
