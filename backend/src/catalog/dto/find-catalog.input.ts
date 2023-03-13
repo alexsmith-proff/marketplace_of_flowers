@@ -10,6 +10,6 @@ export class FindCatalogInput {
   @Field(() => Number, {nullable: true})
   serial_number: number
 
-  @Field(() => Number, {nullable: true, })
+  @Field(() => Number, {nullable: true})
   parent_id: number
 }

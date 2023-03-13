@@ -97,7 +97,9 @@ export class CatalogService {
   async findByParent(
     findCatalogInput: FindCatalogInput,
   ): Promise<CatalogEntity[]> {
-    const findParent = await this.findOne(findCatalogInput.parent_id);
+    
+    const findParent: CatalogEntity = await this.findOne(findCatalogInput.parent_id);
+
     if (findParent === null) {
       const catalog = await this.catalogRepository.find({
         where: {
@@ -109,18 +111,19 @@ export class CatalogService {
       });
       return sortingArr(catalog);
     }
-    // else {
-    //   const catalog = await this.catalogRepository.find({
-    //     where: {
-    //       parent: findParent,
-    //     },
-    //     relations: {
-    //       children: true,
-    //       parent: true,
-    //     },
-    //   });
-    //   return sortingArr(catalog);
-    // }
+    else {
+      const catalog = await this.catalogRepository.find({
+        where: {
+          parent: findParent[0]
+        },
+        relations: {
+          children: true,
+          parent: true,
+        },
+      });
+      
+      return sortingArr(catalog);
+    }
   }
 
 
