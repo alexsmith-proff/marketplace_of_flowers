@@ -144,7 +144,7 @@ export class CatalogService {
 
     return await this.catalogRepository.save({
       ...item,
-      ...updateCatalogInput,
+      // ...updateCatalogInput,
       filenames_images: fileNames
     });
   }

@@ -167,6 +167,7 @@ const WindowListAdmin = ({
   const handleChangeImages = (e: any) => {
     if (e.target.files) {
       const ArrayObj: IPreviewProductImage[] = Array.from(e.target.files).map((f) => {
+        console.log('aaaaaaaaa', URL.createObjectURL(f as Blob));
         return {
           fileFromTarget: f,
           file: URL.createObjectURL(f as Blob),
@@ -176,7 +177,7 @@ const WindowListAdmin = ({
       setPreviewImages((prevImages) => prevImages.concat(ArrayObj))
     }
   }
-  
+
 
 
 
@@ -199,26 +200,33 @@ const WindowListAdmin = ({
   const handleClickLoadPhoto = async () => {
     let formData = new FormData()
     console.log('previewImagesssssssssssssssssss', previewImages);
-    
+    formData.append('id', itemArr[currentIndexMenu ? currentIndexMenu : 0].id)
+
     for (let i = 0; i < previewImages.length; i++) {
       formData.append('images', previewImages.map((file) => file.fileFromTarget)[i])
       formData.append('filenames_images', previewImages[i].file)
-      
+
     }
     await axios.post(process.env.API_URI + '/api/catalog/update', formData)
 
   }
 
 
-  useEffect(() =>{
-    const newPreviewImages = [...previewImages, ...itemArr[currentIndexMenu ? currentIndexMenu : 0].filenames_images.map(item => {
-      const obj = {file: process.env.API_URI + '/' + item}
-      return obj
-    } )]
-    setPreviewImages(newPreviewImages)
-    console.log('newPreviewImages', newPreviewImages);
-    
-  }, [itemArr, itemBottomActive])
+  useEffect(() => {
+    if (itemArr[0]) {
+      const newPreviewImages = [...previewImages, ...itemArr[currentIndexMenu ? currentIndexMenu : 0].filenames_images.map(item => {
+        const obj = {
+          fileFromTarget: process.env.API_URI + '/' + item,
+          // file: URL.createObjectURL(item as Blob),
+          file: process.env.API_URI + '/' + item
+        }
+        return obj
+      })]
+      setPreviewImages(newPreviewImages)
+      console.log('newPreviewImagessssss', newPreviewImages);
+    }
+
+  }, [itemArr, currentIndexMenu, itemBottomActive])
 
 
 
@@ -317,7 +325,7 @@ const WindowListAdmin = ({
                   <li
                     className={s.item}
                     key={item.id}
-                    draggable={(typeList !== AdminListType.Filter) && (typeList !== AdminListType.FilterValue) ? true : false}
+                    draggable={(typeList !== AdminListType.Filter) && (typeList !== AdminListType.FilterValue) && (typeList !== AdminListType.Catalog) ? true : false}
                     onDragStart={(e) => handleDragStart(e, index)}
                     onDragOver={(e) => handleDragOver(e, index)}
                     onDragLeave={(e) => handleDragLeave(e)}

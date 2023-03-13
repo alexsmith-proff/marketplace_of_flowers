@@ -5,26 +5,32 @@ export const GET_ALL_CATALOG = gql`
     getAllCatalog{
       id
       name
+      slug
       serial_number
       children{
         id
         name
+        slug
         serial_number
         children{
           id
       	  name
+          slug
       	  serial_number
           children{
         		id
       		  name
+            slug
       		serial_number
 	          children{
 			        id
 			        name
+              slug
 			        serial_number
               children{
 				        id
       				  name
+                slug
       				  serial_number
       				}
     			  }
@@ -49,12 +55,15 @@ export const GET_CATALOG_BY_PARENT_ID = gql`
     getCatalogByParent(findCatalogInput: $findCatalogInput) {
         id
         name
+        slug
         serial_number
         filenames_images
         children{
             id
             name
+            slug
             serial_number
+            filenames_images
         }      
     }
   }
