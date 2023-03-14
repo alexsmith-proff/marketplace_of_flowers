@@ -49,7 +49,7 @@ import { ProductFilterEntity } from './product-filter/entities/product-filter.en
       envFilePath: '.env'
     }),
     // С ServeStaticModule playground GraphQL http://localhost:5000/graphql - не работает
-    ServeStaticModule.forRoot({ rootPath: path.resolve(__dirname, 'static')}),
+    // ServeStaticModule.forRoot({ rootPath: path.resolve(__dirname, 'static')}),
     TypeOrmModule.forRootAsync({
       imports: [ConfigModule],
       inject: [ConfigService],

@@ -21,13 +21,20 @@ export class CatalogResolver {
 
   @Query(() => [CatalogEntity], { name: 'getAllCatalog' })
   findAllTree() {
+    // return this.catalogService.findAll();
     return this.catalogService.findAllTree();
   }
 
+
   @Query(() => [CatalogEntity], { name: 'getCatalogByParent'})
-  findCatalogByParent(@Args('findCatalogInput') findCatalogInput: FindCatalogInput){
-    return this.catalogService.findByParent(findCatalogInput)
+  findCatalogByParent(@Args('id', { type: () => Int }) id: number){
+    return this.catalogService.findByParent(id)
   }
+
+  // @Query(() => [CatalogEntity], { name: 'getCatalogByParent'})
+  // findCatalogByParent(@Args('findCatalogInput') findCatalogInput: FindCatalogInput){
+  //   return this.catalogService.findByParent(findCatalogInput)
+  // }
 
   // @Query(() => Catalog, { name: 'catalog' })
   // findOne(@Args('id', { type: () => Int }) id: number) {

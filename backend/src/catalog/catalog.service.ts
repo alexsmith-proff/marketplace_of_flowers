@@ -94,36 +94,19 @@ export class CatalogService {
     });
   }
 
-  async findByParent(
-    findCatalogInput: FindCatalogInput,
-  ): Promise<CatalogEntity[]> {
-    
-    const findParent: CatalogEntity = await this.findOne(findCatalogInput.parent_id);
+  async findByParent(id: number): Promise<CatalogEntity[]> {
+    const findParent: CatalogEntity = await this.catalogRepository.findOne({
+      where: {
+        id: id
+      },
+      relations: {
+        children: true,
+        parent: true,
+      },
+    })
+    if(!findParent) return []
 
-    if (findParent === null) {
-      const catalog = await this.catalogRepository.find({
-        where: {
-          parent: IsNull(),
-        },
-        relations: {
-          children: true,
-        },
-      });
-      return sortingArr(catalog);
-    }
-    else {
-      const catalog = await this.catalogRepository.find({
-        where: {
-          parent: findParent[0]
-        },
-        relations: {
-          children: true,
-          parent: true,
-        },
-      });
-      
-      return sortingArr(catalog);
-    }
+    return findParent.children;
   }
 
 
