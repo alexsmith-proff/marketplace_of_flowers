@@ -5,6 +5,7 @@ import { IMenu } from '../../interfaces/menu.interface'
 import { ISection } from '../../interfaces/section.interface'
 import CatalogCards from '../../components/CatalogCards/CatalogCards'
 import { ICatalogCards } from '../../interfaces/catalog.interface'
+import CatalogSeo from '../../components/CatalogSeo/CatalogSeo'
 
 interface IndexProps {
     topMenu: IMenu,
@@ -22,6 +23,7 @@ const Index: FC<IndexProps> = ({ topMenu, headerMenu, footerMenu, catalogCards, 
         <div>
             <MainLayout topMenu={topMenu} headerMenu={headerMenu} footerMenu={footerMenu} footerMenuInfo={footerMenuInfo} footerMenuCoordinates={footerMenuCoordinates} footerMenuEmail={footerMenuEmail}>
                 <CatalogCards title={catalogCards.title} catalogCards={catalogCards.cards} />
+                <CatalogSeo />
             </MainLayout>
         </div >
     )
