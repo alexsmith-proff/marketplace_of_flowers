@@ -105,7 +105,7 @@ const Footer: FC<FooterProps> = ({ menu, menuInfo, menuCoordinates, menuEmail })
                                     <div className={s.contacts__title}>{menuCoordinates.name}</div>
                                     {
                                         menuCoordinates.elements.map((el, index) => (
-                                            <div className={s.contacts__point}>
+                                            <div className={s.contacts__point} key={index}>
                                                 <div className={s.contacts__pointName}>{getTextInTextBlockFromElement(el, 'title')}</div>
                                                 <div className={s.contacts__pointPhone}>{getTextInTextBlockFromElement(el, 'telefon')}</div>
                                             </div>

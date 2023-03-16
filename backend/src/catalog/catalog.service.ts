@@ -94,6 +94,19 @@ export class CatalogService {
     });
   }
 
+  async findBySlug(slug: string) {
+    const findParent: CatalogEntity = await this.catalogRepository.findOne({
+      where: {slug},
+      relations: {
+        children: true,
+        parent: true,
+      },
+    })
+    if(!findParent) return []
+
+    return findParent.children;
+  }
+
   async findByParent(id: number): Promise<CatalogEntity[]> {
     const findParent: CatalogEntity = await this.catalogRepository.findOne({
       where: {

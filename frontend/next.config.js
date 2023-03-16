@@ -6,6 +6,9 @@ const nextConfig = {
     API_URI: 'http://localhost:5000',
     API_URI_DOCKER: 'http://backend:5000'
   },
+  images: {
+    domains: ['backend'],
+  },
   webpackDevMiddleware: config => {
         config.watchOptions = {
           poll: 1000,

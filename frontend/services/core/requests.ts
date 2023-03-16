@@ -54,6 +54,16 @@ export const GetMenu = async (slug: string) => {
   return dataQuery
 }
 
+export const GetCatalogByParent = async (slug: string) => {
+  let dataQuery = null
+  try {
+    dataQuery = allEndPoints.catalog.getBySlug(slug)
+  } catch (error) {
+    console.log('error', error);
+  }
+  return dataQuery
+}
+
 export const GetSection = async (slug: string) => {
   let dataQuery = null
   try {

@@ -14,6 +14,11 @@ export class CatalogController {
     return this.catalogService.createAPI(files, createProductInput)
   }
 
+  @Get(':slug')
+  findBySlug(@Param() params) {
+    return this.catalogService.findBySlug(params.slug)
+  }
+
   @Get(':id')
   findOne(@Param() params) {
     return this.catalogService.findOne(params.id)
