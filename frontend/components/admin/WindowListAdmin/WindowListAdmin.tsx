@@ -213,17 +213,21 @@ const WindowListAdmin = ({
 
 
   useEffect(() => {
-    if (itemArr[0]) {
-      const newPreviewImages = [...previewImages, ...itemArr[currentIndexMenu ? currentIndexMenu : 0].filenames_images.map(item => {
-        const obj = {
-          fileFromTarget: process.env.API_URI + '/' + item,
-          // file: URL.createObjectURL(item as Blob),
-          file: process.env.API_URI + '/' + item
-        }
-        return obj
-      })]
-      setPreviewImages(newPreviewImages)
-      console.log('newPreviewImagessssss', newPreviewImages);
+    console.log('itemArrkjhsbdjhbsjhdfbsjhbdfjhsdb', itemArr);
+
+    if (typeList === AdminListType.Catalog) {
+      if (itemArr[0]) {
+        const newPreviewImages = [...previewImages, ...itemArr[currentIndexMenu ? currentIndexMenu : 0].filenames_images.map(item => {
+          const obj = {
+            fileFromTarget: process.env.API_URI + '/' + item,
+            // file: URL.createObjectURL(item as Blob),
+            file: process.env.API_URI + '/' + item
+          }
+          return obj
+        })]
+        setPreviewImages(newPreviewImages)
+
+      }
     }
 
   }, [itemArr, currentIndexMenu, itemBottomActive])

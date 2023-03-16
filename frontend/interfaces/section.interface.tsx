@@ -24,7 +24,7 @@ export interface ISection extends IBase {
 export interface INameSlugInput {
     name: string
     slug: string
-    product_id: number
+    product_id?: number
 }
 
 

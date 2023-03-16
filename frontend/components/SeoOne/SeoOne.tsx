@@ -1,6 +1,6 @@
 import React, { FC } from 'react'
 import { ISection } from '../../interfaces/section.interface';
-import { getTextInTextBlockFromElement, getTextInTextBlockFromSection } from '../../services/core/parse';
+import { getTextInTextBlockFromSection } from '../../services/core/parse';
 
 import s from './SeoOne.module.scss'
 
@@ -9,9 +9,6 @@ interface SeoOneProps {
 }
 
 const SeoOne: FC<SeoOneProps> = ({ seoSection }) => {
-
-    console.log('seoSection', seoSection);
-
 
     return (
         <>

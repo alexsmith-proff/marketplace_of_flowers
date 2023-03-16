@@ -66,7 +66,7 @@ const WindowCreateNameSlug: FC<WindowCreateNameSlugProps> = ({ modeWindow, typeS
             create({
                 name: titleName,
                 slug: slugName,
-                product_id: productName ? +products.find((item) => item.name === productName).id : null
+                // product_id: productName ? +products.find((item) => item.name === productName).id : null
             })
             productFieldsNull()
         }
@@ -118,17 +118,20 @@ const WindowCreateNameSlug: FC<WindowCreateNameSlugProps> = ({ modeWindow, typeS
                         <input className={!setSlugName ? (s.nameInput + ' ' + s.error) : s.nameInput} type="text" onChange={handleChangeSlugName} value={slugName} />
                     </div>
 
-                    <div className={s.useProduct}>
-                        <div>Продукт</div>
-                        {
-                            <select className={s.checkBoxProducts} onChange={(e) => handleChangeProduct(e)} value={productName} >
-                                <option></option>
-                                {
-                                    products?.map((product, index) => <option key={index} >{product.name}</option>)
-                                }
-                            </select>
-                        }
-                    </div>
+                    {
+                        typeSection != AdminSectionType.Section &&
+                        <div className={s.useProduct}>
+                            <div>Продукт</div>
+                            {
+                                <select className={s.checkBoxProducts} onChange={(e) => handleChangeProduct(e)} value={productName} >
+                                    <option></option>
+                                    {
+                                        products?.map((product, index) => <option key={index} >{product.name}</option>)
+                                    }
+                                </select>
+                            }
+                        </div>
+                    }
 
 
 
