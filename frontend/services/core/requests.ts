@@ -1,8 +1,8 @@
 import client from '../../util/apollo-client'
 
-import { GET_IMG_BY_SLUG, GET_SECTION_BY_SLUG, GET_TEXTBLOCK_BY_SLUG } from "../../graphql/section.graphql";
-import { GET_MENU_BY_SLUG } from '../../graphql/menu.graphql';
+import { GET_IMG_BY_SLUG, GET_TEXTBLOCK_BY_SLUG } from "../../graphql/section.graphql";
 import allEndPoints from '../api/api';
+import { ICatalog } from '../../interfaces/catalog.interface';
 
 // export const GetSection = async (slug: string) => {
 //   let dataQuery = null
@@ -38,7 +38,7 @@ export const GetImgByBlock = async (slug: string) => {
       slug: slug
     }
   })
-  console.log(data);
+  // console.log(data);
 
   return data.getImgElementBySlug.filename
 }
@@ -46,18 +46,33 @@ export const GetImgByBlock = async (slug: string) => {
 export const GetMenu = async (slug: string) => {
   let dataQuery = null
   try {
-    dataQuery = allEndPoints.menu.getBySlug(slug)
+    dataQuery = await allEndPoints.menu.getBySlug(slug)
   } catch (error) {
     console.log('error', error);
   }
-  console.log('dattaaaaaaaaaa', dataQuery)
+  return dataQuery
+}
+
+export const GetCatalogNameBySlug = async (slug: string) => {
+  let dataQuery = ''
+  try {
+    const data: ICatalog = await allEndPoints.catalog.getCatalogBySlug(slug)
+    if(data) {
+      dataQuery = data.name
+    }
+    else {
+      dataQuery = ''
+    }
+  } catch (error) {
+    console.log('error', error);
+  }
   return dataQuery
 }
 
 export const GetCatalogByParent = async (slug: string) => {
   let dataQuery = null
   try {
-    dataQuery = allEndPoints.catalog.getBySlug(slug)
+    dataQuery = await allEndPoints.catalog.getCatalogByParentSlug(slug)
   } catch (error) {
     console.log('error', error);
   }
@@ -67,7 +82,7 @@ export const GetCatalogByParent = async (slug: string) => {
 export const GetSection = async (slug: string) => {
   let dataQuery = null
   try {
-    dataQuery = allEndPoints.section.getBySlug(slug)
+    dataQuery = await allEndPoints.section.getBySlug(slug)
   } catch (error) {
     console.log('error', error);
   }

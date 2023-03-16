@@ -14,6 +14,13 @@ export class CatalogController {
     return this.catalogService.createAPI(files, createProductInput)
   }
 
+  // Найдет все дочерние каталоги по parent slug
+  @Get('parent/:slug')
+  findByParentSlug(@Param() params) {
+    return this.catalogService.findByParentSlug(params.slug)
+  }
+
+  // Найдет католог по slug
   @Get(':slug')
   findBySlug(@Param() params) {
     return this.catalogService.findBySlug(params.slug)

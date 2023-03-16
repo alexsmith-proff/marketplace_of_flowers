@@ -34,7 +34,7 @@ export class MenuService {
         
       }
     });
-    console.log('menu', menu);
+    // console.log('menu', menu);
     return menu;
   }
 
@@ -76,7 +76,7 @@ export class MenuService {
     id: number,
     updateMenuInput: UpdateMenuInput,
   ): Promise<MenuEntity> {
-    console.log('updateMenu');
+    // console.log('updateMenu');
 
     await this.menuRepository.update(id, updateMenuInput);
     return await this.findOne(id);

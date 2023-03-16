@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import React, { FC, useState } from 'react';
 import { IMenu } from '../../interfaces/menu.interface';
 
@@ -10,15 +11,15 @@ interface TopMenuProps {
 const TopMenu: FC<TopMenuProps> = ({ menu }) => {
     const [menuItemActive, setMenuItemActive] = useState<boolean>(false)
 
-    // console.log('menuuuuuuuuuuuu', menu);
-
     return (
         <div className={s.topmenu}>
             <div className="container">
                 <div className={s.topmenuContainer}>
                     <a href="#">
                         <div className={s.stock}>
-                            <img className={s.stock__ico} src="img/discount.png" alt="discount" />
+                            <div className={s.stock__ico}>
+                                <Image src='/img/discount.png' width={40} height={40} alt='discount' />
+                            </div>
                             <div className={s.stock__text}>АКЦИИ</div>
                         </div>
                     </a>

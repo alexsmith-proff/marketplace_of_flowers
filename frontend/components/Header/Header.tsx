@@ -1,3 +1,4 @@
+import Image from 'next/image';
 import React, { FC } from 'react';
 
 import s from './Header.module.scss'
@@ -12,19 +13,23 @@ const Header: FC<HeaderProps> = ({ }) => {
             <div className="container">
                 <div className={s.headerContainer}>
                     <a className={s.header__logo} href="#">
-                        <img className={s.header__logoImg} src="img/logo.png" alt="" />
+                        <Image src='/img/logo.png' width={160} height={48} alt='logo' />
                     </a>
                     <div className={s.header__deliveryText}>Доставка цветов в Воронеже</div>
                     <div className={s.header__find}>
                         <input className={s.header__findInput} type="text" />
-                            <a href="#">
-                                <img className={s.header__findInput__findBtn} src="img/find-btn.png" alt="find-btn" />
-                            </a>
+                        <a href="#">
+                            <div className={s.header__findInput__findBtn}>
+                                <Image src='/img/find-btn.png' width={16} height={16} alt='find-btn-ico' />
+                            </div>
+                        </a>
                     </div>
                     <div className={s.header__call}>
                         <a href="#" className={s.call_phoneBtnLink}>
                             <div className={s.headerBtn}>
-                                <img className={s.headerBtn__img} src="img/phone-btn.png" alt="phone-btn" />
+                                <div className={s.headerBtn__img}>
+                                    <Image src='/img/phone-btn.png' width={18} height={18} alt='phone-btn-ico' />
+                                </div>
                             </div>
                         </a>
                         <div className={s.call__number}>+7 (920) 211-49-03</div>
@@ -32,13 +37,17 @@ const Header: FC<HeaderProps> = ({ }) => {
 
                     <a className={s.header__favoriteBtnLink} href="#">
                         <div className={s.headerBtn}>
-                            <img className={s.headerBtn__img} src="img/favorite-btn.png" alt="favorite-btn" />
+                            <div className={s.headerBtn__img}>
+                                <Image className={s.headerBtn__img} src='/img/favorite-btn.png' width={18} height={18} alt='favorite-btn-ico' />
+                            </div>
                         </div>
                     </a>
                     <div className={s.header__cart}>
                         <a className={s.header__cartBtnLink} href="#">
                             <div className={s.headerBtn}>
-                                <img className={s.headerBtn__img} src="img/cart.png" alt="cart-ico" />
+                                <div className={s.headerBtn__img}>
+                                    <Image src='/img/cart.png' width={18} height={18} alt='cart-ico' />
+                                </div>
                             </div>
                         </a>
                         <div className={s.cart__price}>16 500 ₽</div>
