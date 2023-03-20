@@ -53,6 +53,16 @@ export const GetMenu = async (slug: string) => {
   return dataQuery
 }
 
+export const GetAllCatalog = async (): Promise<ICatalog> => {
+  let dataQuery: ICatalog = null
+  try {
+    dataQuery = await allEndPoints.catalog.getAllCatalog()
+  } catch (error) {
+    console.log('error', error);
+  }
+  return dataQuery
+}
+
 export const GetCatalogNameBySlug = async (slug: string) => {
   let dataQuery = ''
   try {

@@ -1,6 +1,6 @@
 import React, { FC } from 'react'
 import MainLayout from '../../layouts/MainLayout/MainLayout'
-import { GetCatalogByParent, GetCatalogNameBySlug, GetMenu, GetSection } from '../../services/core/requests'
+import { GetAllCatalog, GetCatalogByParent, GetCatalogNameBySlug, GetMenu, GetSection } from '../../services/core/requests'
 import { IMenu } from '../../interfaces/menu.interface'
 import { ISection } from '../../interfaces/section.interface'
 import CatalogCards from '../../components/CatalogCards/CatalogCards'
@@ -40,6 +40,11 @@ export async function getServerSideProps(context) {
     const topMenu = await GetMenu('verkhnee-menyu')
     const headerMenu = await GetMenu('menyu-v-khedere')
     const footerMenu = await GetMenu('menyu-v-futere')
+
+    // Получить весь каталог
+    const catalogArr = await GetAllCatalog()
+    console.log(catalogArr);
+    
 
     const breadCrumbsArr = [
         {
