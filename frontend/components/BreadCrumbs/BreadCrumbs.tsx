@@ -22,7 +22,7 @@ const BreadCrumbs: FC<BreadCrumbsProps> = ({ breadCrumbsArr }) => {
                                     <Image src="/img/arrow-breadcrumbs.png" width={14} height={10} />
                                 </div>
                             }
-                            <Link href={'/category/' + item.slug}>
+                            <Link href={!item.slug ? '/' : item.slug}>
                                 <a className={st.link}>{item.text}</a>
                             </Link>
                         </div>)

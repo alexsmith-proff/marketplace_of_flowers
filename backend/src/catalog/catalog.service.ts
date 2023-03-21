@@ -76,14 +76,18 @@ export class CatalogService {
 
 
   async findAll() {
-    return this.catalogRepository.find()
+    return this.catalogRepository.find({
+      relations: {
+        children: true,
+        parent: true,
+      }      
+    })
   }
 
   async findAllTree() {
-    const catalogArr = await this.catalogRepository.manager
-      .getTreeRepository(CatalogEntity)
-      .findTrees();
-    return sortingArr(catalogArr);
+    const catalogArr = await this.catalogRepository.manager.getTreeRepository(CatalogEntity).findTrees();
+    // return sortingArr(catalogArr);
+    return catalogArr;
   }
 
   async findOne(id: number) {

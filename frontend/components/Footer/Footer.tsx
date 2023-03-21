@@ -13,8 +13,6 @@ interface FooterProps {
 }
 
 const Footer: FC<FooterProps> = ({ menu, menuInfo, menuCoordinates, menuEmail }) => {
-    console.log('menu', menu);
-
 
     return (
         <>

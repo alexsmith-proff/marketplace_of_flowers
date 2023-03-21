@@ -8,6 +8,7 @@ import { ICatalogCards } from '../../interfaces/catalog.interface'
 import CatalogSeo from '../../components/CatalogSeo/CatalogSeo'
 import BreadCrumbs from '../../components/BreadCrumbs/BreadCrumbs'
 import { IBreadCrumbs } from '../../interfaces/breadCrumbs.interface'
+import { getBreadCrumbsFromCatalog } from '../../services/core/parse'
 
 interface IndexProps {
     topMenu: IMenu,
@@ -43,19 +44,10 @@ export async function getServerSideProps(context) {
 
     // Получить весь каталог
     const catalogArr = await GetAllCatalog()
-    console.log(catalogArr);
-    
 
-    const breadCrumbsArr = [
-        {
-            slug: '',
-            text: 'Главная'
-        },
-        {
-            slug: 'bukety',
-            text: 'Букеты'
-        }
-    ]
+    const breadCrumbsArr = getBreadCrumbsFromCatalog(catalogArr, query.slug)
+
+    // ]
 
     const catalogCards: ICatalogCards = {
         title: await GetCatalogNameBySlug(query.slug),
@@ -70,6 +62,7 @@ export async function getServerSideProps(context) {
     const footerMenuInfo = await GetMenu('menyu-informaciya')
     const footerMenuCoordinates = await GetSection('nashi-koordinaty')
     const footerMenuEmail = await GetSection('e-mail')
+
 
     return {
         props: { topMenu, headerMenu, footerMenu, breadCrumbsArr, catalogCards, catalogSeo, footerMenuInfo, footerMenuCoordinates, footerMenuEmail }

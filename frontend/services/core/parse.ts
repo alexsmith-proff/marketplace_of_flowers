@@ -1,3 +1,5 @@
+import { IBreadCrumbs } from '../../interfaces/breadCrumbs.interface';
+import { ICatalog } from '../../interfaces/catalog.interface';
 import { IMenu, IMenuItem, ISubMenu } from '../../interfaces/menu.interface';
 import { IElement, ISection } from '../../interfaces/section.interface'
 import allEndPoints from '../api/api';
@@ -67,4 +69,27 @@ export const getFileNameInImgBlockFromElement = (element: IElement, imgSlug: str
 
 }
 ///////////////////////////////////////
+
+export const getBreadCrumbsFromCatalog = (catalogArr: ICatalog[], slug: string) => {
+    const breadCrumbs: IBreadCrumbs[] = []
+    const findEl = (slug: string) => {
+        const bc = catalogArr.find(item => item.slug === slug)  
+        breadCrumbs.unshift({
+            text: bc.name,
+            slug: bc.slug
+        }) 
+        if (bc.parent) {          
+            findEl(bc.parent.slug)
+        } else {
+            breadCrumbs.unshift({
+                text: 'Главная',
+                slug: ''
+            })            
+        }
+    }
+    findEl(slug)
+    console.log(breadCrumbs);
+    
+    return breadCrumbs    
+}
 

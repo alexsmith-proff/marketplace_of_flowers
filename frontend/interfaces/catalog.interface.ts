@@ -3,6 +3,7 @@ export interface ICatalogBase {
   name: string
 }
 export interface ICatalog extends ICatalogBase {
+  slug: string
   serial_number: number
   children: ICatalog[]
   parent: ICatalog
