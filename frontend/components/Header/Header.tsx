@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import Link from 'next/link';
 import React, { FC } from 'react';
 
 import s from './Header.module.scss'
@@ -12,9 +13,14 @@ const Header: FC<HeaderProps> = ({ }) => {
         <div className={s.header}>
             <div className="container">
                 <div className={s.headerContainer}>
-                    <a className={s.header__logo} href="#">
-                        <Image src='/img/logo.png' width={160} height={48} alt='logo' />
-                    </a>
+                    <div className={s.header__logo}>
+                        <Link href='/'>
+                            <a>
+                                <Image src='/img/logo.png' width={160} height={48} alt='logo' />
+                            </a>
+                        </Link>
+                    </div>
+
                     <div className={s.header__deliveryText}>Доставка цветов в Воронеже</div>
                     <div className={s.header__find}>
                         <input className={s.header__findInput} type="text" />
