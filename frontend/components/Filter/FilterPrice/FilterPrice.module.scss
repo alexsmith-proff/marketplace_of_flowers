@@ -1,0 +1,55 @@
+.title {
+    font-family: 'TT Norms';
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 26px;
+    color: #1B1C21;
+    margin-bottom: 10px;
+}
+
+.input {
+    background: #FFFFFF;
+    border: 1px solid #D0D2D7;
+    border-radius: 5px;
+    padding: 8px 10px;
+    width: 114px;
+    font-family: 'TT Norms';
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 22px;
+    display: flex;
+    align-items: center;
+    color: #1B1C21;
+
+    &Wrap {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 10px;
+    }
+}
+
+.rangeInput {
+    position: relative;
+    padding-top: 20px;
+}
+
+.range {
+    position: absolute;
+    width: 100%;
+    height: 5px;
+    top: 5px;
+    background: none;
+    pointer-events: none;
+}
+
+
+.label {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    span {
+        font-weight: bold;
+    }
+}

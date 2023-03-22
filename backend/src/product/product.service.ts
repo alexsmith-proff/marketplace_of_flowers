@@ -95,6 +95,18 @@ export class ProductService {
     })
   }
 
+  async findMinMaxPrice() {
+    const products: ProductEntity[] = await this.productRepository.find()
+    const minPrice = Math.min(...products.map(item => item.price))
+    const maxPrice = Math.max(...products.map(item => item.price))
+
+    console.log({minPrice, maxPrice});
+    
+
+    return {minPrice, maxPrice}
+    // return 'aaaaa'
+  }
+
   async update(id: number, updateProductInput: UpdateProductInput): Promise<ProductEntity> {
     await this.productRepository.update(id, updateProductInput)
     return await this.findOne(id)

@@ -1,6 +1,6 @@
 import React, { FC } from 'react'
 import MainLayout from '../../layouts/MainLayout/MainLayout'
-import { GetAllCatalog, GetCatalogByParent, GetCatalogNameBySlug, GetMenu, GetSection } from '../../services/core/requests'
+import { GetAllCatalog, GetCatalogByParent, GetCatalogNameBySlug, GetMenu, GetMinMaxPriceProduct, GetSection } from '../../services/core/requests'
 import { IMenu } from '../../interfaces/menu.interface'
 import { ISection } from '../../interfaces/section.interface'
 import CatalogCards from '../../components/CatalogCards/CatalogCards'
@@ -9,12 +9,15 @@ import CatalogSeo from '../../components/CatalogSeo/CatalogSeo'
 import BreadCrumbs from '../../components/BreadCrumbs/BreadCrumbs'
 import { IBreadCrumbs } from '../../interfaces/breadCrumbs.interface'
 import { getBreadCrumbsFromCatalog } from '../../services/core/parse'
+import { IProductMinMaxPrice } from '../../interfaces/products.interface'
+import Filter from '../../components/Filter/Filter'
 
 interface IndexProps {
     topMenu: IMenu,
     footerMenu: IMenu,
     headerMenu: IMenu,
-    breadCrumbsArr: IBreadCrumbs[]
+    breadCrumbsArr: IBreadCrumbs[],
+    minMaxPriceProduct: IProductMinMaxPrice,
     catalogCards: ICatalogCards,
     catalogSeo: ISection,
     footerMenuInfo: IMenu,
@@ -22,13 +25,17 @@ interface IndexProps {
     footerMenuEmail: ISection
 }
 
-const Index: FC<IndexProps> = ({ topMenu, headerMenu, breadCrumbsArr, catalogSeo, footerMenu, catalogCards, footerMenuInfo, footerMenuCoordinates, footerMenuEmail }) => {
+const Index: FC<IndexProps> = ({ topMenu, headerMenu, breadCrumbsArr, minMaxPriceProduct, catalogSeo, footerMenu, catalogCards, footerMenuInfo, footerMenuCoordinates, footerMenuEmail }) => {
 
     return (
         <div>
             <MainLayout topMenu={topMenu} headerMenu={headerMenu} footerMenu={footerMenu} footerMenuInfo={footerMenuInfo} footerMenuCoordinates={footerMenuCoordinates} footerMenuEmail={footerMenuEmail}>
                 <BreadCrumbs breadCrumbsArr={breadCrumbsArr} />
                 <CatalogCards title={catalogCards.title} catalogCards={catalogCards.cards} />
+                
+                <Filter filterMinMaxPrice={minMaxPriceProduct} />
+
+
                 <CatalogSeo catalogSeoSection={catalogSeo} />
             </MainLayout>
         </div >
@@ -54,6 +61,10 @@ export async function getServerSideProps(context) {
         cards: await GetCatalogByParent(query.slug)
     }
 
+    const minMaxPriceProduct = await GetMinMaxPriceProduct() 
+    console.log(minMaxPriceProduct);
+    
+
 
     const catalogSeo = await GetSection('catalog-seo')
 
@@ -65,7 +76,7 @@ export async function getServerSideProps(context) {
 
 
     return {
-        props: { topMenu, headerMenu, footerMenu, breadCrumbsArr, catalogCards, catalogSeo, footerMenuInfo, footerMenuCoordinates, footerMenuEmail }
+        props: { topMenu, headerMenu, footerMenu, breadCrumbsArr, minMaxPriceProduct, catalogCards, catalogSeo, footerMenuInfo, footerMenuCoordinates, footerMenuEmail }
     }
 }
 

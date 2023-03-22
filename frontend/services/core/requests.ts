@@ -98,3 +98,19 @@ export const GetSection = async (slug: string) => {
   }
   return dataQuery
 }
+
+
+
+///////////////////////////////////////
+// Product
+///////////////////////////////////////
+
+export const GetMinMaxPriceProduct = async() => {
+  let dataQuery = null
+  try {
+    dataQuery = await allEndPoints.product.getMinMaxPrice()
+  } catch (error) {
+    console.log('error', error);
+  }
+  return dataQuery  
+}

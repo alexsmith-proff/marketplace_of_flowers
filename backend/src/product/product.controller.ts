@@ -13,10 +13,17 @@ export class ProductController {
     return this.productService.createAPI(files, createProductInput)
   }
 
+  @Get('minmaxprice')
+  findMinMaxPrice(){
+    return this.productService.findMinMaxPrice()
+    // return 'this.productService.findMinMaxPrice()'
+  }
+
   @Get(':id')
   findOne(@Param() params) {
     return this.productService.findOne(params.id)
   }
+
 
 
 

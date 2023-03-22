@@ -64,3 +64,8 @@ export interface IProductFilterRowTable {
   isActiveDeleteBtn: boolean,
   hover: boolean,
 }
+
+export interface IProductMinMaxPrice {
+  minPrice: number,
+  maxPrice: number
+}

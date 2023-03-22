@@ -2,7 +2,7 @@ import { IBreadCrumbs } from '../../interfaces/breadCrumbs.interface';
 import { ICatalog } from '../../interfaces/catalog.interface';
 import { IMenu, IMenuItem, ISubMenu } from '../../interfaces/menu.interface';
 import { IElement, ISection } from '../../interfaces/section.interface'
-import allEndPoints from '../api/api';
+import productEndPoints from '../api/endpoints/product.endpoints';
 import { isJSONString } from './util';
 
 // Menus
@@ -88,8 +88,8 @@ export const getBreadCrumbsFromCatalog = (catalogArr: ICatalog[], slug: string) 
         }
     }
     findEl(slug)
-    console.log(breadCrumbs);
     
     return breadCrumbs    
 }
+
 
