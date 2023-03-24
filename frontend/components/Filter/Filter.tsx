@@ -1,4 +1,5 @@
-import { FC } from "react"
+import { FC, useState } from "react"
+import FilterContext from "../../context/filter-context"
 import { IProductMinMaxPrice } from "../../interfaces/products.interface"
 import s from './Filter.module.scss'
 import FilterPrice from "./FilterPrice/FilterPrice"
@@ -8,10 +9,22 @@ interface FilterProps {
 }
 
 const Filter: FC<FilterProps> = ({ filterMinMaxPrice }) => {
+    const [minMaxPrice, setMinMaxPrice] = useState<IProductMinMaxPrice>(filterMinMaxPrice)
+    // const setPrice = (minMax: IProductMinMaxPrice) => setMinMaxPrice({ ...minMaxPrice, minPrice: minMax.minPrice, maxPrice: minMax.maxPrice })
+
+
+
+    const value = {
+        minMaxPrice: minMaxPrice,
+        // setPrice
+    }
+
     return (
         <div className="container">
             <div className={s.wrap}>
-                <FilterPrice filterPriceMinMaxPrice={filterMinMaxPrice} />
+                <FilterContext.Provider value={value}>
+                    <FilterPrice />
+                </FilterContext.Provider>
             </div>
         </div>
     )
