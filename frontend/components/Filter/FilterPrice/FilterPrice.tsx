@@ -1,11 +1,12 @@
 import classNames from "classnames"
 import { FC, useContext, useState } from "react"
+import FilterContext from "../../../context/filter-context"
 import s from './FilterPrice.module.scss'
 
-interface FilterPriceProps {}
+interface FilterPriceProps { }
 
-const FilterPrice: FC<FilterPriceProps> = ({}) => {
-    // const value = useContext()
+const FilterPrice: FC<FilterPriceProps> = ({ }) => {
+    const value = useContext(FilterContext)
     // const [minPriceValue, setMinPriceValue] = useState(100)
 
     const handleChangeRange = e => {
@@ -14,6 +15,9 @@ const FilterPrice: FC<FilterPriceProps> = ({}) => {
         // setMinPriceValue(e.target.value)
 
     }
+
+    console.log('valueeee', value);
+
     return (
         <div>
             <h3 className={s.title}>Цена</h3>
@@ -22,15 +26,15 @@ const FilterPrice: FC<FilterPriceProps> = ({}) => {
                 <input className={s.input} type="text" />
             </div>
             <div className={s.rangeInput}>
-                <div className={'range'}>
-                    {/* <input type={'range'} min={value} max={} value={} onChange={e => handleChangeRange(e)} /> */}
-                </div>
-                <input type={'range'} min={5} max={50} />
+
+
+                {/* <input className={s.range} type={'range'} min={1} max={10} /> */}
+                {/* <input className={s.range} type={'range'} min={5} max={50} /> */}
                 {/* <input className={classNames(s.rangeMax, s.range)} type="range" min={filterPriceMinMaxPrice.minPrice} max={filterPriceMinMaxPrice.maxPrice} value={filterPriceMinMaxPrice.maxPrice} step="1" /> */}
             </div>
             <div className={s.label}>
-                {/* <div className={s.labelItem}>от <span>{minMaxPrice.minPrice} ₽</span></div> */}
-                {/* <div className={s.labelItem}>от <span>{minMaxPrice.maxPrice} ₽</span></div> */}
+                <div className={s.labelItem}>от <span>{value.minMaxPrice.minPrice} ₽</span></div>
+                <div className={s.labelItem}>от <span>{value.minMaxPrice.maxPrice} ₽</span></div>
             </div>
         </div>
     )

@@ -16,7 +16,7 @@ const Filter: FC<FilterProps> = ({ filterMinMaxPrice }) => {
 
     const value = {
         minMaxPrice: minMaxPrice,
-        // setPrice
+        setPrice: setMinMaxPrice,
     }
 
     return (
