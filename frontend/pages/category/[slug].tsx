@@ -12,6 +12,7 @@ import { getBreadCrumbsFromCatalog } from '../../services/core/parse'
 import { IProductMinMaxPrice } from '../../interfaces/products.interface'
 import Filter from '../../components/Filter/Filter'
 
+
 interface IndexProps {
     topMenu: IMenu,
     footerMenu: IMenu,
@@ -32,9 +33,8 @@ const Index: FC<IndexProps> = ({ topMenu, headerMenu, breadCrumbsArr, minMaxPric
             <MainLayout topMenu={topMenu} headerMenu={headerMenu} footerMenu={footerMenu} footerMenuInfo={footerMenuInfo} footerMenuCoordinates={footerMenuCoordinates} footerMenuEmail={footerMenuEmail}>
                 <BreadCrumbs breadCrumbsArr={breadCrumbsArr} />
                 <CatalogCards title={catalogCards.title} catalogCards={catalogCards.cards} />
-                
-                <Filter filterMinMaxPrice={minMaxPriceProduct} />
 
+                <Filter filterMinMaxPrice={minMaxPriceProduct} />
 
                 <CatalogSeo catalogSeoSection={catalogSeo} />
             </MainLayout>
@@ -61,9 +61,9 @@ export async function getServerSideProps(context) {
         cards: await GetCatalogByParent(query.slug)
     }
 
-    const minMaxPriceProduct = await GetMinMaxPriceProduct() 
+    const minMaxPriceProduct = await GetMinMaxPriceProduct()
     console.log(minMaxPriceProduct);
-    
+
 
 
     const catalogSeo = await GetSection('catalog-seo')
