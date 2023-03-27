@@ -27,8 +27,9 @@ const FilterPrice: FC<FilterPriceProps> = ({ }) => {
             </div>
             <div className={s.rangeInput}>
                 
-            <input min="500" max="50000" step="500" type="range" />
-            <input min="500" max="50000" step="500" type="range" />
+            <input className={s.inp} min="500" max="50000" step="500" type="range" />
+            <input className={s.inp} min="100" max="2500" step="50" type="range" />
+            {/* <input min="500" max="50000" step="500" type="range" /> */}
 
                 
 
