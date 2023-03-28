@@ -1,6 +1,7 @@
 import classNames from "classnames"
 import { FC, useContext, useState } from "react"
 import FilterContext from "../../../context/filter-context"
+import RangeSlider from "../../Elements/RangeSlider/RangeSlider"
 import s from './FilterPrice.module.scss'
 
 interface FilterPriceProps { }
@@ -20,15 +21,17 @@ const FilterPrice: FC<FilterPriceProps> = ({ }) => {
 
     return (
         <div>
-            <h3 className={s.title}>Цена</h3>
+            {/* <h3 className={s.title}>Цена</h3>
             <div className={s.inputWrap}>
                 <input className={s.input} type="text" />
                 <input className={s.input} type="text" />
-            </div>
+            </div> */}
             <div className={s.rangeInput}>
                 
-            <input min="500" max="50000" step="500" type="range" />
-            <input min="500" max="50000" step="500" type="range" />
+                <RangeSlider />
+
+            {/* <input min="500" max="50000" step="500" type="range" /> */}
+            {/* <input min="500" max="50000" step="500" type="range" /> */}
 
                 
 
@@ -36,10 +39,10 @@ const FilterPrice: FC<FilterPriceProps> = ({ }) => {
                 {/* <input className={s.range} type={'range'} min={5} max={50} /> */}
                 {/* <input className={classNames(s.rangeMax, s.range)} type="range" min={filterPriceMinMaxPrice.minPrice} max={filterPriceMinMaxPrice.maxPrice} value={filterPriceMinMaxPrice.maxPrice} step="1" /> */}
             </div>
-            <div className={s.label}>
+            {/* <div className={s.label}>
                 <div className={s.labelItem}>от <span>{value.minMaxPrice.minPrice} ₽</span></div>
                 <div className={s.labelItem}>от <span>{value.minMaxPrice.maxPrice} ₽</span></div>
-            </div>
+            </div> */}
         </div>
     )
 }

@@ -30,14 +30,15 @@ const Index: FC<IndexProps> = ({ topMenu, headerMenu, breadCrumbsArr, minMaxPric
 
     return (
         <div>
-            <MainLayout topMenu={topMenu} headerMenu={headerMenu} footerMenu={footerMenu} footerMenuInfo={footerMenuInfo} footerMenuCoordinates={footerMenuCoordinates} footerMenuEmail={footerMenuEmail}>
+            <Filter filterMinMaxPrice={minMaxPriceProduct} />
+            {/* <MainLayout topMenu={topMenu} headerMenu={headerMenu} footerMenu={footerMenu} footerMenuInfo={footerMenuInfo} footerMenuCoordinates={footerMenuCoordinates} footerMenuEmail={footerMenuEmail}>
                 <BreadCrumbs breadCrumbsArr={breadCrumbsArr} />
                 <CatalogCards title={catalogCards.title} catalogCards={catalogCards.cards} />
 
                 <Filter filterMinMaxPrice={minMaxPriceProduct} />
 
                 <CatalogSeo catalogSeoSection={catalogSeo} />
-            </MainLayout>
+            </MainLayout> */}
         </div >
     )
 }
