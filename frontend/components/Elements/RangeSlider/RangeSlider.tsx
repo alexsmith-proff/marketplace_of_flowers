@@ -17,7 +17,7 @@ interface RangeSliderProps {
     round?: boolean
     minValueTrack?: number
     maxValueTrack?: number
-    value?: number
+    value: number
     changeValue?: (value: number) => void
 }
 
@@ -50,11 +50,16 @@ const RangeSlider: FC<RangeSliderProps> = ({
     // Максимальное значение RangeSlider
     maxValueTrack = 44500,
     // Текущее значение RangeSlider
-    value = 0,
+    value,
     changeValue,
 }) => {
     // const [posMouse, SetPosMouse] = useState({ x: 0, y: 0 })
-    const [posThumb, SetPosThumb] = useState(value)
+    const [posThumb, SetPosThumb] = useState(() => {
+        if(value >= maxValueTrack) return Math.round(maxValueTrack * (widthTrack/(maxValueTrack - minValueTrack))) 
+        if(value <= minValueTrack) return Math.round(minValueTrack * (widthTrack/(maxValueTrack - minValueTrack))) 
+        return Math.round(value * (widthTrack/(maxValueTrack - minValueTrack)))
+        
+    })
     const [isActiveThumb, setIsActiveThumb] = useState<boolean>(false)
 
     const refTrack = useRef(null)
@@ -66,7 +71,8 @@ const RangeSlider: FC<RangeSliderProps> = ({
             // SetPosMouse((a) => a = { x: e.screenX, y: e.screenY })
             if (isActiveThumb) {
                 const rect: DOMRect = refTrack.current.getBoundingClientRect()
-                const currentValue = e.screenX - rect.x
+                const currentValue = e.screenX - Math.floor(rect.x)
+                
                 if ((currentValue <= rect.width) && (currentValue >= 0)) {
                     if (changeValue) {
                         // Вычисленное значение
@@ -77,7 +83,6 @@ const RangeSlider: FC<RangeSliderProps> = ({
                     SetPosThumb(currentValue)
                 }
             }
-            // console.log('moveeee');
         }
         const MouseUpHandle = (e) => {
             e.preventDefault()
