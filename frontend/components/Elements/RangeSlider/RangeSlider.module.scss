@@ -1,6 +1,11 @@
 .track{
     position: relative;
 }
+.progress{
+    position: absolute;
+    left: 0;
+    top: 0;
+}
 .thumb{
     position: absolute;
     top: 7px;

@@ -8,46 +8,31 @@ interface FilterPriceProps { }
 
 const FilterPrice: FC<FilterPriceProps> = ({ }) => {
     const value = useContext(FilterContext)
-    // const [minPriceValue, setMinPriceValue] = useState(100)
+    const [priceValue, setPriceValue] = useState(0)
 
-    const handleChangeRange = e => {
+
+    const handleChangeValue = v => {
+        setPriceValue(v)
+
         // console.log('jyhgjhgvj');
 
         // setMinPriceValue(e.target.value)
 
+    }
+    const ch = e => {
+        setPriceValue(e.target.value)
     }
 
     console.log('valueeee', value);
 
     return (
         <div>
-            {/* <h3 className={s.title}>Цена</h3>
-            <div className={s.inputWrap}>
-                <input className={s.input} type="text" />
-                <input className={s.input} type="text" />
-            </div> */}
             <div className={s.rangeInput}>
-                
-<<<<<<< HEAD
-                <RangeSlider />
-
-            {/* <input min="500" max="50000" step="500" type="range" /> */}
-=======
-            <input className={s.inp} min="500" max="50000" step="500" type="range" />
-            <input className={s.inp} min="100" max="2500" step="50" type="range" />
->>>>>>> 18865b68314e011b698d3553f61e2d6323ae000e
-            {/* <input min="500" max="50000" step="500" type="range" /> */}
-
-                
-
-                {/* <input className={s.range} type={'range'} min={1} max={10} /> */}
-                {/* <input className={s.range} type={'range'} min={5} max={50} /> */}
-                {/* <input className={classNames(s.rangeMax, s.range)} type="range" min={filterPriceMinMaxPrice.minPrice} max={filterPriceMinMaxPrice.maxPrice} value={filterPriceMinMaxPrice.maxPrice} step="1" /> */}
+                <div>{priceValue}</div>
+                <RangeSlider changeValue={handleChangeValue}/>
+                {/* <RangeSlider /> */}
+                {/* <input type="range" min={0} max={200} value={priceValue} onChange={ch} /> */}
             </div>
-            {/* <div className={s.label}>
-                <div className={s.labelItem}>от <span>{value.minMaxPrice.minPrice} ₽</span></div>
-                <div className={s.labelItem}>от <span>{value.minMaxPrice.maxPrice} ₽</span></div>
-            </div> */}
         </div>
     )
 }
