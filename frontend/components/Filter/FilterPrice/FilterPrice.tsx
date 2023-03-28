@@ -28,9 +28,14 @@ const FilterPrice: FC<FilterPriceProps> = ({ }) => {
             </div> */}
             <div className={s.rangeInput}>
                 
+<<<<<<< HEAD
                 <RangeSlider />
 
             {/* <input min="500" max="50000" step="500" type="range" /> */}
+=======
+            <input className={s.inp} min="500" max="50000" step="500" type="range" />
+            <input className={s.inp} min="100" max="2500" step="50" type="range" />
+>>>>>>> 18865b68314e011b698d3553f61e2d6323ae000e
             {/* <input min="500" max="50000" step="500" type="range" /> */}
 
                 
