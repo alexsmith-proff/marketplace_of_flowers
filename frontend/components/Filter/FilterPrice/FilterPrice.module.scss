@@ -20,13 +20,17 @@
     display: flex;
     align-items: center;
     color: #1B1C21;
+    box-sizing: border-box;
 
     &Wrap {
         display: flex;
         justify-content: space-between;
         align-items: center;
-        margin-bottom: 10px;
+        margin-bottom: 20px;
     }
+}
+.RangeSlider{
+    margin-bottom: 20px;
 }
 
 
