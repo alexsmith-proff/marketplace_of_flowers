@@ -8,23 +8,27 @@ interface FilterPriceProps { }
 
 const FilterPrice: FC<FilterPriceProps> = ({ }) => {
     const value = useContext(FilterContext)
-    const [priceValue, setPriceValue] = useState(15000)
+    const [priceValueMax, setPriceValueMax] = useState(35000)
+    const [priceValueMin, setPriceValueMin] = useState(3000)
 
 
-    const handleChangeValue = v => {
-        setPriceValue(v)
+    const handleChangeValueMax = v => {
+        setPriceValueMax(v)
     }
-    const ch = e => {
-        setPriceValue(e.target.value)
+
+    const handleChangeValueMin = v => {
+        setPriceValueMin(v)
     }
+
 
     console.log('valueeee', value);
 
     return (
         <div>
             <div className={s.rangeInput}>
-                <div>{priceValue}</div>
-                <RangeSlider value={priceValue} changeValue={handleChangeValue}/>
+                <div>{priceValueMax}</div>
+                <RangeSlider valueMax={priceValueMax} valueMin={priceValueMin} changeValueMax={handleChangeValueMax} changeValueMin={handleChangeValueMin}/>
+                <div>{priceValueMin}</div>
             </div>
         </div>
     )

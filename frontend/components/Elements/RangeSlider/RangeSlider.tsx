@@ -17,15 +17,18 @@ interface RangeSliderProps {
     round?: boolean
     minValueTrack?: number
     maxValueTrack?: number
-    value: number
-    changeValue?: (value: number) => void
+    dualThumb?: boolean
+    valueMax: number
+    valueMin: number
+    changeValueMax?: (value: number) => void
+    changeValueMin?: (value: number) => void
 }
 
 const RangeSlider: FC<RangeSliderProps> = ({
     // Ширина track
     widthTrack = 200,
     // Высота track
-    heightTrack = 5,
+    heightTrack = 100,
     // Border track
     borderTrack = '1px solid #000',
     // borderTrack = 'none',
@@ -49,18 +52,30 @@ const RangeSlider: FC<RangeSliderProps> = ({
     minValueTrack = 500,
     // Максимальное значение RangeSlider
     maxValueTrack = 44500,
+    // Режим двух thumb, dualThumb=true - отображаются два thumb
+    dualThumb = true,
     // Текущее значение RangeSlider
-    value,
-    changeValue,
+    valueMax,
+    valueMin,
+    // valueTwo,
+    changeValueMax,
+    changeValueMin,
 }) => {
     // const [posMouse, SetPosMouse] = useState({ x: 0, y: 0 })
-    const [posThumb, SetPosThumb] = useState(() => {
-        if(value >= maxValueTrack) return Math.round(maxValueTrack * (widthTrack/(maxValueTrack - minValueTrack))) 
-        if(value <= minValueTrack) return Math.round(minValueTrack * (widthTrack/(maxValueTrack - minValueTrack))) 
-        return Math.round(value * (widthTrack/(maxValueTrack - minValueTrack)))
-        
+    const [posThumbMax, SetPosThumbMax] = useState(() => {
+        if (valueMax >= maxValueTrack) return Math.round(maxValueTrack * (widthTrack / (maxValueTrack - minValueTrack)))
+        if (valueMax <= minValueTrack) return Math.round(minValueTrack * (widthTrack / (maxValueTrack - minValueTrack)))
+        return Math.round(valueMax * (widthTrack / (maxValueTrack - minValueTrack)))
+
     })
-    const [isActiveThumb, setIsActiveThumb] = useState<boolean>(false)
+    const [posThumbMin, SetPosThumbMin] = useState(() => {
+        if (valueMin >= maxValueTrack) return Math.round(maxValueTrack * (widthTrack / (maxValueTrack - minValueTrack)))
+        if (valueMin <= minValueTrack) return Math.round(minValueTrack * (widthTrack / (maxValueTrack - minValueTrack)))
+        return Math.round(valueMin * (widthTrack / (maxValueTrack - minValueTrack)))
+
+    })
+    const [isActiveThumbMax, setIsActiveThumbMax] = useState<boolean>(false)
+    const [isActiveThumbMin, setIsActiveThumbMin] = useState<boolean>(false)
 
     const refTrack = useRef(null)
     const refThumb = useRef(null)
@@ -69,24 +84,32 @@ const RangeSlider: FC<RangeSliderProps> = ({
         const MouseMoveHandle = (e) => {
             e.preventDefault();
             // SetPosMouse((a) => a = { x: e.screenX, y: e.screenY })
-            if (isActiveThumb) {
+            if (isActiveThumbMax || isActiveThumbMin) {
                 const rect: DOMRect = refTrack.current.getBoundingClientRect()
                 const currentValue = e.screenX - Math.floor(rect.x)
-                
+
                 if ((currentValue <= rect.width) && (currentValue >= 0)) {
-                    if (changeValue) {
+                    if (changeValueMax || changeValueMin) {
                         // Вычисленное значение
                         const computedValue = minValueTrack + Math.round(currentValue * ((maxValueTrack - minValueTrack) / rect.width))
-                        changeValue(computedValue)
+                        if (changeValueMax && isActiveThumbMax) {
+                            changeValueMax(computedValue)
+                            // Позиция в пикселях
+                            SetPosThumbMax(currentValue)
+                        }
+                        if (changeValueMin && isActiveThumbMin) {
+                            changeValueMin(computedValue)
+                            // Позиция в пикселях
+                            SetPosThumbMin(currentValue)
+                        }
                     }
-                    // Позиция в пикселях
-                    SetPosThumb(currentValue)
                 }
             }
         }
         const MouseUpHandle = (e) => {
             e.preventDefault()
-            setIsActiveThumb(false)
+            setIsActiveThumbMax(false)
+            setIsActiveThumbMin(false)
         }
         window.addEventListener('mousemove', MouseMoveHandle)
         window.addEventListener('mouseup', MouseUpHandle)
@@ -96,11 +119,15 @@ const RangeSlider: FC<RangeSliderProps> = ({
             window.removeEventListener('mouseup', MouseUpHandle)
         }
 
-    }, [isActiveThumb])
+    }, [isActiveThumbMax, isActiveThumbMin])
 
-    const MouseDownHandle = (e) => {
+    const MouseDownThumbMaxHandle = (e) => {
         e.preventDefault();
-        setIsActiveThumb((a) => a = true)
+        setIsActiveThumbMax((a) => a = true)
+    }
+    const MouseDownThumbMinHandle = (e) => {
+        e.preventDefault();
+        setIsActiveThumbMin((a) => a = true)
     }
 
     return (
@@ -114,21 +141,51 @@ const RangeSlider: FC<RangeSliderProps> = ({
             }}>
                 {
                     progressTrackEnabled &&
-                    <div className={s.progress} style={{
-                        width: posThumb,
-                        height: heightTrack,
-                        borderRadius: borderRadiusTrack,
-                        backgroundColor: colorProgressTrack,
-                    }}></div>
+                    <div>
+                        <div className={s.progress} style={{
+                            // width: posThumbMax,
+                            top: 0,
+                            bottom: 0,
+                            left: posThumbMin,
+                            right: widthTrack - posThumbMax,
+                            // height: heightTrack,
+                            borderRadius: borderRadiusTrack,
+                            backgroundColor: colorProgressTrack,
+                        }}>
+                        </div>
+                        {/* {
+                            dualThumb &&
+                            <div className={s.progress} style={{
+                                // width: posThumbMax,
+                                height: heightTrack,
+                                borderRadius: borderRadiusTrack,
+                                backgroundColor: colorProgressTrack,
+                            }}>
+                            </div>
+                        } */}
+                    </div>
                 }
                 <div ref={refThumb} className={s.thumb} style={{
                     width: widthThumb,
                     height: heightThumb,
                     backgroundColor: colorThumb,
                     top: heightTrack / 2 - heightThumb / 2,
-                    left: posThumb - widthThumb / 2,
+                    left: posThumbMax - Math.round(widthThumb / 2),
                     borderRadius: round ? '50%' : '0',
-                }} onMouseDown={MouseDownHandle}></div>
+                }} onMouseDown={MouseDownThumbMaxHandle}>
+                </div>
+                {
+                    dualThumb &&
+                    <div ref={refThumb} className={s.thumb} style={{
+                        width: widthThumb,
+                        height: heightThumb,
+                        backgroundColor: colorThumb,
+                        top: heightTrack / 2 - heightThumb / 2,
+                        left: posThumbMin - widthThumb / 2,
+                        borderRadius: round ? '50%' : '0',
+                    }} onMouseDown={MouseDownThumbMinHandle}>
+                    </div>
+                }
             </div>
         </div>
     )
