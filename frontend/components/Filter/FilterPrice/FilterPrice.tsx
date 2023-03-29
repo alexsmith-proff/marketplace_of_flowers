@@ -4,40 +4,79 @@ import FilterContext from "../../../context/filter-context"
 import RangeSlider from "../../Elements/RangeSlider/RangeSlider"
 import s from './FilterPrice.module.scss'
 
+interface IPrice {
+    inputValue: number,
+    value: number
+}
+
 interface FilterPriceProps { }
 
 const FilterPrice: FC<FilterPriceProps> = ({ }) => {
     const value = useContext(FilterContext)
-    const [priceValueMax, setPriceValueMax] = useState(value.minMaxPrice.maxPrice)
-    const [priceValueMin, setPriceValueMin] = useState(value.minMaxPrice.minPrice)
+
+    const [priceValueMax, setPriceValueMax] = useState<IPrice>({
+        inputValue: value.minMaxPrice.maxPrice,
+        value: value.minMaxPrice.maxPrice
+    })
+    const [priceValueMin, setPriceValueMin] = useState<IPrice>({
+        inputValue: value.minMaxPrice.minPrice,
+        value: value.minMaxPrice.minPrice
+    })
 
 
-    const handleChangeValueMax = v => {
-        setPriceValueMax(v)
+    // Валидация val и запись в state
+    const validAndSetPriceValue = val => {
+        if (val >= value.minMaxPrice.maxPrice) val = value.minMaxPrice.maxPrice
+        if (val <= value.minMaxPrice.minPrice) val = value.minMaxPrice.minPrice
+        return val
+    }
+
+
+
+
+    const onChangePriceValueMin = (e: React.ChangeEvent<HTMLInputElement>) => {
+        setPriceValueMin({ ...priceValueMin, inputValue: Number(e.target.value) })
+    }
+
+    const onChangePriceValueMax = (e: React.ChangeEvent<HTMLInputElement>) => {
+        // console.log(value.minMaxPrice.maxPrice);
+        setPriceValueMax({ ...priceValueMax, inputValue: Number(e.target.value) })
+    }
+
+    // После нажатия Enter
+    const onKeyDownPriceValueMin = (e) => {
+        
+        if (e.key === 'Enter') {
+            const val = validAndSetPriceValue(priceValueMin.inputValue)
+            setPriceValueMin({ ...priceValueMin, inputValue: val, value: val })
+        }
+    }
+
+    // После нажатия Enter
+    const onKeyDownPriceValueMax = (e) => {
+        if (e.key === 'Enter') {
+            let val = validAndSetPriceValue(priceValueMax.inputValue)
+            setPriceValueMax({ ...priceValueMax, inputValue: val, value: val })
+        }
     }
 
     const handleChangeValueMin = v => {
-        setPriceValueMin(v)
+        setPriceValueMin({ inputValue: v, value: v })
     }
 
-    const onChangePriceValueMin = (e: React.ChangeEvent<HTMLInputElement>) => {
-        // console.log('onChangePriceValueMin');
-        setPriceValueMin(e.target.value)
-    }
-    const onChangePriceValueMax = (e: React.ChangeEvent<HTMLInputElement>) => {
-        // console.log('onChangePriceValueMax');
-        setPriceValueMax(e.target.value)
+    const handleChangeValueMax = v => {
+        setPriceValueMax({ inputValue: v, value: v })
     }
 
+    // console.log('priceValueMax', priceValueMax);
 
-    // console.log('valueeee', value);
 
     return (
         <div>
             <h3 className={s.title}>Цена</h3>
             <div className={s.inputWrap}>
-                <input className={s.input} type="text" value={priceValueMin} onChange={onChangePriceValueMin} />
-                <input className={s.input} type="text" value={priceValueMax} onChange={onChangePriceValueMax} />
+                <input className={s.input} type="text" value={priceValueMin.inputValue} onChange={onChangePriceValueMin} onKeyDown={onKeyDownPriceValueMin} />
+                <input className={s.input} type="text" value={priceValueMax.inputValue} onChange={onChangePriceValueMax} onKeyDown={onKeyDownPriceValueMax} />
             </div>
             <div className={s.RangeSlider}>
                 <RangeSlider
@@ -52,10 +91,11 @@ const FilterPrice: FC<FilterPriceProps> = ({ }) => {
                     dualThumb={true}
                     minValueTrack={value.minMaxPrice.minPrice}
                     maxValueTrack={value.minMaxPrice.maxPrice}
-                    valueMax={priceValueMax}
-                    valueMin={priceValueMin}
+                    valueMin={priceValueMin.value}
+                    valueMax={priceValueMax.value}
+                    changeValueMin={handleChangeValueMin}
                     changeValueMax={handleChangeValueMax}
-                    changeValueMin={handleChangeValueMin} />
+                />
             </div>
             <div className={s.label}>
                 <div className={s.labelItem}>от <span>{value.minMaxPrice.minPrice} ₽</span></div>

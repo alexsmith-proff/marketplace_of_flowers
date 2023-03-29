@@ -82,14 +82,14 @@ const RangeSlider: FC<RangeSliderProps> = ({
     const [isActiveThumbMin, setIsActiveThumbMin] = useState<boolean>(false)
 
     const refTrack = useRef(null)
-    const refThumb = useRef(null)
 
     useEffect(() => {
-        const MouseMoveHandle = (e) => {
+        const MouseMoveHandle = (e: MouseEvent) => {
             e.preventDefault();
             if (isActiveThumbMax || isActiveThumbMin) {
+                
                 const rect: DOMRect = refTrack.current.getBoundingClientRect()
-                const currentValue = e.screenX - Math.floor(rect.x)
+                const currentValue = e.clientX - Math.floor(rect.x)
 
                 if ((currentValue <= rect.width) && (currentValue >= 0)) {
 
@@ -142,6 +142,14 @@ const RangeSlider: FC<RangeSliderProps> = ({
 
     }, [isActiveThumbMax, isActiveThumbMin])
 
+    useEffect(() => {
+        SetPosThumbMin(Math.round((valueMin - minValueTrack) * (widthTrack / (maxValueTrack - minValueTrack))))
+    }, [valueMin])
+
+    useEffect(() => {
+        SetPosThumbMax(Math.round((valueMax - minValueTrack) * (widthTrack / (maxValueTrack - minValueTrack))))
+    }, [valueMax])
+    
 
     
     const MouseDownThumbMaxHandle = (e) => {
@@ -153,7 +161,6 @@ const RangeSlider: FC<RangeSliderProps> = ({
         setIsActiveThumbMin((a) => a = true)
     }
 
-    console.log('SliderRange');
     
 
     return (
@@ -179,7 +186,7 @@ const RangeSlider: FC<RangeSliderProps> = ({
                         </div>
                     </div>
                 }
-                <div ref={refThumb} className={s.thumb} style={{
+                <div className={s.thumb} style={{
                     width: widthThumb,
                     height: heightThumb,
                     backgroundColor: colorThumb,
@@ -191,7 +198,7 @@ const RangeSlider: FC<RangeSliderProps> = ({
                 </div>
                 {
                     dualThumb &&
-                    <div ref={refThumb} className={s.thumb} style={{
+                    <div className={s.thumb} style={{
                         width: widthThumb,
                         height: heightThumb,
                         backgroundColor: colorThumb,
