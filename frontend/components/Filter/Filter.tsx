@@ -5,6 +5,7 @@ import { IProductMinMaxPrice } from "../../interfaces/products.interface"
 import s from './Filter.module.scss'
 import FilterColor from "./FilterColor/FilterColor"
 import FilterPrice from "./FilterPrice/FilterPrice"
+import FilterSize from "./FilterSize/FilterSize"
 
 interface FilterProps {
     filterMinMaxPrice: IProductMinMaxPrice
@@ -26,6 +27,7 @@ const Filter: FC<FilterProps> = ({ filterMinMaxPrice, filter }) => {
                 <FilterContext.Provider value={value}>
                     <FilterPrice />
                     <FilterColor />
+                    <FilterSize />
                 </FilterContext.Provider>
             </div>
         </div>

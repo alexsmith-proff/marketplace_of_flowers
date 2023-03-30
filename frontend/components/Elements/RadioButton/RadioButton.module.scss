@@ -1,0 +1,21 @@
+.wrap {
+    display: inline-block;
+    padding: 6px;
+    border: 2px solid #e2e3e7;
+    border-radius: 50%;
+    cursor: pointer;
+    box-sizing: border-box;
+    &:hover{
+        border: 2px solid #bec1c5;        
+    }
+    &.active{
+        border: 2px solid #000000;        
+    }
+}
+
+.radioButton {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    box-shadow: 0px 2px 5px rgba(34, 42, 70, 0.1);
+}

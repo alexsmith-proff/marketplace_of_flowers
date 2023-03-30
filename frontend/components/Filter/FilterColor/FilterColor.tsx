@@ -2,7 +2,7 @@ import { FC, useContext, useEffect, useState } from "react"
 import FilterContext from "../../../context/filter-context"
 import { IFilterElement, IFilterValue } from "../../../interfaces/filter.interface"
 import { getFilterElementFromFilterBySlug } from "../../../services/core/parse"
-import RadioButton from "../../Elements/RangeSlider/RadioButton/RadioButton"
+import RadioButton from "../../Elements/RadioButton/RadioButton"
 import FilterSeparateLine from "../FilterSeparateLine/FilterSeparateLine"
 import FilterTitle from "../FilterTitle/FilterTitle"
 import s from './FilterColor.module.scss'
