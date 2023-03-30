@@ -3,6 +3,7 @@ import FilterContext from "../../../context/filter-context"
 import { IFilterElement, IFilterValue } from "../../../interfaces/filter.interface"
 import { getFilterElementFromFilterBySlug } from "../../../services/core/parse"
 import RadioButton from "../../Elements/RangeSlider/RadioButton/RadioButton"
+import FilterSeparateLine from "../FilterSeparateLine/FilterSeparateLine"
 import FilterTitle from "../FilterTitle/FilterTitle"
 import s from './FilterColor.module.scss'
 
@@ -35,6 +36,8 @@ const FilterColor: FC<FilterColorProps> = ({ }) => {
                     filterColor?.values.map((item, index) => <RadioButton color={item.value} active={index === activeColor?.index ? true : false} key={item.id} onClickBut={() => HandleClickRadioButton({...item, index})} />)
                 }
             </ul>
+
+            <FilterSeparateLine />
 
         </div>
     )
