@@ -184,3 +184,13 @@ query GetImgElementBySlug($slug: String!){
   }
 }
 `;
+
+export const GET_ALL_FILTERS = gql`
+query GetAllFilter{
+  getAllFilter{
+    id
+    name
+    slug
+  }
+}
+`;

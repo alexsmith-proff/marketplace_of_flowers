@@ -30,13 +30,22 @@ export class FilterService {
     })
   }
 
+  async findBySlug(slug: string): Promise<FilterEntity> {
+    const filter = await this.filterRepository.findOne({
+      where: {
+        slug
+      }
+    });
+    return filter;
+  }
+
   async update(id: number, updateFilterInput: UpdateFilterInput) {
     const filter = await this.findOne(id);
-    console.log('filterrrrrrr', filter);
+    // console.log('filterrrrrrr', filter);
     
     const newFilter = {...filter, ...updateFilterInput, slug: getSlug(updateFilterInput.name)};
 
-    console.log('newFilterrr', newFilter);
+    // console.log('newFilterrr', newFilter);
 
     return await this.filterRepository.save(newFilter);
   }

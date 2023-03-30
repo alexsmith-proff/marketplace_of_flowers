@@ -31,7 +31,7 @@ const TopMenu: FC<TopMenuProps> = ({ menu }) => {
                         <ul className={s.menu}>
                             {
                                 menu.items.map((item) => (
-                                    <Link href={`/category/${item.link}`}>
+                                    <Link href={`/category/${item.link}`} key={item.id}>
                                         <a>
                                             <li className={s.menuItem} key={item.id}>
                                                 {item.name}

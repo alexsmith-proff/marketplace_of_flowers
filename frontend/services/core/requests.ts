@@ -43,6 +43,10 @@ export const GetImgByBlock = async (slug: string) => {
   return data.getImgElementBySlug.filename
 }
 
+///////////////////////////////////////
+// Menu
+///////////////////////////////////////
+
 export const GetMenu = async (slug: string) => {
   let dataQuery = null
   try {
@@ -52,6 +56,10 @@ export const GetMenu = async (slug: string) => {
   }
   return dataQuery
 }
+
+///////////////////////////////////////
+// Catalog
+///////////////////////////////////////
 
 export const GetAllCatalog = async (): Promise<ICatalog[]> => {
   let dataQuery: ICatalog[] = null
@@ -89,6 +97,10 @@ export const GetCatalogByParent = async (slug: string) => {
   return dataQuery
 }
 
+///////////////////////////////////////
+// Section
+///////////////////////////////////////
+
 export const GetSection = async (slug: string) => {
   let dataQuery = null
   try {
@@ -113,4 +125,19 @@ export const GetMinMaxPriceProduct = async() => {
     console.log('error', error);
   }
   return dataQuery  
+}
+
+
+///////////////////////////////////////
+// Filter
+///////////////////////////////////////
+
+export const GetFilterBySlug = async (slug: string) => {
+  let dataQuery = null
+  try {
+    dataQuery = await allEndPoints.filter.getFilterBySlug(slug)
+  } catch (error) {
+    console.log('error', error);
+  }
+  return dataQuery
 }

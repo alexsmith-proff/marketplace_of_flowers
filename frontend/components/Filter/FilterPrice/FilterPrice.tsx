@@ -2,6 +2,8 @@ import classNames from "classnames"
 import { FC, useContext, useState } from "react"
 import FilterContext from "../../../context/filter-context"
 import RangeSlider from "../../Elements/RangeSlider/RangeSlider"
+import FilterSeparateLine from "../FilterSeparateLine/FilterSeparateLine"
+import FilterTitle from "../FilterTitle/FilterTitle"
 import s from './FilterPrice.module.scss'
 
 interface IPrice {
@@ -24,7 +26,7 @@ const FilterPrice: FC<FilterPriceProps> = ({ }) => {
     })
 
 
-    // Валидация val и запись в state
+    // Валидация val
     const validAndSetPriceValue = val => {
         if (val >= value.minMaxPrice.maxPrice) val = value.minMaxPrice.maxPrice
         if (val <= value.minMaxPrice.minPrice) val = value.minMaxPrice.minPrice
@@ -45,7 +47,7 @@ const FilterPrice: FC<FilterPriceProps> = ({ }) => {
 
     // После нажатия Enter
     const onKeyDownPriceValueMin = (e) => {
-        
+
         if (e.key === 'Enter') {
             const val = validAndSetPriceValue(priceValueMin.inputValue)
             setPriceValueMin({ ...priceValueMin, inputValue: val, value: val })
@@ -73,7 +75,7 @@ const FilterPrice: FC<FilterPriceProps> = ({ }) => {
 
     return (
         <div>
-            <h3 className={s.title}>Цена</h3>
+            <FilterTitle title="Цена" />
             <div className={s.inputWrap}>
                 <input className={s.input} type="text" value={priceValueMin.inputValue} onChange={onChangePriceValueMin} onKeyDown={onKeyDownPriceValueMin} />
                 <input className={s.input} type="text" value={priceValueMax.inputValue} onChange={onChangePriceValueMax} onKeyDown={onKeyDownPriceValueMax} />
@@ -101,6 +103,8 @@ const FilterPrice: FC<FilterPriceProps> = ({ }) => {
                 <div className={s.labelItem}>от <span>{value.minMaxPrice.minPrice} ₽</span></div>
                 <div className={s.labelItem}>от <span>{value.minMaxPrice.maxPrice} ₽</span></div>
             </div>
+            <FilterSeparateLine />
+
         </div>
     )
 }
