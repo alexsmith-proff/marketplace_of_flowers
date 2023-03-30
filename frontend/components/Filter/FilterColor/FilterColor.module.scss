@@ -1,3 +1,11 @@
-.block{
+.block {
     padding-top: 15px;
+}
+
+.list {
+    display: flex;
+    flex-wrap: wrap;
+    // gap: 6px;
+    column-gap: 9px;
+    row-gap: 15px;
 }

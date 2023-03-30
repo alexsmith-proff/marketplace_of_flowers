@@ -1,5 +1,6 @@
 import { IBreadCrumbs } from '../../interfaces/breadCrumbs.interface';
 import { ICatalog } from '../../interfaces/catalog.interface';
+import { IFilter } from '../../interfaces/filter.interface';
 import { IMenu, IMenuItem, ISubMenu } from '../../interfaces/menu.interface';
 import { IElement, ISection } from '../../interfaces/section.interface'
 import productEndPoints from '../api/endpoints/product.endpoints';
@@ -91,5 +92,7 @@ export const getBreadCrumbsFromCatalog = (catalogArr: ICatalog[], slug: string) 
     
     return breadCrumbs    
 }
+///////////////////////////////////////
 
+export const getFilterElementFromFilterBySlug = (filter: IFilter, slug: string) => filter.elements.find(item => item.slug === slug)
 

@@ -3,13 +3,15 @@ import s from './RadioButton.module.scss'
 
 interface RadioButtonProps {
     color: string
+    active: boolean
+    onClickBut: () => void
 }
 
-const RadioButton: FC<RadioButtonProps> = ({ color }) => {
+const RadioButton: FC<RadioButtonProps> = ({ color, active = false, onClickBut }) => {
     return (
-        <div className={s.wrap}>
+        <li className={active ? s.wrap + ' ' + s.active : s.wrap} onClick={() => onClickBut()}>
             <div className={s.radioButton} style={{backgroundColor: color}}></div>
-        </div>
+        </li>
     )
 }
 

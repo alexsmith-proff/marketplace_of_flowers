@@ -19,8 +19,6 @@ const Filter: FC<FilterProps> = ({ filterMinMaxPrice, filter }) => {
         setPrice: setMinMaxPrice,
         filter: filter,
     }
-    console.log('jjjjj');
-    
 
     return (
         <div className="container">
