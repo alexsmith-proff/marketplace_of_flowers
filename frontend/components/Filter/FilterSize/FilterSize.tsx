@@ -26,13 +26,13 @@ const FilterSize: FC<FilterSizeProps> = ({ }) => {
             <h4 className={s.subTitle}>{diametrFlavor?.name}</h4>
             <ul className={s.list}>
                 {
-                    diametrFlavor?.values.map((item) => <CheckBox name={item.name} key={item.id} />)
+                    diametrFlavor?.values.map((item) => <CheckBox id={item.id} name={item.name} key={item.id} />)
                 }
             </ul>
             <h4 className={s.subTitle}>{heightFlavor?.name}</h4>
             <ul className={s.list}>
                 {
-                    heightFlavor?.values.map((item) => <CheckBox name={item.name} key={item.id} />)
+                    heightFlavor?.values.map((item) => <CheckBox id={item.id} name={item.name} key={item.id} />)
                 }
             </ul>
 
