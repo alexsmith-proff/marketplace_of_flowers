@@ -1,5 +1,8 @@
 .block {
     padding-top: 15px;
+    position: relative;
+    // height: 250px;
+    // overflow: hidden;
 }
 
 
@@ -11,4 +14,17 @@
 }
 .checkBox{
     margin-bottom: 10px;
+}
+
+.expand{
+    position: absolute;
+    right: 0;
+    top: 20px;
+    cursor: pointer;
+    transform: rotate(180deg);
+    transition: transform .3s, heigth 2s;
+    &.collapse{
+        transform: rotate(0deg);
+        top: 22px;
+    }
 }
