@@ -2,10 +2,12 @@ import { FC, useState } from "react"
 import FilterContext from "../../context/filter-context"
 import { IFilter } from "../../interfaces/filter.interface"
 import { IProductMinMaxPrice } from "../../interfaces/products.interface"
-import s from './Filter.module.scss'
 import FilterColor from "./FilterColor/FilterColor"
 import FilterPrice from "./FilterPrice/FilterPrice"
 import FilterSize from "./FilterSize/FilterSize"
+
+import s from './Filter.module.scss'
+import FilterCheckBox from "./FilterCheckBox/FilterCheckBox"
 
 interface FilterProps {
     filterMinMaxPrice: IProductMinMaxPrice
@@ -28,6 +30,8 @@ const Filter: FC<FilterProps> = ({ filterMinMaxPrice, filter }) => {
                     <FilterPrice />
                     <FilterColor />
                     <FilterSize />
+                    <FilterCheckBox filterName="Состав" filterSlug="sostav" />
+                    <FilterCheckBox filterName="Кому" filterSlug="komu" />
                 </FilterContext.Provider>
             </div>
         </div>

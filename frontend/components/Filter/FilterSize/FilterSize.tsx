@@ -3,6 +3,7 @@ import FilterContext from '../../../context/filter-context'
 import { IFilterElement, IFilterValue } from '../../../interfaces/filter.interface'
 import { getFilterElementFromFilterBySlug } from '../../../services/core/parse'
 import CheckBox from '../../Elements/CheckBox/CheckBox'
+import FilterSeparateLine from '../FilterSeparateLine/FilterSeparateLine'
 import FilterTitle from '../FilterTitle/FilterTitle'
 
 import s from './FilterSize.module.scss'
@@ -24,15 +25,12 @@ const FilterSize: FC<FilterSizeProps> = ({ }) => {
     }, [])
 
     const handleChangeCheckBoxDiametrFlavor = (itemValue: IFilterValue) => {
-        console.log('diametrFlavor', diametrFlavor);
-        
         setDiametrFlavor({...diametrFlavor, values: diametrFlavor.values.map((item) => (
             item.id === itemValue.id ? (item.value == '0' ? {...item, value: '1'} : {...item, value: '0'}) : item
         )
         )})                  
     }
     const handleChangeCheckBoxHeightFlavor = (itemValue: IFilterValue) => {
-        console.log('heightFlavor', heightFlavor);
         setHeightFlavor({...heightFlavor, values: heightFlavor.values.map((item) => (
             item.id === itemValue.id ? (item.value == '0' ? {...item, value: '1'} : {...item, value: '0'}) : item
         )
@@ -55,7 +53,7 @@ const FilterSize: FC<FilterSizeProps> = ({ }) => {
                     heightFlavor?.values.map((item) => <CheckBox id={item.id} name={item.name} key={item.id} onChangeCheckBox={() => handleChangeCheckBoxHeightFlavor(item)} />)
                 }
             </ul>
-
+            <FilterSeparateLine />
         </div>
     )
 }

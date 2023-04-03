@@ -1,0 +1,14 @@
+.block {
+    padding-top: 15px;
+}
+
+
+.list{
+    display: flexbox;
+    flex-direction: column;
+    column-gap: 10px;
+    margin-bottom: 15px;
+}
+.checkBox{
+    margin-bottom: 10px;
+}
