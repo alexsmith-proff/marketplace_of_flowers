@@ -31,9 +31,10 @@ const Filter: FC<FilterProps> = ({ filterMinMaxPrice, filter }) => {
                     <FilterColor />
                     <FilterSize />
                     <FilterCheckBox filterName="Состав" filterSlug="sostav" />
-                    <FilterCheckBox filterName="Кому" filterSlug="komu" />
+                    <FilterCheckBox filterName="Кому" filterSlug="komu" separateLine={false} />
                 </FilterContext.Provider>
             </div>
+            <div className={s.button}>Очистить фильтры</div>
         </div>
     )
 }

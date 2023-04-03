@@ -13,9 +13,10 @@ import s from './FilterCheckBox.module.scss'
 interface FilterCheckBoxProps {
     filterName: string
     filterSlug: string
+    separateLine?: boolean
 }
 
-const FilterCheckBox: FC<FilterCheckBoxProps> = ({ filterName, filterSlug }) => {
+const FilterCheckBox: FC<FilterCheckBoxProps> = ({ filterName, filterSlug, separateLine = true }) => {
     const value = useContext(FilterContext)
 
     const [filterElement, setFilterElement] = useState<IFilterElement>()
@@ -71,7 +72,9 @@ const FilterCheckBox: FC<FilterCheckBoxProps> = ({ filterName, filterSlug }) => 
                 </div>
             }
 
-            <FilterSeparateLine />
+            {
+                separateLine && <FilterSeparateLine />
+            }
         </div>
     )
 }

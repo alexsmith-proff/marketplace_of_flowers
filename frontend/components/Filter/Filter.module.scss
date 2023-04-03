@@ -7,3 +7,22 @@
     padding: 20px;
     box-sizing: border-box;
 }
+
+.button {
+    width: 280px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 13px 30px;
+    background: #FFFFFF;
+    border: 1px solid #0093A2;
+    border-radius: 5px;
+    margin-top: 20px;
+    box-sizing: border-box;
+    cursor: pointer;
+    transition: all .25s;
+    &:hover{
+        background-color: #0093A2;
+        color: #fff;
+    }
+}

@@ -10,10 +10,12 @@
     display: flexbox;
     flex-direction: column;
     column-gap: 10px;
-    margin-bottom: 15px;
 }
 .checkBox{
     margin-bottom: 10px;
+    &:last-child{
+        margin-bottom: 0px;
+    }
 }
 
 .expand{
