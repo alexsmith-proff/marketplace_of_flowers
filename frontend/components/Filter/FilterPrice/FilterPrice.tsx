@@ -1,4 +1,3 @@
-import classNames from "classnames"
 import { FC, useContext, useState } from "react"
 import FilterContext from "../../../context/filter-context"
 import RangeSlider from "../../Elements/RangeSlider/RangeSlider"
@@ -68,6 +67,7 @@ const FilterPrice: FC<FilterPriceProps> = ({ }) => {
 
     const handleChangeValueMax = v => {
         setPriceValueMax({ inputValue: v, value: v })
+        // value.setFilterPrice((val: IProductMinMaxPrice) => {...val, val.maxPrice: v})
     }
 
     // console.log('priceValueMax', priceValueMax);

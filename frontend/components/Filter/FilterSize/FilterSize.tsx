@@ -1,56 +1,48 @@
 import { FC, useContext, useEffect, useState } from 'react'
 import FilterContext from '../../../context/filter-context'
-import { IFilterElement, IFilterValue } from '../../../interfaces/filter.interface'
-import { getFilterElementFromFilterBySlug } from '../../../services/core/parse'
+import { IFilterValue } from '../../../interfaces/filter.interface'
 import CheckBox from '../../Elements/CheckBox/CheckBox'
 import FilterSeparateLine from '../FilterSeparateLine/FilterSeparateLine'
 import FilterTitle from '../FilterTitle/FilterTitle'
 
 import s from './FilterSize.module.scss'
+import { IFilterContext } from '../Filter'
 
 interface FilterSizeProps { }
 
 const FilterSize: FC<FilterSizeProps> = ({ }) => {
-    const value = useContext(FilterContext)
-
-    const [diametrFlavor, setDiametrFlavor] = useState<IFilterElement>()
-    const [heightFlavor, setHeightFlavor] = useState<IFilterElement>()
-
-    useEffect(() => {
-        const diametrFlavorValue = getFilterElementFromFilterBySlug(value.filter, 'diametr-buketa')
-        const heightFlavorValue = getFilterElementFromFilterBySlug(value.filter, 'vysota-buketa')
-
-        setDiametrFlavor({...diametrFlavorValue, values: diametrFlavorValue.values.map((item) => ( {...item, value: '0'} ))})
-        setHeightFlavor({...heightFlavorValue, values: heightFlavorValue.values.map((item) => ( {...item, value: '0'} ))})
-    }, [])
+    const value: IFilterContext = useContext(FilterContext)
 
     const handleChangeCheckBoxDiametrFlavor = (itemValue: IFilterValue) => {
-        setDiametrFlavor({...diametrFlavor, values: diametrFlavor.values.map((item) => (
+        const d = {...value.diametrFlavor, values: value.diametrFlavor.values.map((item) => (
             item.id === itemValue.id ? (item.value == '0' ? {...item, value: '1'} : {...item, value: '0'}) : item
         )
-        )})                  
+        )}
+        
+        value.setFilterDiametrFlavor(d)                 
     }
     const handleChangeCheckBoxHeightFlavor = (itemValue: IFilterValue) => {
-        setHeightFlavor({...heightFlavor, values: heightFlavor.values.map((item) => (
+        const h = {...value.heightFlavor, values: value.heightFlavor.values.map((item) => (
             item.id === itemValue.id ? (item.value == '0' ? {...item, value: '1'} : {...item, value: '0'}) : item
         )
-        )})                  
+        )}
+        value.setFilterHeightFlavor(h)                             
     }
 
 
     return (
         <div className={s.block}>
             <FilterTitle title='Размер' />
-            <h4 className={s.subTitle}>{diametrFlavor?.name}</h4>
+            <h4 className={s.subTitle}>{value.diametrFlavor?.name}</h4>
             <ul className={s.list}>
                 {
-                    diametrFlavor?.values.map((item) => <CheckBox id={item.id} name={item.name} key={item.id} onChangeCheckBox={() => handleChangeCheckBoxDiametrFlavor(item)} />)
+                    value.diametrFlavor?.values.map((item) => <CheckBox id={item.id} name={item.name} key={item.id} checked={item.value === '1' ? true : false} onChangeCheckBox={() => handleChangeCheckBoxDiametrFlavor(item)} />)
                 }
             </ul>
-            <h4 className={s.subTitle}>{heightFlavor?.name}</h4>
+            <h4 className={s.subTitle}>{value.heightFlavor?.name}</h4>
             <ul className={s.list}>
                 {
-                    heightFlavor?.values.map((item) => <CheckBox id={item.id} name={item.name} key={item.id} onChangeCheckBox={() => handleChangeCheckBoxHeightFlavor(item)} />)
+                    value.heightFlavor?.values.map((item) => <CheckBox id={item.id} name={item.name} key={item.id} checked={item.value === '1' ? true : false} onChangeCheckBox={() => handleChangeCheckBoxHeightFlavor(item)} />)
                 }
             </ul>
             <FilterSeparateLine />

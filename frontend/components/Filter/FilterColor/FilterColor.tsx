@@ -7,7 +7,7 @@ import FilterSeparateLine from "../FilterSeparateLine/FilterSeparateLine"
 import FilterTitle from "../FilterTitle/FilterTitle"
 import s from './FilterColor.module.scss'
 
-interface IActiveColor extends IFilterValue {
+export interface IActiveColor extends IFilterValue {
     index: number
  }
 

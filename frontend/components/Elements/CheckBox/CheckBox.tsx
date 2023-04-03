@@ -5,7 +5,7 @@ import s from './CheckBox.module.scss'
 interface CheckBoxProps { 
     id: number
     name: string
-    checked: boolean
+    checked?: boolean
     onChangeCheckBox: () => void
 }
 

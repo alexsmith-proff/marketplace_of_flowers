@@ -94,5 +94,5 @@ export const getBreadCrumbsFromCatalog = (catalogArr: ICatalog[], slug: string) 
 }
 ///////////////////////////////////////
 
-export const getFilterElementFromFilterBySlug = (filter: IFilter, slug: string) => filter.elements.find(item => item.slug === slug)
+export const getFilterElementFromFilterBySlug = (filter: IFilter, slug: string) => filter?.elements.find(item => item.slug === slug)
 
