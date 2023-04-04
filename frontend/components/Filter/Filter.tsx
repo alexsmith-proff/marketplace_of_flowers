@@ -12,12 +12,19 @@ import { getFilterElementFromFilterBySlug } from "../../services/core/parse"
 
 import s from './Filter.module.scss'
 
+export interface IPrice {
+    valueMin: number
+    valueMax: number
+    limitMin: number,
+    limitMax: number,
+}
+
 export interface IActiveColor extends IFilterValue {
     index: number
- }
+}
 
 export interface IFilterContext {
-    minMaxPrice: IProductMinMaxPrice
+    price: IPrice
     setFilterPrice: any
     color: IFilterElement
     // setFilterColor: any
@@ -29,8 +36,9 @@ export interface IFilterContext {
     setFilterHeightFlavor: any
     composition: IFilterElement
     setFilterComposition: any
-    purpose: IFilterElement,
-    setFilterPurpose: any,
+    purpose: IFilterElement
+    setFilterPurpose: any
+    clearBtn: boolean
 }
 
 interface FilterProps {
@@ -43,20 +51,26 @@ const FilterInit = (filter: IFilter, slug: string) => {
 }
 
 const Filter: FC<FilterProps> = ({ filterMinMaxPrice, filter }) => {
-    const [minMaxPrice, setMinMaxPrice] = useState<IProductMinMaxPrice>(filterMinMaxPrice)
+    const [price, setPrice] = useState<IPrice>({
+        limitMin: filterMinMaxPrice.minPrice,
+        limitMax: filterMinMaxPrice.maxPrice,
+        valueMin: filterMinMaxPrice.minPrice,
+        valueMax: filterMinMaxPrice.maxPrice
+    })
     const [color, setColor] = useState<IFilterElement>(() => getFilterElementFromFilterBySlug(filter, 'cveta'))
     const [activeColor, setActiveColor] = useState<IActiveColor>()
     const [diametrFlavor, setDiametrFlavor] = useState<IFilterElement>(() => FilterInit(filter, 'diametr-buketa'))
     const [heightFlavor, setHeightFlavor] = useState<IFilterElement>(() => FilterInit(filter, 'vysota-buketa'))
     const [composition, setComposition] = useState<IFilterElement>(() => FilterInit(filter, 'sostav'))
     const [purpose, setPurpose] = useState<IFilterElement>(() => FilterInit(filter, 'komu'))
+    // Состояние триггер кнопки 'Очистить фильтры'
+    const [clearBtn, setClearBtn] = useState<boolean>(false)
 
 
     const value: IFilterContext = {
-        minMaxPrice: minMaxPrice,
-        setFilterPrice: setMinMaxPrice,
+        price: price,
+        setFilterPrice: setPrice,
         color: color,
-        // setFilterColor: setColor,
         activeColor: activeColor,
         setFilterActiveColor: setActiveColor,
         diametrFlavor: diametrFlavor,
@@ -66,21 +80,21 @@ const Filter: FC<FilterProps> = ({ filterMinMaxPrice, filter }) => {
         composition: composition,
         setFilterComposition: setComposition,
         purpose: purpose,
-        setFilterPurpose: setPurpose
+        setFilterPurpose: setPurpose,
+        clearBtn: clearBtn,
+        // setFilterClear: setClear
     }
 
-    // console.log('diametrFlavordddd', diametrFlavor, heightFlavor, composition, purpose);
-    // console.log(activeColor);
-    
-
     // Перевод фильтров в дефолтное состояние
-    const handleFilter = () => {
-        value.setFilterPrice(filterMinMaxPrice)   
-        setActiveColor(null)     
+    const handleClearFilter = () => {
+        setPrice({...price, valueMin: filterMinMaxPrice.minPrice, valueMax: filterMinMaxPrice.maxPrice})
+        setActiveColor(null)
         setDiametrFlavor(() => getFilterElementFromFilterBySlug(filter, 'diametr-buketa'))
         setHeightFlavor(() => getFilterElementFromFilterBySlug(filter, 'vysota-buketa'))
         setComposition(() => FilterInit(filter, 'sostav'))
         setPurpose(() => FilterInit(filter, 'komu'))
+        // Нажата кнопка 'Очистить фильтры'
+        setClearBtn(!clearBtn)
     }
 
     return (
@@ -94,7 +108,7 @@ const Filter: FC<FilterProps> = ({ filterMinMaxPrice, filter }) => {
                     <FilterPurpose />
                 </FilterContext.Provider>
             </div>
-            <div className={s.button} onClick={handleFilter}>Очистить фильтры</div>
+            <div className={s.button} onClick={handleClearFilter}>Очистить фильтры</div>
         </div>
     )
 }

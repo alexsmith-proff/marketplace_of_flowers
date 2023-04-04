@@ -1,82 +1,76 @@
-import { FC, useContext, useState } from "react"
+import { FC, useContext, useState, useEffect } from "react"
 import FilterContext from "../../../context/filter-context"
+import FilterTitle from "../FilterTitle/FilterTitle"
 import RangeSlider from "../../Elements/RangeSlider/RangeSlider"
 import FilterSeparateLine from "../FilterSeparateLine/FilterSeparateLine"
-import FilterTitle from "../FilterTitle/FilterTitle"
+import { IFilterContext } from "../Filter"
+
 import s from './FilterPrice.module.scss'
 
-interface IPrice {
-    inputValue: number,
-    value: number
-}
 
 interface FilterPriceProps { }
 
 const FilterPrice: FC<FilterPriceProps> = ({ }) => {
-    const value = useContext(FilterContext)
+    const value: IFilterContext = useContext(FilterContext)
 
-    const [priceValueMax, setPriceValueMax] = useState<IPrice>({
-        inputValue: value.minMaxPrice.maxPrice,
-        value: value.minMaxPrice.maxPrice
-    })
-    const [priceValueMin, setPriceValueMin] = useState<IPrice>({
-        inputValue: value.minMaxPrice.minPrice,
-        value: value.minMaxPrice.minPrice
-    })
-
+    const [inputPriceMax, setInputPriceMax] = useState<number>(value.price.limitMax)
+    const [inputPriceMin, setInputPriceMin] = useState<number>(value.price.limitMin)
 
     // Валидация val
     const validAndSetPriceValue = val => {
-        if (val >= value.minMaxPrice.maxPrice) val = value.minMaxPrice.maxPrice
-        if (val <= value.minMaxPrice.minPrice) val = value.minMaxPrice.minPrice
+        if (val >= value.price.limitMax) val = value.price.limitMax
+        if (val <= value.price.limitMin) val = value.price.limitMin
         return val
     }
 
-
     const onChangePriceValueMin = (e: React.ChangeEvent<HTMLInputElement>) => {
-        setPriceValueMin({ ...priceValueMin, inputValue: Number(e.target.value) })
+        setInputPriceMin(Number(e.target.value))
     }
 
     const onChangePriceValueMax = (e: React.ChangeEvent<HTMLInputElement>) => {
-        // console.log(value.minMaxPrice.maxPrice);
-        setPriceValueMax({ ...priceValueMax, inputValue: Number(e.target.value) })
+        setInputPriceMax(Number(e.target.value))
     }
 
     // После нажатия Enter
     const onKeyDownPriceValueMin = (e) => {
-
         if (e.key === 'Enter') {
-            const val = validAndSetPriceValue(priceValueMin.inputValue)
-            setPriceValueMin({ ...priceValueMin, inputValue: val, value: val })
+            const val = validAndSetPriceValue(inputPriceMin)
+            value.setFilterPrice({...value.price, valueMin: val})
         }
     }
 
     // После нажатия Enter
     const onKeyDownPriceValueMax = (e) => {
+        console.log('1');        
         if (e.key === 'Enter') {
-            let val = validAndSetPriceValue(priceValueMax.inputValue)
-            setPriceValueMax({ ...priceValueMax, inputValue: val, value: val })
+            const val = validAndSetPriceValue(inputPriceMax)
+            value.setFilterPrice({...value.price, valueMax: val})
         }
     }
 
     const handleChangeValueMin = v => {
-        setPriceValueMin({ inputValue: v, value: v })
+        value.setFilterPrice({...value.price, valueMin: v})
+        setInputPriceMin(v)
     }
 
     const handleChangeValueMax = v => {
-        setPriceValueMax({ inputValue: v, value: v })
-        // value.setFilterPrice((val: IProductMinMaxPrice) => {...val, val.maxPrice: v})
+        value.setFilterPrice({...value.price, valueMax: v})
+        setInputPriceMax(v)
     }
 
-    // console.log('priceValueMax', priceValueMax);
+    // Нажата кнопка 'Очистить фильтры'
+    useEffect(() => {
+        setInputPriceMin(value.price.limitMin)
+        setInputPriceMax(value.price.limitMax)
+    }, [value.clearBtn])
 
 
     return (
         <div>
             <FilterTitle title="Цена" />
             <div className={s.inputWrap}>
-                <input className={s.input} type="text" value={priceValueMin.inputValue} onChange={onChangePriceValueMin} onKeyDown={onKeyDownPriceValueMin} />
-                <input className={s.input} type="text" value={priceValueMax.inputValue} onChange={onChangePriceValueMax} onKeyDown={onKeyDownPriceValueMax} />
+                <input className={s.input} type="text" value={inputPriceMin} onChange={onChangePriceValueMin} onKeyDown={onKeyDownPriceValueMin} />
+                <input className={s.input} type="text" value={inputPriceMax} onChange={onChangePriceValueMax} onKeyDown={onKeyDownPriceValueMax} />
             </div>
             <div className={s.RangeSlider}>
                 <RangeSlider
@@ -89,17 +83,17 @@ const FilterPrice: FC<FilterPriceProps> = ({ }) => {
                     colorThumb="#FFFFFF"
                     borderThumb="3px solid #0093A2"
                     dualThumb={true}
-                    minValueTrack={value.minMaxPrice.minPrice}
-                    maxValueTrack={value.minMaxPrice.maxPrice}
-                    valueMin={priceValueMin.value}
-                    valueMax={priceValueMax.value}
+                    minValueTrack={value.price.limitMin}
+                    maxValueTrack={value.price.limitMax}
+                    valueMin={value.price.valueMin}
+                    valueMax={value.price.valueMax}
                     changeValueMin={handleChangeValueMin}
                     changeValueMax={handleChangeValueMax}
                 />
             </div>
             <div className={s.label}>
-                <div className={s.labelItem}>от <span>{value.minMaxPrice.minPrice} ₽</span></div>
-                <div className={s.labelItem}>от <span>{value.minMaxPrice.maxPrice} ₽</span></div>
+                <div className={s.labelItem}>от <span>{value.price.limitMin} ₽</span></div>
+                <div className={s.labelItem}>от <span>{value.price.limitMax} ₽</span></div>
             </div>
             <FilterSeparateLine />
 
