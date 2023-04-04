@@ -37,22 +37,22 @@ const FilterCheckBox: FC<FilterCheckBoxProps> = ({ filterName, filter, changeChe
             <ul className={s.list}>
                 {
                     filter?.values?.map((item, index) => (
-                        <>
+                        <div key={item.id}>
                             {
                                 isExpand && (
                                     <div className={s.checkBox}>
-                                        <CheckBox id={item.id} name={item.name} checked={item.value === '1' ? true : false} key={item.id} onChangeCheckBox={() => handleChangeCheckBoxFilterElement(item)} />
+                                        <CheckBox id={item.id} name={item.name} checked={item.value === '1' ? true : false} onChangeCheckBox={() => handleChangeCheckBoxFilterElement(item)} />
                                     </div>
                                 )
                             }
                             {
                                 !isExpand && index <= 5 && (
                                     <div className={s.checkBox}>
-                                        <CheckBox id={item.id} name={item.name} checked={item.value === '1' ? true : false} key={item.id} onChangeCheckBox={() => handleChangeCheckBoxFilterElement(item)} />
+                                        <CheckBox id={item.id} name={item.name} checked={item.value === '1' ? true : false} onChangeCheckBox={() => handleChangeCheckBoxFilterElement(item)} />
                                     </div>
                                 )
                             }
-                        </>
+                        </div>
                     ))
                 }
             </ul>
