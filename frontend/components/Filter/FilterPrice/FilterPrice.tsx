@@ -33,8 +33,6 @@ const FilterPrice: FC<FilterPriceProps> = ({ }) => {
     }
 
 
-
-
     const onChangePriceValueMin = (e: React.ChangeEvent<HTMLInputElement>) => {
         setPriceValueMin({ ...priceValueMin, inputValue: Number(e.target.value) })
     }
