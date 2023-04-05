@@ -7,13 +7,14 @@ import FilterCheckBox from "../FilterCheckBox/FilterCheckBox"
 interface FilterPurposeProps {}
 
 const FilterPurpose: FC<FilterPurposeProps> = ({  }) => {
-    const value: IFilterContext = useContext(FilterContext)
+    const valueContext: IFilterContext = useContext(FilterContext)
     const handleChangeFilterPurpose = (val: IFilterElement) => {
-        value.setFilterPurpose(val)
+        valueContext.setFilterPurpose(val)
+        valueContext.setShowBtn({isVisible: true, top: 960})
     }
     return (
         <div>
-            <FilterCheckBox filterName="Кому" filter={value.purpose} changeCheckBox={handleChangeFilterPurpose} />
+            <FilterCheckBox filterName="Кому" filter={valueContext.purpose} separateLine={false} changeCheckBox={handleChangeFilterPurpose} />
         </div>
     )
 }

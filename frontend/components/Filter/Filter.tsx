@@ -1,4 +1,4 @@
-import { FC, useState } from "react"
+import { FC, useEffect, useState } from "react"
 import FilterContext from "../../context/filter-context"
 import FilterPrice from "./FilterPrice/FilterPrice"
 import FilterColor from "./FilterColor/FilterColor"
@@ -11,6 +11,7 @@ import { IFilter, IFilterElement, IFilterValue } from "../../interfaces/filter.i
 import { getFilterElementFromFilterBySlug } from "../../services/core/parse"
 
 import s from './Filter.module.scss'
+import FilterShowBtn from "../Elements/Buttons/FilterShowBtn/FilterShowBtn"
 
 export interface IPrice {
     valueMin: number
@@ -21,6 +22,11 @@ export interface IPrice {
 
 export interface IActiveColor extends IFilterValue {
     index: number
+}
+
+export interface IShowButton {
+    isVisible: boolean
+    top: number
 }
 
 export interface IFilterContext {
@@ -39,6 +45,9 @@ export interface IFilterContext {
     purpose: IFilterElement
     setFilterPurpose: any
     clearBtn: boolean
+    // setFilterShowBtn: any
+    showBtn: IShowButton,
+    setShowBtn: any
 }
 
 interface FilterProps {
@@ -65,6 +74,8 @@ const Filter: FC<FilterProps> = ({ filterMinMaxPrice, filter }) => {
     const [purpose, setPurpose] = useState<IFilterElement>(() => FilterInit(filter, 'komu'))
     // Состояние триггер кнопки 'Очистить фильтры'
     const [clearBtn, setClearBtn] = useState<boolean>(false)
+    // Состояние кнопки 'Показать', isActive - 
+    const [showBtn, setShowBtn] = useState<IShowButton>({ isVisible: false, top: 0 })
 
 
     const value: IFilterContext = {
@@ -83,11 +94,17 @@ const Filter: FC<FilterProps> = ({ filterMinMaxPrice, filter }) => {
         setFilterPurpose: setPurpose,
         clearBtn: clearBtn,
         // setFilterClear: setClear
+        showBtn: showBtn,
+        setShowBtn: setShowBtn,
     }
+
+    useEffect(() => {
+        setShowBtn({...showBtn, isVisible: true})
+    }, [activeColor, diametrFlavor, heightFlavor, composition, purpose])
 
     // Перевод фильтров в дефолтное состояние
     const handleClearFilter = () => {
-        setPrice({...price, valueMin: filterMinMaxPrice.minPrice, valueMax: filterMinMaxPrice.maxPrice})
+        setPrice({ ...price, valueMin: filterMinMaxPrice.minPrice, valueMax: filterMinMaxPrice.maxPrice })
         setActiveColor(null)
         setDiametrFlavor(() => getFilterElementFromFilterBySlug(filter, 'diametr-buketa'))
         setHeightFlavor(() => getFilterElementFromFilterBySlug(filter, 'vysota-buketa'))
@@ -96,6 +113,13 @@ const Filter: FC<FilterProps> = ({ filterMinMaxPrice, filter }) => {
         // Нажата кнопка 'Очистить фильтры'
         setClearBtn(!clearBtn)
     }
+
+    // Обработчик нажатия на кнопку "Показать"
+    const handleShowBtn = () => {
+        console.log('Обработчик нажатия на кнопку "Показать"');
+        setShowBtn({...showBtn, isVisible: false})
+    }
+
 
     return (
         <div className="container">
@@ -106,6 +130,7 @@ const Filter: FC<FilterProps> = ({ filterMinMaxPrice, filter }) => {
                     <FilterSize />
                     <FilterComposition />
                     <FilterPurpose />
+                    <FilterShowBtn visible={showBtn.isVisible} onClick={handleShowBtn}>Показать</FilterShowBtn>
                 </FilterContext.Provider>
             </div>
             <div className={s.button} onClick={handleClearFilter}>Очистить фильтры</div>

@@ -7,13 +7,14 @@ import FilterCheckBox from "../FilterCheckBox/FilterCheckBox"
 interface FilterCompositionProps {}
 
 const FilterComposition: FC<FilterCompositionProps> = ({  }) => {
-    const value: IFilterContext = useContext(FilterContext)
+    const valueContext: IFilterContext = useContext(FilterContext)
     const handleChangeFilterComposition = (val: IFilterElement) => {
-        value.setFilterComposition(val)
+        valueContext.setFilterComposition(val)
+        valueContext.setShowBtn({isVisible: true, top: 720})
     }
     return (
         <div>
-            <FilterCheckBox filterName="Состав" filter={value.composition} changeCheckBox={handleChangeFilterComposition} />
+            <FilterCheckBox filterName="Состав" filter={valueContext.composition} changeCheckBox={handleChangeFilterComposition} />
         </div>
     )
 }

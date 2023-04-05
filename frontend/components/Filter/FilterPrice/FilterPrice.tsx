@@ -11,15 +11,15 @@ import s from './FilterPrice.module.scss'
 interface FilterPriceProps { }
 
 const FilterPrice: FC<FilterPriceProps> = ({ }) => {
-    const value: IFilterContext = useContext(FilterContext)
+    const valueContext: IFilterContext = useContext(FilterContext)
 
-    const [inputPriceMax, setInputPriceMax] = useState<number>(value.price.limitMax)
-    const [inputPriceMin, setInputPriceMin] = useState<number>(value.price.limitMin)
+    const [inputPriceMax, setInputPriceMax] = useState<number>(valueContext.price.limitMax)
+    const [inputPriceMin, setInputPriceMin] = useState<number>(valueContext.price.limitMin)
 
     // Валидация val
     const validAndSetPriceValue = val => {
-        if (val >= value.price.limitMax) val = value.price.limitMax
-        if (val <= value.price.limitMin) val = value.price.limitMin
+        if (val >= valueContext.price.limitMax) val = valueContext.price.limitMax
+        if (val <= valueContext.price.limitMin) val = valueContext.price.limitMin
         return val
     }
 
@@ -35,7 +35,8 @@ const FilterPrice: FC<FilterPriceProps> = ({ }) => {
     const onKeyDownPriceValueMin = (e) => {
         if (e.key === 'Enter') {
             const val = validAndSetPriceValue(inputPriceMin)
-            value.setFilterPrice({...value.price, valueMin: val})
+            valueContext.setFilterPrice({...valueContext.price, valueMin: val})
+            valueContext.setShowBtn({isVisible: true, top: 80})
         }
     }
 
@@ -44,25 +45,28 @@ const FilterPrice: FC<FilterPriceProps> = ({ }) => {
         console.log('1');        
         if (e.key === 'Enter') {
             const val = validAndSetPriceValue(inputPriceMax)
-            value.setFilterPrice({...value.price, valueMax: val})
+            valueContext.setFilterPrice({...valueContext.price, valueMax: val})
+            valueContext.setShowBtn({isVisible: true, top: 80})
         }
     }
 
     const handleChangeValueMin = v => {
-        value.setFilterPrice({...value.price, valueMin: v})
+        valueContext.setFilterPrice({...valueContext.price, valueMin: v})
         setInputPriceMin(v)
+        valueContext.setShowBtn({isVisible: true, top: 80})
     }
 
     const handleChangeValueMax = v => {
-        value.setFilterPrice({...value.price, valueMax: v})
+        valueContext.setFilterPrice({...valueContext.price, valueMax: v})
         setInputPriceMax(v)
+        valueContext.setShowBtn({isVisible: true, top: 80})
     }
 
     // Нажата кнопка 'Очистить фильтры'
     useEffect(() => {
-        setInputPriceMin(value.price.limitMin)
-        setInputPriceMax(value.price.limitMax)
-    }, [value.clearBtn])
+        setInputPriceMin(valueContext.price.limitMin)
+        setInputPriceMax(valueContext.price.limitMax)
+    }, [valueContext.clearBtn])
 
 
     return (
@@ -83,17 +87,17 @@ const FilterPrice: FC<FilterPriceProps> = ({ }) => {
                     colorThumb="#FFFFFF"
                     borderThumb="3px solid #0093A2"
                     dualThumb={true}
-                    minValueTrack={value.price.limitMin}
-                    maxValueTrack={value.price.limitMax}
-                    valueMin={value.price.valueMin}
-                    valueMax={value.price.valueMax}
+                    minValueTrack={valueContext.price.limitMin}
+                    maxValueTrack={valueContext.price.limitMax}
+                    valueMin={valueContext.price.valueMin}
+                    valueMax={valueContext.price.valueMax}
                     changeValueMin={handleChangeValueMin}
                     changeValueMax={handleChangeValueMax}
                 />
             </div>
             <div className={s.label}>
-                <div className={s.labelItem}>от <span>{value.price.limitMin} ₽</span></div>
-                <div className={s.labelItem}>от <span>{value.price.limitMax} ₽</span></div>
+                <div className={s.labelItem}>от <span>{valueContext.price.limitMin} ₽</span></div>
+                <div className={s.labelItem}>от <span>{valueContext.price.limitMax} ₽</span></div>
             </div>
             <FilterSeparateLine />
 
