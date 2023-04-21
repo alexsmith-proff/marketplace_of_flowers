@@ -41,7 +41,7 @@ const FilterSize: FC<FilterSizeProps> = ({ }) => {
                 }
             </ul>
             <h4 className={s.subTitle}>{valueContext.heightFlavor?.name}</h4>
-            <ul className={s.list}>valueContext
+            <ul className={s.list}>
                 {
                     valueContext.heightFlavor?.values.map((item) => <CheckBox id={item.id} name={item.name} key={item.id} checked={item.value === '1' ? true : false} onChangeCheckBox={() => handleChangeCheckBoxHeightFlavor(item)} />)
                 }

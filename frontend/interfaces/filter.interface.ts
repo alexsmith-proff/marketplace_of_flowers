@@ -60,3 +60,12 @@ export interface IFilterContext {
   showBtn: IShowFilterButton,
   setShowBtn: any
 }
+
+export interface IFilterData {
+  price: IFilterPrice
+  activeColor: IFilterActiveColor  
+  diametrFlavor: IFilterElement
+  heightFlavor: IFilterElement
+  composition: IFilterElement
+  purpose: IFilterElement
+}

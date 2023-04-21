@@ -29,6 +29,10 @@ interface IndexProps {
 }
 
 const Index: FC<IndexProps> = ({ topMenu, headerMenu, breadCrumbsArr, minMaxPriceProduct, filter, catalogSeo, footerMenu, catalogCards, footerMenuInfo, footerMenuCoordinates, footerMenuEmail }) => {
+
+    const handleGetProductsByFilter = (FilterData) => {
+        console.log(FilterData);
+    }
     
     return (
         <div>
@@ -36,7 +40,7 @@ const Index: FC<IndexProps> = ({ topMenu, headerMenu, breadCrumbsArr, minMaxPric
                 <BreadCrumbs breadCrumbsArr={breadCrumbsArr} />
                 <CatalogCards title={catalogCards.title} catalogCards={catalogCards.cards} />
 
-                <Filter filterMinMaxPrice={minMaxPriceProduct} filter={filter} />
+                <Filter filterMinMaxPrice={minMaxPriceProduct} filter={filter} getProductsByFilter={handleGetProductsByFilter} />
 
                 <CatalogSeo catalogSeoSection={catalogSeo} />
             </MainLayout>

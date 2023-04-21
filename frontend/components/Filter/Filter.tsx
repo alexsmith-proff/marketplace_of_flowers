@@ -6,7 +6,7 @@ import FilterSize from "./FilterSize/FilterSize"
 import FilterComposition from "./FilterComposition/FilterComposition"
 import FilterPurpose from "./FilterPurpose/FilterPurpose"
 import { IProductMinMaxPrice } from "../../interfaces/products.interface"
-import { IFilter, IFilterActiveColor, IFilterContext, IFilterElement, IFilterPrice, IFilterValue, IShowFilterButton } from "../../interfaces/filter.interface"
+import { IFilter, IFilterActiveColor, IFilterContext, IFilterData, IFilterElement, IFilterPrice, IShowFilterButton } from "../../interfaces/filter.interface"
 
 import { getFilterElementFromFilterBySlug } from "../../services/core/parse"
 
@@ -17,13 +17,14 @@ import FilterShowBtn from "../Elements/Buttons/FilterShowBtn/FilterShowBtn"
 interface FilterProps {
     filterMinMaxPrice: IProductMinMaxPrice
     filter: IFilter
+    getProductsByFilter: (FilterData: IFilterData) => void
 }
 const FilterInit = (filter: IFilter, slug: string) => {
     const f = getFilterElementFromFilterBySlug(filter, slug)
     return { ...f, values: f?.values.map((item) => ({ ...item, value: '0' })) }
 }
 
-const Filter: FC<FilterProps> = ({ filterMinMaxPrice, filter }) => {
+const Filter: FC<FilterProps> = ({ filterMinMaxPrice, filter, getProductsByFilter }) => {
     const [price, setPrice] = useState<IFilterPrice>({
         limitMin: filterMinMaxPrice.minPrice,
         limitMax: filterMinMaxPrice.maxPrice,
@@ -80,7 +81,15 @@ const Filter: FC<FilterProps> = ({ filterMinMaxPrice, filter }) => {
 
     // Обработчик нажатия на кнопку "Показать"
     const handleShowBtn = () => {
-        console.log('Обработчик нажатия на кнопку "Показать"');
+        getProductsByFilter({
+            price: value.price,
+            activeColor: value.activeColor,
+            diametrFlavor: value.diametrFlavor,
+            heightFlavor: value.heightFlavor,
+            composition: value.composition,
+            purpose: value.purpose
+
+        })
         setShowBtn({...showBtn, isVisible: false})
     }
 
