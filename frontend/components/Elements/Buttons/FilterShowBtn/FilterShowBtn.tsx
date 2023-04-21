@@ -2,7 +2,7 @@ import { FC, useContext } from "react"
 
 import st from './FilterShowBtn.module.scss'
 import FilterContext from "../../../../context/filter-context"
-import { IFilterContext } from "../../../Filter/Filter"
+import { IFilterContext } from "../../../../interfaces/filter.interface"
 
 interface FilterShowBtnProps {
     visible?: boolean

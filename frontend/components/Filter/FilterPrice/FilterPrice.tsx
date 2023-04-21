@@ -3,9 +3,9 @@ import FilterContext from "../../../context/filter-context"
 import FilterTitle from "../FilterTitle/FilterTitle"
 import RangeSlider from "../../Elements/RangeSlider/RangeSlider"
 import FilterSeparateLine from "../FilterSeparateLine/FilterSeparateLine"
-import { IFilterContext } from "../Filter"
 
 import s from './FilterPrice.module.scss'
+import { IFilterContext } from "../../../interfaces/filter.interface"
 
 
 interface FilterPriceProps { }

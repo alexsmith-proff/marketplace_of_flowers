@@ -21,3 +21,42 @@ export interface IFilterValue extends IBase {
     slug: string
     value: string
 }
+
+
+
+export interface IFilterPrice {
+  valueMin: number
+  valueMax: number
+  limitMin: number,
+  limitMax: number,
+}
+
+export interface IFilterActiveColor extends IFilterValue {
+  index: number
+}
+
+export interface IShowFilterButton {
+  isVisible: boolean
+  top: number
+}
+
+export interface IFilterContext {
+  price: IFilterPrice
+  setFilterPrice: any
+  color: IFilterElement
+  // setFilterColor: any
+  activeColor: IFilterActiveColor
+  setFilterActiveColor: any
+  diametrFlavor: IFilterElement
+  setFilterDiametrFlavor: any
+  heightFlavor: IFilterElement
+  setFilterHeightFlavor: any
+  composition: IFilterElement
+  setFilterComposition: any
+  purpose: IFilterElement
+  setFilterPurpose: any
+  clearBtn: boolean
+  // setFilterShowBtn: any
+  showBtn: IShowFilterButton,
+  setShowBtn: any
+}

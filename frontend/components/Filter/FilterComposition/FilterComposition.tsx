@@ -1,7 +1,6 @@
 import { FC, useContext } from "react"
 import FilterContext from "../../../context/filter-context"
-import { IFilterElement } from "../../../interfaces/filter.interface"
-import { IFilterContext } from "../Filter"
+import { IFilterContext, IFilterElement } from "../../../interfaces/filter.interface"
 import FilterCheckBox from "../FilterCheckBox/FilterCheckBox"
 
 interface FilterCompositionProps {}
