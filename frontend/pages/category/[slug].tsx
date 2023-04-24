@@ -1,6 +1,6 @@
 import React, { FC } from 'react'
 import MainLayout from '../../layouts/MainLayout/MainLayout'
-import { GetAllCatalog, GetCatalogByParent, GetCatalogNameBySlug, GetFilterBySlug, GetMenu, GetMinMaxPriceProduct, GetSection } from '../../services/core/requests'
+import { GetAllCatalog, GetCatalogByParent, GetCatalogNameBySlug, GetFilterBySlug, GetMenu, GetMinMaxPriceProduct, GetProductsByFilterData, GetSection } from '../../services/core/requests'
 import { IMenu } from '../../interfaces/menu.interface'
 import { ISection } from '../../interfaces/section.interface'
 import CatalogCards from '../../components/CatalogCards/CatalogCards'
@@ -11,7 +11,7 @@ import { IBreadCrumbs } from '../../interfaces/breadCrumbs.interface'
 import { getBreadCrumbsFromCatalog } from '../../services/core/parse'
 import { IProductMinMaxPrice } from '../../interfaces/products.interface'
 import Filter from '../../components/Filter/Filter'
-import { IFilter } from '../../interfaces/filter.interface'
+import { IFilter, IFilterData } from '../../interfaces/filter.interface'
 
 
 interface IndexProps {
@@ -30,8 +30,10 @@ interface IndexProps {
 
 const Index: FC<IndexProps> = ({ topMenu, headerMenu, breadCrumbsArr, minMaxPriceProduct, filter, catalogSeo, footerMenu, catalogCards, footerMenuInfo, footerMenuCoordinates, footerMenuEmail }) => {
 
-    const handleGetProductsByFilter = (FilterData) => {
-        console.log(FilterData);
+    const handleGetProductsByFilter = async (FilterData: IFilterData) => {
+        console.log('FFFFilterData', FilterData);
+        const products = await GetProductsByFilterData(FilterData)
+        console.log('pppppproducts', products);
     }
     
     return (

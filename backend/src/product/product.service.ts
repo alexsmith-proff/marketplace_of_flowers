@@ -3,7 +3,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { CreateProductFilterInput } from 'src/product-filter/dto/create-product-filter.input';
 import { ProductFilterEntity } from 'src/product-filter/entities/product-filter.entity';
 import { createFile } from 'src/util/file';
-import { Repository } from 'typeorm';
+import { Any, Between, Repository } from 'typeorm';
 import { CreateProductInput } from './dto/create-product.input';
 import { SortProductInput } from './dto/sort-product.input';
 import { UpdateProductRelationsInput } from './dto/update-product-relations.input';
@@ -14,7 +14,7 @@ let getSlug = require('speakingurl')
 
 @Injectable()
 export class ProductService {
-  constructor( @InjectRepository(ProductEntity) private readonly productRepository: Repository<ProductEntity> ) { }
+  constructor(@InjectRepository(ProductEntity) private readonly productRepository: Repository<ProductEntity>) { }
 
   async createAPI(files: Array<Express.Multer.File>, createProductInput: CreateProductInput): Promise<ProductEntity> {
     // console.log('file', file);
@@ -31,14 +31,15 @@ export class ProductService {
           main_image = fileName
         }
       }
-      if(createProductInput.main_image_index == -1){
+      if (createProductInput.main_image_index == -1) {
         main_image = fileNames[0]
       }
     }
-  
-    const prepareProduct = { ...createProductInput,
-      brand: createProductInput.brand_id ? {id: createProductInput.brand_id} : null,
-      catalog: createProductInput.catalog_id ? {id: createProductInput.catalog_id} : null,
+
+    const prepareProduct = {
+      ...createProductInput,
+      brand: createProductInput.brand_id ? { id: createProductInput.brand_id } : null,
+      catalog: createProductInput.catalog_id ? { id: createProductInput.catalog_id } : null,
       main_image, filenames_images: fileNames
     }
     delete prepareProduct.main_image_index
@@ -49,14 +50,15 @@ export class ProductService {
 
     // console.log(newProduct);
 
-    return newProduct 
+    return newProduct
   }
 
   async createNoFiles(createProductInput: CreateProductInput): Promise<ProductEntity> {
-    return await this.productRepository.save({...createProductInput,
+    return await this.productRepository.save({
+      ...createProductInput,
       slug: createProductInput.slug ? createProductInput.slug : getSlug(createProductInput.name),
-      brand: createProductInput.brand_id ? {id: createProductInput.brand_id} : null,
-      catalog: createProductInput.catalog_id ? {id: createProductInput.catalog_id} : null    
+      brand: createProductInput.brand_id ? { id: createProductInput.brand_id } : null,
+      catalog: createProductInput.catalog_id ? { id: createProductInput.catalog_id } : null
     })
   }
 
@@ -68,6 +70,41 @@ export class ProductService {
         catalog: true
       }
     })
+  }
+
+  async findByFilter(filter: any): Promise<ProductEntity[]> {
+    const diametrFlavor = filter.diametrFlavor.values.filter((item) => item.value == 1).map((item) => item.name)
+    const heightFlavor = filter.heightFlavor.values.filter((item) => item.value == 1).map((item) => item.name)
+    console.log('filter.price.valueMin', filter.price.valueMin);
+    console.log('filter.price.valueMax', filter.price.valueMax);
+
+    const pr = await this.productRepository.find({
+      relations: {
+        brand: true,
+        catalog: true
+      },
+      where: {
+        price: Between(filter.price.valueMin, filter.price.valueMax),
+        filters: [
+          // {
+          //   name: 'Цвета',
+          //   value: filter.activeColor?.name
+          // },
+          // {
+          //   name: 'Диаметр букета',
+          //   // Any выбирает из массива
+          //   value: Any(diametrFlavor)
+          // },
+          // {
+          //   name: 'Высота букета',
+          //   value: Any(heightFlavor)
+          // },
+        ]
+      }
+    })
+    console.log(pr);
+
+    return pr
   }
 
   async findAllBySort(sortProductInput: SortProductInput): Promise<ProductEntity[]> {
@@ -84,7 +121,7 @@ export class ProductService {
 
   async findOne(id: number): Promise<ProductEntity> {
     console.log('qqqqqqqqqqqiddd', id);
-    
+
     return this.productRepository.findOne({
       where:
         { id },
@@ -100,10 +137,10 @@ export class ProductService {
     const minPrice = Math.min(...products.map(item => item.price))
     const maxPrice = Math.max(...products.map(item => item.price))
 
-    console.log({minPrice, maxPrice});
-    
+    console.log({ minPrice, maxPrice });
 
-    return {minPrice, maxPrice}
+
+    return { minPrice, maxPrice }
     // return 'aaaaa'
   }
 

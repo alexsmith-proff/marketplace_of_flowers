@@ -13,10 +13,15 @@ export class ProductController {
     return this.productService.createAPI(files, createProductInput)
   }
 
+  @Post('filter')
+  async findByFilter(@Body() filterProduct: any){
+    console.log('fffffff', filterProduct);
+    return await this.productService.findByFilter(filterProduct)
+  }
+
   @Get('minmaxprice')
   findMinMaxPrice(){
     return this.productService.findMinMaxPrice()
-    // return 'this.productService.findMinMaxPrice()'
   }
 
   @Get(':id')
