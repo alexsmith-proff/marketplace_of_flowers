@@ -10,10 +10,10 @@ import { IFilter, IFilterActiveColor, IFilterContext, IFilterData, IFilterElemen
 
 import { getFilterElementFromFilterBySlug } from "../../services/core/parse"
 
-import s from './Filter.module.scss'
 import FilterShowBtn from "../Elements/Buttons/FilterShowBtn/FilterShowBtn"
 import { FilterDataType } from "../../enums/Filter.enum"
 
+import s from './Filter.module.scss'
 
 interface FilterProps {
     filterMinMaxPrice: IProductMinMaxPrice
@@ -65,7 +65,7 @@ const Filter: FC<FilterProps> = ({ filterMinMaxPrice, filter, getProductsByFilte
     }
 
     useEffect(() => {
-        setShowBtn({...showBtn, isVisible: true})
+        setShowBtn({ ...showBtn, isVisible: true })
     }, [activeColor, diametrFlavor, heightFlavor, composition, purpose])
 
     // Перевод фильтров в дефолтное состояние
@@ -83,55 +83,55 @@ const Filter: FC<FilterProps> = ({ filterMinMaxPrice, filter, getProductsByFilte
     // Обработчик нажатия на кнопку "Показать"
     const handleShowBtn = () => {
         const filterData: IFilterData[] = []
-        
-        if(value.price) filterData.push({
+
+        if (value.price) filterData.push({
             type: FilterDataType.PriceMinMax,
             nameFilter: 'Цена',
             values: [String(value.price.valueMin), String(value.price.valueMax)]
         })
 
-        if(value.activeColor) filterData.push({
+        if (value.activeColor) filterData.push({
             type: FilterDataType.OneData,
             nameFilter: 'Цвета',
             values: [value.activeColor.name]
         })
 
         const diametrFlavor = value.diametrFlavor.values.filter(item => +item.value == 1)
-        if(diametrFlavor.length > 0) {
+        if (diametrFlavor.length > 0) {
             filterData.push({
-                    type: FilterDataType.ManyData,
-                    nameFilter: value.diametrFlavor.name,
-                    values: diametrFlavor.map(item => item.name)
-                })
+                type: FilterDataType.ManyData,
+                nameFilter: value.diametrFlavor.name,
+                values: diametrFlavor.map(item => item.name)
+            })
         }
 
         const heightFlavor = value.heightFlavor.values.filter(item => +item.value == 1)
-        if(heightFlavor.length > 0) {
+        if (heightFlavor.length > 0) {
             filterData.push({
-                    type: FilterDataType.ManyData,
-                    nameFilter: value.heightFlavor.name,
-                    values: heightFlavor.map(item => item.name)
-                })
+                type: FilterDataType.ManyData,
+                nameFilter: value.heightFlavor.name,
+                values: heightFlavor.map(item => item.name)
+            })
         }
 
         const purpose = value.purpose.values.filter(item => +item.value == 1)
-        if(purpose.length > 0) {
+        if (purpose.length > 0) {
             filterData.push({
-                    type: FilterDataType.ManyData,
-                    nameFilter: value.purpose.name,
-                    values: purpose.map(item => item.name)
-                })
+                type: FilterDataType.ManyData,
+                nameFilter: value.purpose.name,
+                values: purpose.map(item => item.name)
+            })
         }
 
         getProductsByFilter(filterData)
-        
-        setShowBtn({...showBtn, isVisible: false})
+
+        setShowBtn({ ...showBtn, isVisible: false })
     }
 
 
     return (
-        <div className="container">
-            <div className={s.wrap}>
+        <div className={s.wrap}>
+            <div className={s.filter}>
                 <FilterContext.Provider value={value}>
                     <FilterPrice />
                     <FilterColor />

@@ -10,8 +10,8 @@ import BreadCrumbs from '../../components/BreadCrumbs/BreadCrumbs'
 import { IBreadCrumbs } from '../../interfaces/breadCrumbs.interface'
 import { getBreadCrumbsFromCatalog } from '../../services/core/parse'
 import { IProductMinMaxPrice } from '../../interfaces/products.interface'
-import Filter from '../../components/Filter/Filter'
 import { IFilter, IFilterData } from '../../interfaces/filter.interface'
+import Catalog from '../../components/Catalog/Catalog'
 
 
 interface IndexProps {
@@ -29,12 +29,6 @@ interface IndexProps {
 }
 
 const Index: FC<IndexProps> = ({ topMenu, headerMenu, breadCrumbsArr, minMaxPriceProduct, filter, catalogSeo, footerMenu, catalogCards, footerMenuInfo, footerMenuCoordinates, footerMenuEmail }) => {
-
-    const handleGetProductsByFilter = async (FilterData: IFilterData[]) => {
-        console.log('FFFFilterData', FilterData);
-        const products = await GetProductsByFilterData(FilterData)
-        console.log('pppppproducts', products);
-    }
     
     return (
         <div>
@@ -42,7 +36,9 @@ const Index: FC<IndexProps> = ({ topMenu, headerMenu, breadCrumbsArr, minMaxPric
                 <BreadCrumbs breadCrumbsArr={breadCrumbsArr} />
                 <CatalogCards title={catalogCards.title} catalogCards={catalogCards.cards} />
 
-                <Filter filterMinMaxPrice={minMaxPriceProduct} filter={filter} getProductsByFilter={handleGetProductsByFilter} />
+                <Catalog filter={filter} minMaxPriceProduct={minMaxPriceProduct} />
+
+                
 
                 <CatalogSeo catalogSeoSection={catalogSeo} />
             </MainLayout>
