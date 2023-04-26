@@ -12,12 +12,13 @@ import { getFilterElementFromFilterBySlug } from "../../services/core/parse"
 
 import s from './Filter.module.scss'
 import FilterShowBtn from "../Elements/Buttons/FilterShowBtn/FilterShowBtn"
+import { FilterDataType } from "../../enums/Filter.enum"
 
 
 interface FilterProps {
     filterMinMaxPrice: IProductMinMaxPrice
     filter: IFilter
-    getProductsByFilter: (FilterData: IFilterData) => void
+    getProductsByFilter: (FilterData: IFilterData[]) => void
 }
 const FilterInit = (filter: IFilter, slug: string) => {
     const f = getFilterElementFromFilterBySlug(filter, slug)
@@ -81,15 +82,66 @@ const Filter: FC<FilterProps> = ({ filterMinMaxPrice, filter, getProductsByFilte
 
     // Обработчик нажатия на кнопку "Показать"
     const handleShowBtn = () => {
-        getProductsByFilter({
-            price: value.price,
-            activeColor: value.activeColor,
-            diametrFlavor: value.diametrFlavor,
-            heightFlavor: value.heightFlavor,
-            composition: value.composition,
-            purpose: value.purpose
-
+        const filterData: IFilterData[] = []
+        
+        if(value.price) filterData.push({
+            type: FilterDataType.PriceMinMax,
+            nameFilter: 'Цена',
+            values: [String(value.price.valueMin), String(value.price.valueMax)]
         })
+
+        if(value.activeColor) filterData.push({
+            type: FilterDataType.OneData,
+            nameFilter: 'Цвета',
+            values: [value.activeColor.name]
+        })
+
+        const diametrFlavor = value.diametrFlavor.values.filter(item => +item.value == 1)
+        if(diametrFlavor.length > 0) {
+            filterData.push({
+                    type: FilterDataType.ManyData,
+                    nameFilter: value.diametrFlavor.name,
+                    values: diametrFlavor.map(item => item.name)
+                })
+        }
+
+        const heightFlavor = value.heightFlavor.values.filter(item => +item.value == 1)
+        if(heightFlavor.length > 0) {
+            filterData.push({
+                    type: FilterDataType.ManyData,
+                    nameFilter: value.heightFlavor.name,
+                    values: heightFlavor.map(item => item.name)
+                })
+        }
+
+        const purpose = value.purpose.values.filter(item => +item.value == 1)
+        if(purpose.length > 0) {
+            filterData.push({
+                    type: FilterDataType.ManyData,
+                    nameFilter: value.purpose.name,
+                    values: purpose.map(item => item.name)
+                })
+        }
+
+
+
+
+        // if(value.diametrFlavor.values.some(item => +item.value == 1)) filterData.push({
+        //     type: FilterDataType.ManyData,
+        //     nameFilter: 'Диаметр букета',
+        //     values: [...value.diametrFlavor.values.filter(item => +item.value == 1).name]
+        // })
+        getProductsByFilter(filterData)
+        
+        // getProductsByFilter({
+        //     price: value.price,
+        //     activeColor: value.activeColor,
+        //     diametrFlavor: value.diametrFlavor,
+        //     heightFlavor: value.heightFlavor,
+        //     composition: value.composition,
+        //     purpose: value.purpose
+
+        // })
         setShowBtn({...showBtn, isVisible: false})
     }
 

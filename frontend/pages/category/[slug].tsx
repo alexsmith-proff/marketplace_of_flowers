@@ -30,7 +30,7 @@ interface IndexProps {
 
 const Index: FC<IndexProps> = ({ topMenu, headerMenu, breadCrumbsArr, minMaxPriceProduct, filter, catalogSeo, footerMenu, catalogCards, footerMenuInfo, footerMenuCoordinates, footerMenuEmail }) => {
 
-    const handleGetProductsByFilter = async (FilterData: IFilterData) => {
+    const handleGetProductsByFilter = async (FilterData: IFilterData[]) => {
         console.log('FFFFilterData', FilterData);
         const products = await GetProductsByFilterData(FilterData)
         console.log('pppppproducts', products);

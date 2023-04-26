@@ -9,6 +9,8 @@ import { SortProductInput } from './dto/sort-product.input';
 import { UpdateProductRelationsInput } from './dto/update-product-relations.input';
 import { UpdateProductInput } from './dto/update-product.input';
 import { ProductEntity } from './entities/product.entity';
+import { IFilterData } from 'src/interfaces/filter.interface';
+import { FilterDataType } from 'src/enums/filter.enums';
 
 let getSlug = require('speakingurl')
 
@@ -72,37 +74,63 @@ export class ProductService {
     })
   }
 
-  async findByFilter(filter: any): Promise<ProductEntity[]> {
-    const diametrFlavor = filter.diametrFlavor.values.filter((item) => item.value == 1).map((item) => item.name)
-    const heightFlavor = filter.heightFlavor.values.filter((item) => item.value == 1).map((item) => item.name)
-    console.log('filter.price.valueMin', filter.price.valueMin);
-    console.log('filter.price.valueMax', filter.price.valueMax);
+  async findByFilter(filter: IFilterData[]): Promise<ProductEntity[]> {
+    // console.log('filter', filter);
+
+    let filterData = {}
+    filter.map(item => {
+      if(item.type == FilterDataType.priceMinMax){
+        filterData = {price: Between(item.values[0], item.values[1]) }
+      }
+    })
+    filterData = {...filterData, filters: [...filter.map(item => {
+      switch(item.type){
+        case FilterDataType.OneData:
+          return {name: item.nameFilter, value: item.values[0]}
+          break
+        case FilterDataType.ManyData:
+          // Any выбирает из массива
+          return { name: item.nameFilter, value: Any(item.values) }  
+          break
+      }
+
+      })
+    ]
+    }
+    
+ 
+    console.log('ffffffffffffff', filterData);
+    
+
+
 
     const pr = await this.productRepository.find({
       relations: {
         brand: true,
         catalog: true
       },
-      where: {
-        price: Between(filter.price.valueMin, filter.price.valueMax),
-        filters: [
-          // {
-          //   name: 'Цвета',
-          //   value: filter.activeColor?.name
-          // },
-          // {
-          //   name: 'Диаметр букета',
-          //   // Any выбирает из массива
-          //   value: Any(diametrFlavor)
-          // },
-          // {
-          //   name: 'Высота букета',
-          //   value: Any(heightFlavor)
-          // },
-        ]
-      }
+      where: filterData
+      
+      // where: {
+      //   price: Between(filter.price.valueMin, filter.price.valueMax),
+      //   filters: [
+      //     // {
+      //     //   name: 'Цвета',
+      //     //   value: filter.activeColor?.name
+      //     // },
+      //     // {
+      //     //   name: 'Диаметр букета',
+      //     //   // Any выбирает из массива
+      //     //   value: Any(diametrFlavor)
+      //     // },
+      //     // {
+      //     //   name: 'Высота букета',
+      //     //   value: Any(heightFlavor)
+      //     // },
+      //   ]
+      // }
     })
-    console.log(pr);
+    // console.log(pr);
 
     return pr
   }

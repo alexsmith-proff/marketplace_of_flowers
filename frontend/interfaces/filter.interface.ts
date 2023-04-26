@@ -1,3 +1,5 @@
+import { FilterDataType } from "../enums/Filter.enum";
+
 interface IBase {
   id: number;
   name: string;
@@ -62,10 +64,13 @@ export interface IFilterContext {
 }
 
 export interface IFilterData {
-  price: IFilterPrice
-  activeColor: IFilterActiveColor  
-  diametrFlavor: IFilterElement
-  heightFlavor: IFilterElement
-  composition: IFilterElement
-  purpose: IFilterElement
+  type: FilterDataType
+  nameFilter: string
+  values: string[]
+  // price: IFilterPrice
+  // activeColor: IFilterActiveColor  
+  // diametrFlavor: IFilterElement
+  // heightFlavor: IFilterElement
+  // composition: IFilterElement
+  // purpose: IFilterElement
 }

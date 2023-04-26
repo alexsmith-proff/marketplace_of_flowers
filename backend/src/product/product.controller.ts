@@ -15,7 +15,6 @@ export class ProductController {
 
   @Post('filter')
   async findByFilter(@Body() filterProduct: any){
-    console.log('fffffff', filterProduct);
     return await this.productService.findByFilter(filterProduct)
   }
 

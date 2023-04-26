@@ -128,7 +128,7 @@ export const GetMinMaxPriceProduct = async() => {
   return dataQuery  
 }
 
-export const GetProductsByFilterData = async(filterData: IFilterData) => {
+export const GetProductsByFilterData = async(filterData: IFilterData[]) => {
   let dataQuery = null
   try {
     dataQuery = await allEndPoints.product.getByFilter(filterData)
