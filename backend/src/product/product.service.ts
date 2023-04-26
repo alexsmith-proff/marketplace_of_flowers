@@ -79,60 +79,35 @@ export class ProductService {
 
     let filterData = {}
     filter.map(item => {
-      if(item.type == FilterDataType.priceMinMax){
-        filterData = {price: Between(item.values[0], item.values[1]) }
+      if (item.type == FilterDataType.priceMinMax) {
+        filterData = { price: Between(item.values[0], item.values[1]) }
       }
     })
-    filterData = {...filterData, filters: [...filter.map(item => {
-      switch(item.type){
-        case FilterDataType.OneData:
-          return {name: item.nameFilter, value: item.values[0]}
-          break
-        case FilterDataType.ManyData:
-          // Any выбирает из массива
-          return { name: item.nameFilter, value: Any(item.values) }  
-          break
-      }
+    filterData = {
+      ...filterData, filters: [...filter.map(item => {
+        switch (item.type) {
+          case FilterDataType.OneData:
+            return { name: item.nameFilter, value: item.values[0] }
+            break
+          case FilterDataType.ManyData:
+            // Any выбирает из массива
+            return { name: item.nameFilter, value: Any(item.values) }
+            break
+        }
 
       })
-    ]
+      ]
     }
-    
- 
-    console.log('ffffffffffffff', filterData);
-    
 
+    // console.log('filterData', filterData);
 
-
-    const pr = await this.productRepository.find({
+    return await this.productRepository.find({
       relations: {
         brand: true,
         catalog: true
       },
       where: filterData
-      
-      // where: {
-      //   price: Between(filter.price.valueMin, filter.price.valueMax),
-      //   filters: [
-      //     // {
-      //     //   name: 'Цвета',
-      //     //   value: filter.activeColor?.name
-      //     // },
-      //     // {
-      //     //   name: 'Диаметр букета',
-      //     //   // Any выбирает из массива
-      //     //   value: Any(diametrFlavor)
-      //     // },
-      //     // {
-      //     //   name: 'Высота букета',
-      //     //   value: Any(heightFlavor)
-      //     // },
-      //   ]
-      // }
     })
-    // console.log(pr);
-
-    return pr
   }
 
   async findAllBySort(sortProductInput: SortProductInput): Promise<ProductEntity[]> {

@@ -123,25 +123,8 @@ const Filter: FC<FilterProps> = ({ filterMinMaxPrice, filter, getProductsByFilte
                 })
         }
 
-
-
-
-        // if(value.diametrFlavor.values.some(item => +item.value == 1)) filterData.push({
-        //     type: FilterDataType.ManyData,
-        //     nameFilter: 'Диаметр букета',
-        //     values: [...value.diametrFlavor.values.filter(item => +item.value == 1).name]
-        // })
         getProductsByFilter(filterData)
         
-        // getProductsByFilter({
-        //     price: value.price,
-        //     activeColor: value.activeColor,
-        //     diametrFlavor: value.diametrFlavor,
-        //     heightFlavor: value.heightFlavor,
-        //     composition: value.composition,
-        //     purpose: value.purpose
-
-        // })
         setShowBtn({...showBtn, isVisible: false})
     }
 
