@@ -1,0 +1,29 @@
+.product {
+    background: #FFFFFF;
+    border: 1px solid #E2E4EB;
+    border-radius: 5px 5px 0 0;
+}
+.imgWrap{
+    border-radius: 50px;
+}
+.img{
+    border-radius: 5px 5px 0 0;
+}
+
+.title {
+    font-family: 'TT Norms';
+    font-style: normal;
+    font-weight: bold;
+    font-size: 16px;
+    line-height: 22px;
+    color: #222A46;
+    padding: 15px;
+}
+
+.subtitle {
+    display: flex;
+    justify-content: space-between;
+    padding: 0 15px;
+    margin-bottom: 15px;
+
+}

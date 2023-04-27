@@ -1,0 +1,18 @@
+.wrap {
+    display: flex;
+    // justify-content: space-between;
+    align-items: center;
+}
+
+.text {
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 20px;
+
+    color: #353949;
+    margin-left: 5px;
+    span{
+        font-weight: bold;        
+    }
+}

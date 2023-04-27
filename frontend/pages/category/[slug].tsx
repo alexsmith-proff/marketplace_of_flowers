@@ -37,9 +37,7 @@ const Index: FC<IndexProps> = ({ topMenu, headerMenu, breadCrumbsArr, minMaxPric
                 <CatalogCards title={catalogCards.title} catalogCards={catalogCards.cards} />
 
                 <Catalog filter={filter} minMaxPriceProduct={minMaxPriceProduct} />
-
                 
-
                 <CatalogSeo catalogSeoSection={catalogSeo} />
             </MainLayout>
         </div >

@@ -65,21 +65,6 @@
         align-items: center;
     }
 
-    &__actualPrice {
-        font-weight: 700;
-        font-size: 16px;
-        line-height: 22px;
-        color: #222A46;
-    }
-
-    &__crossPrice {
-        font-weight: 400;
-        font-size: 14px;
-        line-height: 20px;
-        text-decoration-line: line-through;
-        color: #B0B2B9;
-    }
-
     &__cartBtn {
         display: flex;
         align-items: center;

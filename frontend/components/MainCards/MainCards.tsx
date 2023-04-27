@@ -7,6 +7,7 @@ import Slider, { Settings } from "react-slick";
 import s from './MainCards.module.scss'
 import { ISection } from '../../interfaces/section.interface';
 import { getFileNameInImgBlockFromElement, getTextInTextBlockFromElement } from '../../services/core/parse';
+import CardPrice from '../Elements/CardPrice/CardPrice';
 
 interface MainCardsProps {
     mainCardSection: ISection
@@ -47,10 +48,7 @@ const MainCards: FC<MainCardsProps> = ({ mainCardSection }) => {
                                                 <div className={s.mainCards__subtitle}>{getTextInTextBlockFromElement(el, 'desc')}</div>
                                             </div>
                                             <div className={s.mainCards__priceCart}>
-                                                <div className={s.mainCards__price}>
-                                                    <div className={s.mainCards__actualPrice}>{getTextInTextBlockFromElement(el, 'cena')}</div>
-                                                    <div className={s.mainCards__crossPrice}>{getTextInTextBlockFromElement(el, 'staraya-cena')}</div>
-                                                </div>
+                                                <CardPrice actualPrice={getTextInTextBlockFromElement(el, 'cena')} crossPrice={getTextInTextBlockFromElement(el, 'staraya-cena')} />
                                                 <a href="#">
                                                     <div className={s.mainCards__cartBtn}>
                                                         <img className={s.cartBtn__ico} src="img/cart-ico.png" alt="cart-ico" />
