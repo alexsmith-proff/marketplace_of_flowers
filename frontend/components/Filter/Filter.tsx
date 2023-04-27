@@ -7,11 +7,9 @@ import FilterComposition from "./FilterComposition/FilterComposition"
 import FilterPurpose from "./FilterPurpose/FilterPurpose"
 import { IProductMinMaxPrice } from "../../interfaces/products.interface"
 import { IFilter, IFilterActiveColor, IFilterContext, IFilterData, IFilterElement, IFilterPrice, IShowFilterButton } from "../../interfaces/filter.interface"
-
 import { getFilterElementFromFilterBySlug } from "../../services/core/parse"
-
-import FilterShowBtn from "../Elements/Buttons/FilterShowBtn/FilterShowBtn"
 import { FilterDataType } from "../../enums/Filter.enum"
+import FilterBtn from "../Elements/Buttons/FilterBtn/FilterBtn"
 
 import s from './Filter.module.scss'
 
@@ -138,10 +136,15 @@ const Filter: FC<FilterProps> = ({ filterMinMaxPrice, filter, getProductsByFilte
                     <FilterSize />
                     <FilterComposition />
                     <FilterPurpose />
-                    <FilterShowBtn visible={showBtn.isVisible} onClick={handleShowBtn}>Показать</FilterShowBtn>
+                    {/* <FilterBtn staticBtn={false} dark={false} visible={showBtn.isVisible} onClick={handleShowBtn}>Показать</FilterBtn> */}
                 </FilterContext.Provider>
             </div>
-            <div className={s.button} onClick={handleClearFilter}>Очистить фильтры</div>
+            <div className={s.clearBtn}>
+                <FilterBtn staticBtn={true} dark={false} visible={true} onClick={handleClearFilter}>Очистить фильтры</FilterBtn>
+            </div>
+            <div className={s.showBtn}>
+                <FilterBtn staticBtn={true} dark={true} visible={true} onClick={handleShowBtn}>Показать</FilterBtn>
+            </div>
         </div>
     )
 }
