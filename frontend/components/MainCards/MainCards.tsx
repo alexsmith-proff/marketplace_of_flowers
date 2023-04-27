@@ -8,6 +8,7 @@ import s from './MainCards.module.scss'
 import { ISection } from '../../interfaces/section.interface';
 import { getFileNameInImgBlockFromElement, getTextInTextBlockFromElement } from '../../services/core/parse';
 import CardPrice from '../Elements/CardPrice/CardPrice';
+import ToCartBtn from '../Elements/Buttons/ToCartBtn/ToCartBtn';
 
 interface MainCardsProps {
     mainCardSection: ISection
@@ -49,12 +50,7 @@ const MainCards: FC<MainCardsProps> = ({ mainCardSection }) => {
                                             </div>
                                             <div className={s.mainCards__priceCart}>
                                                 <CardPrice actualPrice={getTextInTextBlockFromElement(el, 'cena')} crossPrice={getTextInTextBlockFromElement(el, 'staraya-cena')} />
-                                                <a href="#">
-                                                    <div className={s.mainCards__cartBtn}>
-                                                        <img className={s.cartBtn__ico} src="img/cart-ico.png" alt="cart-ico" />
-                                                        <div className={s.cartBtn__text}>В корзину</div>
-                                                    </div>
-                                                </a>
+                                                <ToCartBtn dark={false} />
                                             </div>
                                         </div>
                                     </div>

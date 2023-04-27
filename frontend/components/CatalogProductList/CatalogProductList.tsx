@@ -12,7 +12,7 @@ const CatalogProductList: FC<CatalogProductListProps> = ({ products }) => {
     return (
         <ul className={s.list}>
             {
-                products.map(item => <CatalogProduct product={item} key={item.id} />)
+                products?.map(item => <CatalogProduct product={item} key={item.id} />)
             }
         </ul>
     )

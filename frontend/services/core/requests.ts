@@ -138,6 +138,16 @@ export const GetProductsByFilterData = async(filterData: IFilterData[]) => {
   return dataQuery  
 }
 
+export const GetProductsAll = async() => {
+  let dataQuery = null
+  try {
+    dataQuery = await allEndPoints.product.getAll()
+  } catch (error) {
+    console.log('error', error);
+  }
+  return dataQuery  
+}
+
 ///////////////////////////////////////
 // Filter
 ///////////////////////////////////////

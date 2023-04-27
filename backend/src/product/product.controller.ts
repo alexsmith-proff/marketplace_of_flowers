@@ -13,6 +13,11 @@ export class ProductController {
     return this.productService.createAPI(files, createProductInput)
   }
 
+  @Get('all')
+  async findByAll(){
+    return await this.productService.findAll()
+  }
+
   @Post('filter')
   async findByFilter(@Body() filterProduct: any){
     return await this.productService.findByFilter(filterProduct)

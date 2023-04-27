@@ -1,9 +1,8 @@
-import { FC, useState } from "react";
+import { FC, useEffect, useState } from "react";
 import Filter from "../Filter/Filter";
 import { IFilter, IFilterData } from "../../interfaces/filter.interface";
-import { GetProductsByFilterData } from "../../services/core/requests";
+import { GetProductsAll, GetProductsByFilterData } from "../../services/core/requests";
 import { IProductMinMaxPrice } from "../../interfaces/products.interface";
-import CatalogProducts from "../CatalogProductList/CatalogProductList";
 
 import s from './Catalog.module.scss'
 import CatalogProductList from "../CatalogProductList/CatalogProductList";
@@ -16,6 +15,16 @@ interface CatalogProps {
 
 const Catalog: FC<CatalogProps> = ({ filter, minMaxPriceProduct }) => {
     const [products, setProducts] = useState<ICatalogProduct[]>([])
+
+    useEffect(() => {
+        const fetchData = async () => {
+            console.log(GetProductsAll());
+            
+            setProducts(await GetProductsAll())
+        }
+        fetchData()
+    }, [])
+
 
     const handleGetProductsByFilter = async (FilterData: IFilterData[]) => {
         console.log('FFFFilterData', FilterData);

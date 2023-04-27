@@ -64,28 +64,4 @@
         justify-content: space-between;
         align-items: center;
     }
-
-    &__cartBtn {
-        display: flex;
-        align-items: center;
-        padding: 8px 14px;
-        background: #E2195B;
-        border-radius: 5px;
-    }
-}
-
-.cartBtn {
-    &__ico {
-        margin-right: 13px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        transform: translateY(3px);
-    }
-
-    &__text {
-        font-size: 14px;
-        line-height: 20px;
-        color: #FFFFFF;
-    }
 }

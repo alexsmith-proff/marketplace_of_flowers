@@ -1,13 +1,22 @@
 .product {
+    max-width: 278px;
+    // max-height: 440px;
+    height: 100%;
     background: #FFFFFF;
     border: 1px solid #E2E4EB;
     border-radius: 5px 5px 0 0;
 }
-.imgWrap{
+
+.imgWrap {
     border-radius: 50px;
 }
-.img{
+
+.img {
     border-radius: 5px 5px 0 0;
+}
+
+.content {
+    padding: 0 15px 20px;
 }
 
 .title {
@@ -17,13 +26,19 @@
     font-size: 16px;
     line-height: 22px;
     color: #222A46;
-    padding: 15px;
+    padding: 15px 0 15px;
 }
 
 .subtitle {
     display: flex;
     justify-content: space-between;
-    padding: 0 15px;
+    padding: 0;
     margin-bottom: 15px;
 
+}
+
+.down {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
