@@ -84,7 +84,7 @@ const WindowCreateProduct: FC<WindowCreateProductProps> = ({ name, slug, createP
 
     const handleCloseWindow = (e) => {
         if (e.target === windowRef.current) {
-            closeWindow()
+            // closeWindow()
         }
     }
 

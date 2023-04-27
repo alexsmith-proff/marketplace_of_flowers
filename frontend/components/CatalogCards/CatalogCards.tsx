@@ -20,7 +20,7 @@ const CatalogCards: React.FC<CatalogCardsProps> = ({ title, catalogCards }) => {
                     {
                         catalogCards.map((catalogCard) => (
                             <li className={s.card} key={catalogCard.id}>
-                                <Image className={s.img} src={process.env.API_URI_DOCKER + '/' + catalogCard.filenames_images[0]} width={218} height={160} />
+                                <Image className={s.img} objectFit="cover" src={process.env.API_URI_DOCKER + '/' + catalogCard.filenames_images[0]} width={218} height={160} />
                                 <h3 className={s.cartTitle}>{catalogCard.name}</h3>
                             </li>
                         )

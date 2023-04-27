@@ -49,11 +49,6 @@ export interface IPreviewProductImage {
   isMainPhoto?: boolean
 }
 
-export interface IProductFilter extends IBase {
-  slug: string,
-  values: IFilterValue,
-}
-
 export interface IProductFilterRowTable {
   filterElementName: string,
   filterValueName: string,
@@ -65,7 +60,26 @@ export interface IProductFilterRowTable {
   hover: boolean,
 }
 
+export interface IProduct extends IBase {
+  slug: string,
+  price: number,
+  count_in_stock: number,
+  vendor_code: string,
+  main_image: string,  
+  filenames_images: string[],
+  brand: IBrand,
+  catalog: ICatalog,
+  filters: IProductFilter[],
+  createdAt: Date,
+  updatedAt: Date,
+}
+
 export interface IProductMinMaxPrice {
   minPrice: number,
   maxPrice: number
+}
+
+export interface IProductFilter extends IBase {
+  slug: string,
+  values: IFilterValue,
 }
