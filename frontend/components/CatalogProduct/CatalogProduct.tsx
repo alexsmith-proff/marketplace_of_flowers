@@ -26,6 +26,8 @@ const CatalogProduct: FC<CatalogProductProps> = ({ product }) => {
         e.stopPropagation()
         //Добавление товара в корзину
     }
+    console.log('CatalogProduct');
+    
 
     return (
         <li className={s.product} onClick={() => handleClickProduct(product.id)}>

@@ -2,6 +2,7 @@ import { FC, useState } from "react";
 import { BsFillBasket3Fill } from 'react-icons/bs';
 
 import s from './ToCartBtn.module.scss'
+import { log } from "console";
 
 interface ToCartBtnProps {
     dark?: boolean

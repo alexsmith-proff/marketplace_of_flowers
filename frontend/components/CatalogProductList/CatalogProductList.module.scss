@@ -1,6 +1,15 @@
-.list{
+.wrap {
     width: 100%;
     margin-left: 20px;
+}
+
+.sorting{
+    display: flex;
+    justify-content: end;
+    padding: 15px 0;
+}
+
+.list {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
     grid-gap: 20px;

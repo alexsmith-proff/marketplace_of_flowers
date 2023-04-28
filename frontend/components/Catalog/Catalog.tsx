@@ -7,6 +7,7 @@ import { IProductMinMaxPrice } from "../../interfaces/products.interface";
 import s from './Catalog.module.scss'
 import CatalogProductList from "../CatalogProductList/CatalogProductList";
 import { ICatalogProduct } from "../../interfaces/catalog.interface";
+import { SortingsList } from "../../constants/sorting.conts";
 
 interface CatalogProps {
     filter: IFilter
@@ -15,6 +16,7 @@ interface CatalogProps {
 
 const Catalog: FC<CatalogProps> = ({ filter, minMaxPriceProduct }) => {
     const [products, setProducts] = useState<ICatalogProduct[]>([])
+    const [sortItem, setSortItem] = useState<string>(SortingsList[0])
 
     useEffect(() => {
         const fetchData = async () => {
@@ -36,7 +38,7 @@ const Catalog: FC<CatalogProps> = ({ filter, minMaxPriceProduct }) => {
         <div className="container">
             <div className={s.wrap}>
                 <Filter filterMinMaxPrice={minMaxPriceProduct} filter={filter} getProductsByFilter={handleGetProductsByFilter} />
-                <CatalogProductList products={products} />
+                <CatalogProductList sortItem={sortItem} setSortItem={setSortItem} products={products} />
             </div>
 
         </div>
