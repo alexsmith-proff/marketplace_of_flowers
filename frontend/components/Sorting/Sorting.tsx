@@ -8,6 +8,10 @@ type SortingProps = {
     setSortItem: (sort: string) => void
 }
 const Sorting: FC<SortingProps> = ({ sortItem, setSortItem }) => {
+
+    console.log('Sorting')
+
+    
     return (
         <div className={s.wrap}>
             <span className={s.text}>Сортировать: </span>

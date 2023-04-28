@@ -8,6 +8,7 @@ import s from './Catalog.module.scss'
 import CatalogProductList from "../CatalogProductList/CatalogProductList";
 import { ICatalogProduct } from "../../interfaces/catalog.interface";
 import { SortingsList } from "../../constants/sorting.conts";
+import CatalogProductContent from "./CatalogProductContent/CatalogProductContent";
 
 interface CatalogProps {
     filter: IFilter
@@ -38,7 +39,7 @@ const Catalog: FC<CatalogProps> = ({ filter, minMaxPriceProduct }) => {
         <div className="container">
             <div className={s.wrap}>
                 <Filter filterMinMaxPrice={minMaxPriceProduct} filter={filter} getProductsByFilter={handleGetProductsByFilter} />
-                <CatalogProductList sortItem={sortItem} setSortItem={setSortItem} products={products} />
+                <CatalogProductContent sortItem={sortItem} setSortItem={setSortItem} products={products} />
             </div>
 
         </div>
