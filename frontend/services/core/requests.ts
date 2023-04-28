@@ -3,7 +3,7 @@ import client from '../../util/apollo-client'
 import { GET_IMG_BY_SLUG, GET_TEXTBLOCK_BY_SLUG } from "../../graphql/section.graphql";
 import allEndPoints from '../api/api';
 import { ICatalog } from '../../interfaces/catalog.interface';
-import { IFilterData } from '../../interfaces/filter.interface';
+import { IFilterData, IFilterOrderData } from '../../interfaces/filter.interface';
 
 // export const GetSection = async (slug: string) => {
 //   let dataQuery = null
@@ -148,7 +148,7 @@ export const GetProductsById = async(id) => {
   return dataQuery  
 }
 
-export const GetProductsByFilterData = async(filterData: IFilterData[]) => {
+export const GetProductsByFilterData = async(filterData: IFilterOrderData) => {
   let dataQuery = null
   try {
     dataQuery = await allEndPoints.product.getByFilter(filterData)

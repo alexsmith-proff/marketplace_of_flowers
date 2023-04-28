@@ -1,16 +1,15 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { CreateProductFilterInput } from 'src/product-filter/dto/create-product-filter.input';
-import { ProductFilterEntity } from 'src/product-filter/entities/product-filter.entity';
 import { createFile } from 'src/util/file';
-import { Any, Between, Repository } from 'typeorm';
+import { Any, ArrayContainedBy, ArrayContains, ArrayOverlap, Between, DataSource, In, Raw, Repository } from 'typeorm';
 import { CreateProductInput } from './dto/create-product.input';
 import { SortProductInput } from './dto/sort-product.input';
 import { UpdateProductRelationsInput } from './dto/update-product-relations.input';
 import { UpdateProductInput } from './dto/update-product.input';
 import { ProductEntity } from './entities/product.entity';
-import { IFilterData } from 'src/interfaces/filter.interface';
+import { IFilterOderData } from 'src/interfaces/filter.interface';
 import { FilterDataType } from 'src/enums/filter.enums';
+
 
 let getSlug = require('speakingurl')
 
@@ -74,17 +73,15 @@ export class ProductService {
     })
   }
 
-  async findByFilter(filter: IFilterData[]): Promise<ProductEntity[]> {
-    // console.log('filter', filter);
-
+  async findByFilter(filter: IFilterOderData): Promise<ProductEntity[]> {
     let filterData = {}
-    filter.map(item => {
+    filter.filters.map(item => {
       if (item.type == FilterDataType.priceMinMax) {
         filterData = { price: Between(item.values[0], item.values[1]) }
       }
     })
     filterData = {
-      ...filterData, filters: [...filter.map(item => {
+      ...filterData, filters: [...filter.filters.map(item => {
         switch (item.type) {
           case FilterDataType.OneData:
             return { name: item.nameFilter, value: item.values[0] }
@@ -99,14 +96,34 @@ export class ProductService {
       ]
     }
 
-    // console.log('filterData', filterData);
+    console.log('filterData', filterData);
+    
+    this.productRepository.qu
+
 
     return await this.productRepository.find({
-      relations: {
-        brand: true,
-        catalog: true
-      },
-      where: filterData
+      // relations: {
+      //   brand: true,
+      //   catalog: true
+      // },
+      where: filterData,
+      // where: {        
+      //   filters: [
+      //     {
+      //       name: 'Цвета',
+      //       value: 'Желтый'
+      //     },
+      //     {
+      //       name: 'Кому',
+      //       value: 'Маме'
+      //     }
+      //   ]
+      // }
+
+      order: {
+        price: filter.order === 'Сначала дешевые' ? 'ASC' : 'DESC'
+        // price: sort
+      }
     })
   }
 

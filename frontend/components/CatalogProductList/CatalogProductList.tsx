@@ -22,4 +22,4 @@ const CatalogProductList: FC<CatalogProductListProps> = ({ products }) => {
     )
 }
 
-export default React.memo(CatalogProductList)
+export default CatalogProductList

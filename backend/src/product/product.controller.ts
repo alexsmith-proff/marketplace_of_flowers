@@ -20,7 +20,10 @@ export class ProductController {
 
   @Post('filter')
   async findByFilter(@Body() filterProduct: any){
-    return await this.productService.findByFilter(filterProduct)
+    const p = await this.productService.findByFilter(filterProduct)
+    console.log(p);
+    
+    return p
   }
 
   @Get('minmaxprice')

@@ -67,10 +67,9 @@ export interface IFilterData {
   type: FilterDataType
   nameFilter: string
   values: string[]
-  // price: IFilterPrice
-  // activeColor: IFilterActiveColor  
-  // diametrFlavor: IFilterElement
-  // heightFlavor: IFilterElement
-  // composition: IFilterElement
-  // purpose: IFilterElement
+}
+
+export interface IFilterOrderData {
+  order: string
+  filters: IFilterData[]
 }
