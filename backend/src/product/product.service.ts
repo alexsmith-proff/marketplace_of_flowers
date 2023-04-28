@@ -98,7 +98,6 @@ export class ProductService {
 
     console.log('filterData', filterData);
     
-    this.productRepository.qu
 
 
     return await this.productRepository.find({
