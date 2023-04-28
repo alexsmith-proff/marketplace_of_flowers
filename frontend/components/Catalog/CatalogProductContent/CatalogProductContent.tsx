@@ -13,8 +13,6 @@ type CatalogProductContentProps = {
 
 const CatalogProductContent: FC<CatalogProductContentProps> = ({ sortItem, setSortItem,  products }) => {
 
-    console.log('CatalogProductContent');
-    
     return(
         <div className={s.wrap}>
             <div className={s.sorting}>

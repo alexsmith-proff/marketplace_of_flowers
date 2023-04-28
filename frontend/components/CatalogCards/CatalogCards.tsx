@@ -10,7 +10,6 @@ interface CatalogCardsProps {
 }
 
 const CatalogCards: React.FC<CatalogCardsProps> = ({ title, catalogCards }) => {
-    // console.log('catalogCardsssss', catalogCards);
 
     return (
         <section className={s.catalogCards}>

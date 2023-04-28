@@ -14,8 +14,6 @@ const ComboBoxSorting: FC<ComboBoxSortingProps> = ({ sortItem, setSortItem }) =>
         setSortItem(e.target.value)
     }
 
-    console.log('ComboBoxSorting')
-
     return (
         <select className={s.comboBox} onChange={handleChangeComboBox} value={sortItem}>
             {/* <option></option> */}

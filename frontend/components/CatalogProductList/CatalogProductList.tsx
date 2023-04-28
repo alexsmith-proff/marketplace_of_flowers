@@ -1,4 +1,4 @@
-import { FC } from "react";
+import React, { FC } from "react";
 
 import s from './CatalogProductList.module.scss'
 import CatalogProduct from "../CatalogProduct/CatalogProduct";
@@ -10,7 +10,6 @@ interface CatalogProductListProps {
 }
 
 const CatalogProductList: FC<CatalogProductListProps> = ({ products }) => {
-    console.log('CatalogProductList');
     
     return (
         <div className={s.wrap}>
@@ -23,4 +22,4 @@ const CatalogProductList: FC<CatalogProductListProps> = ({ products }) => {
     )
 }
 
-export default CatalogProductList
+export default React.memo(CatalogProductList)
