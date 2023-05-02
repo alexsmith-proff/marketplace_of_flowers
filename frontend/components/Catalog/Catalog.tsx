@@ -20,8 +20,7 @@ const Catalog: FC<CatalogProps> = ({ filter, minMaxPriceProduct }) => {
 
     useEffect(() => {
         const fetchData = async () => {
-            console.log(GetProductsAll());
-            
+            // console.log('qqqqq', GetProductsAll());
             setProducts(await GetProductsAll())
         }
         fetchData()

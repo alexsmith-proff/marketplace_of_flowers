@@ -7,7 +7,17 @@
     border-radius: 5px;
     cursor: pointer;
     transition: all .25s;
-    
+
+    &.clicked {
+        background: #E2195B;
+        .text {
+            color: #fff;
+        }
+        .ico {
+            color: #fff;
+        }
+    }
+
     .ico {
         margin-right: 13px;
         display: flex;
@@ -15,12 +25,11 @@
         align-items: center;
         color: #E2195B;
     }
-    
+
     .text {
         font-size: 14px;
         line-height: 20px;
         color: #E2195B;
-        
     }
 
     &:hover {
@@ -41,6 +50,17 @@
     &.dark {
         background: #E2195B;
         border: 1px solid transparent;
+
+        &.clicked {
+            background: #fff;
+
+            .text {
+                color: #E2195B;
+            }
+            .ico {
+                color: #E2195B;
+            }
+        }
 
         .text {
             color: #FFFFFF;

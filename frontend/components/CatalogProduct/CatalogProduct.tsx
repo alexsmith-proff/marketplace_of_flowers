@@ -45,7 +45,7 @@ const CatalogProduct: FC<CatalogProductProps> = ({ product }) => {
                 </div>
                 <div className={s.down}>
                     <CardPrice actualPrice={product.price} crossPrice={product.price + 500} />
-                    <ToCartBtn enableText="В корзине" onClick={handleAddToCart} />
+                    <ToCartBtn textAfterClick="В корзине" onClick={handleAddToCart} />
                     <div></div>
                 </div>
             </div>
