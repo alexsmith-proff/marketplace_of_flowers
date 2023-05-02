@@ -74,6 +74,8 @@ export class ProductService {
   }
 
   async findByFilter(filter: IFilterOderData): Promise<ProductEntity[]> {
+    console.log('filter', filter);
+
     let filterData = {}
     filter.filters.map(item => {
       if (item.type == FilterDataType.priceMinMax) {
@@ -97,7 +99,15 @@ export class ProductService {
     }
 
     console.log('filterData', filterData);
-    
+
+    let orderData = {}
+    switch (filter.order) {
+      case 'Сначала дешевые': orderData = { price: 'ASC' }
+        break
+      case 'Сначала дорогие': orderData = { price: 'DESC' }
+        break
+    }
+
 
 
     return await this.productRepository.find({
@@ -119,10 +129,7 @@ export class ProductService {
       //   ]
       // }
 
-      order: {
-        price: filter.order === 'Сначала дешевые' ? 'ASC' : 'DESC'
-        // price: sort
-      }
+      order: orderData
     })
   }
 

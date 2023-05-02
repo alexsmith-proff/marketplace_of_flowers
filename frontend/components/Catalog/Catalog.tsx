@@ -1,7 +1,7 @@
 import { FC, useEffect, useState } from "react";
 import Filter from "../Filter/Filter";
 import { IFilter, IFilterData, IFilterOrderData } from "../../interfaces/filter.interface";
-import { GetProductsAll, GetProductsByFilterData } from "../../services/core/requests";
+import { GetProductsByFilterData } from "../../services/core/requests";
 import { IProductMinMaxPrice } from "../../interfaces/products.interface";
 
 import s from './Catalog.module.scss'
@@ -17,24 +17,28 @@ interface CatalogProps {
 const Catalog: FC<CatalogProps> = ({ filter, minMaxPriceProduct }) => {
     const [products, setProducts] = useState<ICatalogProduct[]>([])
     const [sortItem, setSortItem] = useState<string>(SortingsList[0])
+    const [filterData, setFilterData] = useState<IFilterData[]>([])
 
     useEffect(() => {
-        const fetchData = async () => {
-            // console.log('qqqqq', GetProductsAll());
-            setProducts(await GetProductsAll())
+        const fetchDataByFilter = async () => {
+            setProducts(await GetProductsByFilterData({
+                order: sortItem,
+                filters: filterData
+            }))
         }
-        fetchData()
-    }, [])
+        fetchDataByFilter()
+    }, [sortItem])
 
 
     const handleGetProductsByFilter = async (FilterData: IFilterData[]) => {
+        setFilterData(FilterData)
         const FilterOrderData: IFilterOrderData = {
             order: sortItem,
             filters: FilterData
         }
-        console.log('FFFFilterData', FilterOrderData);
+        // console.log('FFFFilterData', FilterOrderData);
         setProducts(await GetProductsByFilterData(FilterOrderData))
-        console.log('pppppproducts', products);
+        // console.log('pppppproducts', products);
     }
 
     return (
