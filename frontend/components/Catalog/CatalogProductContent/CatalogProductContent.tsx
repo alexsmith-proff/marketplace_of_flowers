@@ -40,7 +40,7 @@ const CatalogProductContent: FC<CatalogProductContentProps> = ({ sortItem, setSo
         }
     }, [products, currentPagePagination])
 
-    const handleClickPagiation = (pageNum) => {        
+    const handleClickPagiation = (pageNum) => {
         setCurrentPagePagination(pageNum)
     }
 
@@ -50,7 +50,9 @@ const CatalogProductContent: FC<CatalogProductContentProps> = ({ sortItem, setSo
                 <Sorting sortItem={sortItem} setSortItem={setSortItem} />
             </div>
             <CatalogProductList products={productsOnPage} />
-            <Pagination pageCount={countPagination} onClickPagination={handleClickPagiation} />
+            <div className={s.pagination}>
+                <Pagination pageCount={countPagination} onClickPagination={handleClickPagiation} />
+            </div>
         </div>
     )
 }
