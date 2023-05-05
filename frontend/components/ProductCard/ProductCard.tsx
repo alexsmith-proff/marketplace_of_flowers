@@ -19,7 +19,7 @@ const ProductCard: FC<TProductCard> = ({ product }) => {
                     <div>
                         <div className={s.top}>
                             <ProductCardImageSlider mainImage={product.main_image} images={product.filenames_images} />
-                            <ProductCardContent />
+                            <ProductCardContent product={product} />
                         </div>
                         <div className={s.description}>
                             <ProductCardDescription />

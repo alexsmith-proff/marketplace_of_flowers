@@ -18,7 +18,7 @@ const ProductCardImageSlider: FC<TProductCardImageSlider> = ({ mainImage, images
     return (
         <div className={s.slider}>
             <div className={s.mainimage}>
-                <Image src={`${process.env.API_URI_DOCKER}/${mainimage}`} width={676} height={400} objectFit='cover' alt='product-main-img' />
+                <Image src={`${process.env.API_URI_DOCKER}/${mainimage}`} width={476} height={400} objectFit='cover' alt='product-main-img' />
             </div>
             <ul className={s.thumbnails}>
                 {
