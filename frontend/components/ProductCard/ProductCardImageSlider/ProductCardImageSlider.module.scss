@@ -1,0 +1,21 @@
+.mainimage {
+    margin-bottom: 10px;
+}
+
+.thumbnails {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.thumbnailImg {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 2px solid transparent;
+    cursor: pointer;
+
+    &:hover {
+        border: 2px solid #E2195B;
+    }
+}
