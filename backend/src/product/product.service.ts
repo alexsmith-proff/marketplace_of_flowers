@@ -74,7 +74,7 @@ export class ProductService {
   }
 
   async findByFilter(filter: IFilterOderData): Promise<ProductEntity[]> {
-    console.log('filter', filter);
+    // console.log('filter', filter);
 
     let filterData = {}
     filter.filters.map(item => {
@@ -98,7 +98,7 @@ export class ProductService {
       ]
     }
 
-    console.log('filterData', filterData);
+    // console.log('filterData', filterData);
 
     let orderData = {}
     switch (filter.order) {
@@ -146,7 +146,7 @@ export class ProductService {
   }
 
   async findOne(id: number): Promise<ProductEntity> {
-    console.log('qqqqqqqqqqqiddd', id);
+    // console.log('qqqqqqqqqqqiddd', id);
 
     return this.productRepository.findOne({
       where:
@@ -163,7 +163,7 @@ export class ProductService {
     const minPrice = Math.min(...products.map(item => item.price))
     const maxPrice = Math.max(...products.map(item => item.price))
 
-    console.log({ minPrice, maxPrice });
+    // console.log({ minPrice, maxPrice });
 
 
     return { minPrice, maxPrice }

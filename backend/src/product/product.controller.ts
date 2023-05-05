@@ -9,25 +9,22 @@ export class ProductController {
 
   @Post('create')
   @UseInterceptors(FilesInterceptor('images'))
-  create(@UploadedFiles() files: Array<Express.Multer.File>, @Body() createProductInput: CreateProductInput) { 
+  create(@UploadedFiles() files: Array<Express.Multer.File>, @Body() createProductInput: CreateProductInput) {
     return this.productService.createAPI(files, createProductInput)
   }
 
   @Get('all')
-  async findByAll(){
+  async findByAll() {
     return await this.productService.findAll()
   }
 
   @Post('filter')
-  async findByFilter(@Body() filterProduct: any){
-    const p = await this.productService.findByFilter(filterProduct)
-    console.log(p);
-    
-    return p
+  async findByFilter(@Body() filterProduct: any) {
+    return await this.productService.findByFilter(filterProduct)
   }
 
   @Get('minmaxprice')
-  findMinMaxPrice(){
+  findMinMaxPrice() {
     return this.productService.findMinMaxPrice()
   }
 
@@ -42,9 +39,9 @@ export class ProductController {
 
 
 
-//   @Delete('delete')
-//   delete(@Body() deleteImgElementInput: DeleteImgElementInput) {    
-//     return this.productService.remove(deleteImgElementInput)
-//   }
+  //   @Delete('delete')
+  //   delete(@Body() deleteImgElementInput: DeleteImgElementInput) {    
+  //     return this.productService.remove(deleteImgElementInput)
+  //   }
 
 }
