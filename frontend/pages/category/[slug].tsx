@@ -13,6 +13,8 @@ import { IProductMinMaxPrice } from '../../interfaces/products.interface'
 import { IFilter, IFilterData } from '../../interfaces/filter.interface'
 import Catalog from '../../components/Catalog/Catalog'
 
+import s from './category.slug.module.scss'
+
 
 interface IndexProps {
     topMenu: IMenu,
@@ -29,7 +31,7 @@ interface IndexProps {
 }
 
 const Index: FC<IndexProps> = ({ topMenu, headerMenu, breadCrumbsArr, minMaxPriceProduct, filter, catalogSeo, footerMenu, catalogCards, footerMenuInfo, footerMenuCoordinates, footerMenuEmail }) => {
-    
+
     return (
         <div>
             <MainLayout topMenu={topMenu} headerMenu={headerMenu} footerMenu={footerMenu} footerMenuInfo={footerMenuInfo} footerMenuCoordinates={footerMenuCoordinates} footerMenuEmail={footerMenuEmail}>
@@ -37,7 +39,7 @@ const Index: FC<IndexProps> = ({ topMenu, headerMenu, breadCrumbsArr, minMaxPric
                 <CatalogCards title={catalogCards.title} catalogCards={catalogCards.cards} />
 
                 <Catalog filter={filter} minMaxPriceProduct={minMaxPriceProduct} />
-                
+
                 <CatalogSeo catalogSeoSection={catalogSeo} />
             </MainLayout>
         </div >

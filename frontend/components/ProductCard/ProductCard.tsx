@@ -9,8 +9,10 @@ type TProductCard = {
 
 const ProductCard: FC<TProductCard> = ({ }) => {
     return (
-        <div className='container'>
-            <div>ProductCard</div>
+        <div className={s.product}>
+            <div className='container'>
+                <div>ProductCard</div>
+            </div>
         </div>
     )
 }

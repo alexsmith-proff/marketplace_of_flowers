@@ -46,6 +46,7 @@ export async function getServerSideProps(context) {
     // Получить весь каталог
     const product: IProduct = await GetProductsById(query.id)
 
+
     // Получить весь каталог
     const catalogArr = await GetAllCatalog()
 
