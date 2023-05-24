@@ -1,4 +1,10 @@
 .header {
+    background-color: #fff;
+    position: sticky;
+    z-index: 999;
+    top: 0;
+
+
     padding: 15px 0;
     &Container{
         display: flex;
