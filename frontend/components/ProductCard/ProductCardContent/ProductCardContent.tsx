@@ -17,13 +17,15 @@ const ProductCardContent: FC<TProductCardContent> = ({ product }) => {
             <div className={s.wrap}>
                 <h2 className={s.title}>{product.name}</h2>
                 <ProductReviews stars={4.0} countReviews={15} />
-                <div className={s.paramWrap}>
-                    <div className={s.param}>Высота: 50см</div>
-                    <div className={s.param}>Ширина: 35см</div>
-                </div>
-                <div className={s.paramWrap}>
-                    <div className={s.param}>Размер: Standart</div>
-                    <div className={s.param}>Цвет: Красный</div>
+                <div className={s.paramContainer}>
+                    <div className={s.paramWrap}>
+                        <div className={s.param}>Высота: <span>50см</span></div>
+                        <div className={s.param}>Ширина: <span>35см</span></div>
+                    </div>
+                    <div className={s.paramWrap}>
+                        <div className={s.param}>Размер: <span>Standart</span></div>
+                        <div className={s.param}>Цвет: <span>Красный</span></div>
+                    </div>
                 </div>
                 <div className={s.titleParam}>Длина</div>
                 <RectButtons buttons={[
@@ -62,6 +64,21 @@ const ProductCardContent: FC<TProductCardContent> = ({ product }) => {
                         name: 'Корзинка (+1000₽)',
                         price: 1000
                     }
+                ]} />
+                <div className={s.titleParam}>Зелень</div>
+                <RectButtons buttons={[
+                    {
+                        name: 'Нет',
+                        price: 0
+                    },
+                    {
+                        name: 'Немного (+150₽)',
+                        price: 150
+                    },
+                    {
+                        name: 'Побольше (+300₽)',
+                        price: 300
+                    },
                 ]} />
 
             </div>
