@@ -1,9 +1,10 @@
 import { FC, useState } from 'react'
 
 import s from './RectButtons.module.scss'
+import { IRectButton } from '../../../interfaces/elements'
 
 type TRectButtons = {
-    buttons: string[]
+    buttons?: IRectButton[],
 }
 
 const RectButtons: FC<TRectButtons> = ({ buttons }) => {
@@ -14,7 +15,7 @@ const RectButtons: FC<TRectButtons> = ({ buttons }) => {
     return (
         <ul className={s.list}>
             {
-                buttons.map((item, index) => <li className={s.key + ' ' + (activeItem === index ? s.active : '')} onClick={() => handleClickBtn(index)} key={index}>{item}</li>)
+                buttons && buttons.map((item, index) => <li className={s.key + ' ' + (activeItem === index ? s.active : '')} onClick={() => handleClickBtn(index)} key={index}>{item.name}</li>)
             }
         </ul>
     )

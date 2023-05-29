@@ -11,7 +11,7 @@ type TProductCardContent = {
 
 const ProductCardContent: FC<TProductCardContent> = ({ product }) => {
     console.log(product);
-    
+
     return (
         <div className={s.content}>
             <div className={s.wrap}>
@@ -25,8 +25,44 @@ const ProductCardContent: FC<TProductCardContent> = ({ product }) => {
                     <div className={s.param}>Размер: Standart</div>
                     <div className={s.param}>Цвет: Красный</div>
                 </div>
-                <div className={s.titleParam}>Длина </div>
-                <RectButtons buttons={['40 см', '50 см', '60 см', '70 см']} />
+                <div className={s.titleParam}>Длина</div>
+                <RectButtons buttons={[
+                    {
+                        name: '40 см'
+                    },
+                    {
+                        name: '50 см'
+                    },
+                    {
+                        name: '60 см'
+                    },
+                    {
+                        name: '70 см'
+                    },
+                ]} />
+                <div className={s.titleParam}>Упаковка</div>
+                <RectButtons buttons={[
+                    {
+                        name: 'Ленточка',
+                        price: 0
+                    },
+                    {
+                        name: 'Крафт (+290₽)',
+                        price: 290
+                    },
+                    {
+                        name: 'Корейская (+390₽)',
+                        price: 390
+                    },
+                    {
+                        name: 'Премиум (+490₽)',
+                        price: 490
+                    },
+                    {
+                        name: 'Корзинка (+1000₽)',
+                        price: 1000
+                    }
+                ]} />
 
             </div>
         </div>
