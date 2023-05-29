@@ -1,0 +1,23 @@
+.list {
+    display: flex;
+    gap: 5px;
+}
+
+.key {
+    font-family: 'TT Norms';
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 20px;
+    color: #353949;
+    padding: 6px 10px;
+
+    background: #FFFFFF;
+    border: 1px solid #D0D2D7;
+    border-radius: 5px;
+    cursor: pointer;
+
+    &.active {
+        background: #0093A2;
+        color: #FFFFFF;
+    }
+}
