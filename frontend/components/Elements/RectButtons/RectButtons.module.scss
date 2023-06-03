@@ -16,6 +16,9 @@
     border: 1px solid #D0D2D7;
     border-radius: 5px;
     cursor: pointer;
+    &:hover{
+        background: #c5f9ff;
+    }
 
     &.active {
         background: #0093A2;
