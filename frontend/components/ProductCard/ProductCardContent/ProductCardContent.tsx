@@ -4,6 +4,7 @@ import s from './ProductCardContent.module.scss'
 import { IProduct } from '../../../interfaces/products.interface'
 import ProductReviews from '../../ProductReviews/ProductReviews'
 import RectButtons from '../../Elements/RectButtons/RectButtons'
+import CardPrice from '../../Elements/CardPrice/CardPrice'
 
 type TProductCardContent = {
     product: IProduct
@@ -80,6 +81,8 @@ const ProductCardContent: FC<TProductCardContent> = ({ product }) => {
                         price: 300
                     },
                 ]} />
+
+                <CardPrice actualPrice={product.price} crossPrice={product.price + 500} size={20} />
 
             </div>
         </div>
