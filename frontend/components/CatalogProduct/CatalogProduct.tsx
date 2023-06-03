@@ -44,7 +44,7 @@ const CatalogProduct: FC<CatalogProductProps> = ({ product }) => {
                     <DeliveryTime minutes={150} />
                 </div>
                 <div className={s.down}>
-                    <CardPrice actualPrice={product.price} crossPrice={product.price + 500} />
+                    <CardPrice actualPrice={product.price} crossPrice={product.price + 500} size={16} />
                     <ToCartBtn textAfterClick="В корзине" onClick={handleAddToCart} />
                     <div></div>
                 </div>

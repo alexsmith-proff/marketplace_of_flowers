@@ -7,10 +7,10 @@ interface ToCartBtnProps {
     dark?: boolean
     textAfterClick?: string
     onClick?: (e) => void | undefined
-    // MouseEventHandler<T> | undefined;
+    paddingTopBottom?: number
 }
 
-const ToCartBtn: FC<ToCartBtnProps> = ({ dark = false, textAfterClick, onClick }) => {
+const ToCartBtn: FC<ToCartBtnProps> = ({ dark = false, textAfterClick, onClick, paddingTopBottom }) => {
     const [isEnable, setIsEnable] = useState<boolean>(false)
 
     const handleClickBtn = (e) => {
@@ -21,7 +21,11 @@ const ToCartBtn: FC<ToCartBtnProps> = ({ dark = false, textAfterClick, onClick }
     return (
         <div>
             {/* <a href="#"> */}
-            <div className={dark ? (isEnable ? s.btn + ' ' + s.dark + s.clicked : s.btn + ' ' + s.dark) : (isEnable ? s.btn + ' ' + s.clicked : s.btn)} onClick={handleClickBtn}>
+            <div
+                className={dark ? (isEnable ? s.btn + ' ' + s.dark + s.clicked : s.btn + ' ' + s.dark) : (isEnable ? s.btn + ' ' + s.clicked : s.btn)}
+                style={{ paddingTop: `${paddingTopBottom}px`, paddingBottom: `${paddingTopBottom}px` }}
+                onClick={handleClickBtn}
+            >
                 <BsFillBasket3Fill size={18} className={s.ico} />
                 <div className={s.text}>{isEnable ? (textAfterClick ? textAfterClick : 'В корзину') : 'В корзину'}</div>
             </div>

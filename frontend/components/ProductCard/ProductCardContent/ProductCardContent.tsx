@@ -1,16 +1,21 @@
-import { FC } from 'react'
+import { FC, useState } from 'react'
 
 import s from './ProductCardContent.module.scss'
 import { IProduct } from '../../../interfaces/products.interface'
 import ProductReviews from '../../ProductReviews/ProductReviews'
 import RectButtons from '../../Elements/RectButtons/RectButtons'
 import CardPrice from '../../Elements/CardPrice/CardPrice'
+import CountProduct from '../../Elements/CountProduct/CountProduct'
+import ToCartBtn from '../../Elements/Buttons/ToCartBtn/ToCartBtn'
 
 type TProductCardContent = {
     product: IProduct
 }
 
 const ProductCardContent: FC<TProductCardContent> = ({ product }) => {
+    const [countFlovers, setCountFlovers] = useState<number>(1)
+
+
     console.log(product);
 
     return (
@@ -82,7 +87,17 @@ const ProductCardContent: FC<TProductCardContent> = ({ product }) => {
                     },
                 ]} />
 
-                <CardPrice actualPrice={product.price} crossPrice={product.price + 500} size={20} />
+                <div className={s.price}>
+                    <CardPrice actualPrice={product.price} crossPrice={product.price + 500} size={20} />
+                </div>
+
+                <div className={s.price}>
+                    <CardPrice actualPrice={product.price} crossPrice={product.price + 500} size={20} />
+                </div>
+                <div className={s.buy}>
+                    <CountProduct value={countFlovers} decrement={null} increment={null} />
+                    <ToCartBtn dark={true} />
+                </div>
 
             </div>
         </div>
