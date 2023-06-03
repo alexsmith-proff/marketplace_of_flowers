@@ -1,0 +1,12 @@
+.headerBtn {
+    border: 1px solid #E2E4EB;
+    border-radius: 50%;
+    padding: 10px;
+    &__img {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 18px;
+        height: 18px;
+    }
+}

@@ -3,6 +3,7 @@ import Link from 'next/link';
 import React, { FC } from 'react';
 
 import s from './Header.module.scss'
+import FavoriteBtn from '../Elements/Buttons/FavoriteBtn/FavoriteBtn';
 
 interface HeaderProps {
 }
@@ -41,13 +42,7 @@ const Header: FC<HeaderProps> = ({ }) => {
                         <div className={s.call__number}>+7 (920) 211-49-03</div>
                     </div>
 
-                    <a className={s.header__favoriteBtnLink} href="#">
-                        <div className={s.headerBtn}>
-                            <div className={s.headerBtn__img}>
-                                <Image className={s.headerBtn__img} src='/img/favorite-btn.png' width={18} height={18} alt='favorite-btn-ico' />
-                            </div>
-                        </div>
-                    </a>
+                    <FavoriteBtn link={'#'} />
                     <div className={s.header__cart}>
                         <a className={s.header__cartBtnLink} href="#">
                             <div className={s.headerBtn}>
