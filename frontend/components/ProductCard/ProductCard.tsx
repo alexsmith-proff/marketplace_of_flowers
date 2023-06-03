@@ -11,6 +11,8 @@ type TProductCard = {
     product: IProduct
 }
 
+const text = 'Сто одна красная роза – безупречный выбор для тех, кто хочет показать свою любовь и преданность, поразить свою избранницу и вызвать настоящий восторг. Цвет и размеры бутонов могут отличаться представленных на фото, цветы являются природным материалом.'
+
 const ProductCard: FC<TProductCard> = ({ product }) => {
     return (
         <div className={s.product}>
@@ -22,7 +24,7 @@ const ProductCard: FC<TProductCard> = ({ product }) => {
                             <ProductCardContent product={product} />
                         </div>
                         <div className={s.description}>
-                            <ProductCardDescription />
+                            <ProductCardDescription description={text} />
                         </div>
                     </div>
                     <ProductCardDelivery />

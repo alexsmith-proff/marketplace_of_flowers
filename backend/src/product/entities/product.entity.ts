@@ -56,6 +56,10 @@ export class ProductEntity {
   @Column("text", { array: true, default: [] })
   filenames_images: string[]
 
+  @Field(() => String, { description: 'Description', nullable: true })
+  @Column({ nullable: true })
+  description: string
+
   @Field(() => [ElementEntity], { nullable: true })
   @OneToMany(() => ElementEntity, element => element.product_ref )
   elements: ElementEntity[]

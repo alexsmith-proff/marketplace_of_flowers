@@ -8,6 +8,8 @@ import { ISection } from '../../interfaces/section.interface'
 import { IProduct, IProductFilter } from '../../interfaces/products.interface'
 import { IBreadCrumbs } from '../../interfaces/breadCrumbs.interface'
 import ProductCard from '../../components/ProductCard/ProductCard'
+import Reviews from '../../components/Reviews/Reviews'
+import Privileges from '../../components/Privileges/Privileges'
 
 interface IndexProps {
     topMenu: IMenu,
@@ -18,14 +20,18 @@ interface IndexProps {
     footerMenuEmail: ISection
     breadCrumbsArr: IBreadCrumbs[]
     product: IProduct
+    reviews: ISection,
+    privilege: ISection
 }
 
-const Index: FC<IndexProps> = ({ topMenu, headerMenu, footerMenu, footerMenuInfo, footerMenuCoordinates, footerMenuEmail, breadCrumbsArr, product }) => {
+const Index: FC<IndexProps> = ({ topMenu, headerMenu, footerMenu, footerMenuInfo, footerMenuCoordinates, footerMenuEmail, breadCrumbsArr, product, reviews, privilege }) => {
     return (
         <div>
             <MainLayout topMenu={topMenu} headerMenu={headerMenu} footerMenu={footerMenu} footerMenuInfo={footerMenuInfo} footerMenuCoordinates={footerMenuCoordinates} footerMenuEmail={footerMenuEmail}>
                 <BreadCrumbs breadCrumbsArr={breadCrumbsArr} />
                 <ProductCard product={product} />
+                <Reviews reviewSection={reviews} />
+                <Privileges privilegeSection={privilege} />
             </MainLayout>
         </div >
     )
@@ -52,8 +58,11 @@ export async function getServerSideProps(context) {
 
     const breadCrumbsArr = getBreadCrumbsFromCatalog(catalogArr, product.catalog.slug)
 
+    const reviews = await GetSection('reviews')
+    const privilege = await GetSection('privilegii')
+
     return {
-        props: { topMenu, headerMenu, footerMenu, footerMenuInfo, footerMenuCoordinates, footerMenuEmail, breadCrumbsArr, product }
+        props: { topMenu, headerMenu, footerMenu, footerMenuInfo, footerMenuCoordinates, footerMenuEmail, breadCrumbsArr, product, reviews, privilege }
     }
 }
 

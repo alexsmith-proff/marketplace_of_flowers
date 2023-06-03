@@ -70,6 +70,7 @@ export interface IProduct extends IBase {
   brand: IBrand,
   catalog: ICatalog,
   filters: IProductFilter[],
+  description: string,
   createdAt: Date,
   updatedAt: Date,
 }
