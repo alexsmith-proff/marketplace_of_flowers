@@ -51,12 +51,14 @@ export const getTextInTextBlockFromSection = (section: ISection, elementSlug: st
 
 export const getTextInTextBlockFromElement = (element: IElement, textSlug: string) => {
     const textElement = element.text_elements.find(t_el => t_el.slug == textSlug)
+    // console.log('wwwww', textElement);
+    
     if (textElement){
         if(isJSONString(textElement.text)){
             const JSONObj = JSON.parse(textElement.text)
             if(JSONObj.name == 'product'){
                 return element.product_ref[JSONObj.field]
-            }
+            }else return textElement.text
         }else return textElement.text        
     }
     else return ''

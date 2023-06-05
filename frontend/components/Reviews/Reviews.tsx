@@ -23,7 +23,7 @@ const Reviews: FC<ReviewsProps> = ({ reviewSection }) => {
         slidesToScroll: 1,
     };
 
-    // console.log('reviewSection', reviewSection);
+    console.log('qqqqqqqqqqqqqqqqqqq', reviewSection);
     return (
         <>
             <section className={s.reviews}>
@@ -32,13 +32,13 @@ const Reviews: FC<ReviewsProps> = ({ reviewSection }) => {
                         <h2 className={s.reviews__mainTitle}>Отзывы наших покупателей</h2>
                         <button className={s.reviews__sendReviewBtn}>Оставить отзыв</button>
                     </div>
-                    <Slider className='reviews' {...settings}>
+                    <Slider {...settings} >
                         {
                             reviewSection && reviewSection.elements.map(el => (
                                 <div className={s.reviews__slider} key={el.id}>
                                     <div className={s.reviews__sliderContainer}>
                                         <div className={s.reviews__sliderLeft}>
-                                            <ReviewsStar stars={Number(getTextInTextBlockFromElement(el, 'ocenka'))} />
+                                            <ReviewsStar stars={getTextInTextBlockFromElement(el, 'ocenka')} />
                                             <div className={s.reviews__sliderName}>{getTextInTextBlockFromElement(el, 'name')}</div>
                                             <div className={s.reviews__sliderText}>{getTextInTextBlockFromElement(el, 'otzyv')}</div>
                                             <div className={s.reviews__sliderBouquet}>Отзыв к букету: <span>{getTextInTextBlockFromElement(el, 'otzyv-k-buketu')}</span></div>

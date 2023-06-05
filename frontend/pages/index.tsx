@@ -63,7 +63,7 @@ export async function getServerSideProps() {
   const mainCard = await GetSection('mainCard')
   const partition = await GetSection('partition')
   const gallery = await GetSection('gallery')
-  const reviews = await GetSection('reviews')
+  const reviews = await GetSection('reviews')  
   const news = await GetSection('novosti')
   const seoOne = await GetSection('seo-1')
   const seoTwo = await GetSection('seo-2')
