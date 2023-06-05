@@ -55,6 +55,9 @@
             line-height: 26px;
             color: #222A46;
             margin-bottom: 10px;
+            &:first-letter{
+                text-transform: uppercase;
+            }
         }
 
         &Promo {
@@ -71,6 +74,7 @@
                 color: #E2195B;
                 padding: 15px 25px;
                 background-color: #fff;
+                text-transform: uppercase;
             }
 
             &Btn {
