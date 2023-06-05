@@ -38,17 +38,16 @@ const Index: FC<IndexProps> = ({ topMenu, headerMenu, bigSlider, smallSlider, pr
   return (
     <div>
       <MainLayout topMenu={topMenu} headerMenu={headerMenu} footerMenu={footerMenu} footerMenuInfo={footerMenuInfo} footerMenuCoordinates={footerMenuCoordinates} footerMenuEmail={footerMenuEmail}>
-      <MainSlider bigSliderSection={bigSlider} smallSliderSection={smallSlider} />
-      <Privileges privilegeSection={privilege} />
-      <MainCards mainCardSection={mainCard} />
-      <Partitions partitionSection={partition} />
-      <Gallery gallerySection={gallery} />
-      <Reviews reviewSection={reviews} />
-      <News newsSection={news} />
-      <SeoOne seoSection={seoOne} />
-      <SeoTwo seoSection={seoTwo} />
-
-    </MainLayout>
+        <MainSlider bigSliderSection={bigSlider} smallSliderSection={smallSlider} />
+        <Privileges privilegeSection={privilege} />
+        <MainCards mainCardSection={mainCard} />
+        <Partitions partitionSection={partition} />
+        <Gallery gallerySection={gallery} />
+        <Reviews reviewSection={reviews} />
+        <News newsSection={news} />
+        <SeoOne seoSection={seoOne} />
+        <SeoTwo seoSection={seoTwo} />
+      </MainLayout>
     </div >
   )
 }
@@ -63,7 +62,7 @@ export async function getServerSideProps() {
   const mainCard = await GetSection('mainCard')
   const partition = await GetSection('partition')
   const gallery = await GetSection('gallery')
-  const reviews = await GetSection('reviews')  
+  const reviews = await GetSection('reviews')
   const news = await GetSection('novosti')
   const seoOne = await GetSection('seo-1')
   const seoTwo = await GetSection('seo-2')

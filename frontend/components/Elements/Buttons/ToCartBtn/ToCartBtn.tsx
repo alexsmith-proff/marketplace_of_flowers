@@ -6,7 +6,7 @@ import s from './ToCartBtn.module.scss'
 interface ToCartBtnProps {
     dark?: boolean
     textAfterClick?: string
-    onClick?: (e) => void | undefined
+    onClick?: (any, boolean) => void | undefined
     paddingTopBottom?: number
 }
 
@@ -15,7 +15,7 @@ const ToCartBtn: FC<ToCartBtnProps> = ({ dark = false, textAfterClick, onClick, 
 
     const handleClickBtn = (e) => {
         setIsEnable(!isEnable)
-        if (onClick) onClick(e)
+        if (onClick) onClick(e, isEnable)
     }
 
     return (

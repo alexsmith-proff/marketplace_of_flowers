@@ -1,4 +1,4 @@
-import { FC } from "react";
+import React, { FC } from "react";
 import { ICatalogProduct } from "../../interfaces/catalog.interface";
 
 import s from './CatalogProduct.module.scss'
@@ -8,12 +8,18 @@ import DeliveryTime from "../DeliveryTime/DeliveryTime";
 import CardPrice from "../Elements/CardPrice/CardPrice";
 import ToCartBtn from "../Elements/Buttons/ToCartBtn/ToCartBtn";
 import { useRouter } from "next/router";
+import { useDispatch, useSelector } from "react-redux";
+import { addProduct, deleteProduct } from "../../redux/product/productSlice";
+import { IProduct } from "../../interfaces/products.interface";
 
 interface CatalogProductProps {
-    product: ICatalogProduct
+    // product: ICatalogProduct
+    product: IProduct
 }
 
-const CatalogProduct: FC<CatalogProductProps> = ({ product }) => {
+const CatalogProduct: FC<CatalogProductProps> = React.memo( ({ product }) => {
+    const dispatch = useDispatch()
+    const pr = useSelector(state => state.product.products)
     const router = useRouter()
 
     const handleClickProduct = (id: number) => {
@@ -21,11 +27,17 @@ const CatalogProduct: FC<CatalogProductProps> = ({ product }) => {
         router.push(`/product/${id}`)
     }
 
-    const handleAddToCart = (e) => {
+    const handleAddToCart = (e, isEnable: boolean) => {
         // Прервем передачу события клика родительскому элементу <li>, т.е. не сработает handleClickProduct 
         e.stopPropagation()
         //Добавление товара в корзину
+        console.log('prprprpr', isEnable);
+        !isEnable ? dispatch(addProduct(product)) : dispatch(deleteProduct(product.id))
     }
+
+    console.log('prprprpr', pr);
+
+    
 
     return (
         <li className={s.product} onClick={() => handleClickProduct(product.id)}>
@@ -52,5 +64,6 @@ const CatalogProduct: FC<CatalogProductProps> = ({ product }) => {
         </li>
     )
 }
+)
 
 export default CatalogProduct

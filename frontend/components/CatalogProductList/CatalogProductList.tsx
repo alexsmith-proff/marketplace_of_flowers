@@ -3,9 +3,11 @@ import React, { FC } from "react";
 import s from './CatalogProductList.module.scss'
 import CatalogProduct from "../CatalogProduct/CatalogProduct";
 import { ICatalogProduct } from "../../interfaces/catalog.interface";
+import { IProduct } from "../../interfaces/products.interface";
 
 interface CatalogProductListProps {
-    products: ICatalogProduct[]
+    // products: ICatalogProduct[]
+    products: IProduct[]
 }
 
 const CatalogProductList: FC<CatalogProductListProps> = ({ products }) => {

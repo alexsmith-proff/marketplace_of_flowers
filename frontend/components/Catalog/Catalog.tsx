@@ -2,7 +2,7 @@ import { FC, useEffect, useState } from "react";
 import Filter from "../Filter/Filter";
 import { IFilter, IFilterData, IFilterOrderData } from "../../interfaces/filter.interface";
 import { GetProductsByFilterData } from "../../services/core/requests";
-import { IProductMinMaxPrice } from "../../interfaces/products.interface";
+import { IProduct, IProductMinMaxPrice } from "../../interfaces/products.interface";
 
 import s from './Catalog.module.scss'
 import { ICatalogProduct } from "../../interfaces/catalog.interface";
@@ -15,7 +15,8 @@ interface CatalogProps {
 }
 
 const Catalog: FC<CatalogProps> = ({ filter, minMaxPriceProduct }) => {
-    const [products, setProducts] = useState<ICatalogProduct[]>([])
+    // const [products, setProducts] = useState<ICatalogProduct[]>([])
+    const [products, setProducts] = useState<IProduct[]>([])
     const [sortItem, setSortItem] = useState<string>(SortingsList[0])
     const [filterData, setFilterData] = useState<IFilterData[]>([])
 

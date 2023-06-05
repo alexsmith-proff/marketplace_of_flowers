@@ -5,21 +5,24 @@ import Pagination from "../../Pagination/Pagination";
 import { ICatalogProduct } from "../../../interfaces/catalog.interface";
 
 import s from './CatalogProductContent.module.scss'
+import { IProduct } from "../../../interfaces/products.interface";
 
 type CatalogProductContentProps = {
     sortItem: string
     setSortItem: (sort: string) => void
-    products: ICatalogProduct[]
+    // products: ICatalogProduct[]
+    products: IProduct[]
 }
 
 const CatalogProductContent: FC<CatalogProductContentProps> = ({ sortItem, setSortItem, products }) => {
     // Вырезает из products товары на странице
-    function getProductsOnPage(): ICatalogProduct[] {
+    function getProductsOnPage(): IProduct[] {
         return products.slice(currentPagePagination * countPerPagePagination, currentPagePagination * countPerPagePagination + countPerPagePagination)
     }
 
     // Массив товаров на странице
-    const [productsOnPage, setProductsOnPage] = useState<ICatalogProduct[]>([])
+    // const [productsOnPage, setProductsOnPage] = useState<ICatalogProduct[]>([])
+    const [productsOnPage, setProductsOnPage] = useState<IProduct[]>([])
 
     // Текущая страница пагинации
     const [currentPagePagination, setCurrentPagePagination] = useState<number>(0)
