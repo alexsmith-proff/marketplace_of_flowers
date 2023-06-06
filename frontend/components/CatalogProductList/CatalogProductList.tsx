@@ -1,17 +1,14 @@
 import React, { FC } from "react";
-
-import s from './CatalogProductList.module.scss'
 import CatalogProduct from "../CatalogProduct/CatalogProduct";
-import { ICatalogProduct } from "../../interfaces/catalog.interface";
 import { IProduct } from "../../interfaces/products.interface";
 
+import s from './CatalogProductList.module.scss'
+
 interface CatalogProductListProps {
-    // products: ICatalogProduct[]
     products: IProduct[]
 }
 
-const CatalogProductList: FC<CatalogProductListProps> = ({ products }) => {
-    
+const CatalogProductList: FC<CatalogProductListProps> = ({ products }) => {    
     return (
         <div className={s.wrap}>
             <ul className={s.list}>

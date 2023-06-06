@@ -19,7 +19,7 @@ interface CatalogProductProps {
 
 const CatalogProduct: FC<CatalogProductProps> = React.memo( ({ product }) => {
     const dispatch = useDispatch()
-    const pr = useSelector(state => state.product.products)
+    
     const router = useRouter()
 
     const handleClickProduct = (id: number) => {
@@ -35,7 +35,7 @@ const CatalogProduct: FC<CatalogProductProps> = React.memo( ({ product }) => {
         !isEnable ? dispatch(addProduct(product)) : dispatch(deleteProduct(product.id))
     }
 
-    console.log('prprprpr', pr);
+    console.log('prprprpr');
 
     
 

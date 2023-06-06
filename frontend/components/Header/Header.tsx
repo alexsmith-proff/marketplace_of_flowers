@@ -4,11 +4,21 @@ import React, { FC } from 'react';
 
 import s from './Header.module.scss'
 import FavoriteBtn from '../Elements/Buttons/FavoriteBtn/FavoriteBtn';
+import { useSelector } from 'react-redux';
+import { IProduct } from '../../interfaces/products.interface';
 
 interface HeaderProps {
 }
 
 const Header: FC<HeaderProps> = ({ }) => {
+    const products: IProduct[] = useSelector(state => state.product.products)
+    console.log('aaaaaaaaaaaaaaaaaaa', products);
+
+    const getAllPrice = () => {
+        return products.reduce((acc, item) => acc + item.price, 0)
+    }
+     const allPrice = getAllPrice()
+    
 
     return (
         <div className={s.header}>
@@ -49,9 +59,14 @@ const Header: FC<HeaderProps> = ({ }) => {
                                 <div className={s.headerBtn__img}>
                                     <Image src='/img/cart.png' width={18} height={18} alt='cart-ico' />
                                 </div>
+                                {
+                                    products.length !==0 ? <span className={s.headerBtn__count}>{products.length}</span> : <></>
+                                }
+                                
                             </div>
                         </a>
-                        <div className={s.cart__price}>16 500 ₽</div>
+                        {/* <div className={s.cart__price}>16 500 ₽</div> */}
+                        <div className={s.cart__price}>{allPrice} ₽</div>
                     </div>
                 </div>
             </div>
