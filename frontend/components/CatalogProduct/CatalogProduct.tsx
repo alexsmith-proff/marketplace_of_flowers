@@ -4,21 +4,23 @@ import ProductReviews from "../ProductReviews/ProductReviews";
 import DeliveryTime from "../DeliveryTime/DeliveryTime";
 import CardPrice from "../Elements/CardPrice/CardPrice";
 import ToCartBtn from "../Elements/Buttons/ToCartBtn/ToCartBtn";
+import FavoriteBtn from "../Elements/Buttons/FavoriteBtn/FavoriteBtn";
 import { useRouter } from "next/router";
 import { useDispatch } from "react-redux";
-import { addProduct, deleteProduct } from "../../redux/product/productSlice";
+import { addCartProduct, deleteCartProduct } from "../../redux/product/cartProductSlice";
+import { addFavoriteProduct, deleteFavoriteProduct } from "../../redux/product/favoriteProductSlice";
 import { IProduct } from "../../interfaces/products.interface";
 
 import s from './CatalogProduct.module.scss'
-import FavoriteBtn from "../Elements/Buttons/FavoriteBtn/FavoriteBtn";
 
 interface CatalogProductProps {
     // product: ICatalogProduct
     product: IProduct
     isBuyProduct: boolean
+    isFavorite: boolean
 }
 
-const CatalogProduct: FC<CatalogProductProps> = React.memo(({ product, isBuyProduct = false }) => {
+const CatalogProduct: FC<CatalogProductProps> = React.memo(({ product, isBuyProduct = false, isFavorite = false }) => {
     const dispatch = useDispatch()
 
     const router = useRouter()
@@ -32,7 +34,14 @@ const CatalogProduct: FC<CatalogProductProps> = React.memo(({ product, isBuyProd
         // Прервем передачу события клика родительскому элементу <li>, т.е. не сработает handleClickProduct 
         e.stopPropagation()
         //Добавление товара в корзину
-        !isEnable ? dispatch(addProduct(product)) : dispatch(deleteProduct(product.id))
+        !isEnable ? dispatch(addCartProduct(product)) : dispatch(deleteCartProduct(product.id))
+    }
+
+    const handleAddToFavorite = (e, isEnable: boolean) => {
+        // Прервем передачу события клика родительскому элементу <li>, т.е. не сработает handleClickProduct 
+        e.stopPropagation()
+        //Добавление товара в избранное
+        !isEnable ? dispatch(addFavoriteProduct(product)) : dispatch(deleteFavoriteProduct(product.id))
     }
 
     console.log('prprprpr', isBuyProduct);
@@ -62,7 +71,7 @@ const CatalogProduct: FC<CatalogProductProps> = React.memo(({ product, isBuyProd
                 </div>
             </div>
             <div className={s.favorite}>
-                <FavoriteBtn backgroundLight={true} />
+                <FavoriteBtn backgroundLight={true} isActive={isFavorite} onClick={handleAddToFavorite} />
             </div>
         </li>
     )

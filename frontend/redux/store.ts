@@ -1,11 +1,15 @@
 import { Action, configureStore, ThunkAction, } from '@reduxjs/toolkit'
 import userSlice from './user/userSlice';
-import productSlice from './product/productSlice';
+import cartProductSlice from './product/cartProductSlice';
+import favoriteProductSlice from './product/favoriteProductSlice';
+import viewedProductSlice from './product/viewedProductSlice';
   
   export const store = configureStore({
     reducer: {
         user: userSlice,
-        product: productSlice,
+        cartProduct: cartProductSlice,
+        favoriteProduct: favoriteProductSlice,
+        viewedProduct: viewedProductSlice,
     },
   })
   

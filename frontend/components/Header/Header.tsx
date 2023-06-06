@@ -12,13 +12,19 @@ interface HeaderProps {
 }
 
 const Header: FC<HeaderProps> = ({ }) => {
-    const products: IProduct[] = useSelector((state: RootState) => state.product.products)
+    const buyProducts = useSelector((state: RootState) => state.cartProduct.products)
+    const favoriteProducts = useSelector((state: RootState) => state.favoriteProduct.products)
 
     const getAllPrice = () => {
-        return products.reduce((acc, item) => acc + item.price, 0)
+        let val = buyProducts.reduce((acc, item) => acc + item.price, 0)
+
+        let value = val.toString().split('')
+        value.splice(value.length - 3, 0, ' ').join()
+        console.log('vvvvvvv', value);
+        return value
     }
-     const allPrice = getAllPrice()
-    
+    const allPrice = getAllPrice()
+
 
     return (
         <div className={s.header}>
@@ -52,17 +58,24 @@ const Header: FC<HeaderProps> = ({ }) => {
                         <div className={s.call__number}>+7 (920) 211-49-03</div>
                     </div>
 
-                    <FavoriteBtn link={'#'} />
+                    <div className={s.favoriteBtn}>
+                        <FavoriteBtn />
+                        {
+                            favoriteProducts.length !== 0 ? <span className={s.favoriteBtn__count}>{favoriteProducts.length}</span> : <></>
+                        }
+
+                    </div>
+
                     <div className={s.header__cart}>
                         <a className={s.header__cartBtnLink} href="#">
                             <div className={s.headerBtn}>
                                 <div className={s.headerBtn__img}>
-                                    <Image src='/img/cart.png' width={18} height={18} alt='cart-ico' />
+                                    <Image src='/img/cart.png' width={22} height={22} alt='cart-ico' />
                                 </div>
                                 {
-                                    products.length !==0 ? <span className={s.headerBtn__count}>{products.length}</span> : <></>
+                                    buyProducts.length !== 0 ? <span className={s.headerBtn__count}>{buyProducts.length}</span> : <></>
                                 }
-                                
+
                             </div>
                         </a>
                         {/* <div className={s.cart__price}>16 500 ₽</div> */}

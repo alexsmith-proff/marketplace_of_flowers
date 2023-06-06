@@ -18,12 +18,11 @@ const ToCartBtn: FC<ToCartBtnProps> = ({ dark = false, textAfterClick, isBuyProd
         setIsBuy(!isBuy)
         if (onClick) onClick(e, isBuy)
     }
-    // console.log('darkdarkdark', dark);
-    
+    // console.log('darkdarkdark');
+
 
     return (
         <div>
-            {/* <a href="#"> */}
             <div
                 className={dark ? (isBuy ? s.btn + ' ' + s.dark + s.clicked : s.btn + ' ' + s.dark) : (isBuy ? s.btn + ' ' + s.clicked : s.btn)}
                 style={{ paddingTop: `${paddingTopBottom}px`, paddingBottom: `${paddingTopBottom}px` }}
@@ -32,7 +31,6 @@ const ToCartBtn: FC<ToCartBtnProps> = ({ dark = false, textAfterClick, isBuyProd
                 <BsFillBasket3Fill size={18} className={s.ico} />
                 <div className={s.text}>{isBuy ? (textAfterClick ? textAfterClick : 'В корзину') : 'В корзину'}</div>
             </div>
-            {/* </a> */}
         </div>
     )
 }

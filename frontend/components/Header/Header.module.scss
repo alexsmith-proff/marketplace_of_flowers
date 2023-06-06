@@ -6,39 +6,44 @@
 
 
     padding: 15px 0;
-    &Container{
+
+    &Container {
         display: flex;
         justify-content: space-between;
         align-items: center;
     }
 }
 
-.header__deliveryText{
+.header__deliveryText {
     width: 110px;
 }
-.header__find{
+
+.header__find {
     position: relative;
-    &Input{
+
+    &Input {
         font-size: 16px;
         color: #7D818E;
         padding: 10px 20px;
         border: 1px solid #D0D2D7;
         border-radius: 60px;
         width: 300px;
-        &__findBtn{
+
+        &__findBtn {
             position: absolute;
             top: 12px;
             right: 15px;
         }
     }
 }
+
 .header__call {
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
-.call__number{
+.call__number {
     font-size: 16px;
     font-weight: 700;
     margin-left: 15px;
@@ -49,9 +54,10 @@
     justify-content: space-between;
     align-items: center;
 }
-.headerBtn{
+
+.favoriteBtn {
     position: relative;
-    &__count{
+    &__count {
         width: 20px;
         height: 20px;
         background-color: #0093A2;
@@ -60,17 +66,35 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        // text-align: center;
+        font-size: 12px;
+        position: absolute;
+        top: 0px;
+        right: -10px;
+        z-index: 99;
+    }
+}
 
+.headerBtn {
+    position: relative;
+
+    &__count {
+        width: 20px;
+        height: 20px;
+        background-color: #0093A2;
+        color: #fff;
+        border-radius: 50%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
         font-size: 12px;
         position: absolute;
         top: -7px;
         right: -15px;
         z-index: 99;
-
     }
 }
-.cart__price{
+
+.cart__price {
     font-size: 16px;
     margin-left: 25px;
 }

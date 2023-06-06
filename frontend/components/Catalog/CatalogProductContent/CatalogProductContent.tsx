@@ -2,7 +2,6 @@ import { FC, useState, useEffect } from "react";
 import CatalogProductList from "../../CatalogProductList/CatalogProductList";
 import Sorting from "../../Sorting/Sorting";
 import Pagination from "../../Pagination/Pagination";
-import { ICatalogProduct } from "../../../interfaces/catalog.interface";
 
 import s from './CatalogProductContent.module.scss'
 import { IProduct } from "../../../interfaces/products.interface";
