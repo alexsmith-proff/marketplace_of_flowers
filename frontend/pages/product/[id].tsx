@@ -10,6 +10,8 @@ import { IBreadCrumbs } from '../../interfaces/breadCrumbs.interface'
 import ProductCard from '../../components/ProductCard/ProductCard'
 import Reviews from '../../components/Reviews/Reviews'
 import Privileges from '../../components/Privileges/Privileges'
+import { useSelector } from 'react-redux'
+import { RootState } from '../../redux/store'
 
 interface IndexProps {
     topMenu: IMenu,
@@ -25,6 +27,10 @@ interface IndexProps {
 }
 
 const Index: FC<IndexProps> = ({ topMenu, headerMenu, footerMenu, footerMenuInfo, footerMenuCoordinates, footerMenuEmail, breadCrumbsArr, product, reviews, privilege }) => {
+    const viewedProducts = useSelector((state: RootState ) => state.viewedProduct.products)
+    console.log('viewedProductsviewedProductsviewedProducts', viewedProducts);
+    
+    
     return (
         <div>
             <MainLayout topMenu={topMenu} headerMenu={headerMenu} footerMenu={footerMenu} footerMenuInfo={footerMenuInfo} footerMenuCoordinates={footerMenuCoordinates} footerMenuEmail={footerMenuEmail}>

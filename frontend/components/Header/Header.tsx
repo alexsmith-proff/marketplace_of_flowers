@@ -5,7 +5,6 @@ import React, { FC } from 'react';
 import s from './Header.module.scss'
 import FavoriteBtn from '../Elements/Buttons/FavoriteBtn/FavoriteBtn';
 import { useSelector } from 'react-redux';
-import { IProduct } from '../../interfaces/products.interface';
 import { RootState } from '../../redux/store';
 
 interface HeaderProps {

@@ -6,7 +6,7 @@ import s from './ToCartBtn.module.scss'
 interface ToCartBtnProps {
     dark?: boolean
     textAfterClick?: string
-    isBuyProduct: boolean
+    isBuyProduct?: boolean
     onClick?: (any, boolean) => void | undefined
     paddingTopBottom?: number
 }

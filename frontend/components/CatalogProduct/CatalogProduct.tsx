@@ -12,6 +12,7 @@ import { addFavoriteProduct, deleteFavoriteProduct } from "../../redux/product/f
 import { IProduct } from "../../interfaces/products.interface";
 
 import s from './CatalogProduct.module.scss'
+import { addViewedProduct } from "../../redux/product/viewedProductSlice";
 
 interface CatalogProductProps {
     // product: ICatalogProduct
@@ -26,6 +27,7 @@ const CatalogProduct: FC<CatalogProductProps> = React.memo(({ product, isBuyProd
     const router = useRouter()
 
     const handleClickProduct = (id: number) => {
+        dispatch(addViewedProduct(product))
         // Переход на страницу товара
         router.push(`/product/${id}`)
     }
