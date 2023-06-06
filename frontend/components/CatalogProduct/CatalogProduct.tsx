@@ -1,16 +1,15 @@
 import React, { FC } from "react";
-import { ICatalogProduct } from "../../interfaces/catalog.interface";
-
-import s from './CatalogProduct.module.scss'
 import Image from "next/image";
 import ProductReviews from "../ProductReviews/ProductReviews";
 import DeliveryTime from "../DeliveryTime/DeliveryTime";
 import CardPrice from "../Elements/CardPrice/CardPrice";
 import ToCartBtn from "../Elements/Buttons/ToCartBtn/ToCartBtn";
 import { useRouter } from "next/router";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { addProduct, deleteProduct } from "../../redux/product/productSlice";
 import { IProduct } from "../../interfaces/products.interface";
+
+import s from './CatalogProduct.module.scss'
 
 interface CatalogProductProps {
     // product: ICatalogProduct

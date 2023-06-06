@@ -8,14 +8,16 @@ import s from './Pagination.module.scss'
 
 type TPaginationProps = {
     pageCount: number
+    forcePage: number
     onClickPagination: (pageNum: number) => void
 }
 
-const Pagination: FC<TPaginationProps> = ({ pageCount, onClickPagination }) => {
+const Pagination: FC<TPaginationProps> = ({ pageCount, onClickPagination, forcePage = 0 }) => {
     const handleClickPagination = (e) => {
         if (e.nextSelectedPage == undefined) onClickPagination(e.selected)
         else onClickPagination(e.nextSelectedPage)
     }
+
     return (
         <div>
             {
@@ -34,7 +36,9 @@ const Pagination: FC<TPaginationProps> = ({ pageCount, onClickPagination }) => {
                     previousClassName={s.paginationPrevitem}
                     previousLabel={<BsArrowLeftShort size={25} />}
                     nextLabel={<BsArrowRightShort size={25} />}
-                    onClick={handleClickPagination}
+                    onPageChange={handleClickPagination}
+                    forcePage={forcePage}
+                    
                 />
             }
 

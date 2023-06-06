@@ -10,6 +10,7 @@ import { IProduct } from "../../../interfaces/products.interface";
 type CatalogProductContentProps = {
     sortItem: string
     setSortItem: (sort: string) => void
+    
     // products: ICatalogProduct[]
     products: IProduct[]
 }
@@ -21,7 +22,6 @@ const CatalogProductContent: FC<CatalogProductContentProps> = ({ sortItem, setSo
     }
 
     // Массив товаров на странице
-    // const [productsOnPage, setProductsOnPage] = useState<ICatalogProduct[]>([])
     const [productsOnPage, setProductsOnPage] = useState<IProduct[]>([])
 
     // Текущая страница пагинации
@@ -33,8 +33,13 @@ const CatalogProductContent: FC<CatalogProductContentProps> = ({ sortItem, setSo
     // Количество страниц пагинации
     const countPagination = Math.ceil(products.length / countPerPagePagination)
 
+    const handleClickPagiation = (pageNum) => {
+        setCurrentPagePagination(pageNum)
+    }
+
 
     useEffect(() => {
+        // При изменении products и соответственно значения сортировки - 1 страница пагинации
         setCurrentPagePagination(0)
     }, [products])
     useEffect(() => {
@@ -43,9 +48,6 @@ const CatalogProductContent: FC<CatalogProductContentProps> = ({ sortItem, setSo
         }
     }, [products, currentPagePagination])
 
-    const handleClickPagiation = (pageNum) => {
-        setCurrentPagePagination(pageNum)
-    }
 
     return (
         <div className={s.wrap}>
@@ -54,7 +56,7 @@ const CatalogProductContent: FC<CatalogProductContentProps> = ({ sortItem, setSo
             </div>
             <CatalogProductList products={productsOnPage} />
             <div className={s.pagination}>
-                <Pagination pageCount={countPagination} onClickPagination={handleClickPagiation} />
+                <Pagination pageCount={countPagination} onClickPagination={handleClickPagiation} forcePage={currentPagePagination} />
             </div>
         </div>
     )
