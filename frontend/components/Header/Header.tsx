@@ -6,12 +6,13 @@ import s from './Header.module.scss'
 import FavoriteBtn from '../Elements/Buttons/FavoriteBtn/FavoriteBtn';
 import { useSelector } from 'react-redux';
 import { IProduct } from '../../interfaces/products.interface';
+import { RootState } from '../../redux/store';
 
 interface HeaderProps {
 }
 
 const Header: FC<HeaderProps> = ({ }) => {
-    const products: IProduct[] = useSelector(state => state.product.products)
+    const products: IProduct[] = useSelector((state: RootState) => state.product.products)
 
     const getAllPrice = () => {
         return products.reduce((acc, item) => acc + item.price, 0)

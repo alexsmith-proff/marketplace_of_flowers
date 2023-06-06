@@ -10,7 +10,7 @@ import { IProduct } from "../../../interfaces/products.interface";
 type CatalogProductContentProps = {
     sortItem: string
     setSortItem: (sort: string) => void
-    
+
     // products: ICatalogProduct[]
     products: IProduct[]
 }
@@ -51,9 +51,15 @@ const CatalogProductContent: FC<CatalogProductContentProps> = ({ sortItem, setSo
 
     return (
         <div className={s.wrap}>
-            <div className={s.sorting}>
-                <Sorting sortItem={sortItem} setSortItem={setSortItem} />
-            </div>
+            {
+                countPagination !== 0 ?
+                    <div className={s.sorting}>
+                        <Sorting sortItem={sortItem} setSortItem={setSortItem} />
+                    </div>
+                    :
+                    <></>
+            }
+
             <CatalogProductList products={productsOnPage} />
             <div className={s.pagination}>
                 <Pagination pageCount={countPagination} onClickPagination={handleClickPagiation} forcePage={currentPagePagination} />

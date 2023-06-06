@@ -4,13 +4,14 @@ import { IProduct } from "../../interfaces/products.interface";
 
 import s from './CatalogProductList.module.scss'
 import { useSelector } from "react-redux";
+import { RootState } from "../../redux/store";
 
 interface CatalogProductListProps {
     products: IProduct[]
 }
 
 const CatalogProductList: FC<CatalogProductListProps> = ({ products }) => {  
-    const buyProducts: IProduct[] = useSelector(state => state.product.products)  
+    const buyProducts = useSelector((state: RootState) => state.product.products)  
     
     return (
         <div className={s.wrap}>
