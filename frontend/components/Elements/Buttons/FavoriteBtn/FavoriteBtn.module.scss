@@ -2,6 +2,9 @@
     border: 1px solid #E2E4EB;
     border-radius: 50%;
     padding: 10px;
+    &.light{
+        background-color: #fff;
+    }
 
     &__img {
         display: flex;

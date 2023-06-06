@@ -10,6 +10,7 @@ import { addProduct, deleteProduct } from "../../redux/product/productSlice";
 import { IProduct } from "../../interfaces/products.interface";
 
 import s from './CatalogProduct.module.scss'
+import FavoriteBtn from "../Elements/Buttons/FavoriteBtn/FavoriteBtn";
 
 interface CatalogProductProps {
     // product: ICatalogProduct
@@ -17,9 +18,9 @@ interface CatalogProductProps {
     isBuyProduct: boolean
 }
 
-const CatalogProduct: FC<CatalogProductProps> = React.memo( ({ product, isBuyProduct = false }) => {
+const CatalogProduct: FC<CatalogProductProps> = React.memo(({ product, isBuyProduct = false }) => {
     const dispatch = useDispatch()
-    
+
     const router = useRouter()
 
     const handleClickProduct = (id: number) => {
@@ -36,7 +37,7 @@ const CatalogProduct: FC<CatalogProductProps> = React.memo( ({ product, isBuyPro
 
     console.log('prprprpr', isBuyProduct);
 
-    
+
 
     return (
         <li className={s.product} onClick={() => handleClickProduct(product.id)}>
@@ -59,6 +60,9 @@ const CatalogProduct: FC<CatalogProductProps> = React.memo( ({ product, isBuyPro
                     <ToCartBtn textAfterClick="В корзине" isBuyProduct={isBuyProduct} onClick={handleAddToCart} />
                     <div></div>
                 </div>
+            </div>
+            <div className={s.favorite}>
+                <FavoriteBtn backgroundLight={true} />
             </div>
         </li>
     )
