@@ -15,9 +15,10 @@ import { IProduct } from "../../interfaces/products.interface";
 interface CatalogProductProps {
     // product: ICatalogProduct
     product: IProduct
+    isBuyProduct: boolean
 }
 
-const CatalogProduct: FC<CatalogProductProps> = React.memo( ({ product }) => {
+const CatalogProduct: FC<CatalogProductProps> = React.memo( ({ product, isBuyProduct = false }) => {
     const dispatch = useDispatch()
     
     const router = useRouter()
@@ -31,11 +32,10 @@ const CatalogProduct: FC<CatalogProductProps> = React.memo( ({ product }) => {
         // Прервем передачу события клика родительскому элементу <li>, т.е. не сработает handleClickProduct 
         e.stopPropagation()
         //Добавление товара в корзину
-        console.log('prprprpr', isEnable);
         !isEnable ? dispatch(addProduct(product)) : dispatch(deleteProduct(product.id))
     }
 
-    console.log('prprprpr');
+    console.log('prprprpr', isBuyProduct);
 
     
 
@@ -57,7 +57,7 @@ const CatalogProduct: FC<CatalogProductProps> = React.memo( ({ product }) => {
                 </div>
                 <div className={s.down}>
                     <CardPrice actualPrice={product.price} crossPrice={product.price + 500} size={16} />
-                    <ToCartBtn textAfterClick="В корзине" onClick={handleAddToCart} />
+                    <ToCartBtn textAfterClick="В корзине" isBuyProduct={isBuyProduct} onClick={handleAddToCart} />
                     <div></div>
                 </div>
             </div>

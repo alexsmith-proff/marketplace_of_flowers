@@ -12,7 +12,6 @@ interface HeaderProps {
 
 const Header: FC<HeaderProps> = ({ }) => {
     const products: IProduct[] = useSelector(state => state.product.products)
-    console.log('aaaaaaaaaaaaaaaaaaa', products);
 
     const getAllPrice = () => {
         return products.reduce((acc, item) => acc + item.price, 0)
