@@ -1,14 +1,13 @@
 import React, { FC } from 'react';
-
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import Slider, { Settings } from "react-slick";
-
-import s from './MainCards.module.scss'
 import { ISection } from '../../interfaces/section.interface';
 import { getFileNameInImgBlockFromElement, getTextInTextBlockFromElement } from '../../services/core/parse';
 import CardPrice from '../Elements/CardPrice/CardPrice';
 import ToCartBtn from '../Elements/Buttons/ToCartBtn/ToCartBtn';
+
+import s from './MainCards.module.scss'
 
 interface MainCardsProps {
     mainCardSection: ISection
@@ -49,7 +48,7 @@ const MainCards: FC<MainCardsProps> = ({ mainCardSection }) => {
                                                 <div className={s.mainCards__subtitle}>{getTextInTextBlockFromElement(el, 'desc')}</div>
                                             </div>
                                             <div className={s.mainCards__priceCart}>
-                                                <CardPrice actualPrice={getTextInTextBlockFromElement(el, 'cena')} crossPrice={getTextInTextBlockFromElement(el, 'staraya-cena')} />
+                                                <CardPrice actualPrice={getTextInTextBlockFromElement(el, 'cena')} crossPrice={getTextInTextBlockFromElement(el, 'staraya-cena')} size={16} />
                                                 <ToCartBtn dark={false} />
                                             </div>
                                         </div>

@@ -12,6 +12,7 @@ import Reviews from '../../components/Reviews/Reviews'
 import Privileges from '../../components/Privileges/Privileges'
 import { useSelector } from 'react-redux'
 import { RootState } from '../../redux/store'
+import VIewsProducts from '../../components/VIewsProducts/VIewsProducts'
 
 interface IndexProps {
     topMenu: IMenu,
@@ -37,6 +38,9 @@ const Index: FC<IndexProps> = ({ topMenu, headerMenu, footerMenu, footerMenuInfo
                 <BreadCrumbs breadCrumbsArr={breadCrumbsArr} />
                 <ProductCard product={product} />
                 <Reviews reviewSection={reviews} />
+                {
+                    viewedProducts.length > 4 ? <VIewsProducts products={viewedProducts}/> : <></>
+                }
                 <Privileges privilegeSection={privilege} />
             </MainLayout>
         </div >

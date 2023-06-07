@@ -23,7 +23,7 @@ const ProductCardImageSlider: FC<TProductCardImageSlider> = ({ mainImage, images
             <ul className={s.thumbnails}>
                 {
                     images.map((img, index) => (
-                        <div className={s.thumbnailImg} onClick={() => handleClickThumbnail(index)}>
+                        <div className={s.thumbnailImg} onClick={() => handleClickThumbnail(index)} key={index}>
                             <Image className={s.thumbnailImg} src={`${process.env.API_URI_DOCKER}/${img}`} width={112} height={90} objectFit='cover' key={index} alt='product-thumbnail-img' />
                         </div>
                     ))

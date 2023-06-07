@@ -1,0 +1,67 @@
+.mainCards {
+    padding-bottom: 60px;
+    &__mainTitle {
+        font-family: 'Yeseva One';
+        font-weight: 400;
+        font-size: 40px;
+        line-height: 50px;
+        color: #222A46;
+        margin-bottom: 30px;
+    }
+
+    &__list {
+        width: 100%;
+    }
+
+    &__item {
+        background: #FFFFFF;
+        border: 1px solid #E2E4EB;
+        border-radius: 5px;
+        position: relative;
+        width: 278px!important;
+    }
+    &__img{
+        width: 100%;
+    }
+
+    &__imgHeart {
+        position: absolute;
+        top: 15px;
+        right: 15px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: #fff;
+        border-radius: 50%;
+        padding: 9px;
+    }
+
+    &__info {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        height: 180px;
+        padding: 20px;
+    }
+
+    &__title {
+        font-weight: 700;
+        font-size: 16px;
+        line-height: 22px;
+        color: #222A46;
+        margin-bottom: 10px;
+    }
+
+    &__subtitle {
+        font-weight: 400;
+        font-size: 14px;
+        line-height: 20px;
+        color: #505567;
+    }
+
+    &__priceCart {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+}
