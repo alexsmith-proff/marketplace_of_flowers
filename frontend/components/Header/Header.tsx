@@ -15,7 +15,7 @@ const Header: FC<HeaderProps> = ({ }) => {
     const favoriteProducts = useSelector((state: RootState) => state.favoriteProduct.products)
 
     const getAllPrice = () => {
-        let val = buyProducts.reduce((acc, item) => acc + item.price, 0)
+        let val = buyProducts.reduce((acc, item) => acc + item.price * item.count, 0)
 
         let value = val.toString().split('')
         value.splice(value.length - 3, 0, ' ').join()

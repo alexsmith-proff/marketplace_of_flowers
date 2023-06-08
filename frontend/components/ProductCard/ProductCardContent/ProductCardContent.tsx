@@ -8,16 +8,35 @@ import CardPrice from '../../Elements/CardPrice/CardPrice'
 import CountProduct from '../../Elements/CountProduct/CountProduct'
 import ToCartBtn from '../../Elements/Buttons/ToCartBtn/ToCartBtn'
 import FavoriteBtn from '../../Elements/Buttons/FavoriteBtn/FavoriteBtn'
+import { useDispatch, useSelector } from 'react-redux'
+import { addCartProduct, deleteCartProduct } from '../../../redux/product/cartProductSlice'
+import { RootState } from '../../../redux/store'
 
 type TProductCardContent = {
     product: IProduct
 }
 
 const ProductCardContent: FC<TProductCardContent> = ({ product }) => {
+    const productToCart = useSelector((state: RootState) => state.cartProduct.products)
+    const dispatch = useDispatch()
     const [countFlovers, setCountFlovers] = useState<number>(1)
 
+    const handleDecrement = () => {
+        if(countFlovers > 1) setCountFlovers(prev => prev - 1)
+    }
+    const handleIncrement = () => {
+        if(countFlovers < product.count_in_stock) setCountFlovers(prev => prev + 1)
+    }
 
-    console.log(product);
+    const handleAddToCart = (e, isEnable: boolean) => {
+        // Прервем передачу события клика родительскому элементу <li>, т.е. не сработает handleClickProduct 
+        e.stopPropagation()
+        //Добавление товара в корзину
+
+        !isEnable ? dispatch(addCartProduct({...product, count: countFlovers})) : dispatch(deleteCartProduct(product.id))
+    }
+
+    console.log('productproductproductproductproduct', productToCart);
 
     return (
         <div className={s.content}>
@@ -92,8 +111,8 @@ const ProductCardContent: FC<TProductCardContent> = ({ product }) => {
                     <CardPrice actualPrice={product.price} crossPrice={product.price + 500} size={20} />
                 </div>
                 <div className={s.buy}>
-                    <CountProduct value={countFlovers} decrement={null} increment={null} />
-                    <ToCartBtn dark={true} />
+                    <CountProduct value={countFlovers} decrement={handleDecrement} increment={handleIncrement} />
+                    <ToCartBtn textAfterClick="Удалить" isBuyProduct={productToCart.some((pr) => pr.id === product.id)} onClick={handleAddToCart} />
                     <FavoriteBtn link={'#'} />
                 </div>
 
