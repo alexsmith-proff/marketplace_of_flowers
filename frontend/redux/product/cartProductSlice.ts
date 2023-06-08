@@ -1,8 +1,8 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit"
-import { IProduct } from "../../interfaces/products.interface"
+import { IProductCart } from "../../interfaces/products.interface"
 
 type TinitialState = {
-    products: IProduct[]
+    products: IProductCart[]
 }
 
 const initialState: TinitialState = {
@@ -13,7 +13,7 @@ export const cartProductSlice = createSlice({
     name: 'product',
     initialState,
     reducers: {
-        addCartProduct: (state, action: PayloadAction<IProduct>) => {
+        addCartProduct: (state, action: PayloadAction<IProductCart>) => {
             state.products.push(action.payload)
         },
         deleteCartProduct: (state, action: PayloadAction<number>) => {

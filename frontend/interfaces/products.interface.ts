@@ -75,6 +75,10 @@ export interface IProduct extends IBase {
   updatedAt: Date,
 }
 
+export interface IProductCart extends IProduct {
+  count: number
+}
+
 export interface IProductMinMaxPrice {
   minPrice: number,
   maxPrice: number

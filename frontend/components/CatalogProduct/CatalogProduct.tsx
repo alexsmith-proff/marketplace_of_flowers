@@ -9,7 +9,7 @@ import { useRouter } from "next/router";
 import { useDispatch } from "react-redux";
 import { addCartProduct, deleteCartProduct } from "../../redux/product/cartProductSlice";
 import { addFavoriteProduct, deleteFavoriteProduct } from "../../redux/product/favoriteProductSlice";
-import { IProduct } from "../../interfaces/products.interface";
+import { IProduct, IProductCart } from "../../interfaces/products.interface";
 
 import s from './CatalogProduct.module.scss'
 import { addViewedProduct } from "../../redux/product/viewedProductSlice";
@@ -36,7 +36,8 @@ const CatalogProduct: FC<CatalogProductProps> = React.memo(({ product, isBuyProd
         // Прервем передачу события клика родительскому элементу <li>, т.е. не сработает handleClickProduct 
         e.stopPropagation()
         //Добавление товара в корзину
-        !isEnable ? dispatch(addCartProduct(product)) : dispatch(deleteCartProduct(product.id))
+
+        !isEnable ? dispatch(addCartProduct({...product, count: 1})) : dispatch(deleteCartProduct(product.id))
     }
 
     const handleAddToFavorite = (e, isEnable: boolean) => {

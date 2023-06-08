@@ -11,6 +11,7 @@ import FavoriteBtn from '../Elements/Buttons/FavoriteBtn/FavoriteBtn'
 import { useDispatch, useSelector } from 'react-redux'
 import { addFavoriteProduct, deleteFavoriteProduct } from '../../redux/product/favoriteProductSlice'
 import { addCartProduct, deleteCartProduct } from '../../redux/product/cartProductSlice'
+import { count } from 'console'
 
 
 interface ViewsProductsProps {
@@ -48,7 +49,7 @@ const ViewsProducts: FC<ViewsProductsProps> = ({ products }) => {
         // Прервем передачу события клика родительскому элементу <li>, т.е. не сработает handleClickProduct 
         e.stopPropagation()
         //Добавление товара в избранное
-       !isActiveBtn ? dispatch(addCartProduct(product)) : dispatch(deleteCartProduct(product.id))
+       !isActiveBtn ? dispatch(addCartProduct({...product, count: 1})) : dispatch(deleteCartProduct(product.id))
    }
     
 
