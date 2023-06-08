@@ -1,4 +1,4 @@
-import { FC, useState } from "react"
+import React, { memo, FC, useState } from "react"
 import Image from "next/image"
 
 import s from './FavoriteBtn.module.scss'
@@ -16,6 +16,8 @@ const FavoriteBtn: FC<FavoriteBtnProps> = ({ link, backgroundLight = false, isAc
         setIsFavorite(!isFavorite)
         onClick(e, isFavorite)
     }
+    console.log('FavoriteBtnFavoriteBtnFavoriteBtnFavoriteBtn');
+    
 
     return (
         <>
@@ -26,6 +28,6 @@ const FavoriteBtn: FC<FavoriteBtnProps> = ({ link, backgroundLight = false, isAc
             </div>
         </>
     )
-
 }
+
 export default FavoriteBtn

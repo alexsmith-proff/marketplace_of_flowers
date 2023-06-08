@@ -4,15 +4,22 @@ import CardPrice from '../Elements/CardPrice/CardPrice'
 import ToCartBtn from '../Elements/Buttons/ToCartBtn/ToCartBtn'
 import Image from 'next/image'
 import { IProduct } from '../../interfaces/products.interface'
+import { RootState } from '../../redux/store'
 
 import s from './ViewsProducts.module.scss'
+import FavoriteBtn from '../Elements/Buttons/FavoriteBtn/FavoriteBtn'
+import { useDispatch, useSelector } from 'react-redux'
+import { addFavoriteProduct, deleteFavoriteProduct } from '../../redux/product/favoriteProductSlice'
 
 
 interface ViewsProductsProps {
     products: IProduct[]
 }
 
-const VIewsProducts: FC<ViewsProductsProps> = ({ products }) => {
+const ViewsProducts: FC<ViewsProductsProps> = ({ products }) => {
+    const dispatch = useDispatch()
+    const productFavorite = useSelector((state: RootState) => state.favoriteProduct.products)
+
     const settings: Settings = {
         // dots: true,
         arrows: true,
@@ -27,6 +34,16 @@ const VIewsProducts: FC<ViewsProductsProps> = ({ products }) => {
         // centerPadding: '50',
         // rows: 3,
     };
+
+    const handleClickFavorite = (e, isActive: boolean, product: IProduct) => {
+         // Прервем передачу события клика родительскому элементу <li>, т.е. не сработает handleClickProduct 
+         e.stopPropagation()
+         //Добавление товара в избранное
+        !isActive ? dispatch(addFavoriteProduct(product)) : dispatch(deleteFavoriteProduct(product.id))
+    }
+
+    console.log('mmmmm');
+    
 
     return (
         <>
@@ -50,6 +67,9 @@ const VIewsProducts: FC<ViewsProductsProps> = ({ products }) => {
                                                 <ToCartBtn dark={false} />
                                             </div>
                                         </div>
+                                        <div className={s.favorite}>
+                                            <FavoriteBtn backgroundLight={true} isActive={productFavorite.some((pr) => pr.id === product.id)} onClick={(e, isActive) => handleClickFavorite(e, isActive, product)} />
+                                        </div>
                                     </div>
                                 ))
                             }
@@ -60,4 +80,4 @@ const VIewsProducts: FC<ViewsProductsProps> = ({ products }) => {
         </>
     )
 }
-export default VIewsProducts
+export default ViewsProducts
