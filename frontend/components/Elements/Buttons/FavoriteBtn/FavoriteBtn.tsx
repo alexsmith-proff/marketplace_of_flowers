@@ -16,8 +16,6 @@ const FavoriteBtn: FC<FavoriteBtnProps> = ({ link, backgroundLight = false, isAc
         setIsFavorite(!isFavorite)
         onClick(e, isFavorite)
     }
-    console.log('FavoriteBtnFavoriteBtnFavoriteBtnFavoriteBtn');
-    
 
     return (
         <>

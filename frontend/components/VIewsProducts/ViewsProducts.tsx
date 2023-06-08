@@ -10,6 +10,7 @@ import s from './ViewsProducts.module.scss'
 import FavoriteBtn from '../Elements/Buttons/FavoriteBtn/FavoriteBtn'
 import { useDispatch, useSelector } from 'react-redux'
 import { addFavoriteProduct, deleteFavoriteProduct } from '../../redux/product/favoriteProductSlice'
+import { addCartProduct, deleteCartProduct } from '../../redux/product/cartProductSlice'
 
 
 interface ViewsProductsProps {
@@ -19,6 +20,7 @@ interface ViewsProductsProps {
 const ViewsProducts: FC<ViewsProductsProps> = ({ products }) => {
     const dispatch = useDispatch()
     const productFavorite = useSelector((state: RootState) => state.favoriteProduct.products)
+    const productToCart = useSelector((state: RootState) => state.cartProduct.products)
 
     const settings: Settings = {
         // dots: true,
@@ -42,7 +44,12 @@ const ViewsProducts: FC<ViewsProductsProps> = ({ products }) => {
         !isActive ? dispatch(addFavoriteProduct(product)) : dispatch(deleteFavoriteProduct(product.id))
     }
 
-    console.log('mmmmm');
+    const handleClickToCart = (e, isActiveBtn: boolean, product: IProduct) => {
+        // Прервем передачу события клика родительскому элементу <li>, т.е. не сработает handleClickProduct 
+        e.stopPropagation()
+        //Добавление товара в избранное
+       !isActiveBtn ? dispatch(addCartProduct(product)) : dispatch(deleteCartProduct(product.id))
+   }
     
 
     return (
@@ -64,11 +71,11 @@ const ViewsProducts: FC<ViewsProductsProps> = ({ products }) => {
                                             </div>
                                             <div className={s.mainCards__priceCart}>
                                                 <CardPrice actualPrice={product.price} crossPrice={product.price + 2000} size={16} />
-                                                <ToCartBtn dark={false} />
+                                                <ToCartBtn textAfterClick="В корзине" isBuyProduct={productToCart.some((pr) => pr.id === product.id)} onClick={(e, isActiveBtn) => handleClickToCart(e, isActiveBtn, product)} />
                                             </div>
                                         </div>
                                         <div className={s.favorite}>
-                                            <FavoriteBtn backgroundLight={true} isActive={productFavorite.some((pr) => pr.id === product.id)} onClick={(e, isActive) => handleClickFavorite(e, isActive, product)} />
+                                            <FavoriteBtn backgroundLight={true} isActive={productFavorite.some((pr) => pr.id === product.id)} onClick={(e, isActiveBtn) => handleClickFavorite(e, isActiveBtn, product)} />
                                         </div>
                                     </div>
                                 ))
