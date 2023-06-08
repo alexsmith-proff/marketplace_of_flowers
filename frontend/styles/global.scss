@@ -59,7 +59,7 @@ button:focus {
 
 .slick-prev,
 .slick-next {
-	z-index: 999;
+	z-index: 998!important;
 	border-radius: 50%;
 	padding: 15px !important;
 }
