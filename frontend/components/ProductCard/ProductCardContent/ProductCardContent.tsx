@@ -11,6 +11,7 @@ import FavoriteBtn from '../../Elements/Buttons/FavoriteBtn/FavoriteBtn'
 import { useDispatch, useSelector } from 'react-redux'
 import { addCartProduct, deleteCartProduct } from '../../../redux/product/cartProductSlice'
 import { RootState } from '../../../redux/store'
+import { addFavoriteProduct, deleteFavoriteProduct } from '../../../redux/product/favoriteProductSlice'
 
 type TProductCardContent = {
     product: IProduct
@@ -18,6 +19,7 @@ type TProductCardContent = {
 
 const ProductCardContent: FC<TProductCardContent> = ({ product }) => {
     const productToCart = useSelector((state: RootState) => state.cartProduct.products)
+    const productFavorite = useSelector((state: RootState) => state.favoriteProduct.products)
     const dispatch = useDispatch()
     const [countFlovers, setCountFlovers] = useState<number>(1)
 
@@ -29,12 +31,14 @@ const ProductCardContent: FC<TProductCardContent> = ({ product }) => {
     }
 
     const handleAddToCart = (e, isEnable: boolean) => {
-        // Прервем передачу события клика родительскому элементу <li>, т.е. не сработает handleClickProduct 
-        e.stopPropagation()
         //Добавление товара в корзину
-
         !isEnable ? dispatch(addCartProduct({...product, count: countFlovers})) : dispatch(deleteCartProduct(product.id))
     }
+    const handleClickFavorite = (e, isActive: boolean, product: IProduct) => {
+        //Добавление товара в избранное
+       !isActive ? dispatch(addFavoriteProduct(product)) : dispatch(deleteFavoriteProduct(product.id))
+   }
+    
 
     console.log('productproductproductproductproduct', productToCart);
 
@@ -113,7 +117,7 @@ const ProductCardContent: FC<TProductCardContent> = ({ product }) => {
                 <div className={s.buy}>
                     <CountProduct value={countFlovers} decrement={handleDecrement} increment={handleIncrement} />
                     <ToCartBtn textAfterClick="Удалить" isBuyProduct={productToCart.some((pr) => pr.id === product.id)} onClick={handleAddToCart} />
-                    <FavoriteBtn link={'#'} />
+                    <FavoriteBtn backgroundLight={true} isActive={productFavorite.some((pr) => pr.id === product.id)} onClick={(e, isActiveBtn) => handleClickFavorite(e, isActiveBtn, product)} />
                 </div>
 
             </div>
