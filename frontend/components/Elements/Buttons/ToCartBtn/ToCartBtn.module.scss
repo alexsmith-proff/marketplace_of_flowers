@@ -1,11 +1,14 @@
 .btn {
+    width: 100px;
     display: flex;
+    // justify-content: space-around;
     align-items: center;
     padding: 8px 14px;
     background: #fff;
     border: 1px solid #E2195B;
     border-radius: 5px;
     cursor: pointer;
+    user-select: none;
     transition: all .25s;
 
     &.clicked {
