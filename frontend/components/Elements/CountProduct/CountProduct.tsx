@@ -3,16 +3,17 @@ import { FC } from 'react'
 import s from './CountProduct.module.scss'
 
 interface CountProductProps {
+    enable?: boolean
     value: number
     increment: () => void
     decrement: () => void
 }
-const CountProduct: FC<CountProductProps> = ({ value, increment, decrement }) => {
+const CountProduct: FC<CountProductProps> = ({ enable = true, value, increment, decrement }) => {
     return (
-        <div className={s.counter}>
-            <div onClick={decrement} className={s.incdec + ' ' + s.minus}>_</div>
+        <div className={enable ? s.counter : s.counter + ' ' + s.disable}>
+            <div onClick={enable? decrement : null} className={enable? (s.incdec + ' ' + s.minus) : (s.incdec + ' ' + s.minus + ' ' + s.disable)}>_</div>
             <div>{value}</div>
-            <div onClick={increment} className={s.incdec}>+</div>
+            <div onClick={enable? increment: null} className={enable ? s.incdec : (s.incdec + ' ' + s.disable)}>+</div>
         </div>
     )
 }

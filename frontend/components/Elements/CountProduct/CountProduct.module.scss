@@ -12,13 +12,21 @@
     border-radius: 8px;
     padding: 6px 12px;
     box-sizing: border-box;
+    cursor: pointer;
+    
+    &.disable{
+        color: #b8b8b8;
+        border: 1px solid #b8b8b8;
+    }
 
 }
 
 .incdec {
     font-size: 22px;
     line-height: 26px;
-    cursor: pointer;
+    &.disable{
+        color: #b8b8b8;
+    }
 }
 .minus{
     position: relative;

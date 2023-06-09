@@ -21,26 +21,31 @@ const ProductCardContent: FC<TProductCardContent> = ({ product }) => {
     const productToCart = useSelector((state: RootState) => state.cartProduct.products)
     const productFavorite = useSelector((state: RootState) => state.favoriteProduct.products)
     const dispatch = useDispatch()
+    const [countProductEnable, setCountProductEnable] = useState<boolean>(true)
     const [countFlovers, setCountFlovers] = useState<number>(1)
 
     const handleDecrement = () => {
-        if(countFlovers > 1) setCountFlovers(prev => prev - 1)
+        if (countFlovers > 1) setCountFlovers(prev => prev - 1)
     }
     const handleIncrement = () => {
-        if(countFlovers < product.count_in_stock) setCountFlovers(prev => prev + 1)
+        if (countFlovers < product.count_in_stock) setCountFlovers(prev => prev + 1)
     }
 
     const handleAddToCart = (e, isEnable: boolean) => {
         //Добавление товара в корзину
-        !isEnable ? dispatch(addCartProduct({...product, count: countFlovers})) : dispatch(deleteCartProduct(product.id))
+        if (!isEnable) {
+            setCountFlovers(1)
+            setCountProductEnable(false)
+            dispatch(addCartProduct({ ...product, count: countFlovers }))
+        } else {
+            dispatch(deleteCartProduct(product.id))
+            setCountProductEnable(true)
+        }
     }
     const handleClickFavorite = (e, isActive: boolean, product: IProduct) => {
         //Добавление товара в избранное
-       !isActive ? dispatch(addFavoriteProduct(product)) : dispatch(deleteFavoriteProduct(product.id))
-   }
-    
-
-    console.log('productproductproductproductproduct', productToCart);
+        !isActive ? dispatch(addFavoriteProduct(product)) : dispatch(deleteFavoriteProduct(product.id))
+    }
 
     return (
         <div className={s.content}>
@@ -115,7 +120,7 @@ const ProductCardContent: FC<TProductCardContent> = ({ product }) => {
                     <CardPrice actualPrice={product.price} crossPrice={product.price + 500} size={20} />
                 </div>
                 <div className={s.buy}>
-                    <CountProduct value={countFlovers} decrement={handleDecrement} increment={handleIncrement} />
+                    <CountProduct enable={countProductEnable} value={countFlovers} decrement={handleDecrement} increment={handleIncrement} />
                     <ToCartBtn textAfterClick="Удалить" isBuyProduct={productToCart.some((pr) => pr.id === product.id)} onClick={handleAddToCart} />
                     <FavoriteBtn backgroundLight={true} isActive={productFavorite.some((pr) => pr.id === product.id)} onClick={(e, isActiveBtn) => handleClickFavorite(e, isActiveBtn, product)} />
                 </div>
