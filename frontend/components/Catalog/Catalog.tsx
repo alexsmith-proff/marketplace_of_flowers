@@ -3,11 +3,10 @@ import Filter from "../Filter/Filter";
 import { IFilter, IFilterData, IFilterOrderData } from "../../interfaces/filter.interface";
 import { GetProductsByFilterData } from "../../services/core/requests";
 import { IProduct, IProductMinMaxPrice } from "../../interfaces/products.interface";
-
-import s from './Catalog.module.scss'
-import { ICatalogProduct } from "../../interfaces/catalog.interface";
 import { SortingsList } from "../../constants/sorting.conts";
 import CatalogProductContent from "./CatalogProductContent/CatalogProductContent";
+
+import s from './Catalog.module.scss'
 
 interface CatalogProps {
     filter: IFilter

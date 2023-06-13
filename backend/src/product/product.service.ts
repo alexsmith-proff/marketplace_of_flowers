@@ -73,6 +73,24 @@ export class ProductService {
     })
   }
 
+  // async findByRandom(count: number): Promise<ProductEntity[]> {
+  //   const products = await this.productRepository.find({
+  //     relations: {
+  //       brand: true,
+  //       catalog: true
+  //     }
+  //   })
+  //   const numbers = []
+  //   for(let i = 0; i < count; i++){
+  //     let value = Math.floor(Math.random() * products.length)
+      
+  //     numbers.push(value)
+  //   }
+  //   console.log('valuevaluevalue', numbers);
+  //   return numbers.map(item => products[item])
+  //   // return products
+  // }
+
   async findByFilter(filter: IFilterOderData): Promise<ProductEntity[]> {
     // console.log('filter', filter);
 

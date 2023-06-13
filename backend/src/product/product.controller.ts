@@ -18,6 +18,13 @@ export class ProductController {
     return await this.productService.findAll()
   }
 
+  // @Post('random')
+  // async findByRandom(@Body() count: any) {
+  //   console.log('jjjjjjjjjjjjjjjjjjjjjjjjjjj', count.count)
+    
+  //   return await this.productService.findByRandom(count.count)
+  // }
+
   @Post('filter')
   async findByFilter(@Body() filterProduct: any) {
     return await this.productService.findByFilter(filterProduct)

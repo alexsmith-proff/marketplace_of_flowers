@@ -1,4 +1,4 @@
-import { IAdminProduct } from "./products.interface"
+import { IAdminProduct, IProduct } from "./products.interface"
 
 interface IBase {
     id: number
@@ -15,7 +15,7 @@ export interface IImgElement extends IBase {
 export interface IElement extends IBase{
     text_elements: ITextElement[]
     img_elements: IImgElement[]
-    product_ref: IAdminProduct
+    product_ref: IProduct
 }
 export interface ISection extends IBase {
     elements: IElement[]

@@ -148,6 +148,18 @@ export const GetProductsById = async(id) => {
   return dataQuery  
 }
 
+// export const GetProductsByRandom = async() => {
+//   let dataQuery = null
+//   try {
+//     console.log('mmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm');
+//     dataQuery = await allEndPoints.product.getByRandom(5)
+//     console.log('nnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnnn');
+//   } catch (error) {
+//     console.log('error', error);
+//   }
+//   return dataQuery  
+// }
+
 export const GetProductsByFilterData = async(filterData: IFilterOrderData) => {
   let dataQuery = null
   try {

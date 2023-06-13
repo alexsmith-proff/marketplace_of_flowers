@@ -8,11 +8,11 @@ import Privileges from '../components/Privileges/Privileges';
 import Reviews from '../components/Reviews/Reviews';
 import SeoOne from '../components/SeoOne/SeoOne';
 import SeoTwo from '../components/SeoTwo/SeoTwo';
-import TopMenu from '../components/TopMenu/TopMenu';
 import { IMenu } from '../interfaces/menu.interface';
 import { ISection } from '../interfaces/section.interface';
 import MainLayout from '../layouts/MainLayout/MainLayout'
 import { GetMenu, GetSection } from '../services/core/requests';
+import { IProduct } from '../interfaces/products.interface';
 
 interface IndexProps {
   topMenu: IMenu,
@@ -21,7 +21,7 @@ interface IndexProps {
   bigSlider: ISection,
   smallSlider: ISection,
   privilege: ISection,
-  mainCard: ISection,
+  mainCards: ISection,
   partition: ISection,
   gallery: ISection,
   reviews: ISection,
@@ -33,14 +33,14 @@ interface IndexProps {
   footerMenuEmail: ISection
 }
 
-const Index: FC<IndexProps> = ({ topMenu, headerMenu, bigSlider, smallSlider, privilege, mainCard, partition, gallery, reviews, news, seoOne, seoTwo, footerMenu, footerMenuInfo, footerMenuCoordinates, footerMenuEmail }) => {
+const Index: FC<IndexProps> = ({ topMenu, headerMenu, bigSlider, smallSlider, privilege, mainCards, partition, gallery, reviews, news, seoOne, seoTwo, footerMenu, footerMenuInfo, footerMenuCoordinates, footerMenuEmail }) => {
 
   return (
     <div>
       <MainLayout topMenu={topMenu} headerMenu={headerMenu} footerMenu={footerMenu} footerMenuInfo={footerMenuInfo} footerMenuCoordinates={footerMenuCoordinates} footerMenuEmail={footerMenuEmail}>
         <MainSlider bigSliderSection={bigSlider} smallSliderSection={smallSlider} />
         <Privileges privilegeSection={privilege} />
-        <MainCards mainCardSection={mainCard} />
+        <MainCards cards={mainCards} />
         <Partitions partitionSection={partition} />
         <Gallery gallerySection={gallery} />
         <Reviews reviewSection={reviews} />
@@ -59,7 +59,7 @@ export async function getServerSideProps() {
   const bigSlider = await GetSection('bigSlider')
   const smallSlider = await GetSection('smallSlider')
   const privilege = await GetSection('privilegii')
-  const mainCard = await GetSection('mainCard')
+  const mainCards = await GetSection('mainCard')
   const partition = await GetSection('partition')
   const gallery = await GetSection('gallery')
   const reviews = await GetSection('reviews')
@@ -72,7 +72,7 @@ export async function getServerSideProps() {
   const footerMenuEmail = await GetSection('e-mail')
 
   return {
-    props: { topMenu, headerMenu, bigSlider, smallSlider, privilege, mainCard, partition, gallery, reviews, news, seoOne, seoTwo, footerMenu, footerMenuInfo, footerMenuCoordinates, footerMenuEmail }
+    props: { topMenu, headerMenu, bigSlider, smallSlider, privilege, mainCards, partition, gallery, reviews, news, seoOne, seoTwo, footerMenu, footerMenuInfo, footerMenuCoordinates, footerMenuEmail }
   }
 }
 
