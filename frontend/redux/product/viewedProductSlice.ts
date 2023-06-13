@@ -14,7 +14,7 @@ export const viewedProductSlice = createSlice({
     initialState,
     reducers: {
         addViewedProduct: (state, action: PayloadAction<IProduct>) => {
-            state.products.push(action.payload)
+            !state.products.some(item => item.id === action.payload.id) ? state.products.push(action.payload) : null
         },
         deleteViewedProduct: (state, action: PayloadAction<number>) => {
             state.products = state.products.filter(product => product.id !== action.payload)

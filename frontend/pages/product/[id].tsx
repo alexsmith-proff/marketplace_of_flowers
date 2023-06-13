@@ -39,7 +39,7 @@ const Index: FC<IndexProps> = ({ topMenu, headerMenu, footerMenu, footerMenuInfo
                 <ProductCard product={product} />
                 <Reviews reviewSection={reviews} />
                 {
-                    viewedProducts.length > 4 ? <ViewsProducts products={viewedProducts}/> : <></>
+                    viewedProducts.length > 1 ? <ViewsProducts products={viewedProducts}/> : <></>
                 }
                 <Privileges privilegeSection={privilege} />
             </MainLayout>
