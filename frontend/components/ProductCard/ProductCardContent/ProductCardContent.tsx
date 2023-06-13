@@ -21,7 +21,7 @@ const ProductCardContent: FC<TProductCardContent> = ({ product }) => {
     const productToCart = useSelector((state: RootState) => state.cartProduct.products)
     const productFavorite = useSelector((state: RootState) => state.favoriteProduct.products)
     const dispatch = useDispatch()
-    const [countProductEnable, setCountProductEnable] = useState<boolean>(true)
+    const [countProductEnable, setCountProductEnable] = useState<boolean>(() => !productToCart.some((pr) => pr.id === product.id))
     const [countFlovers, setCountFlovers] = useState<number>(1)
 
     const handleDecrement = () => {
