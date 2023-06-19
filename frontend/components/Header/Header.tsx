@@ -66,7 +66,21 @@ const Header: FC<HeaderProps> = ({ }) => {
                     </div>
 
                     <div className={s.header__cart}>
-                        <a className={s.header__cartBtnLink} href="#">
+                        <Link href='/cart'>
+                            <a className={s.header__cartBtnLink}>
+                                {/* <Image src='/img/logo.png' width={160} height={48} alt='logo' /> */}
+                                <div className={s.headerBtn}>
+                                    <div className={s.headerBtn__img}>
+                                        <Image src='/img/cart.png' width={22} height={22} alt='cart-ico' />
+                                    </div>
+                                    {
+                                        buyProducts.length !== 0 ? <span className={s.headerBtn__count}>{buyProducts.length}</span> : <></>
+                                    }
+
+                                </div>
+                            </a>
+                        </Link>
+                        {/* <a className={s.header__cartBtnLink} href="#">
                             <div className={s.headerBtn}>
                                 <div className={s.headerBtn__img}>
                                     <Image src='/img/cart.png' width={22} height={22} alt='cart-ico' />
@@ -76,7 +90,7 @@ const Header: FC<HeaderProps> = ({ }) => {
                                 }
 
                             </div>
-                        </a>
+                        </a> */}
                         {/* <div className={s.cart__price}>16 500 ₽</div> */}
                         <div className={s.cart__price}>{allPrice} ₽</div>
                     </div>
