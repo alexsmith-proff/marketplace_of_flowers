@@ -1,11 +1,7 @@
 import { FC, useRef, useState } from 'react'
+import Image from 'next/image'
 
 import s from './ProductCardImageSlider.module.scss'
-import Image from 'next/image'
-// import Zoom from 'react-medium-image-zoom'
-// import { TransformWrapper } from "react-zoom-pan-pinch";
-// import ReactImageZoom from 'react-image-zoom';
-// import ImageZoom from "react-image-zooom";
 
 type TProductCardImageSlider = {
     mainImage: string
@@ -23,8 +19,6 @@ const ProductCardImageSlider: FC<TProductCardImageSlider> = ({ mainImage, images
     const imgRef = useRef<HTMLImageElement>();
 
     const handleMouseMoveImg = (e) => {
-        // console.log('X', e.pageX - imgRef.current.offsetLeft)
-        // console.log('Y', e.pageY - imgRef.current.offsetTop)
         const x = -Math.round((e.pageX - imgRef.current.offsetLeft)*1.0) + (476*2.0-476)/2
         const y = -Math.round((e.pageY - imgRef.current.offsetTop)*1.0) + (400*2.0-400)/2
         setXY({ ...xy, x: x, y: y, transform: 2.0 })
@@ -67,8 +61,6 @@ const ProductCardImageSlider: FC<TProductCardImageSlider> = ({ mainImage, images
                         }
                     }
                 />
-
-
 
             </div>
             <ul className={s.thumbnails}>

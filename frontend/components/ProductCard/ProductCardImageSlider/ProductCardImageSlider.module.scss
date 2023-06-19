@@ -1,13 +1,13 @@
 .mainimage {
     margin-bottom: 10px;
-    border: 2px solid #000;
-
+    
     img {
         object-fit: cover;
         transform: scale(1);
         position: relative;
         width: 476px;
         height: 400px;
+        cursor: move;
     }
 }
 
