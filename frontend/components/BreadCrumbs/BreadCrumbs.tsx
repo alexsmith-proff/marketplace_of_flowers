@@ -10,6 +10,11 @@ interface BreadCrumbsProps {
 }
 
 const BreadCrumbs: FC<BreadCrumbsProps> = ({ breadCrumbsArr }) => {
+    const getBreadCrumbsName = (breadCrumb: IBreadCrumbs) => {
+        if(!breadCrumb.slug) return <Link href={'/'}><a className={st.link}>{breadCrumb.text}</a></Link>
+        if(breadCrumb.slug === 'cart') return <Link href={'/cart'}><a className={st.link}>{breadCrumb.text}</a></Link>
+        return <Link href={'/category/' + breadCrumb.slug}><a className={st.link}>{breadCrumb.text}</a></Link>
+    }
     return (
         <section className={st.breadCrumbs}>
             <div className="container">
@@ -22,9 +27,11 @@ const BreadCrumbs: FC<BreadCrumbsProps> = ({ breadCrumbsArr }) => {
                                     <Image src="/img/arrow-breadcrumbs.png" width={14} height={10} />
                                 </div>
                             }
-                            <Link href={!item.slug ? '/' : '/category/' + item.slug}>
-                                <a className={st.link}>{item.text}</a>
-                            </Link>
+
+                            {
+                                getBreadCrumbsName(item)
+                            }
+                           
                         </div>)
                 }
 

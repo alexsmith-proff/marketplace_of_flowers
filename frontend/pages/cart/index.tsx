@@ -3,6 +3,7 @@ import MainLayout from '../../layouts/MainLayout/MainLayout'
 import { GetMenu, GetSection } from '../../services/core/requests'
 import { IMenu } from '../../interfaces/menu.interface'
 import { ISection } from '../../interfaces/section.interface'
+import BreadCrumbs from '../../components/BreadCrumbs/BreadCrumbs'
 
 interface IndexProps {
     topMenu: IMenu,
@@ -18,6 +19,7 @@ const Index: FC<IndexProps> = ({ topMenu, headerMenu, footerMenu, footerMenuInfo
     return (
         <div>
             <MainLayout topMenu={topMenu} headerMenu={headerMenu} footerMenu={footerMenu} footerMenuInfo={footerMenuInfo} footerMenuCoordinates={footerMenuCoordinates} footerMenuEmail={footerMenuEmail}>
+                <BreadCrumbs breadCrumbsArr={[{text: 'Главная', slug: ''}, {text: 'Корзина', slug: 'cart'}]} />
             </MainLayout>
         </div >
     )
