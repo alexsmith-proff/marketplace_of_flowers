@@ -4,6 +4,7 @@ import { GetMenu, GetSection } from '../../services/core/requests'
 import { IMenu } from '../../interfaces/menu.interface'
 import { ISection } from '../../interfaces/section.interface'
 import BreadCrumbs from '../../components/BreadCrumbs/BreadCrumbs'
+import CartContent from '../../components/CartContent/CartContent'
 
 interface IndexProps {
     topMenu: IMenu,
@@ -20,6 +21,7 @@ const Index: FC<IndexProps> = ({ topMenu, headerMenu, footerMenu, footerMenuInfo
         <div>
             <MainLayout topMenu={topMenu} headerMenu={headerMenu} footerMenu={footerMenu} footerMenuInfo={footerMenuInfo} footerMenuCoordinates={footerMenuCoordinates} footerMenuEmail={footerMenuEmail}>
                 <BreadCrumbs breadCrumbsArr={[{text: 'Главная', slug: ''}, {text: 'Корзина', slug: 'cart'}]} />
+                <CartContent />
             </MainLayout>
         </div >
     )

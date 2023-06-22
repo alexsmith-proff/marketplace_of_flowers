@@ -3,6 +3,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 
 import s from './ProductCardDelivery.module.scss'
+import PaymentMethod from '../../PaymentMethod/PaymentMethod'
 
 type TProductCardDelivery = {}
 
@@ -25,13 +26,7 @@ const ProductCardDelivery: FC<TProductCardDelivery> = ({ }) => {
                     </Link>
                 </div>
                 <div className={s.block}>
-                    <p className={s.title}>Способы оплаты</p>
-                    <p>Вы можете оплатить наличными или картой:</p>
-                    <ul className={s.paymentList}>
-                        {
-                            paymentImgs.map((img, ind) => <li key={ind}><Image src={img} width={50} height={30} /></li>)
-                        }
-                    </ul>
+                    <PaymentMethod />
                 </div>
                 <div className={s.block}>
                     <p className={s.title}>Возврат товара</p>

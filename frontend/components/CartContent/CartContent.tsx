@@ -1,8 +1,9 @@
 import { FC } from "react";
 
 import s from './CartContent.module.scss'
-import CartList from "../CartList/CartList";
-import CartTotal from "../CartTotal/CartTotal";
+import CartList from "./CartList/CartList";
+import CartTotal from "./CartTotal/CartTotal";
+import PaymentMethod from "../PaymentMethod/PaymentMethod";
 
 interface CartContentProps {}
 const CartContent: FC<CartContentProps> = ({  }) => {
@@ -13,6 +14,7 @@ const CartContent: FC<CartContentProps> = ({  }) => {
                 <CartList />
                 <div>
                     <CartTotal />
+                    <PaymentMethod />
                 </div>
             </div>
         </div>

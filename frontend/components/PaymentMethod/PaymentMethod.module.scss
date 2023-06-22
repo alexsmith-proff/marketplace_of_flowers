@@ -1,0 +1,15 @@
+.title {
+    font-family: 'TT Norms';
+    font-weight: bold;
+    font-size: 16px;
+    line-height: 22px;
+    margin-bottom: 5px;
+
+}
+
+.paymentList {
+    padding-top: 15px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(45px, 1fr));
+    grid-gap: 5px;
+}
