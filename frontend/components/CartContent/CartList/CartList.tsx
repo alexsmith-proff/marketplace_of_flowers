@@ -21,8 +21,8 @@ const CartList: FC<CartListProps> = ({ products }) => {
             <ul className={s.list}>
                 {
                     products.map((product) => (
-                        <div className={s.cartItem}>
-                            <CartItem product={product} key={product.id} />
+                        <div className={s.cartItem} key={product.id}>
+                            <CartItem product={product} />
                         </div>
                     ))
                 }

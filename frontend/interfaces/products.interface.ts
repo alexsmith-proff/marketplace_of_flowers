@@ -78,6 +78,10 @@ export interface IProduct extends IBase {
 export interface IProductCart extends IProduct {
   count: number
 }
+export interface IProductCount {
+  id: number,
+  count: number
+}
 
 export interface IProductMinMaxPrice {
   minPrice: number,

@@ -1,17 +1,42 @@
-import { FC, useState } from "react";
-
-import s from './CartItem.module.scss'
-import { IProductCart } from "../../../../interfaces/products.interface";
+import { FC, useEffect, useState } from "react";
 import Image from "next/image";
 import CountProduct from "../../../Elements/CountProduct/CountProduct";
 import CardPrice from "../../../Elements/CardPrice/CardPrice";
 import DeleteBtn from "../../../Elements/Buttons/DeleteBtn/DeleteBtn";
+import { useDispatch } from "react-redux";
+import { deleteCartProduct, updateCountCartProduct } from "../../../../redux/product/cartProductSlice";
+import { IProductCart } from "../../../../interfaces/products.interface";
+
+import s from './CartItem.module.scss'
 
 interface CartItemProps {
     product: IProductCart
 }
 const CartItem: FC<CartItemProps> = ({ product }) => {
+    const dispatch = useDispatch()
     const [countFlovers, setCountFlovers] = useState<number>(product.count)
+    const handleIncrement = () => {
+        if (countFlovers < product.count_in_stock) {
+            setCountFlovers(prev => prev + 1)        
+        }
+    }
+    const handleDecrement = () => {
+        if (countFlovers > 1) {
+            setCountFlovers(prev => prev - 1)        
+            console.log('handleDecrement');
+        }
+    }
+
+    const handleDelete = () => {
+        dispatch(deleteCartProduct(product.id))
+    }
+
+    useEffect(() => {
+        dispatch(updateCountCartProduct({id: product.id, count: countFlovers}))
+    }, [countFlovers])
+
+
+    
     return (
         <div className={s.product}>
             <Image src={`${process.env.API_URI_DOCKER}/${product.main_image}`} width={90} height={90} objectFit="cover" />
@@ -19,11 +44,11 @@ const CartItem: FC<CartItemProps> = ({ product }) => {
                 <h2 className={s.title}>{product.name}</h2>
                 <p className={s.vendorCode}>{product.vendor_code}</p>
             </div>
-            <CountProduct enable={true} value={countFlovers} increment={null} decrement={null} />
+            <CountProduct enable={true} value={countFlovers} increment={handleIncrement} decrement={handleDecrement} />
             <div className={s.cardPrice}>
-                <CardPrice actualPrice={product.price} crossPriceEnable={false} size={20} />
+                <CardPrice actualPrice={product.price * product.count} crossPriceEnable={false} size={20} />
             </div>
-            <DeleteBtn click={null} />
+            <DeleteBtn click={handleDelete} />
         </div>
     )
 }
