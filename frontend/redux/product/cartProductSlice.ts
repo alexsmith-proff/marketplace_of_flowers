@@ -2,10 +2,12 @@ import { PayloadAction, createSlice } from "@reduxjs/toolkit"
 import { IProductCart, IProductCount } from "../../interfaces/products.interface"
 
 type TinitialState = {
-    products: IProductCart[]
+    totalPrice: number,
+    products: IProductCart[],
 }
 
 const initialState: TinitialState = {
+    totalPrice: 0,
     products: []
 }
 
@@ -21,10 +23,13 @@ export const cartProductSlice = createSlice({
         },
         deleteCartProduct: (state, action: PayloadAction<number>) => {
             state.products = state.products.filter(product => product.id !== action.payload)
-        }
+        },
+        updateTotalPriceCartProduct: (state, action: PayloadAction<number>) => {
+            state.totalPrice = action.payload
+        },
     }
 })
 
 // экспортируем экшен и редьюсер
-export const { addCartProduct, updateCountCartProduct, deleteCartProduct } = cartProductSlice.actions
+export const { addCartProduct, updateCountCartProduct, deleteCartProduct, updateTotalPriceCartProduct } = cartProductSlice.actions
 export default cartProductSlice.reducer

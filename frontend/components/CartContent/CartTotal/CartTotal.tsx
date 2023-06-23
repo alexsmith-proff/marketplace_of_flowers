@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, useState } from "react";
 
 import s from './CartTotal.module.scss'
 import { IProductTotalInfo } from "../../../interfaces/products.interface";
@@ -9,11 +9,16 @@ interface CartTotalProps {
     info: IProductTotalInfo
 }
 const CartTotal: FC<CartTotalProps> = ({ info }) => {
+    const [discount, setDiscount] = useState<number>(0)
     return (
         <div className={s.cartTotal}>
             <div className={s.text}>
                 <div className={s.total}>Итого:</div>
                 <CardPrice actualPrice={info.totalPrice} crossPriceEnable={false} size={18} />
+            </div>
+            <div className={s.text}>
+                <div className={s.name}>Скидка</div>
+                <p className={s.value}>{discount} ₽</p>
             </div>
             <div className={s.text}>
                 <div className={s.name}>Доставка</div>

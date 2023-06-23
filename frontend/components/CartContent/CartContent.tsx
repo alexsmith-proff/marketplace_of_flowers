@@ -1,16 +1,23 @@
-import { FC } from "react";
+import { FC, useEffect } from "react";
 import CartList from "./CartList/CartList";
 import CartTotal from "./CartTotal/CartTotal";
 import PaymentMethod from "../PaymentMethod/PaymentMethod";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../redux/store";
 
 import s from './CartContent.module.scss'
+import { updateTotalPriceCartProduct } from "../../redux/product/cartProductSlice";
+import { getAllPrice } from "../../services/core/util";
 
 interface CartContentProps { }
 const CartContent: FC<CartContentProps> = ({ }) => {
-    const products = useSelector((state: RootState) => state.cartProduct.products)
-    const getAllPrice = () => products.reduce((acc, item) => acc + item.price * item.count, 0)
+    const dispatch = useDispatch()
+    const {products, totalPrice } = useSelector((state: RootState) => state.cartProduct)
+    // const getAllPrice = () => products.reduce((acc, item) => acc + item.price * item.count, 0)
+
+    useEffect(() => {
+        dispatch(updateTotalPriceCartProduct(getAllPrice(products)))
+    }, [products])
 
     console.log('aaaaa', products);
     
@@ -24,7 +31,7 @@ const CartContent: FC<CartContentProps> = ({ }) => {
                         <CartList products={products} />
                     </div>
                     <div className={s.right}>
-                        <CartTotal info={{ totalPrice: getAllPrice(), delivery: getAllPrice() >= 5000 ? 'бесплатно' : '300 ₽' }} />
+                        <CartTotal info={{ totalPrice, delivery: totalPrice >= 5000 ? 'бесплатно' : '300 ₽' }} />
                         <PaymentMethod />
                     </div>
                 </div>
