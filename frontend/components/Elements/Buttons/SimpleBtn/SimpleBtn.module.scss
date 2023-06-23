@@ -1,0 +1,15 @@
+.btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #fff;
+    border-radius: 5px;
+    background: #0093A2;
+    cursor: pointer;
+    &:hover{
+        background: #00b1c5;        
+    }
+}
+.max{
+    width: 100%;
+}
