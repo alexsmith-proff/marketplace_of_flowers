@@ -1,3 +1,34 @@
-.cartTotal{
-    width: 277px;
+.cartTotal {
+    border: 1px solid #F2F6F6;
+    border-radius: 10px;
+    box-shadow: 0px 4px 15px 0px rgba(34, 42, 70, 0.08);
+    padding: 10px 25px 25px;
+}
+
+.text {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 15px;
+}
+
+.total {
+    font-size: 18px;
+    line-height: 26px;
+    font-weight: bold;
+    color: #1B1C21;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #F2F3F5;
+}
+
+.name {
+    font-size: 16px;
+    line-height: 22px;
+    color: #222A46;
+}
+.value {
+    font-size: 16px;
+    line-height: 22px;
+    font-weight: bold;
+    color: #222A46;
 }

@@ -9,7 +9,7 @@ const paymentImgs = ['/img/payment1.png', '/img/payment2.png', '/img/payment3.pn
 
 const PaymentMethod: FC<PaymentMethodProps> = ({  }) => {
     return (
-        <div>
+        <div className={s.paymentMethod}>
             <p className={s.title}>Способы оплаты</p>
                     <p>Вы можете оплатить наличными или картой:</p>
                     <ul className={s.paymentList}>

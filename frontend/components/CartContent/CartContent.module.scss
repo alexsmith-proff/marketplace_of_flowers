@@ -4,7 +4,25 @@
     font-weight: 700;
     line-height: 40px;
     color: #222A46;
+    margin-bottom: 20px;
 }
-.wrap{
+
+.noProducts {
+    font-size: 18px;
+    line-height: 24px;
+    color: #222A46;
+    padding: 20px 0px 50px;
+}
+
+.wrap {
     display: flex;
+    justify-content: space-between;
+}
+
+.left {
+    width: 871px;
+}
+
+.right {
+    width: 277px;
 }

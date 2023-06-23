@@ -7,9 +7,11 @@ import { IProductCart } from "../../../interfaces/products.interface";
 
 import s from './CartList.module.scss'
 
-interface CartListProps { }
-const CartList: FC<CartListProps> = ({ }) => {
-    const products = useSelector((state: RootState) => state.cartProduct.products)
+interface CartListProps { 
+    products: IProductCart[]
+}
+const CartList: FC<CartListProps> = ({ products }) => {
+    
     return (
         <div className={s.cartList}>
             <div className={s.top}>

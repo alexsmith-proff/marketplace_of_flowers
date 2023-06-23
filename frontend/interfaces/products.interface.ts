@@ -88,3 +88,8 @@ export interface IProductFilter extends IBase {
   slug: string,
   values: IFilterValue,
 }
+
+export interface IProductTotalInfo {
+  totalPrice: number,
+  delivery: string
+}
