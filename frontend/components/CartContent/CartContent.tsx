@@ -8,7 +8,7 @@ import PaymentMethod from "../PaymentMethod/PaymentMethod";
 interface CartContentProps {}
 const CartContent: FC<CartContentProps> = ({  }) => {
     return (
-        <div>
+        <div className="container">
             <h1 className={s.title}>Корзина</h1>
             <div className={s.wrap}>
                 <CartList />

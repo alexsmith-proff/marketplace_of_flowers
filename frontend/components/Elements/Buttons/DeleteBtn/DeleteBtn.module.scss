@@ -1,0 +1,40 @@
+.btn {
+    width: 20px;
+    height: 20px;
+    border-radius: 50px;
+    border: 2px solid #E2195B;
+    position: relative;
+    cursor: pointer;
+    transition: all .1s;
+
+    &:hover {
+        border: 2px solid #E2E4EB;
+
+        .line {
+            background-color: #E2E4EB;
+
+            &:after {
+                background-color: #E2E4EB;
+            }
+        }
+    }
+}
+
+.line {
+    height: 2px;
+    width: 100%;
+    background-color: #E2195B;
+    transform: rotate(45deg);
+    position: absolute;
+    top: 9px;
+    left: 0;
+
+    &:after {
+        content: '';
+        display: block;
+        height: 2px;
+        width: 100%;
+        background-color: #E2195B;
+        transform: rotate(-85deg);
+    }
+}

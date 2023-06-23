@@ -1,0 +1,27 @@
+.product {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.content{
+    width: 450px;
+    padding: 0 20px;
+}
+
+.title {
+    font-family: TT Norms;
+    font-size: 16px;
+    line-height: 22px;
+    color: #222A46;
+    margin-bottom: 5px;
+}
+.vendorCode{
+    font-family: TT Norms;
+    font-size: 14px;
+    line-height: 20px;
+    color: #505567;
+}
+.cardPrice{
+    width: 144px;
+    text-align: center;
+}

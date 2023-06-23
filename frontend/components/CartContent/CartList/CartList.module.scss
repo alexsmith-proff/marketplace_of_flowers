@@ -1,0 +1,41 @@
+.cartList {
+    width: 871px;
+    border: 1px solid #E3E3E8;
+    border-radius: 10px;
+}
+
+.top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 14px 30px;
+    border-bottom: 1px solid #E3E3E8;
+
+    p {
+        font-family: TT Norms;
+        font-size: 16px;
+        line-height: 22px;
+        color: #222A46;
+    }
+}
+
+.clear {
+    font-family: TT Norms;
+    font-size: 16px;
+    line-height: 22px;
+    color: #7D818E;
+    cursor: pointer;
+
+    &:hover {
+        color: #222A46;
+    }
+}
+
+.cartItem {
+    padding: 14px 25px;
+    border-bottom: 1px solid #E3E3E8;
+
+    &:last-child {
+        border-bottom: none;
+    }
+}

@@ -5,7 +5,7 @@ import s from './CartTotal.module.scss'
 interface CartTotalProps {}
 const CartTotal: FC<CartTotalProps> = ({  }) => {
     return (
-        <div></div>
+        <div className={s.cartTotal}></div>
     )
 }
 
