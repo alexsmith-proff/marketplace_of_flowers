@@ -8,6 +8,7 @@ import { deleteCartProduct, updateCountCartProduct } from "../../../../redux/pro
 import { IProductCart } from "../../../../interfaces/products.interface";
 
 import s from './CartItem.module.scss'
+import Link from "next/link";
 
 interface CartItemProps {
     product: IProductCart
@@ -17,12 +18,12 @@ const CartItem: FC<CartItemProps> = ({ product }) => {
     const [countFlovers, setCountFlovers] = useState<number>(product.count)
     const handleIncrement = () => {
         if (countFlovers < product.count_in_stock) {
-            setCountFlovers(prev => prev + 1)        
+            setCountFlovers(prev => prev + 1)
         }
     }
     const handleDecrement = () => {
         if (countFlovers > 1) {
-            setCountFlovers(prev => prev - 1)        
+            setCountFlovers(prev => prev - 1)
             console.log('handleDecrement');
         }
     }
@@ -32,14 +33,18 @@ const CartItem: FC<CartItemProps> = ({ product }) => {
     }
 
     useEffect(() => {
-        dispatch(updateCountCartProduct({id: product.id, count: countFlovers}))
+        dispatch(updateCountCartProduct({ id: product.id, count: countFlovers }))
     }, [countFlovers])
 
 
-    
+
     return (
         <div className={s.product}>
-            <Image src={`${process.env.API_URI_DOCKER}/${product.main_image}`} width={90} height={90} objectFit="cover" />
+            <Link href={`/product/${product.id}`}>
+                <a>
+                    <Image src={`${process.env.API_URI_DOCKER}/${product.main_image}`} width={90} height={90} objectFit="cover" />
+                </a>
+            </Link>
             <div className={s.content}>
                 <h2 className={s.title}>{product.name}</h2>
                 <p className={s.vendorCode}>{product.vendor_code}</p>
