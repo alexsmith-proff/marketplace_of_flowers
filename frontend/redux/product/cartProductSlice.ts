@@ -3,11 +3,13 @@ import { IProductCart, IProductCount } from "../../interfaces/products.interface
 
 type TinitialState = {
     totalPrice: number,
+    deliveryPrice: number,
     products: IProductCart[],
 }
 
 const initialState: TinitialState = {
     totalPrice: 0,
+    deliveryPrice: 0,
     products: []
 }
 
@@ -27,9 +29,18 @@ export const cartProductSlice = createSlice({
         updateTotalPriceCartProduct: (state, action: PayloadAction<number>) => {
             state.totalPrice = action.payload
         },
+        updateDeliveryCartProduct: (state, action: PayloadAction<number>) => {
+            state.deliveryPrice = action.payload
+        },
     }
 })
 
 // экспортируем экшен и редьюсер
-export const { addCartProduct, updateCountCartProduct, deleteCartProduct, updateTotalPriceCartProduct } = cartProductSlice.actions
+export const { 
+    addCartProduct,
+    updateCountCartProduct,
+    deleteCartProduct,
+    updateTotalPriceCartProduct,
+    updateDeliveryCartProduct,
+ } = cartProductSlice.actions
 export default cartProductSlice.reducer

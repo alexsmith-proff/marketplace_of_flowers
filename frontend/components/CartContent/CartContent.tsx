@@ -6,22 +6,26 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../redux/store";
 
 import s from './CartContent.module.scss'
-import { updateTotalPriceCartProduct } from "../../redux/product/cartProductSlice";
+import { updateDeliveryCartProduct, updateTotalPriceCartProduct } from "../../redux/product/cartProductSlice";
 import { getAllPrice } from "../../services/core/util";
 
 interface CartContentProps { }
 const CartContent: FC<CartContentProps> = ({ }) => {
     const dispatch = useDispatch()
-    const {products, totalPrice } = useSelector((state: RootState) => state.cartProduct)
-    // const getAllPrice = () => products.reduce((acc, item) => acc + item.price * item.count, 0)
+    const { products, totalPrice, deliveryPrice } = useSelector((state: RootState) => state.cartProduct)
 
     useEffect(() => {
-        dispatch(updateTotalPriceCartProduct(getAllPrice(products)))
+        const totalPr = getAllPrice(products)
+        if (totalPr >= 5000) dispatch(updateDeliveryCartProduct(0))
+        else dispatch(updateDeliveryCartProduct(300))
+
+        dispatch(updateTotalPriceCartProduct(totalPr))
+
     }, [products])
 
     console.log('aaaaa', products);
-    
-    
+
+
     return (
         <div className="container">
             <h1 className={s.title}>Корзина</h1>
@@ -31,7 +35,7 @@ const CartContent: FC<CartContentProps> = ({ }) => {
                         <CartList products={products} />
                     </div>
                     <div className={s.right}>
-                        <CartTotal info={{ totalPrice, delivery: totalPrice >= 5000 ? 'бесплатно' : '300 ₽' }} />
+                        <CartTotal info={{ totalPrice, delivery: deliveryPrice === 0 ? 'бесплатно' : `${deliveryPrice} ₽` }} />
                         <PaymentMethod />
                     </div>
                 </div>
