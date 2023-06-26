@@ -24,9 +24,6 @@ const CartContent: FC<CartContentProps> = ({ }) => {
 
     }, [products])
 
-    console.log('aaaaa', products);
-
-
     return (
         <div className="container">
             <h1 className={s.title}>Корзина</h1>
