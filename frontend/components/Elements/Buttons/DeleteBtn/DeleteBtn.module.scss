@@ -22,12 +22,12 @@
 
 .line {
     height: 2px;
-    width: 100%;
+    width: 75%;
     background-color: #E2195B;
     transform: rotate(45deg);
     position: absolute;
     top: 9px;
-    left: 0;
+    left: 3px;
 
     &:after {
         content: '';
