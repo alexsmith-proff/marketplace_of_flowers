@@ -1,0 +1,26 @@
+.wrap {
+    width: 600px;
+    display: flex;
+    align-items: center;
+    border-radius: 10px;
+    border: 1px solid #E2E4EB;
+    padding: 5px;
+}
+
+.btn {
+    width: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 15px 0px;
+    font-size: 16px;
+    line-height: 22px;
+    color: #505567;
+    cursor: pointer;
+
+    &.active {
+        border-radius: 8px;
+        background: #0093A2;
+        color: #fff;
+    }
+}

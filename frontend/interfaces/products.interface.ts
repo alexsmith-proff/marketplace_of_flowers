@@ -97,3 +97,12 @@ export interface IProductTotalInfo {
   totalPrice: number,
   delivery: string
 }
+
+export interface IProductOutItem {
+  text: string,
+  isActive: boolean
+}
+
+// export interface IProductOut {
+//   productOut: IProductOutItem[],
+// }

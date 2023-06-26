@@ -8,6 +8,7 @@ import { RootState } from "../../redux/store";
 import s from './CartContent.module.scss'
 import { updateDeliveryCartProduct, updateTotalPriceCartProduct } from "../../redux/product/cartProductSlice";
 import { getAllPrice } from "../../services/core/util";
+import FormData from "../FormData/FormData";
 
 interface CartContentProps { }
 const CartContent: FC<CartContentProps> = ({ }) => {
@@ -30,15 +31,20 @@ const CartContent: FC<CartContentProps> = ({ }) => {
         <div className="container">
             <h1 className={s.title}>Корзина</h1>
             {
-                products.length ? <div className={s.wrap}>
-                    <div className={s.left}>
-                        <CartList products={products} />
+                products.length ? <>
+                    <div className={s.wrap}>
+                        <div className={s.left}>
+                            <CartList products={products} />
+                        </div>
+                        <div className={s.right}>
+                            <CartTotal info={{ totalPrice, delivery: deliveryPrice === 0 ? 'бесплатно' : `${deliveryPrice} ₽` }} />
+                            <PaymentMethod />
+                        </div>
                     </div>
-                    <div className={s.right}>
-                        <CartTotal info={{ totalPrice, delivery: deliveryPrice === 0 ? 'бесплатно' : `${deliveryPrice} ₽` }} />
-                        <PaymentMethod />
+                    <div className={s.formData}>
+                        <FormData />
                     </div>
-                </div>
+                </>
                     : <div className={s.noProducts}>В корзине нет товаров</div>
             }
 
