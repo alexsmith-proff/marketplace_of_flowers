@@ -1,15 +1,25 @@
-import { FC, useState } from "react";
+import React, { FC, useState, Ref } from "react";
 
 import s from './CartTotal.module.scss'
 import { IProductTotalInfo } from "../../../interfaces/products.interface";
 import CardPrice from "../../Elements/CardPrice/CardPrice";
 import SimpleBtn from "../../Elements/Buttons/SimpleBtn/SimpleBtn";
+import { FormikProps } from "formik";
 
 interface CartTotalProps {
-    info: IProductTotalInfo
+    info: IProductTotalInfo,
+    // formRef: React.Ref<FormikProps<any>>
+    formRef: React.RefObject<FormikProps<any>>
+    Click: () => void
 }
-const CartTotal: FC<CartTotalProps> = ({ info }) => {
+const CartTotal: FC<CartTotalProps> = ({ info, formRef, Click }) => {
     const [discount, setDiscount] = useState<number>(0)
+    const handleClick = () => {
+        // console.log('formRef', formRef.current);
+        formRef.current.handleSubmit()
+        
+        
+    }
     return (
         <div className={s.cartTotal}>
             <div className={s.text}>
@@ -25,7 +35,7 @@ const CartTotal: FC<CartTotalProps> = ({ info }) => {
                 <p className={s.value}>{info.delivery}</p>
             </div>
             <div className={s.btn}>
-                <SimpleBtn text="Оформить заказ" paddingTop={13} paddingBottom={13} click={null} />
+                <SimpleBtn text="Оформить заказ" paddingTop={13} paddingBottom={13} click={handleClick} />
             </div>
         </div>
     )

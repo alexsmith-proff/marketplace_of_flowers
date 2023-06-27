@@ -40,15 +40,40 @@
     line-height: 20px;
     margin-bottom: 5px;
 }
-.input{
+
+.input {
     position: relative;
     display: block;
+
+    input {
+        color: #7D818E;
+        font-size: 16px;
+        line-height: 22px;
+        padding: 8px 15px 8px 20px;
+        border-radius: 5px;
+        border: 1px solid #D0D2D7;
+    }
 }
 
-.error{
+.smallWidthInput {
+    input {
+        width: 70px;
+    }
+}
+.bigWidthInput {
+    input {
+        width: 300px;
+    }
+}
+
+.error {
     font-size: 12px;
     color: #f00;
     position: absolute;
-    top: 25px;
+    top: 50px;
     left: 5px;
+}
+
+.checkbox {
+    margin-bottom: 20px;
 }
