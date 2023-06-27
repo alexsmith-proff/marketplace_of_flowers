@@ -20,7 +20,7 @@ const CartContent: FC<CartContentProps> = ({ }) => {
 
     const handleClick = () => {
         console.log('ccccclick');
-        
+
     }
 
     useEffect(() => {
@@ -40,15 +40,18 @@ const CartContent: FC<CartContentProps> = ({ }) => {
                     <div className={s.wrap}>
                         <div className={s.left}>
                             <CartList products={products} />
+                            <div className={s.formData}>
+                                <FormData formRef={formRef} />
+                            </div>
                         </div>
                         <div className={s.right}>
                             <CartTotal info={{ totalPrice, delivery: deliveryPrice === 0 ? 'бесплатно' : `${deliveryPrice} ₽` }} formRef={formRef} Click={handleClick} />
                             <PaymentMethod />
                         </div>
                     </div>
-                    <div className={s.formData}>
+                    {/* <div className={s.formData}>
                         <FormData formRef={formRef} />
-                    </div>
+                    </div> */}
                 </>
                     : <div className={s.noProducts}>В корзине нет товаров</div>
             }
