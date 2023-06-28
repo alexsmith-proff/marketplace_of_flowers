@@ -1,13 +1,14 @@
 import React, { FC, useState } from "react";
 import ProductOut from "../ProductOut/ProductOut";
 import MarkerNum from "../Elements/Markers/MarkerNum/MarkerNum"
-import { Formik } from "formik"
+import { Field, Formik } from "formik"
 import * as Yup from 'yup';
 import { IProductOutItem } from "../../interfaces/products.interface";
-
-import s from './FormData.module.scss'
 import { useRouter } from "next/router";
 import CheckBox from "../Elements/CheckBox/CheckBox";
+import MaskedInput from "react-text-mask";
+
+import s from './FormData.module.scss'
 
 interface FormDataProps {
     formRef: any
@@ -33,15 +34,15 @@ const FormData: FC<FormDataProps> = ({ formRef }) => {
 
     let validationSchema = Yup.object().shape({
         name: Yup.string().typeError('Должно быть строкой').required('Обязательное поле'),
-        phoneNumber: Yup.number().typeError('Должно быть числом').required('Обязательное поле'),
+        phoneNumber: Yup.string().matches(/^((8|\+7)[\- ]?)?(\(?\d{3}\)?[\- ]?)?[\d\- ]{7,10}$/, 'Неверный формат').required('Обязательное поле'),
 
         receiverName: !isGetMyself ? Yup.string().typeError('Должно быть строкой').required('Обязательное поле') : null,
-        receiverPhoneNumber: !isGetMyself ? Yup.number().typeError('Должно быть числом').required('Обязательное поле') : null,
+        receiverPhoneNumber: !isGetMyself ? Yup.string().matches(/^((8|\+7)[\- ]?)?(\(?\d{3}\)?[\- ]?)?[\d\- ]{7,10}$/, 'Неверный формат').required('Обязательное поле') : null,
 
         address: Yup.string().typeError('Должно быть строкой'),
         apartment: Yup.string().typeError('Должно быть строкой'),
-        entrance: Yup.string().typeError('Должно быть строкой'),
-        floor: Yup.string().typeError('Должно быть строкой'),
+        entrance: Yup.number().typeError('Должно быть числом'),
+        floor: Yup.number().typeError('Должно быть числом'),
     })
 
 
@@ -90,7 +91,7 @@ const FormData: FC<FormDataProps> = ({ formRef }) => {
                                     <div className={s.inputBlock}>
                                         <label className={s.caption} htmlFor={'name'}>Ваше имя*</label>
                                         <div className={s.input}>
-                                            <input type="text" name={"name"} onChange={handleChange} onBlur={handleBlur} value={values.name} />
+                                            <input type="text" name={"name"} onChange={handleChange} onBlur={handleBlur} value={values.name} placeholder="Имя" />
                                             {
                                                 touched.name && errors.name && <p className={s.error}>{errors.name}</p>
                                             }
@@ -99,7 +100,18 @@ const FormData: FC<FormDataProps> = ({ formRef }) => {
                                     <div className={s.inputBlock}>
                                         <label className={s.caption} htmlFor={'phoneNumber'}>Ваш телефон*</label>
                                         <div className={s.input}>
-                                            <input type="text" name={"phoneNumber"} onChange={handleChange} onBlur={handleBlur} value={values.phoneNumber} />
+                                            <Field name="phoneNumber">
+                                                {
+                                                    ({ field }) => <MaskedInput
+                                                        {...field}
+                                                        type="text"
+                                                        onChange={handleChange}
+                                                        onBlur={handleBlur}
+                                                        mask={["+", "7", "(", /[0-9]/, /\d/, /\d/, ")", " ", /\d/, /\d/, /\d/, "-", /\d/, /\d/, /\d/, /\d/]}
+                                                        placeholder="+7(___)___-__-__"
+                                                    />
+                                                }
+                                            </Field>
                                             {
                                                 touched.phoneNumber && errors.phoneNumber && <p className={s.error}>{errors.phoneNumber}</p>
                                             }
@@ -121,7 +133,7 @@ const FormData: FC<FormDataProps> = ({ formRef }) => {
                                             <div className={s.inputBlock}>
                                                 <label className={s.caption} htmlFor={'name'}>Имя получателя*</label>
                                                 <div className={s.input}>
-                                                    <input type="text" name={"receiverName"} onChange={handleChange} onBlur={handleBlur} value={values.receiverName} />
+                                                    <input type="text" name={"receiverName"} onChange={handleChange} onBlur={handleBlur} value={values.receiverName} placeholder="Имя" />
                                                     {
                                                         touched.receiverName && errors.receiverName && <p className={s.error}>{errors.receiverName}</p>
                                                     }
@@ -130,7 +142,18 @@ const FormData: FC<FormDataProps> = ({ formRef }) => {
                                             <div className={s.inputBlock}>
                                                 <label className={s.caption} htmlFor={'phoneNumber'}>Телефон получателя*</label>
                                                 <div className={s.input}>
-                                                    <input type="text" name={"receiverPhoneNumber"} onChange={handleChange} onBlur={handleBlur} value={values.receiverPhoneNumber} />
+                                                    <Field name="receiverPhoneNumber">
+                                                        {
+                                                            ({ field }) => <MaskedInput
+                                                                {...field}
+                                                                type="text"
+                                                                onChange={handleChange}
+                                                                onBlur={handleBlur}
+                                                                mask={["+", "7", "(", /[0-9]/, /\d/, /\d/, ")", " ", /\d/, /\d/, /\d/, "-", /\d/, /\d/, /\d/, /\d/]}
+                                                                placeholder="+7(___)___-__-__"
+                                                            />
+                                                        }
+                                                    </Field>
                                                     {
                                                         touched.receiverPhoneNumber && errors.receiverPhoneNumber && <p className={s.error}>{errors.receiverPhoneNumber}</p>
                                                     }

@@ -10,8 +10,6 @@ interface CheckBoxProps {
 }
 
 const CheckBox: FC<CheckBoxProps> = ({ id, name, checked, onChangeCheckBox }) => {
-    // const background: string = '000' 
-
     return (
         <>
             <li className={s.checkBox}>
