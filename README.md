@@ -2,7 +2,7 @@
 Marketplace of flowers 
 
 ## Stack
-NestJS/Next.js/TypeScript, GraphQL, PostgreSQL
+NestJS/Next.js/TypeScript, GraphQL, PostgreSQL, Formik
 <br>
 
 ![title](screenshot1.png)
