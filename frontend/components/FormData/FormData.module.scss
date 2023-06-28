@@ -60,6 +60,7 @@
         width: 70px;
     }
 }
+
 .bigWidthInput {
     input {
         width: 300px;
@@ -76,4 +77,74 @@
 
 .checkbox {
     margin-bottom: 20px;
+}
+
+.paymentWrap {
+    width: 400px;
+}
+
+.radioBlock {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-radius: 8px;
+    border: 1px solid #D0D2D7;
+    padding: 15px 25px;
+    box-sizing: border-box;
+    margin-bottom: 20px;
+}
+
+.radioBlockTitle {
+    display: flex;
+    align-items: center;
+}
+
+.radioBlockImg {
+    margin-right: 15px;
+}
+
+.radioBlockTitleText {
+    color: #1B1C21;
+    font-size: 16px;
+    line-height: 22px;
+}
+
+.inputBlock.cardNumber {
+    width: 100%;
+
+    .input {
+        width: 100% !important;
+        margin-bottom: 20px;
+
+        input {
+            box-sizing: border-box;
+            width: 100%;
+        }
+    }
+}
+
+.inputBlock.cardMonthYearCVV {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-sizing: border-box;
+    .input {
+        box-sizing: border-box;
+        input{
+            width: 195px;
+            box-sizing: border-box;
+        }
+    }
+} 
+
+.radioBtn input[type='radio'] {
+    height: 18px;
+    width: 18px;
+    accent-color: #0093A2;
+    cursor: pointer;
+}
+
+.error.cardNumber {
+    top: 43px;
+    left: 5px;
 }

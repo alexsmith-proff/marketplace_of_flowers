@@ -1,12 +1,13 @@
 import React, { FC, useState } from "react";
+import Image from "next/image";
+import MaskedInput from "react-text-mask";
+import { useRouter } from "next/router";
 import ProductOut from "../ProductOut/ProductOut";
 import MarkerNum from "../Elements/Markers/MarkerNum/MarkerNum"
+import CheckBox from "../Elements/CheckBox/CheckBox";
 import { Field, Formik } from "formik"
 import * as Yup from 'yup';
 import { IProductOutItem } from "../../interfaces/products.interface";
-import { useRouter } from "next/router";
-import CheckBox from "../Elements/CheckBox/CheckBox";
-import MaskedInput from "react-text-mask";
 
 import s from './FormData.module.scss'
 
@@ -43,6 +44,10 @@ const FormData: FC<FormDataProps> = ({ formRef }) => {
         apartment: Yup.string().typeError('Должно быть строкой'),
         entrance: Yup.number().typeError('Должно быть числом'),
         floor: Yup.number().typeError('Должно быть числом'),
+
+        cardNumber: Yup.string().typeError('Неверный формат').required('Обязательное поле'),
+        cardMonthYear: Yup.string().typeError('Должно быть числом').required('Обязательное поле'),
+        cardCVV: Yup.number().typeError('Должно быть числом').required('Обязательное поле'),
     })
 
 
@@ -69,6 +74,10 @@ const FormData: FC<FormDataProps> = ({ formRef }) => {
                         apartment: '',
                         entrance: '',
                         floor: '',
+                        cardNumber: '',
+                        cardMonthYear: '',
+                        cardCVV: '',
+                        radio: ''
                     }
                 }
                 innerRef={formRef}
@@ -80,7 +89,7 @@ const FormData: FC<FormDataProps> = ({ formRef }) => {
                 }}
             >
                 {
-                    ({ values, errors, touched, handleChange, handleBlur, isValid, handleSubmit, dirty }) => (
+                    ({ values, errors, touched, handleChange, handleBlur }) => (
                         < div className={s.form} >
                             <div className={s.formDataBlock}>
                                 <div className={s.title}>
@@ -202,6 +211,82 @@ const FormData: FC<FormDataProps> = ({ formRef }) => {
                                             <input type="text" name={"floor"} onChange={handleChange} onBlur={handleBlur} value={values.floor} />
                                             {
                                                 touched.floor && errors.floor && <p className={s.error}>{errors.floor}</p>
+                                            }
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div className={s.formDataBlock}>
+                                <div className={s.title}>
+                                    <MarkerNum num={4} />
+                                    <h2 className={s.titleText}>Способы оплаты</h2>
+                                </div>
+                                <div className={s.paymentWrap}>
+                                    <div className={s.radioBlock}>
+                                        <div className={s.radioBlockTitle}>
+                                            <div className={s.radioBlockImg}>
+                                                <Image src={`/img/cards.png`} width={24} height={24} />
+                                            </div>
+                                            <p className={s.radioBlockTitleText}>Банковской картой онлайн</p>
+                                        </div>
+                                        <div className={s.radioBtn}>
+                                            <Field name="radio" type="radio" checked={true}  />
+                                        </div>
+                                        {/* <RadioButton active={true} color="000" onClickBut={null} /> */}
+                                    </div>
+                                    <div className={s.inputBlock + ' ' + s.cardNumber}>
+                                        <div className={s.input}>
+                                            <Field name="cardNumber">
+                                                {
+                                                    ({ field }) => <MaskedInput
+                                                        {...field}
+                                                        type="text"
+                                                        onChange={handleChange}
+                                                        onBlur={handleBlur}
+                                                        mask={[/\d/, /\d/, /\d/, /\d/, ' ', /\d/, /\d/, /\d/, /\d/, ' ', /\d/, /\d/, /\d/, /\d/, ' ', /\d/, /\d/, /\d/, /\d/]}
+                                                        placeholder="Номер карты"
+
+                                                    />
+                                                }
+                                            </Field>
+                                            {
+                                                touched.cardNumber && errors.cardNumber && <p className={s.error + ' ' + s.cardNumber}>{errors.cardNumber}</p>
+                                            }
+                                        </div>
+                                    </div>
+                                    <div className={s.inputBlock + ' ' + s.cardMonthYearCVV}>
+                                        <div className={s.input}>
+                                            <Field name="cardMonthYear">
+                                                {
+                                                    ({ field }) => <MaskedInput
+                                                        {...field}
+                                                        type="text"
+                                                        onChange={handleChange}
+                                                        onBlur={handleBlur}
+                                                        mask={[/\d/, /\d/, "/", /\d/, /\d/]}
+                                                        placeholder="MM/YY"
+                                                    />
+                                                }
+                                            </Field>
+                                            {
+                                                touched.cardMonthYear && errors.cardMonthYear && <p className={s.error}>{errors.cardMonthYear}</p>
+                                            }
+                                        </div>
+                                        <div className={s.input}>
+                                            <Field name="cardCVV">
+                                                {
+                                                    ({ field }) => <MaskedInput
+                                                        {...field}
+                                                        type="text"
+                                                        onChange={handleChange}
+                                                        onBlur={handleBlur}
+                                                        mask={[/\d/, /\d/, /\d/]}
+                                                        placeholder="CVV/CVC"
+                                                    />
+                                                }
+                                            </Field>
+                                            {
+                                                touched.cardCVV && errors.cardCVV && <p className={s.error}>{errors.cardCVV}</p>
                                             }
                                         </div>
                                     </div>
