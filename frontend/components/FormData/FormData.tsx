@@ -2,6 +2,7 @@ import React, { FC, useState } from "react";
 import Image from "next/image";
 import MaskedInput from "react-text-mask";
 import { useRouter } from "next/router";
+import Calendar from "react-calendar";
 import ProductOut from "../ProductOut/ProductOut";
 import MarkerNum from "../Elements/Markers/MarkerNum/MarkerNum"
 import CheckBox from "../Elements/CheckBox/CheckBox";
@@ -19,6 +20,8 @@ const FormData: FC<FormDataProps> = ({ formRef }) => {
     const router = useRouter()
     // checkBoxValue 'Я сам получу заказ'
     const [isGetMyself, setIsGetMyself] = useState<boolean>(false)
+
+    const [value, setValue] = useState(new Date());
 
 
     const [productOut, setProductOut] = useState<IProductOutItem[]>([
@@ -58,6 +61,11 @@ const FormData: FC<FormDataProps> = ({ formRef }) => {
     const handleChangeCheckBox = () => {
         setIsGetMyself(!isGetMyself)
 
+    }
+
+    const handleOnChangeCalendar = (nextValue) => {
+        const now = new Date()
+        if(nextValue.valueOf() >= now.valueOf()-86400000) setValue(nextValue)
     }
 
     return (
@@ -291,6 +299,9 @@ const FormData: FC<FormDataProps> = ({ formRef }) => {
                                         </div>
                                     </div>
                                 </div>
+                            </div>
+                            <div className={s.formDataBlock}>
+                                <Calendar value={value} onChange={handleOnChangeCalendar} />
                             </div>
                         </div>
                     )
