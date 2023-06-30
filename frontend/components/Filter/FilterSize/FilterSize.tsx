@@ -1,7 +1,7 @@
 import { FC, useContext } from 'react'
 import FilterContext from '../../../context/filter-context'
 import { IFilterContext, IFilterValue } from '../../../interfaces/filter.interface'
-import CheckBox from '../../Elements/CheckBox/CheckBox'
+import CheckBox from '../../Elements/CheckBoxs/CheckBox/CheckBox'
 import FilterSeparateLine from '../FilterSeparateLine/FilterSeparateLine'
 import FilterTitle from '../FilterTitle/FilterTitle'
 

@@ -5,12 +5,13 @@ import { useRouter } from "next/router";
 import Calendar from "react-calendar";
 import ProductOut from "../ProductOut/ProductOut";
 import MarkerNum from "../Elements/Markers/MarkerNum/MarkerNum"
-import CheckBox from "../Elements/CheckBox/CheckBox";
+import CheckBox from "../Elements/CheckBoxs/CheckBox/CheckBox";
 import { Field, Formik } from "formik"
 import * as Yup from 'yup';
 import { IProductOutItem } from "../../interfaces/products.interface";
 
 import s from './FormData.module.scss'
+import CheckBoxTime from "../Elements/CheckBoxs/CheckBoxTime/CheckBoxTime";
 
 interface FormDataProps {
     formRef: any
@@ -51,6 +52,8 @@ const FormData: FC<FormDataProps> = ({ formRef }) => {
         cardNumber: Yup.string().typeError('Неверный формат').required('Обязательное поле'),
         cardMonthYear: Yup.string().typeError('Должно быть числом').required('Обязательное поле'),
         cardCVV: Yup.number().typeError('Должно быть числом').required('Обязательное поле'),
+
+        time: Yup.string().typeError('Должно быть строкой'),
     })
 
 
@@ -65,7 +68,7 @@ const FormData: FC<FormDataProps> = ({ formRef }) => {
 
     const handleOnChangeCalendar = (nextValue) => {
         const now = new Date()
-        if(nextValue.valueOf() >= now.valueOf()-86400000) setValue(nextValue)
+        if (nextValue.valueOf() >= now.valueOf() - 86400000) setValue(nextValue)
     }
 
     return (
@@ -85,7 +88,8 @@ const FormData: FC<FormDataProps> = ({ formRef }) => {
                         cardNumber: '',
                         cardMonthYear: '',
                         cardCVV: '',
-                        radio: ''
+                        radio: '',
+                        time: '',
                     }
                 }
                 innerRef={formRef}
@@ -238,7 +242,7 @@ const FormData: FC<FormDataProps> = ({ formRef }) => {
                                             <p className={s.radioBlockTitleText}>Банковской картой онлайн</p>
                                         </div>
                                         <div className={s.radioBtn}>
-                                            <Field name="radio" type="radio" checked={true}  />
+                                            <Field name="radio" type="radio" checked={true} />
                                         </div>
                                         {/* <RadioButton active={true} color="000" onClickBut={null} /> */}
                                     </div>
@@ -302,6 +306,11 @@ const FormData: FC<FormDataProps> = ({ formRef }) => {
                             </div>
                             <div className={s.formDataBlock}>
                                 <Calendar value={value} onChange={handleOnChangeCalendar} />
+                                <Field name="time">
+                                    {
+                                        ({ field: { name }, form: { setFieldValue }}) => <CheckBoxTime name={name} setFieldValue={setFieldValue} />
+                                    }
+                                </Field>
                             </div>
                         </div>
                     )
