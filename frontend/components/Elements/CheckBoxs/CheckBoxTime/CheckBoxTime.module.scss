@@ -1,5 +1,6 @@
 .checkBox {
-    max-width: 300px;
+    width: 300px;
+    position: relative;
 }
 
 .main {
@@ -31,11 +32,18 @@
 }
 
 .open {
+    width: 300px;
     border-radius: 6px;
     border: 1px solid #F2F6F6;
     background: #FFF;
     box-shadow: 0px 15px 30px 0px rgba(28, 41, 90, 0.20);
     padding: 10px;
+    box-sizing: border-box;
+
+    position: absolute;
+    top: 80px;
+    left: 0;
+    z-index: 998;
 
     &Item {
         color: #353949;
