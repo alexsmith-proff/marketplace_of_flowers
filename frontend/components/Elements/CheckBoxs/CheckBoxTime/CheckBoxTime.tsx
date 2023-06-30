@@ -23,7 +23,7 @@ const CheckBoxTime: FC<CheckBoxTimeProps> = ({ name, setFieldValue }) => {
     }
 
     useEffect(() => {
-        setFieldValue('time', times[0])
+        setFieldValue(name, times[0])
     }, [])
 
     useEffect(() => {

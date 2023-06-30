@@ -1,4 +1,4 @@
-import { FC, useState } from 'react'
+import { FC, useState, useEffect } from 'react'
 import dateAndTime from 'date-and-time';
 import Calendar from 'react-calendar'
 
@@ -26,6 +26,14 @@ const CheckBoxDate: FC<CheckBoxDateProps> = ({ name, setFieldValue }) => {
         }
 
     }
+
+    useEffect(() => {
+        setFieldValue(name, dateAndTime.format(value, 'DD.MM.YYYY г.'))
+    }, [])
+
+    useEffect(() => {
+        setFieldValue(name, dateAndTime.format(value, 'DD.MM.YYYY г.'))
+    }, [value])
 
     return (
         <div className={s.checkBox}>
