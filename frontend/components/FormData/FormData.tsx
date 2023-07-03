@@ -23,8 +23,6 @@ const FormData: FC<FormDataProps> = ({ formRef }) => {
     const [isGetMyself, setIsGetMyself] = useState<boolean>(false)
 
 
-
-
     const [productOut, setProductOut] = useState<IProductOutItem[]>([
         {
             text: 'Самовывоз',
@@ -71,7 +69,9 @@ const FormData: FC<FormDataProps> = ({ formRef }) => {
 
     return (
         <div>
-            <ProductOut productOut={productOut} Click={handleClick} />
+            <div className={s.productOut}>
+                <ProductOut productOut={productOut} Click={handleClick} />
+            </div>
             <Formik
                 initialValues={
                     {
@@ -245,7 +245,7 @@ const FormData: FC<FormDataProps> = ({ formRef }) => {
                                         <textarea name="comments" cols={50} rows={10} onChange={handleChange} onBlur={handleBlur} ></textarea>
                                         {
                                             touched.comments && errors.comments && <p className={s.error}>{errors.comments}</p>
-                                        } 
+                                        }
                                     </div>
                                 </div>
                             </div>
