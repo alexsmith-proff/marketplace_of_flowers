@@ -224,7 +224,36 @@ const FormData: FC<FormDataProps> = ({ formRef }) => {
                                         </div>
                                     </div>
                                 </div>
+                                <div className={s.dataTimeWrap}>
+                                    <Field name="date">
+                                        {
+                                            ({ field: { name }, form: { setFieldValue } }) => <CheckBoxDate name={name} setFieldValue={setFieldValue} />
+                                        }
+                                    </Field>
+                                    <Field name="time">
+                                        {
+                                            ({ field: { name }, form: { setFieldValue } }) => <CheckBoxTime name={name} setFieldValue={setFieldValue} />
+                                        }
+                                    </Field>
+                                </div>
                             </div>
+
+                            {/* <div className={s.formDataBlock}>
+                                <div className={s.dataTimeWrap}>
+                                    <Field name="date">
+                                        {
+                                            ({ field: { name }, form: { setFieldValue } }) => <CheckBoxDate name={name} setFieldValue={setFieldValue} />
+                                        }
+                                    </Field>
+                                    <Field name="time">
+                                        {
+                                            ({ field: { name }, form: { setFieldValue } }) => <CheckBoxTime name={name} setFieldValue={setFieldValue} />
+                                        }
+                                    </Field>
+                                </div>
+                            </div> */}
+
+
                             <div className={s.formDataBlock}>
                                 <div className={s.title}>
                                     <MarkerNum num={4} />
@@ -301,20 +330,7 @@ const FormData: FC<FormDataProps> = ({ formRef }) => {
                                     </div>
                                 </div>
                             </div>
-                            <div className={s.formDataBlock}>
-                                <div className={s.dataTimeWrap}>
-                                    <Field name="date">
-                                        {
-                                            ({ field: { name }, form: { setFieldValue } }) => <CheckBoxDate name={name} setFieldValue={setFieldValue} />
-                                        }
-                                    </Field>
-                                    <Field name="time">
-                                        {
-                                            ({ field: { name }, form: { setFieldValue } }) => <CheckBoxTime name={name} setFieldValue={setFieldValue} />
-                                        }
-                                    </Field>
-                                </div>
-                            </div>
+
                         </div>
                     )
                 }
