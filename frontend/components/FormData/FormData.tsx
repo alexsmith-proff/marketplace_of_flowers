@@ -1,19 +1,20 @@
-import React, { FC, useState, useRef, useEffect } from "react";
+import React, { FC, useState } from "react";
+import { useRouter } from "next/router";
 import Image from "next/image";
 import MaskedInput from "react-text-mask";
-import { useRouter } from "next/router";
 import ProductOut from "../ProductOut/ProductOut";
 import MarkerNum from "../Elements/Markers/MarkerNum/MarkerNum"
 import CheckBox from "../Elements/CheckBoxs/CheckBox/CheckBox";
+import CheckBoxTime from "../Elements/CheckBoxs/CheckBoxTime/CheckBoxTime";
+import CheckBoxDate from "../Elements/CheckBoxs/CheckBoxDate/CheckBoxDate";
 import { Field, Formik } from "formik"
 import * as Yup from 'yup';
+// npm install @pbe/react-yandex-maps
+import { YMaps, Map, Placemark } from "@pbe/react-yandex-maps";
 import { IProductOutItem } from "../../interfaces/products.interface";
 
 import s from './FormData.module.scss'
-import CheckBoxTime from "../Elements/CheckBoxs/CheckBoxTime/CheckBoxTime";
-import CheckBoxDate from "../Elements/CheckBoxs/CheckBoxDate/CheckBoxDate";
 
-let i = 1
 interface FormDataProps {
     formRef: any
 }
@@ -22,8 +23,7 @@ const FormData: FC<FormDataProps> = ({ formRef }) => {
     const router = useRouter()
     // checkBoxValue 'Я сам получу заказ'
     const [isGetMyself, setIsGetMyself] = useState<boolean>(false)
-    const indexItem = useRef(1)
-
+    const [shopActiveIndex, setShopActiveIndex] = useState(0)
 
     const [productOut, setProductOut] = useState<IProductOutItem[]>([
         {
@@ -36,34 +36,54 @@ const FormData: FC<FormDataProps> = ({ formRef }) => {
         }
     ])
 
+    const shop = [
+        {
+            name: 'ул. Революции 1905 года, 80',
+            lat: 51.667596,
+            long: 39.185905,
+        },
+        {
+            name: 'ул. Владимира Невского, 17',
+            lat: 51.709873,
+            long: 39.150053,
+        },
+
+    ]
+
+    const defaultState = {
+        center: [51.670554, 39.192204],
+        zoom: 10
+    };
+
 
 
     let validationSchema = Yup.object().shape({
         name: Yup.string().typeError('Должно быть строкой').required('Обязательное поле'),
         phoneNumber: Yup.string().matches(/^((8|\+7)[\- ]?)?(\(?\d{3}\)?[\- ]?)?[\d\- ]{7,10}$/, 'Неверный формат').required('Обязательное поле'),
 
-        receiverName: !isGetMyself ? Yup.string().typeError('Должно быть строкой').required('Обязательное поле') : null,
-        receiverPhoneNumber: !isGetMyself ? Yup.string().matches(/^((8|\+7)[\- ]?)?(\(?\d{3}\)?[\- ]?)?[\d\- ]{7,10}$/, 'Неверный формат').required('Обязательное поле') : null,
+        receiverName: !isGetMyself && productOut[1].isActive ? Yup.string().typeError('Должно быть строкой').required('Обязательное поле') : null,
+        receiverPhoneNumber: !isGetMyself && productOut[1].isActive ? Yup.string().matches(/^((8|\+7)[\- ]?)?(\(?\d{3}\)?[\- ]?)?[\d\- ]{7,10}$/, 'Неверный формат').required('Обязательное поле') : null,
 
         address: Yup.string().typeError('Должно быть строкой'),
         apartment: Yup.string().typeError('Должно быть строкой'),
         entrance: Yup.number().typeError('Должно быть числом'),
         floor: Yup.number().typeError('Должно быть числом'),
 
-        cardNumber: Yup.string().typeError('Неверный формат').required('Обязательное поле'),
-        cardMonthYear: Yup.string().typeError('Должно быть числом').required('Обязательное поле'),
-        cardCVV: Yup.number().typeError('Должно быть числом').required('Обязательное поле'),
+        shop: Yup.string().typeError('Должно быть строкой'),
 
         time: Yup.string().typeError('Должно быть строкой'),
         date: Yup.string().typeError('Должно быть строкой'),
 
-        comments: Yup.string().typeError('Должно быть строкой')
+        comments: Yup.string().typeError('Должно быть строкой'),
+
+        cardNumber: Yup.string().typeError('Неверный формат').required('Обязательное поле'),
+        cardMonthYear: Yup.string().typeError('Должно быть числом').required('Обязательное поле'),
+        cardCVV: Yup.number().typeError('Должно быть числом').required('Обязательное поле')
     })
 
 
     const handleClickProductOut = (index: number) => {
         setProductOut(productOut.map((item, ind) => index === ind ? { ...item, isActive: true } : { ...item, isActive: false }))
-        indexItem.current = 1
     }
 
     const handleChangeCheckBox = () => {
@@ -71,9 +91,9 @@ const FormData: FC<FormDataProps> = ({ formRef }) => {
 
     }
 
-    useEffect(() => {
-        indexItem.current = 1
-    })
+    const handleOnClickShop = (index) => {
+        setShopActiveIndex(index)
+    }
 
     return (
         <div>
@@ -91,13 +111,14 @@ const FormData: FC<FormDataProps> = ({ formRef }) => {
                         apartment: '',
                         entrance: '',
                         floor: '',
-                        cardNumber: '',
-                        cardMonthYear: '',
-                        cardCVV: '',
+                        shop: shop[0].name,
                         radio: '',
                         time: '',
                         date: '',
-                        comments: ''
+                        comments: '',
+                        cardNumber: '',
+                        cardMonthYear: '',
+                        cardCVV: '',
                     }
                 }
                 innerRef={formRef}
@@ -113,7 +134,7 @@ const FormData: FC<FormDataProps> = ({ formRef }) => {
                         < div className={s.form} >
                             <div className={s.formDataBlock}>
                                 <div className={s.title}>
-                                    <MarkerNum num={indexItem.current++} />
+                                    <MarkerNum num={1} />
                                     <h2 className={s.titleText}>Контактные данные</h2>
                                 </div>
                                 <div className={s.inputWrap}>
@@ -151,7 +172,7 @@ const FormData: FC<FormDataProps> = ({ formRef }) => {
                             {
                                 productOut[1].isActive && <div className={s.formDataBlock}>
                                     <div className={s.title}>
-                                        <MarkerNum num={indexItem.current++} />
+                                        <MarkerNum num={2} />
                                         <h2 className={s.titleText}>Получатель</h2>
                                     </div>
                                     <div className={s.checkbox}>
@@ -199,11 +220,11 @@ const FormData: FC<FormDataProps> = ({ formRef }) => {
 
                             <div className={s.formDataBlock}>
                                 <div className={s.title}>
-                                    <MarkerNum num={indexItem.current++} />
+                                    <MarkerNum num={productOut[1].isActive ? 3 : 2} />
                                     <h2 className={s.titleText}>Детали доставки</h2>
                                 </div>
                                 {
-                                    ProductOut[1]?.isActive ?
+                                    productOut[1].isActive ?
                                         <div className={s.inputWrap}>
                                             <div className={s.inputBlock}>
                                                 <label className={s.caption} htmlFor={'address'}>Адрес</label>
@@ -243,7 +264,32 @@ const FormData: FC<FormDataProps> = ({ formRef }) => {
                                             </div>
                                         </div>
                                         :
-                                        <></>
+                                        <div>
+                                            <h2 className={s.titleMapText}>Магазины в Воронеже</h2>
+                                            <div className={s.shopsWrap}>
+                                                {
+                                                    shop.map((item, ind) => (
+                                                        <div className={s.shopItem} onClick={() => handleOnClickShop(ind)}>
+                                                            <div className={s.radioBtn}>
+                                                                <label>
+                                                                    <Field type="radio" name="shop" checked={shopActiveIndex === ind ? true : false} value={item.name} />
+                                                                    {item.name}
+                                                                </label>
+                                                            </div>
+                                                        </div>
+                                                    ))
+                                                }
+
+                                            </div>
+                                            <div className={s.map}>
+                                                <YMaps>
+                                                    <Map defaultState={defaultState} width={600}>
+                                                        <Placemark geometry={[shop[shopActiveIndex].lat, shop[shopActiveIndex].long]} />
+                                                    </Map>
+                                                </YMaps>
+                                            </div>
+                                        </div>
+
                                 }
                                 <div className={s.dataTimeWrap}>
                                     <Field name="date">
@@ -270,7 +316,7 @@ const FormData: FC<FormDataProps> = ({ formRef }) => {
 
                             <div className={s.formDataBlock}>
                                 <div className={s.title}>
-                                    <MarkerNum num={indexItem.current++} />
+                                    <MarkerNum num={productOut[1].isActive ? 4 : 3} />
                                     <h2 className={s.titleText}>Способы оплаты</h2>
                                 </div>
                                 <div className={s.paymentWrap}>

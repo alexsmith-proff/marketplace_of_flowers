@@ -1,6 +1,7 @@
-.productOut{
+.productOut {
     padding: 0 30px;
 }
+
 .formDataBlock {
     padding: 40px 30px;
     border-bottom: 1px solid #E2E4EB;
@@ -21,6 +22,14 @@
     font-weight: 700;
     line-height: 30px;
     margin-left: 15px;
+}
+
+.titleMapText {
+    font-size: 18px;
+    font-weight: bold;
+    line-height: 26px;
+    color: #1B1C21;
+    margin-bottom: 15px;
 }
 
 .inputWrap {
@@ -79,12 +88,40 @@
     left: 5px;
 }
 
+.shopsWrap {
+    width: 600px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.shopItem {
+    border-radius: 8px;
+    border: 1px solid #D0D2D7;
+    padding: 12px 20px;
+    label{
+        display: flex;
+        align-items: center;
+        cursor: pointer;
+    }
+    input{
+        margin: 0;
+        padding: 0;
+        margin-right: 15px;
+    }
+}
+
 .checkbox {
     margin-bottom: 20px;
 }
 
 .paymentWrap {
     width: 400px;
+}
+
+.map {
+    width: 100%;
 }
 
 .radioBlock {
@@ -96,6 +133,7 @@
     padding: 15px 25px;
     box-sizing: border-box;
     margin-bottom: 20px;
+    cursor: pointer;
 }
 
 .radioBlockTitle {
