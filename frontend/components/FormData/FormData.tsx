@@ -55,6 +55,8 @@ const FormData: FC<FormDataProps> = ({ formRef }) => {
 
         time: Yup.string().typeError('Должно быть строкой'),
         date: Yup.string().typeError('Должно быть строкой'),
+
+        comments: Yup.string().typeError('Должно быть строкой')
     })
 
 
@@ -87,6 +89,7 @@ const FormData: FC<FormDataProps> = ({ formRef }) => {
                         radio: '',
                         time: '',
                         date: '',
+                        comments: ''
                     }
                 }
                 innerRef={formRef}
@@ -236,23 +239,16 @@ const FormData: FC<FormDataProps> = ({ formRef }) => {
                                         }
                                     </Field>
                                 </div>
-                            </div>
-
-                            {/* <div className={s.formDataBlock}>
-                                <div className={s.dataTimeWrap}>
-                                    <Field name="date">
+                                <div className={s.commentsWrap}>
+                                    <label className={s.caption} htmlFor={'entrance'}>Комментарии</label>
+                                    <div className={s.textarea}>
+                                        <textarea name="comments" cols={50} rows={10} onChange={handleChange} onBlur={handleBlur} ></textarea>
                                         {
-                                            ({ field: { name }, form: { setFieldValue } }) => <CheckBoxDate name={name} setFieldValue={setFieldValue} />
-                                        }
-                                    </Field>
-                                    <Field name="time">
-                                        {
-                                            ({ field: { name }, form: { setFieldValue } }) => <CheckBoxTime name={name} setFieldValue={setFieldValue} />
-                                        }
-                                    </Field>
+                                            touched.comments && errors.comments && <p className={s.error}>{errors.comments}</p>
+                                        } 
+                                    </div>
                                 </div>
-                            </div> */}
-
+                            </div>
 
                             <div className={s.formDataBlock}>
                                 <div className={s.title}>

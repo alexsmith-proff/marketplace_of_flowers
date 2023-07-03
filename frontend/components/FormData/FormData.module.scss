@@ -37,6 +37,7 @@
     display: block;
     color: #353949;
     font-size: 14px;
+    font-weight: bold;
     line-height: 20px;
     margin-bottom: 5px;
 }
@@ -128,14 +129,16 @@
     justify-content: space-between;
     align-items: center;
     box-sizing: border-box;
+
     .input {
         box-sizing: border-box;
-        input{
+
+        input {
             width: 195px;
             box-sizing: border-box;
         }
     }
-} 
+}
 
 .radioBtn input[type='radio'] {
     height: 18px;
@@ -149,11 +152,27 @@
     left: 5px;
 }
 
-.calendar{
+.calendar {
     width: 500px;
 }
 
-.dataTimeWrap{
+.dataTimeWrap {
     display: flex;
     padding-top: 30px;
+}
+
+.commentsWrap {
+    padding-top: 30px;
+}
+
+.textarea {
+    textarea {
+        width: 620px;
+        font-size: 16px;
+        font-weight: 400;
+        line-height: 22px;
+        color: #7D818E;
+        padding: 15px 20px;
+        box-sizing: border-box;
+    }
 }
