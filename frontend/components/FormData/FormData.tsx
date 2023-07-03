@@ -1,4 +1,4 @@
-import React, { FC, useState } from "react";
+import React, { FC, useState, useRef, useEffect } from "react";
 import Image from "next/image";
 import MaskedInput from "react-text-mask";
 import { useRouter } from "next/router";
@@ -13,6 +13,7 @@ import s from './FormData.module.scss'
 import CheckBoxTime from "../Elements/CheckBoxs/CheckBoxTime/CheckBoxTime";
 import CheckBoxDate from "../Elements/CheckBoxs/CheckBoxDate/CheckBoxDate";
 
+let i = 1
 interface FormDataProps {
     formRef: any
 }
@@ -21,6 +22,7 @@ const FormData: FC<FormDataProps> = ({ formRef }) => {
     const router = useRouter()
     // checkBoxValue 'Я сам получу заказ'
     const [isGetMyself, setIsGetMyself] = useState<boolean>(false)
+    const indexItem = useRef(1)
 
 
     const [productOut, setProductOut] = useState<IProductOutItem[]>([
@@ -33,6 +35,7 @@ const FormData: FC<FormDataProps> = ({ formRef }) => {
             isActive: true
         }
     ])
+
 
 
     let validationSchema = Yup.object().shape({
@@ -58,8 +61,9 @@ const FormData: FC<FormDataProps> = ({ formRef }) => {
     })
 
 
-    const handleClick = (index: number) => {
+    const handleClickProductOut = (index: number) => {
         setProductOut(productOut.map((item, ind) => index === ind ? { ...item, isActive: true } : { ...item, isActive: false }))
+        indexItem.current = 1
     }
 
     const handleChangeCheckBox = () => {
@@ -67,10 +71,14 @@ const FormData: FC<FormDataProps> = ({ formRef }) => {
 
     }
 
+    useEffect(() => {
+        indexItem.current = 1
+    })
+
     return (
         <div>
             <div className={s.productOut}>
-                <ProductOut productOut={productOut} Click={handleClick} />
+                <ProductOut productOut={productOut} Click={handleClickProductOut} />
             </div>
             <Formik
                 initialValues={
@@ -105,7 +113,7 @@ const FormData: FC<FormDataProps> = ({ formRef }) => {
                         < div className={s.form} >
                             <div className={s.formDataBlock}>
                                 <div className={s.title}>
-                                    <MarkerNum num={1} />
+                                    <MarkerNum num={indexItem.current++} />
                                     <h2 className={s.titleText}>Контактные данные</h2>
                                 </div>
                                 <div className={s.inputWrap}>
@@ -140,93 +148,103 @@ const FormData: FC<FormDataProps> = ({ formRef }) => {
                                     </div>
                                 </div>
                             </div>
-                            <div className={s.formDataBlock}>
-                                <div className={s.title}>
-                                    <MarkerNum num={2} />
-                                    <h2 className={s.titleText}>Получатель</h2>
-                                </div>
-                                <div className={s.checkbox}>
-                                    <CheckBox name={'Я сам получу заказ'} id={1} onChangeCheckBox={handleChangeCheckBox} checked={isGetMyself} />
-                                </div>
-                                {
-                                    !isGetMyself && (
-                                        <div className={s.inputWrap}>
-                                            <div className={s.inputBlock}>
-                                                <label className={s.caption} htmlFor={'name'}>Имя получателя*</label>
-                                                <div className={s.input}>
-                                                    <input type="text" name={"receiverName"} onChange={handleChange} onBlur={handleBlur} value={values.receiverName} placeholder="Имя" />
-                                                    {
-                                                        touched.receiverName && errors.receiverName && <p className={s.error}>{errors.receiverName}</p>
-                                                    }
-                                                </div>
-                                            </div>
-                                            <div className={s.inputBlock}>
-                                                <label className={s.caption} htmlFor={'phoneNumber'}>Телефон получателя*</label>
-                                                <div className={s.input}>
-                                                    <Field name="receiverPhoneNumber">
+                            {
+                                productOut[1].isActive && <div className={s.formDataBlock}>
+                                    <div className={s.title}>
+                                        <MarkerNum num={indexItem.current++} />
+                                        <h2 className={s.titleText}>Получатель</h2>
+                                    </div>
+                                    <div className={s.checkbox}>
+                                        <CheckBox name={'Я сам получу заказ'} id={1} onChangeCheckBox={handleChangeCheckBox} checked={isGetMyself} />
+                                    </div>
+                                    {
+                                        !isGetMyself && (
+                                            <div className={s.inputWrap}>
+                                                <div className={s.inputBlock}>
+                                                    <label className={s.caption} htmlFor={'name'}>Имя получателя*</label>
+                                                    <div className={s.input}>
+                                                        <input type="text" name={"receiverName"} onChange={handleChange} onBlur={handleBlur} value={values.receiverName} placeholder="Имя" />
                                                         {
-                                                            ({ field }) => <MaskedInput
-                                                                {...field}
-                                                                type="text"
-                                                                onChange={handleChange}
-                                                                onBlur={handleBlur}
-                                                                mask={["+", "7", "(", /[0-9]/, /\d/, /\d/, ")", " ", /\d/, /\d/, /\d/, "-", /\d/, /\d/, /\d/, /\d/]}
-                                                                placeholder="+7(___)___-__-__"
-                                                            />
+                                                            touched.receiverName && errors.receiverName && <p className={s.error}>{errors.receiverName}</p>
                                                         }
-                                                    </Field>
-                                                    {
-                                                        touched.receiverPhoneNumber && errors.receiverPhoneNumber && <p className={s.error}>{errors.receiverPhoneNumber}</p>
-                                                    }
+                                                    </div>
+                                                </div>
+                                                <div className={s.inputBlock}>
+                                                    <label className={s.caption} htmlFor={'phoneNumber'}>Телефон получателя*</label>
+                                                    <div className={s.input}>
+                                                        <Field name="receiverPhoneNumber">
+                                                            {
+                                                                ({ field }) => <MaskedInput
+                                                                    {...field}
+                                                                    type="text"
+                                                                    onChange={handleChange}
+                                                                    onBlur={handleBlur}
+                                                                    mask={["+", "7", "(", /[0-9]/, /\d/, /\d/, ")", " ", /\d/, /\d/, /\d/, "-", /\d/, /\d/, /\d/, /\d/]}
+                                                                    placeholder="+7(___)___-__-__"
+                                                                />
+                                                            }
+                                                        </Field>
+                                                        {
+                                                            touched.receiverPhoneNumber && errors.receiverPhoneNumber && <p className={s.error}>{errors.receiverPhoneNumber}</p>
+                                                        }
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                    )
-                                }
-                            </div>
+                                        )
+                                    }
+                                </div>
+                            }
+
+
+
                             <div className={s.formDataBlock}>
                                 <div className={s.title}>
-                                    <MarkerNum num={3} />
+                                    <MarkerNum num={indexItem.current++} />
                                     <h2 className={s.titleText}>Детали доставки</h2>
                                 </div>
-                                <div className={s.inputWrap}>
-                                    <div className={s.inputBlock}>
-                                        <label className={s.caption} htmlFor={'address'}>Адрес</label>
-                                        <div className={`${s.input} ${s.bigWidthInput}`}>
-                                            <input type="text" name={"address"} onChange={handleChange} onBlur={handleBlur} value={values.address} />
-                                            {
-                                                touched.address && errors.address && <p className={s.error}>{errors.address}</p>
-                                            }
+                                {
+                                    ProductOut[1]?.isActive ?
+                                        <div className={s.inputWrap}>
+                                            <div className={s.inputBlock}>
+                                                <label className={s.caption} htmlFor={'address'}>Адрес</label>
+                                                <div className={`${s.input} ${s.bigWidthInput}`}>
+                                                    <input type="text" name={"address"} onChange={handleChange} onBlur={handleBlur} value={values.address} />
+                                                    {
+                                                        touched.address && errors.address && <p className={s.error}>{errors.address}</p>
+                                                    }
+                                                </div>
+                                            </div>
+                                            <div className={s.inputBlock}>
+                                                <label className={s.caption} htmlFor={'apartment'}>Квартира, офис</label>
+                                                <div className={`${s.input} ${s.smallWidthInput}`}>
+                                                    <input type="text" name={"apartment"} onChange={handleChange} onBlur={handleBlur} value={values.apartment} />
+                                                    {
+                                                        touched.apartment && errors.apartment && <p className={s.error}>{errors.apartment}</p>
+                                                    }
+                                                </div>
+                                            </div>
+                                            <div className={s.inputBlock}>
+                                                <label className={s.caption} htmlFor={'entrance'}>Подьезд</label>
+                                                <div className={`${s.input} ${s.smallWidthInput}`}>
+                                                    <input type="text" name={"entrance"} onChange={handleChange} onBlur={handleBlur} value={values.entrance} />
+                                                    {
+                                                        touched.entrance && errors.entrance && <p className={s.error}>{errors.entrance}</p>
+                                                    }
+                                                </div>
+                                            </div>
+                                            <div className={s.inputBlock}>
+                                                <label className={s.caption} htmlFor={'floor'}>Этаж</label>
+                                                <div className={`${s.input} ${s.smallWidthInput}`}>
+                                                    <input type="text" name={"floor"} onChange={handleChange} onBlur={handleBlur} value={values.floor} />
+                                                    {
+                                                        touched.floor && errors.floor && <p className={s.error}>{errors.floor}</p>
+                                                    }
+                                                </div>
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div className={s.inputBlock}>
-                                        <label className={s.caption} htmlFor={'apartment'}>Квартира, офис</label>
-                                        <div className={`${s.input} ${s.smallWidthInput}`}>
-                                            <input type="text" name={"apartment"} onChange={handleChange} onBlur={handleBlur} value={values.apartment} />
-                                            {
-                                                touched.apartment && errors.apartment && <p className={s.error}>{errors.apartment}</p>
-                                            }
-                                        </div>
-                                    </div>
-                                    <div className={s.inputBlock}>
-                                        <label className={s.caption} htmlFor={'entrance'}>Подьезд</label>
-                                        <div className={`${s.input} ${s.smallWidthInput}`}>
-                                            <input type="text" name={"entrance"} onChange={handleChange} onBlur={handleBlur} value={values.entrance} />
-                                            {
-                                                touched.entrance && errors.entrance && <p className={s.error}>{errors.entrance}</p>
-                                            }
-                                        </div>
-                                    </div>
-                                    <div className={s.inputBlock}>
-                                        <label className={s.caption} htmlFor={'floor'}>Этаж</label>
-                                        <div className={`${s.input} ${s.smallWidthInput}`}>
-                                            <input type="text" name={"floor"} onChange={handleChange} onBlur={handleBlur} value={values.floor} />
-                                            {
-                                                touched.floor && errors.floor && <p className={s.error}>{errors.floor}</p>
-                                            }
-                                        </div>
-                                    </div>
-                                </div>
+                                        :
+                                        <></>
+                                }
                                 <div className={s.dataTimeWrap}>
                                     <Field name="date">
                                         {
@@ -252,7 +270,7 @@ const FormData: FC<FormDataProps> = ({ formRef }) => {
 
                             <div className={s.formDataBlock}>
                                 <div className={s.title}>
-                                    <MarkerNum num={4} />
+                                    <MarkerNum num={indexItem.current++} />
                                     <h2 className={s.titleText}>Способы оплаты</h2>
                                 </div>
                                 <div className={s.paymentWrap}>
