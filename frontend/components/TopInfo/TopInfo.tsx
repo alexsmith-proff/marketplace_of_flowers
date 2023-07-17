@@ -1,5 +1,6 @@
 import Image from 'next/image';
 import React, { FC } from 'react';
+import Link from 'next/link';
 import { IMenu } from '../../interfaces/menu.interface';
 
 import s from './TopInfo.module.scss'
@@ -24,7 +25,9 @@ const TopInfo: FC<TopInfoProps> = ({ menu }) => {
                         {
                             menu.items.map((item) => (
                                 <li className={s.TopInfoMenu__item} key={item.id}>
-                                    <a className={s.TopInfoMenu__link} href={item.link}>{item.name}</a>
+                                    <Link href={`/${item.link}`}>
+                                        <a className={s.TopInfoMenu__link}>{item.name}</a>
+                                    </Link>
                                 </li>
                             ))
                         }
