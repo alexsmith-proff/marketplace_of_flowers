@@ -13,6 +13,7 @@ import { ISection } from '../interfaces/section.interface';
 import MainLayout from '../layouts/MainLayout/MainLayout'
 import { GetMenu, GetSection } from '../services/core/requests';
 import { IProduct } from '../interfaces/products.interface';
+import MapYandex from '../components/MapYandex/MapYandex';
 
 interface IndexProps {
   topMenu: IMenu,
@@ -47,6 +48,19 @@ const Index: FC<IndexProps> = ({ topMenu, headerMenu, bigSlider, smallSlider, pr
         <News newsSection={news} />
         <SeoOne seoSection={seoOne} />
         <SeoTwo seoSection={seoTwo} />
+        <MapYandex
+          defaultState={{
+            center: [51.670554, 39.192204],
+            zoom: 10
+          }}
+          shop={{
+            name: 'ул. Революции 1905 года, 80',
+            lat: 51.667596,
+            long: 39.185905,
+          }}
+          height={'500px'}
+        hintVisible={true}
+        />
       </MainLayout>
     </div >
   )

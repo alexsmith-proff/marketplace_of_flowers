@@ -12,7 +12,7 @@ import * as Yup from 'yup';
 import { IProductOutItem } from "../../interfaces/products.interface";
 
 import s from './FormData.module.scss'
-import { IMapState, IShop } from "../../interfaces/map.interface";
+import { IMapStateDefault, IShop } from "../../interfaces/map.interface";
 import MapYandex from "../MapYandex/MapYandex";
 
 interface FormDataProps {
@@ -50,7 +50,7 @@ const FormData: FC<FormDataProps> = ({ formRef }) => {
 
     ]
 
-    const defaultState: IMapState = {
+    const defaultState: IMapStateDefault = {
         center: [51.670554, 39.192204],
         zoom: 10
     };
@@ -281,7 +281,7 @@ const FormData: FC<FormDataProps> = ({ formRef }) => {
                                                 }
 
                                             </div>
-                                            <MapYandex defaultState={defaultState} shop={shop[shopActiveIndex]} width={600} />
+                                            <MapYandex defaultState={defaultState} shop={shop[shopActiveIndex]} width={'600px'} />
                                         </div>
 
                                 }

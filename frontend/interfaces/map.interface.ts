@@ -1,5 +1,5 @@
-export interface IMapState {
-    center: [number, number]
+export interface IMapStateDefault {
+    center: [number, number],
     zoom: number
 };
 
