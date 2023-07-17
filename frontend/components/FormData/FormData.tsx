@@ -9,11 +9,11 @@ import CheckBoxTime from "../Elements/CheckBoxs/CheckBoxTime/CheckBoxTime";
 import CheckBoxDate from "../Elements/CheckBoxs/CheckBoxDate/CheckBoxDate";
 import { Field, Formik } from "formik"
 import * as Yup from 'yup';
-// npm install @pbe/react-yandex-maps
-import { YMaps, Map, Placemark } from "@pbe/react-yandex-maps";
 import { IProductOutItem } from "../../interfaces/products.interface";
 
 import s from './FormData.module.scss'
+import { IMapState, IShop } from "../../interfaces/map.interface";
+import MapYandex from "../MapYandex/MapYandex";
 
 interface FormDataProps {
     formRef: any
@@ -36,7 +36,7 @@ const FormData: FC<FormDataProps> = ({ formRef }) => {
         }
     ])
 
-    const shop = [
+    const shop: IShop[] = [
         {
             name: 'ул. Революции 1905 года, 80',
             lat: 51.667596,
@@ -50,7 +50,7 @@ const FormData: FC<FormDataProps> = ({ formRef }) => {
 
     ]
 
-    const defaultState = {
+    const defaultState: IMapState = {
         center: [51.670554, 39.192204],
         zoom: 10
     };
@@ -281,13 +281,7 @@ const FormData: FC<FormDataProps> = ({ formRef }) => {
                                                 }
 
                                             </div>
-                                            <div className={s.map}>
-                                                <YMaps>
-                                                    <Map defaultState={defaultState} width={600}>
-                                                        <Placemark geometry={[shop[shopActiveIndex].lat, shop[shopActiveIndex].long]} />
-                                                    </Map>
-                                                </YMaps>
-                                            </div>
+                                            <MapYandex defaultState={defaultState} shop={shop[shopActiveIndex]} width={600} />
                                         </div>
 
                                 }
