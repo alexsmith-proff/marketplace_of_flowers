@@ -14,6 +14,7 @@ import MainLayout from '../layouts/MainLayout/MainLayout'
 import { GetMenu, GetSection } from '../services/core/requests';
 import { IProduct } from '../interfaces/products.interface';
 import MapYandex from '../components/MapYandex/MapYandex';
+import { getTextInTextBlockFromElement, getTextInTextBlockFromSection } from '../services/core/parse';
 
 interface IndexProps {
   topMenu: IMenu,
@@ -59,7 +60,10 @@ const Index: FC<IndexProps> = ({ topMenu, headerMenu, bigSlider, smallSlider, pr
             long: 39.185905,
           }}
           height={'500px'}
-        hintVisible={true}
+          hintPhoneNumber={getTextInTextBlockFromSection(footerMenuCoordinates, 'koord-elem', 'telefon')}
+          hintWorkDays={`Пн-Сб: 8:00–20:00\nВс: 9:00–20:00`}
+          hintEmail={getTextInTextBlockFromSection(footerMenuEmail, 'e-mail', 'soderzhimoe')}
+          hintVisible={true}
         />
       </MainLayout>
     </div >
