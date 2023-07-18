@@ -46,7 +46,16 @@ export async function getServerSideProps(context) {
     const footerMenuEmail = await GetSection('e-mail')
 
     // const breadCrumbsArr = getBreadCrumbsFromCatalog(catalogArr, query.slug)
-    const breadCrumbsArr = []
+    const breadCrumbsArr: IBreadCrumbs[] = [
+        {
+            slug: '',
+            text: 'Главная',
+        },
+        {
+            slug: 'blog',
+            text: 'Блог',
+        }
+    ]
     const blogs = await GetSection('blog')
 
     return {
