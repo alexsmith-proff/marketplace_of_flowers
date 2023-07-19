@@ -5,7 +5,7 @@ import MainSlider from '../components/MainSlider/MainSlider';
 import News from '../components/News/News';
 import Partitions from '../components/Partitions/Partitions';
 import Privileges from '../components/Privileges/Privileges';
-import ReviewsSlider from '../components/Reviews/ReviewsSlider';
+import ReviewsSlider from '../components/Reviews/ReviewsSlider/ReviewsSlider';
 import SeoOne from '../components/SeoOne/SeoOne';
 import SeoTwo from '../components/SeoTwo/SeoTwo';
 import { IMenu } from '../interfaces/menu.interface';
@@ -45,7 +45,7 @@ const Index: FC<IndexProps> = ({ topMenu, headerMenu, bigSlider, smallSlider, pr
         <MainCards cards={mainCards} />
         <Partitions partitionSection={partition} />
         <Gallery gallerySection={gallery} />
-        <ReviewsSlider reviewSection={reviews} />
+        <ReviewsSlider reviewSection={reviews} sendReviewBtnVisible={true} allReviewBtnVisible={true} />
         <News newsSection={news} />
         <SeoOne seoSection={seoOne} />
         <SeoTwo seoSection={seoTwo} />

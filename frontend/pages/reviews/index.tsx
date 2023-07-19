@@ -6,6 +6,7 @@ import { IMenu } from '../../interfaces/menu.interface'
 import { ISection } from '../../interfaces/section.interface'
 import { ICatalog } from '../../interfaces/catalog.interface'
 import { IBreadCrumbs } from '../../interfaces/breadCrumbs.interface'
+import Reviews from '../../components/Reviews/Reviews/Reviews'
 
 interface IndexProps {
     topMenu: IMenu,
@@ -25,6 +26,7 @@ const Index: FC<IndexProps> = ({ topMenu, headerMenu, footerMenu, footerMenuInfo
         <div>
             <MainLayout topMenu={topMenu} headerMenu={headerMenu} footerMenu={footerMenu} footerMenuInfo={footerMenuInfo} footerMenuCoordinates={footerMenuCoordinates} footerMenuEmail={footerMenuEmail}>
                 <BreadCrumbs breadCrumbsArr={breadCrumbsArr} />
+                <Reviews reviewSection={reviews} sendReviewBtnVisible={true} />
             </MainLayout>
         </div >
     )
