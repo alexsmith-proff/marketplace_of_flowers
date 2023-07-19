@@ -52,13 +52,13 @@ const Index: FC<IndexProps> = ({ topMenu, headerMenu, bigSlider, smallSlider, pr
         <MapYandex
           defaultState={{
             center: [51.670554, 39.192204],
-            zoom: 10
+            zoom: 13
           }}
-          shop={{
+          shops={[{
             name: 'ул. Революции 1905 года, 80',
             lat: 51.667596,
             long: 39.185905,
-          }}
+          }]}
           height={'500px'}
           hintPhoneNumber={getTextInTextBlockFromSection(footerMenuCoordinates, 'koord-elem', 'telefon')}
           hintWorkDays={`Пн-Сб: 8:00–20:00\nВс: 9:00–20:00`}

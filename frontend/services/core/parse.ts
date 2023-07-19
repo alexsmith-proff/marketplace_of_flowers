@@ -37,7 +37,7 @@ export const getSubMenuItemsArrBySlugFromMenu = (menu: IMenu, menuItemSlug: stri
 }
 ///////////////////////////////////////
 
-// Sections, Blocks
+// Sections, Elements, Blocks
 export const getTextInTextBlockFromSection = (section: ISection, elementSlug: string, textSlug: string) => {
     if (section) {
         const element = section.elements.find(el => el.slug === elementSlug)
@@ -70,6 +70,10 @@ export const getFileNameInImgBlockFromElement = (element: IElement, imgSlug: str
     if (imgElement) return imgElement.filename
     else return ''
 
+}
+
+export const getElementBySlug = (section: ISection, slug: string): IElement => {
+    return section.elements.find(el => el.slug == slug)
 }
 ///////////////////////////////////////
 

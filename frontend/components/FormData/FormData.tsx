@@ -52,7 +52,7 @@ const FormData: FC<FormDataProps> = ({ formRef }) => {
 
     const defaultState: IMapStateDefault = {
         center: [51.670554, 39.192204],
-        zoom: 10
+        zoom: 13
     };
 
 
@@ -281,7 +281,7 @@ const FormData: FC<FormDataProps> = ({ formRef }) => {
                                                 }
 
                                             </div>
-                                            <MapYandex defaultState={defaultState} shop={shop[shopActiveIndex]} width={'600px'} />
+                                            <MapYandex defaultState={defaultState} shops={[shop[shopActiveIndex]]} width={'600px'} />
                                         </div>
 
                                 }

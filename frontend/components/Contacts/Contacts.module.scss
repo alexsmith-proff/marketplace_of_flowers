@@ -1,0 +1,107 @@
+.contacts {
+    padding-top: 20px;
+    margin-bottom: 30px;
+}
+
+.title {
+    color: #222A46;
+    font-size: 30px;
+    font-style: normal;
+    font-weight: 700;
+    line-height: 40px;
+    margin-bottom: 30px;
+}
+
+.telephoneTab {
+    border-radius: 10px;
+    box-shadow: 0px 4px 15px 0px rgba(34, 42, 70, 0.15);
+    padding: 35px;
+    margin-bottom: 40px;
+
+    &Wrap {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    &Text {
+        color: #222A46;
+        font-size: 20px;
+        font-weight: 700;
+        line-height: 30px;
+        margin-right: 30px;
+    }
+
+    &Number {
+        color: #0093A2;
+        font-size: 30px;
+        font-weight: 700;
+        line-height: 40px;
+    }
+}
+
+.list {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.item {
+    border-radius: 10px;
+    border: 1px solid #D0D2D7;
+    padding: 20px;
+}
+
+.img {
+    border-radius: 10px;
+}
+
+.content {
+    padding-top: 10px;
+}
+
+.name {
+    color: #1B1C21;
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 30px;
+    margin-bottom: 10px;
+}
+
+.address {
+    color: #505567;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 22px;
+    margin-bottom: 20px;
+}
+
+.info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    &Item {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    &Content {
+        margin-left: 10px;
+    }
+
+    &Title {
+        color: #353949;
+        font-size: 14px;
+        font-weight: 400;
+        line-height: 20px;
+    }
+
+    &Text {
+        color: #0093A2;
+        font-size: 16px;
+        font-weight: 400;
+        line-height: 22px;
+    }
+}

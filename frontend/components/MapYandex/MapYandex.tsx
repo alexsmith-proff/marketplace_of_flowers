@@ -8,7 +8,7 @@ import s from './MapYandex.module.scss'
 
 interface MapYandexProps {
     defaultState: IMapStateDefault
-    shop: IShop
+    shops?: IShop[]
     width?: string
     height?: string
     hintPhoneNumber?: string
@@ -18,7 +18,7 @@ interface MapYandexProps {
 }
 
 const MapYandex: FC<MapYandexProps> = ({
-    shop,
+    shops,
     defaultState,
     width = '100%',
     height = '240px',
@@ -35,9 +35,9 @@ const MapYandex: FC<MapYandexProps> = ({
                         <div className={s.onlyMap}>
                             <YMaps>
                                 <Map defaultState={defaultState} style={{ width: width, height: height }}>
-                                    <Placemark
-                                        geometry={[shop.lat, shop.long]}
-                                    />
+                                    {
+                                        shops?.map((shop, ind) => <Placemark geometry={[shop.lat, shop.long]} key={ind} />)
+                                    }
                                 </Map>
                             </YMaps>
                         </div>

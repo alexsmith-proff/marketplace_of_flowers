@@ -4,7 +4,7 @@ export interface IMapStateDefault {
 };
 
 export interface IShop {
-    name: string,
-    lat: number,
-    long: number
+    name?: string,
+    lat?: number,
+    long?: number
 }
