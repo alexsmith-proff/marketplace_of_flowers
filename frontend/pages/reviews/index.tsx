@@ -6,7 +6,7 @@ import { IMenu } from '../../interfaces/menu.interface'
 import { ISection } from '../../interfaces/section.interface'
 import { ICatalog } from '../../interfaces/catalog.interface'
 import { IBreadCrumbs } from '../../interfaces/breadCrumbs.interface'
-import Reviews from '../../components/Reviews/Reviews/Reviews'
+import Reviews from '../../components/Reviews/Reviews'
 
 interface IndexProps {
     topMenu: IMenu,
