@@ -1,27 +1,16 @@
 import React, { FC, useState } from 'react'
 import MainLayout from '../../layouts/MainLayout/MainLayout'
-import BreadCrumbs from '../../components/BreadCrumbs/BreadCrumbs'
 import { GetMenu, GetSection } from '../../services/core/requests'
 import { IMenu } from '../../interfaces/menu.interface'
 import { ISection } from '../../interfaces/section.interface'
 import { ICatalog } from '../../interfaces/catalog.interface'
 import { IBreadCrumbs } from '../../interfaces/breadCrumbs.interface'
-import InfoContent from '../../components/InfoAbout/InfoAbout'
 import InfoLayout from '../../layouts/InfoLayout/InfoLayout'
 import InfoAbout from '../../components/InfoAbout/InfoAbout'
 import InfoPay from '../../components/InfoPay/InfoPay'
 import InfoDelivery from '../../components/InfoDelivery/InfoDelivery'
 
-interface ISideMenuItem {
-    name: string,
-    slug: string,
-    active: boolean
-}
-
-
-
 interface IndexProps {
-    slugUrl,
     topMenu: IMenu,
     footerMenu: IMenu,
     headerMenu: IMenu,
@@ -30,28 +19,19 @@ interface IndexProps {
     footerMenuCoordinates: ISection,
     footerMenuEmail: ISection
     breadCrumbsArr: IBreadCrumbs[],
+    slugUrl: string,
+    about: ISection,
+    employee: ISection, 
+
 }
 
-const Index: FC<IndexProps> = ({ topMenu, headerMenu, footerMenu, footerMenuInfo, footerMenuCoordinates, footerMenuEmail, breadCrumbsArr, slugUrl }) => {
-    const [breadCrumbs, setBreadCrumbs] = useState<IBreadCrumbs[]>([
-        {
-            slug: '',
-            text: 'Главная',
-        },
-        {
-            slug: 'about',
-            text: 'О нас',
-        }
-    ])
-
-    console.log(slugUrl);
-    
-
+const Index: FC<IndexProps> = ({ topMenu, headerMenu, footerMenu, footerMenuInfo, footerMenuCoordinates, footerMenuEmail, slugUrl, about, employee }) => {
+    // console.log(slugUrl);
     return (
         <div>
             <MainLayout topMenu={topMenu} headerMenu={headerMenu} footerMenu={footerMenu} footerMenuInfo={footerMenuInfo} footerMenuCoordinates={footerMenuCoordinates} footerMenuEmail={footerMenuEmail}>
                 <InfoLayout sideMenuSlug={slugUrl}>
-                    { slugUrl === 'about' && <InfoAbout /> }
+                    { slugUrl === 'about' && <InfoAbout about={about} employee={employee} /> }
                     { slugUrl === 'pay' && <InfoPay /> }
                     { slugUrl === 'delivery' && <InfoDelivery /> }
                 </InfoLayout>
@@ -73,8 +53,11 @@ export async function getServerSideProps(context) {
     const footerMenuCoordinates = await GetSection('nashi-koordinaty')
     const footerMenuEmail = await GetSection('e-mail')
 
+    const about = await GetSection('o-nas')
+    const employee = await GetSection('nashi-sotrudniki')
+
     return {
-        props: { topMenu, headerMenu, footerMenu, footerMenuInfo, footerMenuCoordinates, footerMenuEmail, slugUrl }
+        props: { topMenu, headerMenu, footerMenu, footerMenuInfo, footerMenuCoordinates, footerMenuEmail, slugUrl, about, employee }
     }
 }
 

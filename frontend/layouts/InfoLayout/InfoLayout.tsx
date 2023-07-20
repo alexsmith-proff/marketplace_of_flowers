@@ -1,16 +1,9 @@
-import React, { FC, useState } from 'react';
-import { ISection } from '../../interfaces/section.interface';
-
-import s from './InfoLayout.module.scss'
-import { IBreadCrumbs } from '../../interfaces/breadCrumbs.interface';
+import React, { FC, useState, useEffect } from 'react';
 import BreadCrumbs from '../../components/BreadCrumbs/BreadCrumbs';
 import SideMenu from '../../components/SideMenu/SideMenu';
+import { IBreadCrumbs } from '../../interfaces/breadCrumbs.interface';
 
-interface ISideMenuItem {
-    name: string,
-    slug: string,
-    active: boolean
-}
+import s from './InfoLayout.module.scss'
 
 interface InfoLayoutProps {
     sideMenuSlug: string
@@ -18,33 +11,20 @@ interface InfoLayoutProps {
 }
 
 const InfoLayout: FC<InfoLayoutProps> = ({ sideMenuSlug, children }: InfoLayoutProps) => {
-    const [sideMenu, setSideMenu] = useState<ISideMenuItem[]>([
-        {
-            name: 'О нас',
-            slug: 'about',
-            active: sideMenuSlug === 'about' ? true : false
-        },
-        {
-            name: 'Оплата',
-            slug: 'pay',
-            active: sideMenuSlug === 'pay' ? true : false
-        },
-        {
-            name: 'Доставка',
-            slug: 'delivery',
-            active: sideMenuSlug === 'delivery' ? true : false
-        }
-    ])
-    const [breadCrumbsArr, setBreadCrumbsArr] = useState<IBreadCrumbs[]>([
-        {
-            slug: '',
-            text: 'Главная',
-        },
-        {
-            slug: sideMenuSlug,
-            text: sideMenuSlug === 'about' ? 'О нас' : sideMenuSlug === 'pay' ? 'Оплата' : sideMenuSlug === 'delivery' ? 'Доставка' : '',
-        },
-    ])
+    const [breadCrumbsArr, setBreadCrumbsArr] = useState<IBreadCrumbs[]>([])
+
+    useEffect(() => {
+        setBreadCrumbsArr([
+            {
+                slug: '',
+                text: 'Главная',
+            },
+            {
+                slug: sideMenuSlug,
+                text: sideMenuSlug === 'about' ? 'О нас' : sideMenuSlug === 'pay' ? 'Оплата' : sideMenuSlug === 'delivery' ? 'Доставка' : '',
+            }
+        ])
+    }, [sideMenuSlug])
 
 
     return (
@@ -52,7 +32,7 @@ const InfoLayout: FC<InfoLayoutProps> = ({ sideMenuSlug, children }: InfoLayoutP
             <BreadCrumbs breadCrumbsArr={breadCrumbsArr} />
             <div className='container'>
                 <div className={s.wrap}>
-                    <SideMenu />
+                    <SideMenu sideMenuSlug={sideMenuSlug}/>
                     {children}
                 </div>
             </div>

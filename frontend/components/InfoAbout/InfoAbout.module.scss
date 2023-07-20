@@ -1,0 +1,51 @@
+.about {
+    width: 870px;
+    color: #222A46;
+    font-size: 18px;
+    line-height: 26px;
+    font-weight: 400;
+}
+
+.textSection {
+    margin-bottom: 60px;
+}
+
+.title {
+    font-size: 30px;
+    font-weight: 700;
+    line-height: 40px;
+    margin-bottom: 30px;
+}
+
+.text {
+    text-align: justify;
+}
+
+.subTitle {
+    font-size: 18px;
+    font-weight: 700;
+    padding-top: 30px;
+    margin-bottom: 20px;
+}
+
+.employee {
+    margin-bottom: 80px;
+}
+
+.list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    grid-gap: 37px;
+}
+
+.item {}
+
+.img {
+    border-radius: 50%;
+}
+
+.name {
+    font-size: 16px;
+    line-height: 22px;
+    padding-top: 5px;
+}

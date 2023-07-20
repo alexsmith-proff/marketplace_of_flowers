@@ -16,6 +16,10 @@ const BreadCrumbs: FC<BreadCrumbsProps> = ({ breadCrumbsArr }) => {
         if(breadCrumb.slug === 'blog') return <Link href={'/blog'}><a className={st.link}>{breadCrumb.text}</a></Link>
         if(breadCrumb.slug === 'reviews') return <Link href={'/reviews'}><a className={st.link}>{breadCrumb.text}</a></Link>
         if(breadCrumb.slug === 'contacts') return <Link href={'/contacts'}><a className={st.link}>{breadCrumb.text}</a></Link>
+
+        if(breadCrumb.slug === 'about') return <Link href={'/info/about'}><a className={st.link}>{breadCrumb.text}</a></Link>
+        if(breadCrumb.slug === 'pay') return <Link href={'/info/pay'}><a className={st.link}>{breadCrumb.text}</a></Link>
+        if(breadCrumb.slug === 'delivery') return <Link href={'/info/delivery'}><a className={st.link}>{breadCrumb.text}</a></Link>
         return <Link href={'/category/' + breadCrumb.slug}><a className={st.link}>{breadCrumb.text}</a></Link>
     }
     return (
