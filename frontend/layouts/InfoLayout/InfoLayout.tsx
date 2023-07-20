@@ -26,7 +26,6 @@ const InfoLayout: FC<InfoLayoutProps> = ({ sideMenuSlug, children }: InfoLayoutP
         ])
     }, [sideMenuSlug])
 
-
     return (
         <>
             <BreadCrumbs breadCrumbsArr={breadCrumbsArr} />

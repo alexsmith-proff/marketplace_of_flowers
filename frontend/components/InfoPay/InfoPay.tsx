@@ -1,7 +1,7 @@
 import { FC } from "react"
+import CardImgText from "../Elements/Cards/CardImgText/CardImgText"
 
 import s from './InfoPay.module.scss'
-import CardImgText from "../Elements/Cards/CardImgText/CardImgText"
 
 interface InfoPayProps { }
 
@@ -75,15 +75,12 @@ const InfoPay: FC<InfoPayProps> = () => {
             <div className={s.info}>
                 <CardImgText
                     imgUrl={'/img/info-ico.png'}
-                    imgWidth={30}
-                    imgHeight={30}
+                    imgWidth={40}
+                    imgHeight={40}
                     textGap={15}
                     text="Если заказ сделан в рабочее время (с 8:00 до 20:00 MSK), то в течение 20 минут наш менеджер свяжется с Вами по телефону для подтверждения заказа и уточнения удобного для Вас времени доставки."
                 />
             </div>
-
-
-
         </section>
     )
 

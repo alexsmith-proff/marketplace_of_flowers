@@ -1,14 +1,14 @@
 import React, { FC, useState } from 'react'
 import MainLayout from '../../layouts/MainLayout/MainLayout'
+import InfoLayout from '../../layouts/InfoLayout/InfoLayout'
+import InfoAbout from '../../components/InfoAbout/InfoAbout'
+import InfoPay from '../../components/InfoPay/InfoPay'
+import InfoDelivery from '../../components/InfoDelivery/InfoDelivery'
 import { GetMenu, GetSection } from '../../services/core/requests'
 import { IMenu } from '../../interfaces/menu.interface'
 import { ISection } from '../../interfaces/section.interface'
 import { ICatalog } from '../../interfaces/catalog.interface'
 import { IBreadCrumbs } from '../../interfaces/breadCrumbs.interface'
-import InfoLayout from '../../layouts/InfoLayout/InfoLayout'
-import InfoAbout from '../../components/InfoAbout/InfoAbout'
-import InfoPay from '../../components/InfoPay/InfoPay'
-import InfoDelivery from '../../components/InfoDelivery/InfoDelivery'
 
 interface IndexProps {
     topMenu: IMenu,
@@ -26,7 +26,6 @@ interface IndexProps {
 }
 
 const Index: FC<IndexProps> = ({ topMenu, headerMenu, footerMenu, footerMenuInfo, footerMenuCoordinates, footerMenuEmail, slugUrl, about, employee }) => {
-    // console.log(slugUrl);
     return (
         <div>
             <MainLayout topMenu={topMenu} headerMenu={headerMenu} footerMenu={footerMenu} footerMenuInfo={footerMenuInfo} footerMenuCoordinates={footerMenuCoordinates} footerMenuEmail={footerMenuEmail}>

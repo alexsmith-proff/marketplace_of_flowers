@@ -1,9 +1,9 @@
 import { FC, useState, useEffect } from "react"
+import Image from "next/image"
 import { getFileNameInImgBlockFromElement, getTextInTextBlockFromElement, getTextInTextBlockFromSection } from "../../services/core/parse"
 import { ISection } from "../../interfaces/section.interface"
 
 import s from './InfoAbout.module.scss'
-import Image from "next/image"
 
 interface InfoAboutProps {
     about: ISection

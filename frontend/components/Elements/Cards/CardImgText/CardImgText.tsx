@@ -3,8 +3,9 @@ import Image from "next/image";
 
 import s from './CardImgText.module.scss'
 
-interface CardImgTextProps{
+interface CardImgTextProps {
     isHorizontal?: boolean,
+    isWidthMax?: boolean,
     padding?: string,
     isBorder?: boolean,
     borderSize?: number,
@@ -14,14 +15,16 @@ interface CardImgTextProps{
     imgWidth: number
     imgHeight: number
     imgAlignItems?: string
-    text: string
+    text?: string
     textFontSize?: number
     textIsBold?: boolean
     textGap?: number
+    children?: React.ReactNode
 }
 
-const CardImgText: FC<CardImgTextProps> =  ({
+const CardImgText: FC<CardImgTextProps> = ({
     isHorizontal = true,
+    isWidthMax = false,
     padding = '0px',
     isBorder = false,
     borderSize = 1,
@@ -34,24 +37,36 @@ const CardImgText: FC<CardImgTextProps> =  ({
     text,
     textFontSize = 16,
     textIsBold = false,
-    textGap = 0
- }) => {
-    return(
+    textGap = 0,
+    children
+}) => {
+    return (
         <div className={s.card} style={{
-            display: "inline-flex",
+            display: !isWidthMax ? "inline-flex" : "flex",
             flexDirection: isHorizontal ? 'row' : 'column',
             alignItems: imgAlignItems,
             padding: padding,
             border: isBorder ? `${borderSize}px solid #${borderColor}` : 'none',
-            borderRadius: `${borderRadius}px`
-            }}>
+            borderRadius: `${borderRadius}px`,
+            boxSizing: "border-box"
+        }}>
             <Image src={imgUrl} width={imgWidth} height={imgHeight} />
-            <p style={{
+            {
+                text && (
+                    <p style={{
+                        marginLeft: isHorizontal ? `${textGap}px` : '0px',
+                        marginTop: !isHorizontal ? `${textGap}px` : '0px',
+                        fontSize: `${textFontSize}px`,
+                        fontWeight: textIsBold ? "bold" : "normal"
+                    }}>{text}</p>
+                )
+            }
+            <div style={{
                 marginLeft: isHorizontal ? `${textGap}px` : '0px',
                 marginTop: !isHorizontal ? `${textGap}px` : '0px',
-                fontSize: `${textFontSize}px`,
-                fontWeight: textIsBold ? "bold" : "normal"
-                }}>{text}</p>
+            }}>
+                {children}
+            </div>
         </div>
     )
 }
