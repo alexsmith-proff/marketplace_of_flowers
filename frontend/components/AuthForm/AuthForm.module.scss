@@ -1,17 +1,35 @@
+.popup{
+    width: 100vw;
+    height: 100vh;
+    background-color: rgb(27, 28, 33, 0.5);
+    position: fixed;
+    z-index: 9999;
+    top: 0;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    // pointer-events = all  - чтобы модальное окно было кликабельным
+    pointer-events: all;
+    transition: 0.5s;
+
+}
 .form {
     width: 350px;
     padding: 30px;
     border-radius: 20px;
     background: #FFF;
-    border: 1px solid #000;
     position: relative;
 }
 
 .closeBtn{
     position: absolute;
-    top: 15px;
-    right: 15px;
+    top: 10px;
+    right: 10px;
+    padding: 5px;
     cursor: pointer;
+    transition: 0.3s;
     &:hover{
         border-radius: 20px;
         background-color: #fafafa;
@@ -26,6 +44,7 @@
     font-weight: 700;
     line-height: 30px;
     margin-bottom: 20px;
+    user-select: none;
 }
 
 .wrapItems {
@@ -47,6 +66,7 @@
     justify-content: center;
     padding: 13px 0;
     cursor: pointer;
+    user-select: none;
 
     &.active {
         color: #0093A2;
@@ -58,7 +78,7 @@
 
 .form {
     &Item {
-        margin-bottom: 20px;
+        margin-bottom: 25px;
     }
 
 }
@@ -70,18 +90,28 @@
     line-height: 20px;
     display: block;
     margin-bottom: 5px;
+    user-select: none;
 }
 
 .input {
-
+    position: relative;
     input {
         width: 100%;
         border-radius: 5px;
         border: 1px solid #D0D2D7;
-        background: #FFF;
+        background-color: #FFF;
         padding: 13px 20px;
         box-sizing: border-box;
+        // белый цвет, когда автозаполнение, по умолчанию синий цвет
+        box-shadow: inset 20px 20px 0px 20px #fff
     }
+}
+.error{
+    color: #ff0000;
+    font-size: 11px;    
+    position: absolute;
+    left: 0;
+    bottom: -15px;
 }
 
 .text {
@@ -91,4 +121,5 @@
     font-weight: 400;
     line-height: 20px;
     text-align: center;
+    user-select: none;
 }

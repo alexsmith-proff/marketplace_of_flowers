@@ -1,4 +1,4 @@
-import { FC, useState } from 'react'
+import { FC, useEffect, useState } from 'react'
 import { Formik } from 'formik'
 import * as Yup from 'yup';
 import allEndPoints from '../../services/api/api'
@@ -27,6 +27,23 @@ const AuthForm: FC<AuthFormProps> = ({ clickCloseBtn }) => {
             isActive: false
         }
     ])
+
+    useEffect(() => {
+        // Выключает скролл основного окна
+        document.body.style.overflow = "hidden"
+        // Смещение за счет елемента скролла
+        document.body.style.marginLeft = "-17px"
+    }, [])
+
+    const handleclickCloseBtn = () => {
+        // Включает скролл основного окна
+        document.body.style.overflow = "visible"
+        // Убирает смещение 
+        document.body.style.marginLeft = "0px"
+        clickCloseBtn()      
+    }
+
+
     const hadleClick = async () => {
         try {
             const res = await allEndPoints.auth.registartion({
@@ -43,27 +60,27 @@ const AuthForm: FC<AuthFormProps> = ({ clickCloseBtn }) => {
 
 
     const handleClickButton = (index: number) => {
-        setButtons(buttons.map((item, ind) => ind===index ? {...item, isActive: true} : {...item, isActive: false}))
+        setButtons(buttons.map((item, ind) => ind === index ? { ...item, isActive: true } : { ...item, isActive: false }))
     }
 
 
 
     let validationSchema = Yup.object().shape({
-        email: Yup.string().email('Неправиль введен пароль').required('Обязательное поле'),
+        email: Yup.string().email('Неправильно введен пароль').required('Обязательное поле'),
         password: Yup.string().typeError('Должно быть строкой').required('Обязательное поле'),
-        name: Yup.string().typeError('Должно быть строкой')
+        name: Yup.string().typeError('Должно быть строкой').required('Обязательное поле'),
     })
 
     return (
-        <>
+        <div className={s.popup}>
             <div className={s.form}>
-                <div className={s.closeBtn} onClick={clickCloseBtn}>
+                <div className={s.closeBtn} onClick={handleclickCloseBtn}>
                     <Image src={'/img/close-btn.png'} width={24} height={24} />
                 </div>
                 <h3 className={s.title}>Регистрация</h3>
                 <ul className={s.wrapItems}>
                     {
-                        buttons.map((button, index) => <li className={button.isActive ? `${s.item} ${s.active}` : s.item} onClick={() => handleClickButton(index)} key={index}>{button.name}</li> )
+                        buttons.map((button, index) => <li className={button.isActive ? `${s.item} ${s.active}` : s.item} onClick={() => handleClickButton(index)} key={index}>{button.name}</li>)
                     }
                 </ul >
                 <Formik
@@ -101,15 +118,19 @@ const AuthForm: FC<AuthFormProps> = ({ clickCloseBtn }) => {
                                         }
                                     </div>
                                 </div>
-                                <div className={s.formItem}>
-                                    <label className={s.caption} htmlFor={'name'}>ФИО</label>
-                                    <div className={s.input}>
-                                        <input type="text" name={"name"} onChange={handleChange} onBlur={handleBlur} value={values.name} placeholder="ФИО" />
-                                        {
-                                            touched.name && errors.name && <p className={s.error}>{errors.name}</p>
-                                        }
-                                    </div>
-                                </div>
+                                {
+                                    buttons[0].isActive && (
+                                        <div className={s.formItem}>
+                                            <label className={s.caption} htmlFor={'name'}>ФИО</label>
+                                            <div className={s.input}>
+                                                <input type="text" name={"name"} onChange={handleChange} onBlur={handleBlur} value={values.name} placeholder="ФИО" />
+                                                {
+                                                    touched.name && errors.name && <p className={s.error}>{errors.name}</p>
+                                                }
+                                            </div>
+                                        </div>
+                                    )
+                                }
                             </>
                         )
                     }
@@ -117,7 +138,7 @@ const AuthForm: FC<AuthFormProps> = ({ clickCloseBtn }) => {
                 <p className={s.text}>Нажимая кнопку "Зарегистрироваться" вы соглашаетесь с условиями обработки персональных данных и публичной офертой.</p>
 
             </div >
-        </>
+        </div>
     )
 }
 
