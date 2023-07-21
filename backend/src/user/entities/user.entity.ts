@@ -19,7 +19,12 @@ export class UserEntity {
     @Column({
         default:''
     })
-    name: string
+    firstName: string
+
+    @Column({
+        default:''
+    })
+    lastName: string
 
     @Column({
         type: "enum",

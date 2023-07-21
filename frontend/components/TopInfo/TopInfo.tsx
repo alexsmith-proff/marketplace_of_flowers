@@ -1,18 +1,38 @@
 import Image from 'next/image';
-import React, { FC } from 'react';
+import React, { FC, useState } from 'react';
 import Link from 'next/link';
+import AuthForm from '../AuthForm/AuthForm';
 import { IMenu } from '../../interfaces/menu.interface';
 
 import s from './TopInfo.module.scss'
+import { useRouter } from 'next/router';
 
 interface TopInfoProps {
     menu: IMenu
 }
 
 const TopInfo: FC<TopInfoProps> = ({ menu }) => {
+    const [isAuth, setIsAuth] = useState<boolean>(false)
+    const [isVisibleAuthForm, setIsVisibleAuthForm] = useState<boolean>(false)
+
+    const router = useRouter()
+
+    const handleClickProfile = () => {
+        if (isAuth) router.push(`profile/`)
+        else setIsVisibleAuthForm(true)
+
+
+    }
+
+    const handleClickCloseBtn = () => {
+        setIsVisibleAuthForm(false)
+    }
 
     return (
         <div className="container">
+            {
+                isVisibleAuthForm && <div className={s.dialog}><AuthForm clickCloseBtn={handleClickCloseBtn} /></div>
+            }
             <div className={s.topInfo}>
                 <div className={s.topInfoTime}>
                     <Image src={'/img/clock.png'} width={16} height={16} alt='clock-ico' />
@@ -47,7 +67,7 @@ const TopInfo: FC<TopInfoProps> = ({ menu }) => {
                             </div>
                         </a>
                     </div>
-                    <div className={s.TopInfoProfile}>
+                    <div className={s.TopInfoProfile} onClick={handleClickProfile}>
                         <div className={s.TopInfoProfile__ico}>
                             <Image src={'/img/user-ico.png'} width={20} height={20} alt='user-ico' />
                         </div>

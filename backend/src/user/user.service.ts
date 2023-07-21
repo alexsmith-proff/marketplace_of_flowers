@@ -2,7 +2,6 @@ import { genSalt, hash } from 'bcryptjs';
 import { UserEntity } from './entities/user.entity';
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { Repository } from 'typeorm';
 
@@ -29,17 +28,14 @@ export class UserService {
 
   async update(id: number, updateUserDto: UpdateUserDto) {
     const user: UserEntity = await this.getById(id);
-
     user.email = updateUserDto.email;
-    console.log(updateUserDto.password);
     
     if (updateUserDto.password) {
-      console.log('bbb');
-      
       const salt = await genSalt(7);
       user.password = await hash(updateUserDto.password, salt);
     }
-    user.name = updateUserDto.name;
+    user.firstName = updateUserDto.firstName;
+    user.firstName = updateUserDto.lastName;
     user.role = updateUserDto.role;
     return this.userRepository.save(user);
   }

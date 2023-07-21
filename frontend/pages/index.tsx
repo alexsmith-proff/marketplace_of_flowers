@@ -12,9 +12,8 @@ import { IMenu } from '../interfaces/menu.interface';
 import { ISection } from '../interfaces/section.interface';
 import MainLayout from '../layouts/MainLayout/MainLayout'
 import { GetMenu, GetSection } from '../services/core/requests';
-import { IProduct } from '../interfaces/products.interface';
 import MapYandex from '../components/MapYandex/MapYandex';
-import { getTextInTextBlockFromElement, getTextInTextBlockFromSection } from '../services/core/parse';
+import { getTextInTextBlockFromSection } from '../services/core/parse';
 
 interface IndexProps {
   topMenu: IMenu,

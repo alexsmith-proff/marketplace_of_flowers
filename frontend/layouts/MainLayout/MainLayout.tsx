@@ -1,12 +1,10 @@
-﻿import React from 'react';
+﻿import React, { useState } from 'react';
 import Footer from '../../components/Footer/Footer';
 import Header from '../../components/Header/Header';
 import TopInfo from '../../components/TopInfo/TopInfo';
 import TopMenu from '../../components/TopMenu/TopMenu';
 import { IMenu } from '../../interfaces/menu.interface';
 import { ISection } from '../../interfaces/section.interface';
-
-import s from './MainLayout.module.scss'
 
 interface MainLayoutProps {
     topMenu: IMenu,
