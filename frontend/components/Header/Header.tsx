@@ -19,7 +19,6 @@ const Header: FC<HeaderProps> = ({ }) => {
 
         let value = val.toString().split('')
         value.splice(value.length - 3, 0, ' ').join()
-        console.log('vvvvvvv', value);
         return value
     }
     const allPrice = getAllPrice()

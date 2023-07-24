@@ -1,24 +1,30 @@
+import React, { FC, useState, useEffect } from 'react';
 import Image from 'next/image';
-import React, { FC, useState } from 'react';
 import Link from 'next/link';
 import AuthForm from '../AuthForm/AuthForm';
 import { IMenu } from '../../interfaces/menu.interface';
+import { useRouter } from 'next/router';
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from '../../redux/store';
 
 import s from './TopInfo.module.scss'
-import { useRouter } from 'next/router';
+import allEndPoints from '../../services/api/api';
+import { setUserData } from '../../redux/user/userSlice';
 
 interface TopInfoProps {
     menu: IMenu
 }
 
 const TopInfo: FC<TopInfoProps> = ({ menu }) => {
+    const user = useSelector((state: RootState) => state.user)
+    const dispatch = useDispatch()
     const [isAuth, setIsAuth] = useState<boolean>(false)
     const [isVisibleAuthForm, setIsVisibleAuthForm] = useState<boolean>(false)
 
     const router = useRouter()
 
     const handleClickProfile = () => {
-        if (isAuth) router.push(`profile/`)
+        if (isAuth) router.push(`/profile/`)
         else setIsVisibleAuthForm(true)
 
 
@@ -27,6 +33,25 @@ const TopInfo: FC<TopInfoProps> = ({ menu }) => {
     const handleClickCloseBtn = () => {
         setIsVisibleAuthForm(false)
     }
+
+    const setUser = async () => {
+        const res = await allEndPoints.auth.getProfile()
+        if (res.data) {
+            setIsAuth(true)
+        }
+        dispatch(setUserData(res.data))
+    }
+
+    useEffect(() => {
+        setUser()
+    }, [])
+    
+    useEffect(() => {
+        if (Object.keys(user.profile).length) {
+            setUser()
+        }
+    }, [isVisibleAuthForm])
+
 
     return (
         <div className="container">

@@ -15,22 +15,21 @@ export class AuthService {
     ) { }
 
     async register(dto: AuthDto) {
-            const oldUser = await this.userRepository.findOneBy({
-                email: dto.email
-            })
-            if (oldUser) throw new HttpException('Email занят', HttpStatus.UNAUTHORIZED)
-            const salt = await genSalt(7)
-            const newUser = await this.userRepository.create({
-                email: dto.email,
-                password: await hash(dto.password, salt),
-                firstName: dto.firstName,
-                lastName: dto.lastName,
-            })
-            const user = await this.userRepository.save(newUser)
-            return {
-                user: this.returnUserFields(user),
-                accessToken: await this.issueAccessToken(user.id)
-            }
+        const oldUser = await this.userRepository.findOneBy({
+            email: dto.email
+        })
+        if (oldUser) throw new HttpException('Email занят', HttpStatus.UNAUTHORIZED)
+        const salt = await genSalt(7)
+        const newUser = await this.userRepository.create({
+            email: dto.email,
+            password: await hash(dto.password, salt),
+            name: dto.name
+        })
+        const user = await this.userRepository.save(newUser)
+        return {
+            user: this.returnUserFields(user),
+            accessToken: await this.issueAccessToken(user.id)
+        }
     }
 
     async login(dto: AuthDto) {
@@ -39,6 +38,18 @@ export class AuthService {
             user: this.returnUserFields(user),
             accessToken: await this.issueAccessToken(user.id)
         }
+    }
+
+    async getProfile(token): Promise<UserEntity> {
+        const jwt = this.jwtService.decode(token)
+        const id = jwt['id']
+        const user = await this.userRepository.findOne({
+            where: {
+                id,
+            },
+        });
+        if (!user) throw new HttpException('Юзер не найден', HttpStatus.UNAUTHORIZED)
+        return user;
     }
 
 
@@ -60,7 +71,8 @@ export class AuthService {
             id: userId
         }
         return await this.jwtService.signAsync(data, {
-            expiresIn: '25d'
+            expiresIn: '7d'
+            // expiresIn: 25 //25 секунд
         })
     }
 

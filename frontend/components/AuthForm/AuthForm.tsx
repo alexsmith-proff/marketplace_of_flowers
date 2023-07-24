@@ -5,6 +5,8 @@ import * as Yup from 'yup';
 import allEndPoints from '../../services/api/api'
 
 import s from './AuthForm.module.scss'
+import { useDispatch } from 'react-redux';
+import { setUserData } from '../../redux/user/userSlice';
 
 interface IButton {
     name: string
@@ -16,6 +18,7 @@ interface AuthFormProps {
 }
 
 const AuthForm: FC<AuthFormProps> = ({ clickCloseBtn }) => {
+    const dispatch = useDispatch()
     const [buttons, setButtons] = useState<IButton[]>([
         {
             name: 'Регистрация',
@@ -44,13 +47,14 @@ const AuthForm: FC<AuthFormProps> = ({ clickCloseBtn }) => {
     }
 
     const handleClickButton = (index: number) => {
+        setError('')
         setButtons(buttons.map((item, ind) => ind === index ? { ...item, isActive: true } : { ...item, isActive: false }))
     }
 
     let validationSchema = Yup.object().shape({
         email: Yup.string().email('Неправильно введен пароль').required('Обязательное поле'),
         password: Yup.string().typeError('Должно быть строкой').required('Обязательное поле'),
-        name: Yup.string().typeError('Должно быть строкой').required('Обязательное поле'),
+        name: buttons[0].isActive ? Yup.string().typeError('Должно быть строкой').required('Обязательное поле') : null,
     })
 
     return (
@@ -79,23 +83,40 @@ const AuthForm: FC<AuthFormProps> = ({ clickCloseBtn }) => {
                     validateOnBlur
                     validationSchema={validationSchema}
                     onSubmit={async (values) => {
+
                         if (buttons[0].isActive) {
-                            // Ристрация
+                            // Регистрация
                             try {
                                 const res = await allEndPoints.auth.registartion({
                                     email: values.email,
-                                    password: values.password
+                                    password: values.password,
+                                    name: values.name
                                 })
-                                console.log('respppp', res.data)
+                                // console.log('resp', res.data)
                                 setError('')
-                                localStorage.setItem('accessToken', res.data.accessToken)
+                                setButtons(buttons.map((item, index) => index === 1 ? { ...item, isActive: true } : { ...item, isActive: false }))
 
                             } catch (error) {
                                 if (error.response.data.statusCode == 401) setError('Пользователь с таким email существует')
                             }
                         } else {
                             // Логин
-                            console.log('Логин')
+                            try {
+                                let res = await allEndPoints.auth.login({
+                                    email: values.email,
+                                    password: values.password
+                                })
+                                setError('')
+                                localStorage.setItem('accessToken', res.data.accessToken)
+                                res = await allEndPoints.auth.getProfile()
+                                dispatch(setUserData(res.data))
+                                clickCloseBtn()
+
+                            } catch (error) {
+                                console.log(error);
+
+                                if (error.response.data.statusCode == 401) setError('Неправильный логин или пароль')
+                            }
                         }
                     }}
                 >

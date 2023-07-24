@@ -11,8 +11,5 @@ export class AuthDto {
     password: string
 
     @IsString()
-    firstName: string
-
-    @IsString()
-    lastName: string
+    name: string
 }
