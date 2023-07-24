@@ -18,7 +18,7 @@ export class AuthService {
             const oldUser = await this.userRepository.findOneBy({
                 email: dto.email
             })
-            if (oldUser) throw new BadRequestException('Email занят')
+            if (oldUser) throw new HttpException('Email занят', HttpStatus.UNAUTHORIZED)
             const salt = await genSalt(7)
             const newUser = await this.userRepository.create({
                 email: dto.email,
