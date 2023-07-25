@@ -70,7 +70,7 @@ const MainCards: FC<MainCardsProps> = ({ cards }) => {
                     <div className={s.mainCards__list}>
                         <Slider className='mainCards' {...settings}>
                             {
-                                cards?.elements.map(elem => (
+                                cards?.elements?.map(elem => (
                                     <div className={s.mainCards__item} onClick={() => handleClickProduct(elem.product_ref.id, elem.product_ref)} key={elem.product_ref.id}>
                                         {
                                             elem.product_ref.main_image ?
