@@ -1,6 +1,20 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit"
 
-const initialState = {
+type TProfile = {
+    id?: number,
+    name?: string,
+    email?: string,
+    password?: string,
+    role?: string,
+    createdAt?: Date,
+    updatedAt?: Date
+}
+
+type TUser = {
+    profile: TProfile
+}
+
+const initialState: TUser = {
     profile: {}
 }
 

@@ -1,0 +1,25 @@
+.discount {
+    background: #F2F6F6;
+    border: 1px solid #E2E4EB;
+    border-radius: 10px;
+    padding: 15px 20px;
+
+    &__title {
+        color: #1B1C21;
+        font-size: 18px;
+        font-weight: 400;
+        line-height: 26px;
+
+        span {
+            font-weight: bold;
+        }
+    }
+
+    &__text {
+        color: #505567;
+        font-size: 14px;
+        font-style: normal;
+        font-weight: 400;
+        line-height: 20px;
+    }
+}

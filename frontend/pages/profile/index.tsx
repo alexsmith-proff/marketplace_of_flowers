@@ -3,6 +3,7 @@ import MainLayout from '../../layouts/MainLayout/MainLayout'
 import { GetMenu, GetSection } from '../../services/core/requests'
 import { IMenu } from '../../interfaces/menu.interface'
 import { ISection } from '../../interfaces/section.interface'
+import Profile from '../../components/Profile/Profile'
 
 interface IndexProps {
     topMenu: IMenu,
@@ -17,6 +18,7 @@ const Index: FC<IndexProps> = ({ topMenu, footerMenu, footerMenuInfo, footerMenu
     return (
         <div>
             <MainLayout topMenu={topMenu} footerMenu={footerMenu} footerMenuInfo={footerMenuInfo} footerMenuCoordinates={footerMenuCoordinates} footerMenuEmail={footerMenuEmail}>
+                <Profile />
             </MainLayout>
         </div >
     )
