@@ -8,7 +8,7 @@ import { ISection } from '../../interfaces/section.interface';
 
 interface MainLayoutProps {
     topMenu: IMenu,
-    headerMenu: IMenu,
+    headerMenu?: IMenu,
     footerMenu: IMenu,
     footerMenuInfo: IMenu,
     footerMenuCoordinates: ISection,
@@ -21,7 +21,8 @@ const MainLayout = ({ topMenu, headerMenu, footerMenu, footerMenuInfo, footerMen
         <>
             <TopInfo menu={topMenu} />
             <Header />
-            <TopMenu menu={headerMenu} />
+            {headerMenu && <TopMenu menu={headerMenu} />}
+
             {children}
             <Footer menu={footerMenu} menuInfo={footerMenuInfo} menuCoordinates={footerMenuCoordinates} menuEmail={footerMenuEmail} />
         </>
