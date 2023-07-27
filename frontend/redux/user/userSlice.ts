@@ -1,21 +1,23 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit"
+import { IUser } from "../../interfaces/users.interface"
 
-type TProfile = {
-    id?: number,
-    name?: string,
-    email?: string,
-    password?: string,
-    role?: string,
-    createdAt?: Date,
-    updatedAt?: Date
-}
+// type TProfile = {
+//     id?: number,
+//     name?: string,
+//     email?: string,
+//     password?: string,
+//     role?: string,
+//     createdAt?: Date,
+//     updatedAt?: Date
+// }
 
-type TUser = {
-    profile: TProfile
-}
+// type TUser = {
+//     profile: TProfile
+// }
 
-const initialState: TUser = {
-    profile: {}
+const initialState: IUser = {
+    profile: {},
+    orders: []
 }
 
 

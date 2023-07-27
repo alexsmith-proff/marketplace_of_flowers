@@ -5,10 +5,18 @@
 .left{
     max-width: 250px;
 }
+.right{
+    width: 870px;
+}
 .greetings{
     margin-bottom: 10px;
     text-align: center;
 }
 .discount{
     margin-bottom: 30px;
+}
+
+.wrap{
+    display: flex;
+    justify-content: space-between;
 }

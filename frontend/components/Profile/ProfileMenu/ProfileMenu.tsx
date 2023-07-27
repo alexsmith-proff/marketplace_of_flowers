@@ -2,6 +2,7 @@ import Image from "next/image"
 import { FC } from "react"
 
 import s from './ProfileMenu.module.scss'
+import { UserOrdersStatus } from "../../../enums/User.enum"
 
 interface ProfileMenuProps {
     menuItem: number
