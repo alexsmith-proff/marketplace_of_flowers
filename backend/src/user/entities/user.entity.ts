@@ -1,4 +1,5 @@
-import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { OrderEntity } from "src/order/entities/order.entity";
+import { Column, CreateDateColumn, Entity, OneToMany, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 
 export enum UserRole {
     ADMIN = "admin",
@@ -27,6 +28,9 @@ export class UserEntity {
         default: UserRole.USER
     })
     role: UserRole
+
+    @OneToMany(() => OrderEntity, order => order.user_ref)
+    orders: OrderEntity[]
 
     @CreateDateColumn()
     createdAt: Date

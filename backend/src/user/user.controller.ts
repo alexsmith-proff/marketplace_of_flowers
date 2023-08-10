@@ -2,7 +2,6 @@ import { Auth } from './../auth/decorators/auth.decorator';
 import { Controller, Get, Post, Body, Patch, Param, Delete, UsePipes, ValidationPipe, HttpCode, Request } from '@nestjs/common';
 import { UserService } from './user.service';
 import { UpdateUserDto } from './dto/update-user.dto';
-import { CurrentUser } from './decorators/user.decorator';
 
 @Controller('api/user')
 export class UserController {

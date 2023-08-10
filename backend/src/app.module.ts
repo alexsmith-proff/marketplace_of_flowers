@@ -41,6 +41,8 @@ import { FilterElementEntity } from './filterelement/entities/filterelement.enti
 import { FilterValueEntity } from './filtervalue/entities/filtervalue.entity';
 import { ProductFilterModule } from './product-filter/product-filter.module';
 import { ProductFilterEntity } from './product-filter/entities/product-filter.entity';
+import { OrderModule } from './order/order.module';
+import { OrderEntity } from './order/entities/order.entity';
 
 @Module({
   imports: [
@@ -75,7 +77,9 @@ import { ProductFilterEntity } from './product-filter/entities/product-filter.en
           BrandEntity,
           FilterEntity,
           FilterElementEntity,
-          FilterValueEntity],
+          FilterValueEntity,
+          OrderEntity,
+        ],
         synchronize: true,        
       })
     }),
@@ -104,6 +108,7 @@ import { ProductFilterEntity } from './product-filter/entities/product-filter.en
     FilterModule,
     FilterelementModule,
     FilterValueModule,
+    OrderModule,
   ],
   controllers: [AppController],
   providers: [AppService],

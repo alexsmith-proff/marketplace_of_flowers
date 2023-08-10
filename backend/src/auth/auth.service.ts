@@ -47,6 +47,9 @@ export class AuthService {
             where: {
                 id,
             },
+            relations: {
+                orders: true
+            }
         });
         if (!user) throw new HttpException('Юзер не найден', HttpStatus.UNAUTHORIZED)
         return user;

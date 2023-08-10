@@ -26,8 +26,6 @@ const TopInfo: FC<TopInfoProps> = ({ menu }) => {
     const handleClickProfile = () => {
         if (isAuth) router.push(`/profile/`)
         else setIsVisibleAuthForm(true)
-
-
     }
 
     const handleClickCloseBtn = () => {
