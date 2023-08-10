@@ -4,11 +4,23 @@ Marketplace of flowers
 ## Stack
 NestJS/Next.js/TypeScript, GraphQL, PostgreSQL, Formik
 <br>
-
+##### Main page
 ![title](screenshot1.png)
 <br>
 ![title](screenshot2.png)
 <br> 
+##### Category page
+![title](category.png)
+<br>
+##### Product page
+![title](cart.png)
+<br>
+##### Authorization page
+![title](registration_and_login.png)
+<br>
+##### Profile page
+![title](profile.png)
+<br>
 
 ## Start
 #####WARNING !!!
