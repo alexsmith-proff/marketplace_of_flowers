@@ -3,7 +3,6 @@ import { ICatalog } from '../../interfaces/catalog.interface';
 import { IFilter } from '../../interfaces/filter.interface';
 import { IMenu, IMenuItem, ISubMenu } from '../../interfaces/menu.interface';
 import { IElement, ISection } from '../../interfaces/section.interface'
-import productEndPoints from '../api/endpoints/product.endpoints';
 import { isJSONString } from './util';
 
 // Menus
