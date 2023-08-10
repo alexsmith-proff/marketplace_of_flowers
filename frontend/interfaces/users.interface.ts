@@ -15,8 +15,7 @@ interface IOrder {
     id?: number,
     number?: number,
     name?: string,
-    date?: Date,
-    receiver?: string,
+    deliveryDate?: string,
     status?: UserOrdersStatus,
     price?: number,
 }
