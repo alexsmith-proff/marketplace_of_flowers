@@ -24,8 +24,8 @@ export class OrderEntity {
     @Column()
     status: OrderStatus
 
-    @Column()
-    deliveryDate: Date
+    @Column({ nullable: true })
+    deliveryDate: string
 
     @ManyToOne(() => UserEntity, user => user.orders, {onDelete: 'CASCADE'})
     user_ref: UserEntity

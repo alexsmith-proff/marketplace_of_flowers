@@ -6,10 +6,10 @@ import { IMenu } from '../../interfaces/menu.interface';
 import { useRouter } from 'next/router';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../../redux/store';
+import allEndPoints from '../../services/api/api';
+import { setIsVisibleAuthForm, setUserData } from '../../redux/user/userSlice';
 
 import s from './TopInfo.module.scss'
-import allEndPoints from '../../services/api/api';
-import { setUserData } from '../../redux/user/userSlice';
 
 interface TopInfoProps {
     menu: IMenu
@@ -17,26 +17,23 @@ interface TopInfoProps {
 
 const TopInfo: FC<TopInfoProps> = ({ menu }) => {
     const user = useSelector((state: RootState) => state.user)
+    const isVisibleAuthForm = useSelector((state: RootState) => state.user.isVisibleAuthForm)
     const dispatch = useDispatch()
-    const [isAuth, setIsAuth] = useState<boolean>(false)
-    const [isVisibleAuthForm, setIsVisibleAuthForm] = useState<boolean>(false)
+    // const [isAuth, setIsAuth] = useState<boolean>(false)
+    // const [isVisibleAuthForm, setIsVisibleAuthForm] = useState<boolean>(false)
 
     const router = useRouter()
 
     const handleClickProfile = () => {
-        if (isAuth) router.push(`/profile/`)
-        else setIsVisibleAuthForm(true)
-    }
-
-    const handleClickCloseBtn = () => {
-        setIsVisibleAuthForm(false)
+        if (Object.keys(user.profile).length) router.push(`/profile/`)
+        else dispatch(setIsVisibleAuthForm(true))
     }
 
     const setUser = async () => {
         const res = await allEndPoints.auth.getProfile()
-        if (res.data) {
-            setIsAuth(true)
-        }
+        // if (res.data) {
+        //     dispatch(setIsAuth(true))            
+        // }
         dispatch(setUserData(res.data))
     }
 
@@ -44,17 +41,17 @@ const TopInfo: FC<TopInfoProps> = ({ menu }) => {
         setUser()
     }, [])
     
-    useEffect(() => {
-        if (Object.keys(user.profile).length) {
-            setUser()
-        }
-    }, [isVisibleAuthForm])
+    // useEffect(() => {
+    //     if (Object.keys(user.profile).length) {
+    //         setUser()
+    //     }
+    // }, [isAuth])
 
 
     return (
         <div className="container">
             {
-                isVisibleAuthForm && <div className={s.dialog}><AuthForm clickCloseBtn={handleClickCloseBtn} /></div>
+                isVisibleAuthForm && <div className={s.dialog}><AuthForm /></div>
             }
             <div className={s.topInfo}>
                 <div className={s.topInfoTime}>

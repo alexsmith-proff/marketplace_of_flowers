@@ -1,23 +1,10 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit"
 import { IUser } from "../../interfaces/users.interface"
 
-// type TProfile = {
-//     id?: number,
-//     name?: string,
-//     email?: string,
-//     password?: string,
-//     role?: string,
-//     createdAt?: Date,
-//     updatedAt?: Date
-// }
-
-// type TUser = {
-//     profile: TProfile
-// }
-
 const initialState: IUser = {
     profile: {},
-    orders: []
+    // Окно авторизации
+    isVisibleAuthForm: false
 }
 
 
@@ -27,10 +14,13 @@ export const userSlice = createSlice({
     reducers: {
         setUserData: (state, action) => {
             state.profile = action.payload
+        },
+        setIsVisibleAuthForm: (state, action) => {
+            state.isVisibleAuthForm = action.payload
         }
     }
 })
 
 // экспортируем экшен и редьюсер
-export const { setUserData } = userSlice.actions
+export const { setUserData, setIsVisibleAuthForm } = userSlice.actions
 export default userSlice.reducer

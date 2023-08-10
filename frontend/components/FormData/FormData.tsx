@@ -1,5 +1,4 @@
 import React, { FC, useState } from "react";
-import { useRouter } from "next/router";
 import Image from "next/image";
 import MaskedInput from "react-text-mask";
 import ProductOut from "../ProductOut/ProductOut";
@@ -7,19 +6,29 @@ import MarkerNum from "../Elements/Markers/MarkerNum/MarkerNum"
 import CheckBox from "../Elements/CheckBoxs/CheckBox/CheckBox";
 import CheckBoxTime from "../Elements/CheckBoxs/CheckBoxTime/CheckBoxTime";
 import CheckBoxDate from "../Elements/CheckBoxs/CheckBoxDate/CheckBoxDate";
+import MapYandex from "../MapYandex/MapYandex";
+import { useRouter } from "next/router";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "../../redux/store";
+import { setIsVisibleAuthForm } from "../../redux/user/userSlice";
+import allEndPoints from "../../services/api/api";
 import { Field, Formik } from "formik"
 import * as Yup from 'yup';
 import { IProductOutItem } from "../../interfaces/products.interface";
+import { IMapStateDefault, IShop } from "../../interfaces/map.interface";
+import { IOrderInput } from "../../interfaces/order.interface";
+import { UserOrdersStatus } from "../../enums/User.enum";
 
 import s from './FormData.module.scss'
-import { IMapStateDefault, IShop } from "../../interfaces/map.interface";
-import MapYandex from "../MapYandex/MapYandex";
 
 interface FormDataProps {
     formRef: any
 }
 
 const FormData: FC<FormDataProps> = ({ formRef }) => {
+    const user = useSelector((user: RootState) => user.user)
+    const cartProduct = useSelector((cartProduct: RootState) => cartProduct.cartProduct.products)
+    const dispatch = useDispatch()
     const router = useRouter()
     // checkBoxValue 'Я сам получу заказ'
     const [isGetMyself, setIsGetMyself] = useState<boolean>(false)
@@ -125,8 +134,26 @@ const FormData: FC<FormDataProps> = ({ formRef }) => {
                 validateOnBlur
                 validationSchema={validationSchema}
                 onSubmit={(values) => {
-                    console.log(values)
-                    router.push('/')
+                    if (!Object.keys(user.profile).length) {
+                        dispatch(setIsVisibleAuthForm(true))
+                    } else {
+                        cartProduct.forEach(product => {
+                            try {
+                                const order: IOrderInput = {
+                                    name: product.name,
+                                    number: 123456789,
+                                    price: product.price * product.count,
+                                    user_id: user.profile.id,
+                                    status: UserOrdersStatus.AWAITINGPAYMENT,
+                                    deliveryDate: values.date
+                                }
+                                allEndPoints.order.setOrder(order)
+                            } catch (error) {
+                                console.log(error)
+                            }
+                        })
+                        router.push('/')
+                    }
                 }}
             >
                 {

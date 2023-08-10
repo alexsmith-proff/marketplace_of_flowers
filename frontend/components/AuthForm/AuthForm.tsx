@@ -6,18 +6,16 @@ import allEndPoints from '../../services/api/api'
 
 import s from './AuthForm.module.scss'
 import { useDispatch } from 'react-redux';
-import { setUserData } from '../../redux/user/userSlice';
+import { setIsVisibleAuthForm, setUserData } from '../../redux/user/userSlice';
 
 interface IButton {
     name: string
     isActive: boolean
 }
 
-interface AuthFormProps {
-    clickCloseBtn: () => void
-}
+interface AuthFormProps {}
 
-const AuthForm: FC<AuthFormProps> = ({ clickCloseBtn }) => {
+const AuthForm: FC<AuthFormProps> = ({ }) => {
     const dispatch = useDispatch()
     const [buttons, setButtons] = useState<IButton[]>([
         {
@@ -43,7 +41,7 @@ const AuthForm: FC<AuthFormProps> = ({ clickCloseBtn }) => {
         document.body.style.overflow = "visible"
         // Убирает смещение 
         document.body.style.marginLeft = "0px"
-        clickCloseBtn()
+        dispatch(setIsVisibleAuthForm(false))
     }
 
     const handleClickButton = (index: number) => {
@@ -95,7 +93,6 @@ const AuthForm: FC<AuthFormProps> = ({ clickCloseBtn }) => {
                                 // console.log('resp', res.data)
                                 setError('')
                                 setButtons(buttons.map((item, index) => index === 1 ? { ...item, isActive: true } : { ...item, isActive: false }))
-
                             } catch (error) {
                                 if (error.response.data.statusCode == 401) setError('Пользователь с таким email существует')
                             }
@@ -110,11 +107,10 @@ const AuthForm: FC<AuthFormProps> = ({ clickCloseBtn }) => {
                                 localStorage.setItem('accessToken', res.data.accessToken)
                                 res = await allEndPoints.auth.getProfile()
                                 dispatch(setUserData(res.data))
-                                clickCloseBtn()
+                                dispatch(setIsVisibleAuthForm(false))
 
                             } catch (error) {
                                 console.log(error);
-
                                 if (error.response.data.statusCode == 401) setError('Неправильный логин или пароль')
                             }
                         }

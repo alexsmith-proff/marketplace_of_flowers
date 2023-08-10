@@ -7,6 +7,6 @@ export class CreateOrderInput {
     name: string
     price: number
     status: OrderStatus
-    deliveryDate: Date
+    deliveryDate: string
     user_id: number
 }

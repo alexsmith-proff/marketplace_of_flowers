@@ -7,7 +7,8 @@ interface IProfile {
     password?: string,
     role?: string,
     createdAt?: Date,
-    updatedAt?: Date
+    updatedAt?: Date,
+    orders?: IOrder[],
 }
 
 interface IOrder {
@@ -17,10 +18,10 @@ interface IOrder {
     date?: Date,
     receiver?: string,
     status?: UserOrdersStatus,
-    price?: number
+    price?: number,
 }
 
 export interface IUser {
-    profile: IProfile
-    orders: IOrder[]
+    profile: IProfile,
+    isVisibleAuthForm: boolean,
 }

@@ -5,6 +5,6 @@ export interface IOrderInput {
     name: string
     price: number
     status: UserOrdersStatus
-    deliveryDate: Date
+    deliveryDate: string
     user_id: number
 }
