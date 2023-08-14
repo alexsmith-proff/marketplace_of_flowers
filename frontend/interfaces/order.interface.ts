@@ -8,3 +8,12 @@ export interface IOrderInput {
     deliveryDate: string
     user_id: number
 }
+
+export interface IOrder {
+    id?: number,
+    number?: number,
+    name?: string,
+    deliveryDate?: string,
+    status?: UserOrdersStatus,
+    price?: number,
+}

@@ -11,7 +11,7 @@ const PersonalArea: FC<PersonalAreaProps> = ({ }) => {
     const userProfile = useSelector((orders: RootState) => orders.user.profile)
 
     console.log(userProfile);
-    
+
     return (
         <div>
             <div className={s.title}>Личный кабинет</div>
@@ -39,23 +39,6 @@ const PersonalArea: FC<PersonalAreaProps> = ({ }) => {
                             </tr>
                         ))
                     }
-
-                    {/* <tr className={s.tr}>
-                        <td className={s.td}>64587930</td>
-                        <td className={s.td}>Букет малиновых роз</td>
-                        <td className={s.td}>23.05.2021</td>
-                        <td className={s.td}>Кузнецов Алексей</td>
-                        <td className={s.td}>Оплачен</td>
-                        <td className={s.td}>5 739 ₽</td>
-                    </tr>
-                    <tr className={s.tr}>
-                        <td className={s.td}>64587930</td>
-                        <td className={s.td}>Букет малиновых роз</td>
-                        <td className={s.td}>23.05.2021</td>
-                        <td className={s.td}>Кузнецов Алексей</td>
-                        <td className={s.td + ' ' + s.canceled}>Отменен</td>
-                        <td className={s.td}>5 739 ₽</td>
-                    </tr> */}
                 </tbody>
             </table>
 

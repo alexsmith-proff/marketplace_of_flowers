@@ -1,4 +1,4 @@
-import { UserOrdersStatus } from "../enums/User.enum"
+import { IOrder } from "./order.interface";
 
 interface IProfile {
     id?: number,
@@ -11,14 +11,6 @@ interface IProfile {
     orders?: IOrder[],
 }
 
-interface IOrder {
-    id?: number,
-    number?: number,
-    name?: string,
-    deliveryDate?: string,
-    status?: UserOrdersStatus,
-    price?: number,
-}
 
 export interface IUser {
     profile: IProfile,
