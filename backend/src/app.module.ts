@@ -43,6 +43,8 @@ import { ProductFilterModule } from './product-filter/product-filter.module';
 import { ProductFilterEntity } from './product-filter/entities/product-filter.entity';
 import { OrderModule } from './order/order.module';
 import { OrderEntity } from './order/entities/order.entity';
+import { AddressModule } from './address/address.module';
+import { AddressEntity } from './address/entities/address.entity';
 
 @Module({
   imports: [
@@ -79,6 +81,7 @@ import { OrderEntity } from './order/entities/order.entity';
           FilterElementEntity,
           FilterValueEntity,
           OrderEntity,
+          AddressEntity
         ],
         synchronize: true,        
       })
@@ -109,6 +112,7 @@ import { OrderEntity } from './order/entities/order.entity';
     FilterelementModule,
     FilterValueModule,
     OrderModule,
+    AddressModule,
   ],
   controllers: [AppController],
   providers: [AppService],
