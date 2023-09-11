@@ -8,9 +8,11 @@ import FavoriteBtn from '../Elements/Buttons/FavoriteBtn/FavoriteBtn';
 
 
 interface HeaderProps {
+    logoComponent: React.ReactNode,
+    findComponent: React.ReactNode
 }
 
-const Header: FC<HeaderProps> = ({ }) => {
+const Header: FC<HeaderProps> = ({ logoComponent, findComponent }) => {
     const {buyProducts, favoriteProducts, allPrice} = useHeader()
 
     return (
@@ -18,11 +20,7 @@ const Header: FC<HeaderProps> = ({ }) => {
             <div className="container">
                 <div className={s.headerContainer}>
                     <div className={s.header__logo}>
-                        <Link href='/'>
-                            <a>
-                                <Image src='/img/logo.png' width={160} height={48} alt='logo' />
-                            </a>
-                        </Link>
+                        {logoComponent}
                     </div>
 
                     <div className={s.header__deliveryText}>Доставка цветов в Воронеже</div>

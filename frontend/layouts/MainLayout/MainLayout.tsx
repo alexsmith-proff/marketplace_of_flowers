@@ -5,6 +5,7 @@ import TopInfo from '../../components/TopInfo/TopInfo';
 import TopMenu from '../../components/TopMenu/TopMenu';
 import { IMenu } from '../../interfaces/menu.interface';
 import { ISection } from '../../interfaces/section.interface';
+import Logo from '../../components/Logo/Logo';
 
 interface MainLayoutProps {
     topMenu: IMenu,
@@ -20,7 +21,7 @@ const MainLayout = ({ topMenu, headerMenu, footerMenu, footerMenuInfo, footerMen
     return (
         <>
             <TopInfo menu={topMenu} />
-            <Header />
+            <Header logoComponent={<Logo src='/img/logo.png' />} />
             {headerMenu && <TopMenu menu={headerMenu} />}
 
             {children}
