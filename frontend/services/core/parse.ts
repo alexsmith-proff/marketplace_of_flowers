@@ -3,7 +3,7 @@ import { ICatalog } from '../../interfaces/catalog.interface';
 import { IFilter } from '../../interfaces/filter.interface';
 import { IMenu, IMenuItem, ISubMenu } from '../../interfaces/menu.interface';
 import { IElement, ISection } from '../../interfaces/section.interface'
-import { isJSONString } from './util';
+import { isJSONString } from '../../util/helpers/main';
 
 // Menus
 export const getMenuItemBySlugFromMenu = (menu: IMenu, menuItemSlug: string): IMenuItem => {

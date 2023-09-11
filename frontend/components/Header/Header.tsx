@@ -1,28 +1,17 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import React, { FC } from 'react';
+import { useHeader } from '../../hooks/useHeader'
 
 import s from './Header.module.scss'
 import FavoriteBtn from '../Elements/Buttons/FavoriteBtn/FavoriteBtn';
-import { useSelector } from 'react-redux';
-import { RootState } from '../../redux/store';
+
 
 interface HeaderProps {
 }
 
 const Header: FC<HeaderProps> = ({ }) => {
-    const buyProducts = useSelector((state: RootState) => state.cartProduct.products)
-    const favoriteProducts = useSelector((state: RootState) => state.favoriteProduct.products)
-
-    const getAllPrice = () => {
-        let val = buyProducts.reduce((acc, item) => acc + item.price * item.count, 0)
-
-        let value = val.toString().split('')
-        value.splice(value.length - 3, 0, ' ').join()
-        return value
-    }
-    const allPrice = getAllPrice()
-
+    const {buyProducts, favoriteProducts, allPrice} = useHeader()
 
     return (
         <div className={s.header}>
@@ -55,7 +44,6 @@ const Header: FC<HeaderProps> = ({ }) => {
                         </a>
                         <div className={s.call__number}>+7 (920) 211-49-03</div>
                     </div>
-
                     <div className={s.favoriteBtn}>
                         <FavoriteBtn />
                         {
@@ -63,7 +51,6 @@ const Header: FC<HeaderProps> = ({ }) => {
                         }
 
                     </div>
-
                     <div className={s.header__cart}>
                         <Link href='/cart'>
                             <a className={s.header__cartBtnLink}>
@@ -79,18 +66,6 @@ const Header: FC<HeaderProps> = ({ }) => {
                                 </div>
                             </a>
                         </Link>
-                        {/* <a className={s.header__cartBtnLink} href="#">
-                            <div className={s.headerBtn}>
-                                <div className={s.headerBtn__img}>
-                                    <Image src='/img/cart.png' width={22} height={22} alt='cart-ico' />
-                                </div>
-                                {
-                                    buyProducts.length !== 0 ? <span className={s.headerBtn__count}>{buyProducts.length}</span> : <></>
-                                }
-
-                            </div>
-                        </a> */}
-                        {/* <div className={s.cart__price}>16 500 ₽</div> */}
                         <div className={s.cart__price}>{allPrice} ₽</div>
                     </div>
                 </div>

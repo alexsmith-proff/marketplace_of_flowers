@@ -83,6 +83,11 @@ export interface IProductCount {
   count: number
 }
 
+export interface IPriceCount {
+  price: number,
+  count: number
+}
+
 export interface IProductMinMaxPrice {
   minPrice: number,
   maxPrice: number
