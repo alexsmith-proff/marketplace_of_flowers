@@ -18,25 +18,6 @@
     width: 110px;
 }
 
-.header__find {
-    position: relative;
-
-    &Input {
-        font-size: 16px;
-        color: #7D818E;
-        padding: 10px 20px;
-        border: 1px solid #D0D2D7;
-        border-radius: 60px;
-        width: 300px;
-
-        &__findBtn {
-            position: absolute;
-            top: 12px;
-            right: 15px;
-        }
-    }
-}
-
 .header__call {
     display: flex;
     justify-content: space-between;

@@ -22,15 +22,9 @@ const Header: FC<HeaderProps> = ({ logoComponent, findComponent }) => {
                     <div className={s.header__logo}>
                         {logoComponent}
                     </div>
-
                     <div className={s.header__deliveryText}>Доставка цветов в Воронеже</div>
                     <div className={s.header__find}>
-                        <input className={s.header__findInput} type="text" />
-                        <a href="#">
-                            <div className={s.header__findInput__findBtn}>
-                                <Image src='/img/find-btn.png' width={16} height={16} alt='find-btn-ico' />
-                            </div>
-                        </a>
+                        {findComponent}                        
                     </div>
                     <div className={s.header__call}>
                         <a href="#" className={s.call_phoneBtnLink}>
