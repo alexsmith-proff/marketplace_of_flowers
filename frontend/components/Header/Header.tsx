@@ -10,9 +10,10 @@ import FavoriteBtn from '../Elements/Buttons/FavoriteBtn/FavoriteBtn';
 interface HeaderProps {
     logoComponent: React.ReactNode,
     findComponent?: React.ReactNode
+    callComponent?: React.ReactNode
 }
 
-const Header: FC<HeaderProps> = ({ logoComponent, findComponent }) => {
+const Header: FC<HeaderProps> = ({ logoComponent, findComponent, callComponent }) => {
     const {buyProducts, favoriteProducts, allPrice} = useHeader()
 
     return (
@@ -23,19 +24,8 @@ const Header: FC<HeaderProps> = ({ logoComponent, findComponent }) => {
                         {logoComponent}
                     </div>
                     <div className={s.header__deliveryText}>Доставка цветов в Воронеже</div>
-                    <div className={s.header__find}>
                         {findComponent}                        
-                    </div>
-                    <div className={s.header__call}>
-                        <a href="#" className={s.call_phoneBtnLink}>
-                            <div className={s.headerBtn}>
-                                <div className={s.headerBtn__img}>
-                                    <Image src='/img/phone-btn.png' width={18} height={18} alt='phone-btn-ico' />
-                                </div>
-                            </div>
-                        </a>
-                        <div className={s.call__number}>+7 (920) 211-49-03</div>
-                    </div>
+                        {callComponent}                        
                     <div className={s.favoriteBtn}>
                         <FavoriteBtn />
                         {

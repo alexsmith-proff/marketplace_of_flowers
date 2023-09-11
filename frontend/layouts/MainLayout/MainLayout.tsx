@@ -7,6 +7,7 @@ import { IMenu } from '../../interfaces/menu.interface';
 import { ISection } from '../../interfaces/section.interface';
 import Logo from '../../components/Logo/Logo';
 import Find from '../../components/Find/Find';
+import Call from '../../components/Call/Call';
 
 interface MainLayoutProps {
     topMenu: IMenu,
@@ -25,6 +26,7 @@ const MainLayout = ({ topMenu, headerMenu, footerMenu, footerMenuInfo, footerMen
             <Header
                 logoComponent={<Logo src='/img/logo.png' />}
                 findComponent={<Find src='/img/find-btn.png' />}
+                callComponent={<Call src='/img/phone-btn.png' />}
             />
             {headerMenu && <TopMenu menu={headerMenu} />}
 
