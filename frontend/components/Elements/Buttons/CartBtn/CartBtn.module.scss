@@ -1,0 +1,23 @@
+.cartBtn {
+    position: relative;
+}
+
+.btn {
+    border: 1px solid #E2E4EB;
+    border-radius: 50%;
+    padding: 10px;
+    cursor: pointer;
+
+
+    &Img {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 18px;
+        height: 18px;
+    }
+
+    &:hover {
+        background: #F2F6F7;
+    }
+}

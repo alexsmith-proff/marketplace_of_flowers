@@ -10,6 +10,7 @@ import HeaderCall from '../../components/Header/HeaderCall/HeaderCall';
 import HeaderFavoriteBtnWithCount from '../../components/Header/HeaderFavoriteBtnWithCount/HeaderFavoriteBtnWithCount';
 import { IMenu } from '../../interfaces/menu.interface';
 import { ISection } from '../../interfaces/section.interface';
+import HeaderCart from '../../components/Header/HeaderCart/HeaderCart';
 
 interface MainLayoutProps {
     topMenu: IMenu,
@@ -31,6 +32,7 @@ const MainLayout = ({ topMenu, headerMenu, footerMenu, footerMenuInfo, footerMen
                 callComponent={<HeaderCall />}
                 headerTextComponent={<HeaderText text='Доставка цветов в Воронеже' />}
                 favoriteBtnComponent={<HeaderFavoriteBtnWithCount />}
+                cartComponent={<HeaderCart />}
             />
             {headerMenu && <TopMenu menu={headerMenu} />}
 
