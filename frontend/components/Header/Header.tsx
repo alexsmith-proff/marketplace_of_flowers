@@ -9,7 +9,7 @@ import FavoriteBtn from '../Elements/Buttons/FavoriteBtn/FavoriteBtn';
 
 interface HeaderProps {
     logoComponent: React.ReactNode,
-    findComponent: React.ReactNode
+    findComponent?: React.ReactNode
 }
 
 const Header: FC<HeaderProps> = ({ logoComponent, findComponent }) => {
