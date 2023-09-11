@@ -18,13 +18,13 @@ const FavoriteBtn: FC<FavoriteBtnProps> = ({ link, backgroundLight = false, isAc
     }
 
     return (
-        <>
+        <div className={s.favoriteBtn}>
             <div className={backgroundLight ? (`${s.headerBtn} ${s.light}`) : s.headerBtn} onClick={handleOnClick} >
                 <div className={s.headerBtn__img}>
                     <Image className={s.headerBtn__img} src={isActive ? '/img/favorite-btn-active.png' : '/img/favorite-btn.png'}  width={18} height={18} alt='favorite-btn-ico' />
                 </div>
             </div>
-        </>
+        </div>
     )
 }
 

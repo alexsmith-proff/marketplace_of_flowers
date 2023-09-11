@@ -11,28 +11,23 @@ interface HeaderProps {
     logoComponent: React.ReactNode,
     findComponent?: React.ReactNode
     callComponent?: React.ReactNode
+    headerTextComponent?: React.ReactNode
+    favoriteBtnComponent?: React.ReactNode
 }
 
-const Header: FC<HeaderProps> = ({ logoComponent, findComponent, callComponent }) => {
-    const {buyProducts, favoriteProducts, allPrice} = useHeader()
+const Header: FC<HeaderProps> = ({ logoComponent, findComponent, callComponent, headerTextComponent, favoriteBtnComponent }) => {
+    const { buyProducts, favoriteProducts, allPrice } = useHeader()
 
     return (
         <div className={s.header}>
             <div className="container">
                 <div className={s.headerContainer}>
-                    <div className={s.header__logo}>
-                        {logoComponent}
-                    </div>
-                    <div className={s.header__deliveryText}>Доставка цветов в Воронеже</div>
-                        {findComponent}                        
-                        {callComponent}                        
-                    <div className={s.favoriteBtn}>
-                        <FavoriteBtn />
-                        {
-                            favoriteProducts.length !== 0 ? <span className={s.favoriteBtn__count}>{favoriteProducts.length}</span> : <></>
-                        }
-
-                    </div>
+                    {logoComponent}
+                    {headerTextComponent}
+                    {findComponent}
+                    {callComponent}
+                    {favoriteBtnComponent}
+                   
                     <div className={s.header__cart}>
                         <Link href='/cart'>
                             <a className={s.header__cartBtnLink}>

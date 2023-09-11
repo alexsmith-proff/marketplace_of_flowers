@@ -1,13 +1,16 @@
-﻿import React, { useState } from 'react';
+﻿import React from 'react';
 import Footer from '../../components/Footer/Footer';
 import Header from '../../components/Header/Header';
 import TopInfo from '../../components/TopInfo/TopInfo';
 import TopMenu from '../../components/TopMenu/TopMenu';
 import { IMenu } from '../../interfaces/menu.interface';
 import { ISection } from '../../interfaces/section.interface';
-import Logo from '../../components/Logo/Logo';
-import Find from '../../components/Find/Find';
-import Call from '../../components/Call/Call';
+import Call from '../../components/Header/Call/Call';
+import HeaderText from '../../components/Header/HeaderText/HeaderText';
+import HeaderFavoriteBtn from '../../components/Header/HeaderFavoriteBtn/HeaderFavoriteBtn';
+import HeaderLogo from '../../components/Header/HeaderLogo/HeaderLogo';
+import HeaderFind from '../../components/Header/HeaderFind/HeaderFind';
+import HeaderCall from '../../components/Header/HeaderCall/HeaderCall';
 
 interface MainLayoutProps {
     topMenu: IMenu,
@@ -24,9 +27,11 @@ const MainLayout = ({ topMenu, headerMenu, footerMenu, footerMenuInfo, footerMen
         <>
             <TopInfo menu={topMenu} />
             <Header
-                logoComponent={<Logo src='/img/logo.png' />}
-                findComponent={<Find src='/img/find-btn.png' />}
-                callComponent={<Call src='/img/phone-btn.png' />}
+                logoComponent={<HeaderLogo />}
+                findComponent={<HeaderFind />}
+                callComponent={<HeaderCall />}
+                headerTextComponent={<HeaderText text='Доставка цветов в Воронеже' />}
+                favoriteBtnComponent={<HeaderFavoriteBtn />}
             />
             {headerMenu && <TopMenu menu={headerMenu} />}
 

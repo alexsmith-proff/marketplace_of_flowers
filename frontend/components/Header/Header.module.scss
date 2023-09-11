@@ -14,12 +14,6 @@
     }
 }
 
-.header__deliveryText {
-    width: 110px;
-}
-
-
-
 .header__cart {
     // width: 120px;
     display: flex;
@@ -27,24 +21,6 @@
     align-items: center;
 }
 
-.favoriteBtn {
-    position: relative;
-    &__count {
-        width: 20px;
-        height: 20px;
-        background-color: #0093A2;
-        color: #fff;
-        border-radius: 50%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        font-size: 12px;
-        position: absolute;
-        top: 0px;
-        right: -10px;
-        z-index: 99;
-    }
-}
 
 .headerBtn {
     position: relative;
