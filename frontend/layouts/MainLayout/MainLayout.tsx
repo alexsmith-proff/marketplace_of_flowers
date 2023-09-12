@@ -26,16 +26,8 @@ const MainLayout = ({ topMenu, headerMenu, footerMenu, footerMenuInfo, footerMen
     return (
         <>
             <TopInfo menu={topMenu} />
-            <Header
-                logoComponent={<HeaderLogo />}
-                findComponent={<HeaderFind />}
-                callComponent={<HeaderCall />}
-                headerTextComponent={<HeaderText text='Доставка цветов в Воронеже' />}
-                favoriteBtnComponent={<HeaderFavoriteBtnWithCount />}
-                cartComponent={<HeaderCart />}
-            />
+            <Header />
             {headerMenu && <TopMenu menu={headerMenu} />}
-
             {children}
             <Footer menu={footerMenu} menuInfo={footerMenuInfo} menuCoordinates={footerMenuCoordinates} menuEmail={footerMenuEmail} />
         </>

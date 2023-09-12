@@ -8,14 +8,7 @@ import HeaderCart from './HeaderCart/HeaderCart';
 
 import s from './Header.module.scss'
 
-interface HeaderProps {
-    logoComponent: React.ReactNode,
-    findComponent: React.ReactNode
-    callComponent: React.ReactNode
-    headerTextComponent: React.ReactNode
-    favoriteBtnComponent: React.ReactNode
-    cartComponent: React.ReactNode
-}
+interface HeaderProps {}
 
 const Header: FC<HeaderProps> = () => {
     return (
