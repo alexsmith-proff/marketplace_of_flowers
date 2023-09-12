@@ -15,6 +15,7 @@ import ConnectedTopInfoTime from '../../components/TopInfo/ConnectedTopInfoTime/
 import ConnectedTopInfoMenu from '../../components/TopInfo/ConnectedTopInfoMenu/ConnectedTopInfoMenu';
 import ConnectedTopInfoSocial from '../../components/TopInfo/ConnectedTopInfoSocial/ConnectedTopInfoSocial';
 import ConnectedTopInfoProfile from '../../components/TopInfo/ConnectedTopInfoProfile/ConnectedTopInfoProfile';
+import ConnectedTopInfoAuthForm from '../../components/TopInfo/ConnectedTopInfoAuthForm/ConnectTopInfoAuthForm';
 
 interface MainLayoutProps {
     topMenu: IMenu,
@@ -30,7 +31,7 @@ const MainLayout = ({ topMenu, headerMenu, footerMenu, footerMenuInfo, footerMen
     return (
         <>
             <TopInfo
-                menu={topMenu}
+                AuthFormComponent={<ConnectedTopInfoAuthForm />}
                 TimeComponent={<ConnectedTopInfoTime />}
                 MenuComponent={<ConnectedTopInfoMenu menu={topMenu} />}
                 SocialComponent={<ConnectedTopInfoSocial />}
