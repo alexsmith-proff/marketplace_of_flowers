@@ -4,6 +4,7 @@ import React, { FC, useState } from 'react';
 import { IMenu } from '../../interfaces/menu.interface';
 
 import s from './TopMenu.module.scss'
+import ConnectedTopMenuStock from './ConnectedTopMenuStock/ConnectedTopMenuStock';
 
 interface TopMenuProps {
     menu: IMenu
@@ -16,16 +17,7 @@ const TopMenu: FC<TopMenuProps> = ({ menu }) => {
         <div className={s.topmenu}>
             <div className="container">
                 <div className={s.topmenuContainer}>
-                    <Link href="/">
-                        <a>
-                            <div className={s.stock}>
-                                <div className={s.stock__ico}>
-                                    <Image src='/img/discount.png' width={40} height={40} alt='discount' />
-                                </div>
-                                <div className={s.stock__text}>АКЦИИ</div>
-                            </div>
-                        </a>
-                    </Link>
+                        <ConnectedTopMenuStock />
                     {
                         menu &&
                         <ul className={s.menu}>

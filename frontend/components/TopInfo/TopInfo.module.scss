@@ -5,65 +5,8 @@
     padding: 13px 0;
 }
 
-// .topInfoTime {
-//     display: flex;
-//     justify-content: space-between;
-//     align-items: center;
-
-//     img {
-//         margin-right: 10px;
-//     }
-// }
-
-// .TopInfoMenu {
-//     display: flex;
-//     justify-content: center;
-//     align-items: center;
-
-//     &__item {
-//         margin-right: 15px;
-
-//         &:last-child {
-//             margin-right: 0;
-//         }
-
-//         a {
-//             color: #505567;
-//         }
-//     }
-// }
-
 .TopInfoSocialProfile {
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
-
-// .TopInfoSocial {
-//     display: flex;
-//     justify-content: space-between;
-//     align-items: center;
-//     margin-right: 30px;
-
-//     &__link {
-//         display: flex;
-//         justify-content: space-between;
-//         align-items: center;
-//     }
-
-//     &__ico:first-child {
-//         width: 24px;
-//         height: 24px;
-//         margin-right: 15px;
-//     }
-// }
-
-// .TopInfoProfile {
-//     display: flex;
-//     justify-content: space-between;
-//     align-items: center;
-//     cursor: pointer;
-//     &__ico{
-//         margin-right: 10px;
-//     }
-// }
