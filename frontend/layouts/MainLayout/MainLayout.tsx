@@ -13,6 +13,8 @@ import { ISection } from '../../interfaces/section.interface';
 import HeaderCart from '../../components/Header/HeaderCart/HeaderCart';
 import ConnectedTopInfoTime from '../../components/TopInfo/ConnectedTopInfoTime/ConnectedTopInfoTime';
 import ConnectedTopInfoMenu from '../../components/TopInfo/ConnectedTopInfoMenu/ConnectedTopInfoMenu';
+import ConnectedTopInfoSocial from '../../components/TopInfo/ConnectedTopInfoSocial/ConnectedTopInfoSocial';
+import ConnectedTopInfoProfile from '../../components/TopInfo/ConnectedTopInfoProfile/ConnectedTopInfoProfile';
 
 interface MainLayoutProps {
     topMenu: IMenu,
@@ -29,8 +31,10 @@ const MainLayout = ({ topMenu, headerMenu, footerMenu, footerMenuInfo, footerMen
         <>
             <TopInfo
                 menu={topMenu}
-                topInfoTimeComponent={<ConnectedTopInfoTime />}
-                topInfoMenuComponent={<ConnectedTopInfoMenu menu={topMenu} />}
+                TimeComponent={<ConnectedTopInfoTime />}
+                MenuComponent={<ConnectedTopInfoMenu menu={topMenu} />}
+                SocialComponent={<ConnectedTopInfoSocial />}
+                ProfileComponent={<ConnectedTopInfoProfile />}
             />
             <Header
                 logoComponent={<HeaderLogo />}

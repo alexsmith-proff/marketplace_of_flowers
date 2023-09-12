@@ -39,31 +39,31 @@
     align-items: center;
 }
 
-.TopInfoSocial {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-right: 30px;
+// .TopInfoSocial {
+//     display: flex;
+//     justify-content: space-between;
+//     align-items: center;
+//     margin-right: 30px;
 
-    &__link {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-    }
+//     &__link {
+//         display: flex;
+//         justify-content: space-between;
+//         align-items: center;
+//     }
 
-    &__ico:first-child {
-        width: 24px;
-        height: 24px;
-        margin-right: 15px;
-    }
-}
+//     &__ico:first-child {
+//         width: 24px;
+//         height: 24px;
+//         margin-right: 15px;
+//     }
+// }
 
-.TopInfoProfile {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    cursor: pointer;
-    &__ico{
-        margin-right: 10px;
-    }
-}
+// .TopInfoProfile {
+//     display: flex;
+//     justify-content: space-between;
+//     align-items: center;
+//     cursor: pointer;
+//     &__ico{
+//         margin-right: 10px;
+//     }
+// }
