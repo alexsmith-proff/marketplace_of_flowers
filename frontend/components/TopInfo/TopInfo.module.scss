@@ -5,33 +5,33 @@
     padding: 13px 0;
 }
 
-.topInfoTime {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
+// .topInfoTime {
+//     display: flex;
+//     justify-content: space-between;
+//     align-items: center;
 
-    img {
-        margin-right: 10px;
-    }
-}
+//     img {
+//         margin-right: 10px;
+//     }
+// }
 
-.TopInfoMenu {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+// .TopInfoMenu {
+//     display: flex;
+//     justify-content: center;
+//     align-items: center;
 
-    &__item {
-        margin-right: 15px;
+//     &__item {
+//         margin-right: 15px;
 
-        &:last-child {
-            margin-right: 0;
-        }
+//         &:last-child {
+//             margin-right: 0;
+//         }
 
-        a {
-            color: #505567;
-        }
-    }
-}
+//         a {
+//             color: #505567;
+//         }
+//     }
+// }
 
 .TopInfoSocialProfile {
     display: flex;

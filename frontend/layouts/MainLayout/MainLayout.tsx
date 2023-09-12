@@ -11,6 +11,8 @@ import HeaderFavoriteBtnWithCount from '../../components/Header/HeaderFavoriteBt
 import { IMenu } from '../../interfaces/menu.interface';
 import { ISection } from '../../interfaces/section.interface';
 import HeaderCart from '../../components/Header/HeaderCart/HeaderCart';
+import ConnectedTopInfoTime from '../../components/TopInfo/ConnectedTopInfoTime/ConnectedTopInfoTime';
+import ConnectedTopInfoMenu from '../../components/TopInfo/ConnectedTopInfoMenu/ConnectedTopInfoMenu';
 
 interface MainLayoutProps {
     topMenu: IMenu,
@@ -25,7 +27,11 @@ interface MainLayoutProps {
 const MainLayout = ({ topMenu, headerMenu, footerMenu, footerMenuInfo, footerMenuCoordinates, footerMenuEmail, children }: MainLayoutProps) => {
     return (
         <>
-            <TopInfo menu={topMenu} />
+            <TopInfo
+                menu={topMenu}
+                topInfoTimeComponent={<ConnectedTopInfoTime />}
+                topInfoMenuComponent={<ConnectedTopInfoMenu menu={topMenu} />}
+            />
             <Header
                 logoComponent={<HeaderLogo />}
                 findComponent={<HeaderFind />}
