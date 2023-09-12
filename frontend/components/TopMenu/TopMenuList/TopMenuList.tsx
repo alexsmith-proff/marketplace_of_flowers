@@ -12,7 +12,7 @@ const TopMenuList: FC<TopMenuListProps> = ({ menu }) => {
     return (
         <ul className={s.menu}>
             {
-                menu.items.map((item) => <TopMenuItem item={item} key={item.id} />)
+                menu?.items.map((item) => <TopMenuItem item={item} key={item.id} />)
             }
         </ul>
     )

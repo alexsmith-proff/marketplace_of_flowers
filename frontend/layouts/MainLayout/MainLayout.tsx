@@ -21,7 +21,7 @@ const MainLayout = ({ topMenu, headerMenu, footerMenu, footerMenuInfo, footerMen
         <>
             <TopInfo menu={topMenu} />
             <Header />
-            {headerMenu && <TopMenu menu={headerMenu} />}
+            <TopMenu menu={headerMenu} />
             {children}
             <Footer menu={footerMenu} menuInfo={footerMenuInfo} menuCoordinates={footerMenuCoordinates} menuEmail={footerMenuEmail} />
         </>
