@@ -53,11 +53,11 @@ const TopInfo: FC<TopInfoProps> = ({ menu, topInfoTimeComponent, topInfoMenuComp
                                 <Image src={'/img/vk.png'} width={24} height={24} alt='vk-ico' />
                             </div>
                         </a>
-                        <a className={s.TopInfoSocial__link} href="#">
+                        {/* <a className={s.TopInfoSocial__link} href="#">
                             <div className={s.TopInfoSocial__ico}>
                                 <Image src={'/img/insta.png'} width={24} height={24} alt='instagram-ico' />
                             </div>
-                        </a>
+                        </a> */}
                     </div>
                     <div className={s.TopInfoProfile} onClick={handleClickProfile}>
                         <div className={s.TopInfoProfile__ico}>
