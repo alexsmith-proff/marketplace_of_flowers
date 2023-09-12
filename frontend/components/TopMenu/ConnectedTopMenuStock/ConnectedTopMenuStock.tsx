@@ -1,4 +1,4 @@
-import { FC } from "react";
+import React, { FC } from "react";
 import TopMenuStock from "../TopMenuStock/TopMenuStock";
 
 import s from './ConnectedTopMenuStock.module.scss'

@@ -1,0 +1,11 @@
+.item {
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 22px;
+    color: #353949;
+    margin-bottom: 5px;
+
+    &:last-child {
+        margin-bottom: 0;
+    }
+}

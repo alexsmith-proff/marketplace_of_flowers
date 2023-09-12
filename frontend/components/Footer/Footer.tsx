@@ -1,9 +1,10 @@
 import React, { FC } from 'react'
 import { IMenu } from '../../interfaces/menu.interface';
 import { ISection } from '../../interfaces/section.interface';
-import { getMenuItemNameBySlugFromMenu, getSubMenuItemsArrBySlugFromMenu, getTextInTextBlockFromElement, getTextInTextBlockFromSection } from '../../services/core/parse';
+import { getTextInTextBlockFromElement, getTextInTextBlockFromSection } from '../../services/core/parse';
 
 import s from './Footer.module.scss'
+import FooterMenuList from './FooterMenuList/FooterMenuList';
 
 interface FooterProps {
     menu: IMenu,
@@ -19,84 +20,7 @@ const Footer: FC<FooterProps> = ({ menu, menuInfo, menuCoordinates, menuEmail })
             <footer className={s.footer}>
                 <div className="container">
                     <div className={s.footer__top}>
-                        <ul className={s.footer__menu}>
-                            <li className={s.footer__item}>
-                                {
-                                    getMenuItemNameBySlugFromMenu(menu, 'cvety-poshtuchno')
-                                }
-                                <ul className={s.footer__menuChild}>
-                                    {
-                                        menu && getSubMenuItemsArrBySlugFromMenu(menu, 'cvety-poshtuchno').map(subItem => <li className={s.footer__menuChildItem} key={subItem.id}>{subItem.name}</li>)
-                                    }
-
-                                </ul>
-
-                            </li>
-                            <li className={s.footer__item}>
-                                {
-                                    getMenuItemNameBySlugFromMenu(menu, 'rozy')
-                                }
-                                <ul className={s.footer__menuChild}>
-                                    {
-                                        menu && getSubMenuItemsArrBySlugFromMenu(menu, 'rozy').map(subItem => <li className={s.footer__menuChildItem} key={subItem.id}>{subItem.name}</li>)
-                                    }
-                                </ul>
-                            </li>
-                            <li className={s.footer__item}>
-                                {
-                                    getMenuItemNameBySlugFromMenu(menu, 'bukety')
-                                }
-                                <ul className={s.footer__menuChild}>
-                                    {
-                                        menu && getSubMenuItemsArrBySlugFromMenu(menu, 'bukety').map(subItem => <li className={s.footer__menuChildItem} key={subItem.id}>{subItem.name}</li>)
-                                    }
-
-                                </ul>
-                            </li>
-                            <li className={s.footer__item}>
-                                {
-                                    getMenuItemNameBySlugFromMenu(menu, 'kompozicii')
-                                }
-                                <ul className={s.footer__menuChild}>
-                                    {
-                                        menu && getSubMenuItemsArrBySlugFromMenu(menu, 'kompozicii').map(subItem => <li className={s.footer__menuChildItem} key={subItem.id}>{subItem.name}</li>)
-                                    }
-                                </ul>
-                            </li>
-                            <li className={s.footer__item}>
-                                {
-                                    getMenuItemNameBySlugFromMenu(menu, 'podarki')
-                                }
-                                <ul className={s.footer__menuChild}>
-                                    {
-                                        menu && getSubMenuItemsArrBySlugFromMenu(menu, 'podarki').map(subItem => <li className={s.footer__menuChildItem} key={subItem.id}>{subItem.name}</li>)
-                                    }
-                                </ul>
-                            </li>
-                            <li className={s.footer__item}>
-                                {
-                                    getMenuItemNameBySlugFromMenu(menu, 'shary')
-                                }
-                                <ul className={s.footer__menuChild}>
-                                    {
-                                        menu && getSubMenuItemsArrBySlugFromMenu(menu, 'shary').map(subItem => <li className={s.footer__menuChildItem} key={subItem.id}>{subItem.name}</li>)
-                                    }
-                                </ul>
-                            </li>
-                            <li className={s.footer__item}>
-                                {
-                                    menuInfo && menuInfo.name
-                                }
-                                {/* Информация */}
-                                <ul className={s.footer__menuChild}>
-                                    {
-                                        menuInfo && menuInfo.items.map(item => <li className={s.footer__menuChildItem} key={item.id}>{item.name}</li>)
-                                    }
-
-                                </ul>
-                            </li>
-                        </ul>
-
+                        <FooterMenuList items={menu?.items} />
                         {
                             menuCoordinates && (
                                 <div className={s.footer__contacts}>

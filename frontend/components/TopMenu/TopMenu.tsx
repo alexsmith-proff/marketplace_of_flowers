@@ -1,6 +1,4 @@
-import Image from 'next/image';
-import Link from 'next/link';
-import React, { FC, useState } from 'react';
+import React, { FC } from 'react';
 import { IMenu } from '../../interfaces/menu.interface';
 
 import s from './TopMenu.module.scss'
@@ -22,6 +20,6 @@ const TopMenu: FC<TopMenuProps> = ({ menu }) => {
             </div>
         </div>
     );
-};
+}
 
 export default TopMenu;
