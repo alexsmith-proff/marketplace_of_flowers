@@ -8,14 +8,9 @@ import HeaderLogo from '../../components/Header/HeaderLogo/HeaderLogo';
 import HeaderFind from '../../components/Header/HeaderFind/HeaderFind';
 import HeaderCall from '../../components/Header/HeaderCall/HeaderCall';
 import HeaderFavoriteBtnWithCount from '../../components/Header/HeaderFavoriteBtnWithCount/HeaderFavoriteBtnWithCount';
+import HeaderCart from '../../components/Header/HeaderCart/HeaderCart';
 import { IMenu } from '../../interfaces/menu.interface';
 import { ISection } from '../../interfaces/section.interface';
-import HeaderCart from '../../components/Header/HeaderCart/HeaderCart';
-import ConnectedTopInfoTime from '../../components/TopInfo/ConnectedTopInfoTime/ConnectedTopInfoTime';
-import ConnectedTopInfoMenu from '../../components/TopInfo/ConnectedTopInfoMenu/ConnectedTopInfoMenu';
-import ConnectedTopInfoSocial from '../../components/TopInfo/ConnectedTopInfoSocial/ConnectedTopInfoSocial';
-import ConnectedTopInfoProfile from '../../components/TopInfo/ConnectedTopInfoProfile/ConnectedTopInfoProfile';
-import ConnectedTopInfoAuthForm from '../../components/TopInfo/ConnectedTopInfoAuthForm/ConnectTopInfoAuthForm';
 
 interface MainLayoutProps {
     topMenu: IMenu,
@@ -30,13 +25,7 @@ interface MainLayoutProps {
 const MainLayout = ({ topMenu, headerMenu, footerMenu, footerMenuInfo, footerMenuCoordinates, footerMenuEmail, children }: MainLayoutProps) => {
     return (
         <>
-            <TopInfo
-                AuthFormComponent={<ConnectedTopInfoAuthForm />}
-                TimeComponent={<ConnectedTopInfoTime />}
-                MenuComponent={<ConnectedTopInfoMenu menu={topMenu} />}
-                SocialComponent={<ConnectedTopInfoSocial />}
-                ProfileComponent={<ConnectedTopInfoProfile />}
-            />
+            <TopInfo menu={topMenu} />
             <Header
                 logoComponent={<HeaderLogo />}
                 findComponent={<HeaderFind />}

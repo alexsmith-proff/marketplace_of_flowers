@@ -1,25 +1,27 @@
 import React, { FC } from 'react';
+import ConnectedTopInfoAuthForm from './ConnectedTopInfoAuthForm/ConnectTopInfoAuthForm';
+import ConnectedTopInfoTime from './ConnectedTopInfoTime/ConnectedTopInfoTime';
+import ConnectedTopInfoMenu from './ConnectedTopInfoMenu/ConnectedTopInfoMenu';
+import ConnectedTopInfoSocial from './ConnectedTopInfoSocial/ConnectedTopInfoSocial';
+import ConnectedTopInfoProfile from './ConnectedTopInfoProfile/ConnectedTopInfoProfile';
+import { IMenu } from '../../interfaces/menu.interface';
 
 import s from './TopInfo.module.scss'
 
 interface TopInfoProps {
-    AuthFormComponent: React.ReactNode,
-    TimeComponent: React.ReactNode,
-    MenuComponent: React.ReactNode,
-    SocialComponent: React.ReactNode,
-    ProfileComponent: React.ReactNode,
+    menu: IMenu,
 }
 
-const TopInfo: FC<TopInfoProps> = ({ AuthFormComponent, TimeComponent, MenuComponent, SocialComponent, ProfileComponent }) => {
+const TopInfo: FC<TopInfoProps> = ({ menu }) => {
     return (
         <div className="container">
-            {AuthFormComponent}
+            <ConnectedTopInfoAuthForm />
             <div className={s.topInfo}>
-                {TimeComponent}
-                {MenuComponent}
+                <ConnectedTopInfoTime />
+                <ConnectedTopInfoMenu menu={menu} />
                 <div className={s.TopInfoSocialProfile}>
-                    {SocialComponent}
-                    {ProfileComponent}
+                    <ConnectedTopInfoSocial />
+                    <ConnectedTopInfoProfile />
                 </div>
             </div>
         </div >
