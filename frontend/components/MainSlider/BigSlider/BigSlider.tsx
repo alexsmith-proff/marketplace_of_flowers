@@ -1,11 +1,11 @@
 import { FC } from 'react'
 import Slider, { Settings } from "react-slick";
+import BigSliderItem from '../BigSliderItem/BigSliderItem';
 import { IElement } from '../../../interfaces/section.interface';
 
 import s from './BigSlider.module.scss'
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
-import BigSliderItem from '../BigSliderItem/BigSliderItem';
 
 interface BigSliderProps {
     sliders: IElement[]

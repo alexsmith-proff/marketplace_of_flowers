@@ -1,11 +1,11 @@
 import { FC } from 'react'
 import Slider, { Settings } from "react-slick";
+import SmallSliderItem from '../SmallSliderItem/SmallSliderItem';
 import { IElement } from '../../../interfaces/section.interface';
 
 import s from './SmallSlider.module.scss'
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
-import SmallSliderItem from '../SmallSliderItem/SmallSliderItem';
 
 interface SmallSliderProps {
     sliders: IElement[]
