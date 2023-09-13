@@ -12,7 +12,7 @@ const PrivilegeItem: FC<PrivilegeItemProps> = ({ fileName, text }) => {
     return (
         <li className={s.item}>
             <Image className={s.img} src={fileName} width={30} height={30} alt="ico" />
-            <h4 className={s.privileges__cardText}>{text}</h4>
+            <h4 className={s.text}>{text}</h4>
         </li>
     );
 };
