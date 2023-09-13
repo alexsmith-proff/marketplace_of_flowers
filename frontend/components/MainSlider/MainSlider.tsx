@@ -7,6 +7,7 @@ import Slider, { Settings } from "react-slick";
 import s from './MainSlider.module.scss'
 import { ISection } from '../../interfaces/section.interface';
 import { getFileNameInImgBlockFromElement, getTextInTextBlockFromElement } from '../../services/core/parse';
+import BigSliderItem from './BigSliderItem/BigSliderItem';
 
 interface MainSliderProps {
     bigSliderSection: ISection
@@ -48,23 +49,8 @@ const MainSlider: FC<MainSliderProps> = ({ bigSliderSection, smallSliderSection 
                                 bigSliderSection &&
                                 <Slider {...settingsBigSlider}>
                                     {
-                                        bigSliderSection && bigSliderSection.elements.map(item => (
-                                            <div className={s.bigSlider__item} key={item.id}>
-                                                <img src={process.env.API_URI + '/' + getFileNameInImgBlockFromElement(item, 'background')} alt="big-slider1" />
-                                                <div className={s.bigSlider__info}>
-                                                    <div className={s.bigSlider__infoTopText}>{getTextInTextBlockFromElement(item, 'tekst-vverkhu')}</div>
-                                                    <div className={s.bigSlider__infoMiddleText}>{getTextInTextBlockFromElement(item, 'tekst-v-seredine')}</div>
-                                                    <div className={s.bigSlider__infoUnderText}>{getTextInTextBlockFromElement(item, 'promokod-tekst')}</div>
-
-                                                    <div className={s.bigSlider__infoPromo}>
-                                                        <div className={s.bigSlider__infoPromoText}>{getTextInTextBlockFromElement(item, 'tekst-vnizu')}</div>
-                                                        <div className={s.bigSlider__infoPromoBtn}>
-                                                            <img src="img/promo-btn-copy.png" alt="promo-btn-copy" />
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>)
-                                        )
+                                        bigSliderSection && bigSliderSection.elements.map(item => <BigSliderItem slider={item} key={item.id} />)
+                                        
                                     }
                                 </Slider>
                             }

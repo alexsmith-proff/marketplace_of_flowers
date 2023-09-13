@@ -10,87 +10,87 @@
 .bigSlider {
     width: 873px;
 
-    &__item {
-        position: relative;
+//     &__item {
+//         position: relative;
 
-        img {
-            display: block;
-            width: 100%;
-        }
-    }
+//         img {
+//             display: block;
+//             width: 100%;
+//         }
+//     }
 
-    &__info {
-        position: absolute;
-        left: 90px;
-        top: 60px;
-        z-index: 99;
+//     &__info {
+//         position: absolute;
+//         left: 90px;
+//         top: 60px;
+//         z-index: 99;
 
-        &TopText {
-            display: inline-block;
-            font-family: 'TT Norms';
-            font-weight: 400;
-            font-size: 14px;
-            line-height: 20px;
-            text-transform: uppercase;
-            color: #0093A2;
-            padding: 7px 15px;
-            background-color: #fff;
-            border-radius: 50px;
-        }
+//         &TopText {
+//             display: inline-block;
+//             font-family: 'TT Norms';
+//             font-weight: 400;
+//             font-size: 14px;
+//             line-height: 20px;
+//             text-transform: uppercase;
+//             color: #0093A2;
+//             padding: 7px 15px;
+//             background-color: #fff;
+//             border-radius: 50px;
+//         }
 
-        &MiddleText {
-            width: 310px;
-            font-family: 'Yeseva One';
-            font-weight: 400;
-            font-size: 44px;
-            line-height: 56px;
-            color: #222A46;
-            margin-bottom: 10px;
-        }
+//         &MiddleText {
+//             width: 310px;
+//             font-family: 'Yeseva One';
+//             font-weight: 400;
+//             font-size: 44px;
+//             line-height: 56px;
+//             color: #222A46;
+//             margin-bottom: 10px;
+//         }
 
-        &UnderText {
-            font-family: 'TT Norms';
-            font-weight: 400;
-            font-size: 18px;
-            line-height: 26px;
-            color: #222A46;
-            margin-bottom: 10px;
-            &:first-letter{
-                text-transform: uppercase;
-            }
-        }
+//         &UnderText {
+//             font-family: 'TT Norms';
+//             font-weight: 400;
+//             font-size: 18px;
+//             line-height: 26px;
+//             color: #222A46;
+//             margin-bottom: 10px;
+//             &:first-letter{
+//                 text-transform: uppercase;
+//             }
+//         }
 
-        &Promo {
-            display: flex;
-            align-items: center;
+//         &Promo {
+//             display: flex;
+//             align-items: center;
 
-            &Text {
-                font-family: 'TT Norms';
-                font-weight: 400;
-                font-size: 16px;
-                line-height: 22px;
-                text-align: center;
-                letter-spacing: 0.1em;
-                color: #E2195B;
-                padding: 15px 25px;
-                background-color: #fff;
-                text-transform: uppercase;
-            }
+//             &Text {
+//                 font-family: 'TT Norms';
+//                 font-weight: 400;
+//                 font-size: 16px;
+//                 line-height: 22px;
+//                 text-align: center;
+//                 letter-spacing: 0.1em;
+//                 color: #E2195B;
+//                 padding: 15px 25px;
+//                 background-color: #fff;
+//                 text-transform: uppercase;
+//             }
 
-            &Btn {
-                background: #0093A2;
-                opacity: 0.5;
-                border-radius: 0px 10px 10px 0px;
-                padding: 13px;
-                cursor: pointer;
+//             &Btn {
+//                 background: #0093A2;
+//                 opacity: 0.5;
+//                 border-radius: 0px 10px 10px 0px;
+//                 padding: 13px;
+//                 cursor: pointer;
 
-                img {
-                    display: block;
-                    width: 100%;
-                }
-            }
-        }
-    }
+//                 img {
+//                     display: block;
+//                     width: 100%;
+//                 }
+//             }
+//         }
+//     }
 }
 
 .smallSlider {
