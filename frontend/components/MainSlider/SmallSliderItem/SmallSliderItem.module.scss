@@ -1,0 +1,76 @@
+.item {
+    background: #FFFFFF;
+    border: 1px solid #E2E4EB;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.info {
+    padding: 20px;
+}
+
+.Title {
+    font-family: 'TT Norms';
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 22px;
+    color: #222A46;
+    margin-bottom: 10px;
+}
+
+.SubTitle {
+    font-family: 'TT Norms';
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 20px;
+    color: #505567;
+    margin-bottom: 14px;
+}
+
+.Chart {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+
+.Price {
+    font-family: 'TT Norms';
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 22px;
+    color: #222A46;
+}
+
+.CrossPrice {
+    font-family: 'TT Norms';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 20px;
+    text-decoration-line: line-through;
+    color: #B0B2B9;
+}
+
+.Btn {
+    display: flex;
+    // justify-content: space-between;
+    align-items: center;
+    padding: 13px 20px;
+    background: #E2195B;
+    border-radius: 5px;
+
+    img {
+        margin-right: 13px;
+        // width: 18px;
+        // height: 18px;
+    }
+
+    &Text {
+        font-family: 'TT Norms';
+        font-weight: 400;
+        font-size: 14px;
+        line-height: 20px;
+        color: #FFFFFF;
+    }
+}
