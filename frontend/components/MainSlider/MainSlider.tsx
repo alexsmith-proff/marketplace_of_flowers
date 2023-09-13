@@ -8,6 +8,7 @@ import s from './MainSlider.module.scss'
 import { ISection } from '../../interfaces/section.interface';
 import { getFileNameInImgBlockFromElement, getTextInTextBlockFromElement } from '../../services/core/parse';
 import BigSliderItem from './BigSliderItem/BigSliderItem';
+import BigSlider from './BigSlider/BigSlider';
 
 interface MainSliderProps {
     bigSliderSection: ISection
@@ -15,17 +16,17 @@ interface MainSliderProps {
 }
 
 const MainSlider: FC<MainSliderProps> = ({ bigSliderSection, smallSliderSection }) => {
-    const settingsBigSlider: Settings = {
-        // dots: true,
-        arrows: true,
-        fade: true,
-        infinite: true,
-        autoplay: true,
-        autoplaySpeed: 8000, // Время между кадрами 7 сек
-        speed: 5000, // Плавность перехода 3 сек
-        slidesToShow: 1,
-        slidesToScroll: 1
-    };
+    // const settingsBigSlider: Settings = {
+    //     // dots: true,
+    //     arrows: true,
+    //     fade: true,
+    //     infinite: true,
+    //     autoplay: true,
+    //     autoplaySpeed: 8000, // Время между кадрами 7 сек
+    //     speed: 5000, // Плавность перехода 3 сек
+    //     slidesToShow: 1,
+    //     slidesToScroll: 1
+    // };
     const settingsSmallSlider: Settings = {
         // dots: true,
         arrows: true,
@@ -43,21 +44,7 @@ const MainSlider: FC<MainSliderProps> = ({ bigSliderSection, smallSliderSection 
         <div className={s.mainSlider}>
             <div className="container">
                 <div className={s.mainSliderContainer}>
-                    <div className="bigSlider">
-                        <div className={s.bigSlider}>
-                            {
-                                bigSliderSection &&
-                                <Slider {...settingsBigSlider}>
-                                    {
-                                        bigSliderSection && bigSliderSection.elements.map(item => <BigSliderItem slider={item} key={item.id} />)
-                                        
-                                    }
-                                </Slider>
-                            }
-
-
-                        </div>
-                    </div>
+                    <BigSlider sliders={bigSliderSection.elements} />
                     <div className="smallSlider">
                         <div className={s.smallSlider}>
                             <div className={s.smallSlider__title}>Букет недели</div>
