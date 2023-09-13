@@ -12,7 +12,7 @@ const TopInfoSocial: FC<TopInfoSocialProps> = ({ socialItems }) => {
     return (
         <ul className={s.list}>
             {
-                socialItems.map(item => <TopInfoSocialItem link={item.link} imgSrc={item.imgSrc} altSrc={item.altSrc} />)
+                socialItems.map((item, ind) => <TopInfoSocialItem link={item.link} imgSrc={item.imgSrc} altSrc={item.altSrc} key={ind} />)
             }
         </ul>
     )

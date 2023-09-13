@@ -296,7 +296,7 @@ const FormData: FC<FormDataProps> = ({ formRef }) => {
                                             <div className={s.shopsWrap}>
                                                 {
                                                     shop.map((item, ind) => (
-                                                        <div className={s.shopItem} onClick={() => handleOnClickShop(ind)}>
+                                                        <div className={s.shopItem} onClick={() => handleOnClickShop(ind)} key={ind}>
                                                             <div className={s.radioBtn}>
                                                                 <label>
                                                                     <Field type="radio" name="shop" checked={shopActiveIndex === ind ? true : false} value={item.name} />

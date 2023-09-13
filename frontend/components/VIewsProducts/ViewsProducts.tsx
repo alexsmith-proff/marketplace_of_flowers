@@ -44,7 +44,7 @@ const ViewsProducts: FC<ViewsProductsProps> = ({ products }) => {
                         {
                             products.map(product => (
                                 <div className={s.mainCards__item} key={product.id}>
-                                    <Image src={`${process.env.API_URI_DOCKER}/${product.main_image}`} width={278} height={250} objectFit="cover" />
+                                    <Image src={`${process.env.API_URI_DOCKER}/${product.main_image}`} width={278} height={250} objectFit="cover" alt="product" />
                                     <div className={s.mainCards__info}>
                                         <div className={s.mainCards__text}>
                                             <div className={s.mainCards__title}>{product.name}</div>

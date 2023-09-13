@@ -21,7 +21,7 @@ interface CatalogProductProps {
     isFavorite: boolean
 }
 
-const CatalogProduct: FC<CatalogProductProps> = React.memo(({ product, isBuyProduct = false, isFavorite = false }) => {
+const CatalogProduct: FC<CatalogProductProps> = ({ product, isBuyProduct = false, isFavorite = false }) => {
     const dispatch = useDispatch()
 
     const router = useRouter()
@@ -79,6 +79,6 @@ const CatalogProduct: FC<CatalogProductProps> = React.memo(({ product, isBuyProd
         </li>
     )
 }
-)
 
-export default CatalogProduct
+
+export default React.memo(CatalogProduct)
