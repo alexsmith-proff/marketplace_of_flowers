@@ -14,7 +14,7 @@ interface SliderCardListProps {
 
 const SliderCardList: FC<SliderCardListProps> = ({ cards }) => {
     const { isBuyProduct, isFavorite, handleClick, handleAddToCart, handleAddToFavorite } = useCardList(cards)
-    
+
     const settings: Settings = {
         // dots: true,
         arrows: true,
@@ -36,7 +36,7 @@ const SliderCardList: FC<SliderCardListProps> = ({ cards }) => {
                 {
                     cards?.elements?.map(card => (
                         <CardItem
-                            productID={card.product_ref.id}
+                            productID={card.id}
                             imgSrc={card.product_ref.main_image ? `${process.env.API_URI_DOCKER}/${card.product_ref.main_image}` : '/img/nophoto.png'}
                             alt={card.product_ref.slug}
                             title={card.product_ref.name}
