@@ -39,5 +39,5 @@ export const useCardList = (cards: ISection) => {
         : dispatch(deleteFavoriteProduct(cards.elements.find(item => item.id === productID).product_ref.id))
     }
 
-    return { router, isBuyProduct, isFavorite, handleClick, handleAddToCart, handleAddToFavorite }
+    return { isBuyProduct, isFavorite, handleClick, handleAddToCart, handleAddToFavorite }
 }

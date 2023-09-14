@@ -48,7 +48,7 @@ const CardItem: FC<CardItemProps> = ({
         onClickAddToFavorite(e, isActiveBtn, productID)
     }
     return (
-        <div className={s.mainCards__item} onClick={handleClickProduct} key={productID}>
+        <div className={s.item} onClick={handleClickProduct} key={productID}>
             <Image className={s.img} src={imgSrc} width={278} height={250} alt={alt} objectFit="cover" />
             <div className={s.info}>
                 <div className={s.text}>
