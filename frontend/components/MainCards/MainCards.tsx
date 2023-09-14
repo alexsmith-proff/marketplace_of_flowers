@@ -78,8 +78,6 @@ const MainCards: FC<MainCardsProps> = ({ cards }) => {
                                                 :
                                                 <Image className={s.img} objectFit="cover" src='/img/nophoto.png' width={278} height={250} alt={`${elem.product_ref.slug}-img`} />
                                         }
-                                        {/* <img className={s.mainCards__img} src={process.env.API_URI + '/' + getFileNameInImgBlockFromElement(el, 'background')} alt={getTextInTextBlockFromElement(el, 'alt')} /> */}
-                                        {/* <img className={s.mainCards__imgHeart} src="img/heart.png" alt="heart-ico" /> */}
                                         <div className={s.mainCards__info}>
                                             <div className={s.mainCards__text}>
                                                 <div className={s.mainCards__title}>{elem.product_ref.name}</div>

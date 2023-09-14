@@ -4,12 +4,11 @@ import Image from "next/image"
 import s from './FavoriteBtn.module.scss'
 
 interface FavoriteBtnProps {
-    link?: string
     backgroundLight?: boolean
     isActive?: boolean
-    onClick?: (any, boolean) => void
+    onClick?: (e: any, isFavorite: boolean) => void
 }
-const FavoriteBtn: FC<FavoriteBtnProps> = ({ link, backgroundLight = false, isActive = false, onClick }) => {
+const FavoriteBtn: FC<FavoriteBtnProps> = ({ backgroundLight = false, isActive = false, onClick }) => {
     const [isFavorite, setIsFavorite] = useState<boolean>(isActive)
 
     const handleOnClick = (e) => {
