@@ -14,6 +14,7 @@ import MainLayout from '../layouts/MainLayout/MainLayout'
 import { GetMenu, GetSection } from '../services/core/requests';
 import MapYandex from '../components/MapYandex/MapYandex';
 import { getTextInTextBlockFromSection } from '../services/core/parse';
+import ReviewsMainPage from '../components/ReviewsMainPage/ReviewsMainPage';
 
 interface IndexProps {
   topMenu: IMenu,
@@ -44,7 +45,7 @@ const Index: FC<IndexProps> = ({ topMenu, headerMenu, bigSlider, smallSlider, pr
         <MainCards cards={mainCards} />
         <Partitions partitionSection={partition} />
         <Gallery gallerySection={gallery} />
-        <Reviews isSlider={true} reviewSection={reviews} sendReviewBtnVisible={true} allReviewBtnVisible={true} />
+        <ReviewsMainPage reviewSection={reviews} />
         <News newsSection={news} />
         <SeoOne seoSection={seoOne} />
         <SeoTwo seoSection={seoTwo} />
