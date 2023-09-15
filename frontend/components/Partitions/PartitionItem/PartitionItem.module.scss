@@ -1,0 +1,27 @@
+.item {
+    background: #FFFFFF;
+    box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.05);
+    border-radius: 5px;
+}
+
+.info {
+    padding: 20px;
+    text-align: center;
+}
+.title {
+    font-weight: 700;
+    font-size: 20px;
+    line-height: 30px;
+
+    color: #222A46;
+    margin-bottom: 10px;
+}
+.price {
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 22px;
+    color: #222A46;
+    span{
+        font-weight: 700;
+    }
+}

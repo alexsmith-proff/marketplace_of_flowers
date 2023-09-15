@@ -12,11 +12,11 @@ interface PartitionItemProps {
 
 const PartitionItem: FC<PartitionItemProps> = ({ imgSrc, imgAlt, title, price }) => {
     return (
-        <li className={s.partitions__item}>
+        <li className={s.item}>
             <Image src={imgSrc} width={278} height={251} alt={imgAlt} />
-            <div className={s.partitions__info}>
-                <h3 className={s.partitions__title}>{title}</h3>
-                <div className={s.partitions__price}>от <span>{price}</span> ₽</div>
+            <div className={s.info}>
+                <h3 className={s.title}>{title}</h3>
+                <div className={s.price}>от <span>{price}</span> ₽</div>
             </div>
         </li>
     )
