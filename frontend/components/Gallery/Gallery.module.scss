@@ -1,6 +1,19 @@
-юitem {
-    img {
-        border: 1px solid #E2ECE8;
-        border-radius: 10px;
-    }
+.gallery {
+    background-color: #fff;
+    padding-top: 60px;
+    padding-bottom: 60px;
+}
+
+.title {
+    font-family: 'Yeseva One';
+    font-weight: 400;
+    font-size: 40px;
+    line-height: 50px;
+    color: #222A46;
+    margin-bottom: 30px;
+}
+
+.list {
+    width: 100%;
+    position: relative;
 }

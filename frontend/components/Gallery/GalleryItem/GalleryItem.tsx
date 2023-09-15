@@ -1,6 +1,8 @@
 import React, { FC } from 'react';
 import Image from 'next/image';
 
+import s from './GalleryItem.module.scss'
+
 interface GalleryItemProps {
     imgSrc: string
     imgAlt: string
