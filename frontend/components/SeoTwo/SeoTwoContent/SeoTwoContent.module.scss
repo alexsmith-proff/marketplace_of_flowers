@@ -1,0 +1,30 @@
+.title {
+    font-family: 'Yeseva One';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 40px;
+    line-height: 50px;
+    color: #222A46;
+    margin-bottom: 20px;
+}
+
+.item {
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 26px;
+    color: #353949;
+    margin-bottom: 15px;
+}
+
+.bg {
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+.bgImg {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    right: 200px;
+}
