@@ -11,9 +11,8 @@ import { IMenu } from '../interfaces/menu.interface';
 import { ISection } from '../interfaces/section.interface';
 import MainLayout from '../layouts/MainLayout/MainLayout'
 import { GetMenu, GetSection } from '../services/core/requests';
-import MapYandex from '../components/MapYandex/MapYandex';
-import { getTextInTextBlockFromSection } from '../services/core/parse';
 import ReviewsMainPage from '../components/ReviewsMainPage/ReviewsMainPage';
+import MainMap from '../components/MainMap/MainMap';
 
 interface IndexProps {
   topMenu: IMenu,
@@ -48,27 +47,11 @@ const Index: FC<IndexProps> = ({ topMenu, headerMenu, bigSlider, smallSlider, pr
         <News newsSection={news} />
         <SeoOne seoSection={seoOne} />
         <SeoTwo seoSection={seoTwo} />
-        <MapYandex
-          defaultState={{
-            center: [51.670554, 39.192204],
-            zoom: 13
-          }}
-          shops={[{
-            name: 'ул. Революции 1905 года, 80',
-            lat: 51.667596,
-            long: 39.185905,
-          }]}
-          height={'500px'}
-          hintPhoneNumber={getTextInTextBlockFromSection(footerMenuCoordinates, 'koord-elem', 'telefon')}
-          hintWorkDays={`Пн-Сб: 8:00–20:00\nВс: 9:00–20:00`}
-          hintEmail={getTextInTextBlockFromSection(footerMenuEmail, 'e-mail', 'soderzhimoe')}
-          hintVisible={true}
-        />
+        <MainMap />
       </MainLayout>
     </div >
   )
 }
-
 
 export async function getServerSideProps() {
   const topMenu = await GetMenu('verkhnee-menyu')

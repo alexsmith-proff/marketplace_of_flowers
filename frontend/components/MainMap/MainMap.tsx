@@ -1,6 +1,6 @@
 import { FC } from "react"
-// npm install @pbe/react-yandex-maps
-import { YMaps, Map, Placemark } from "@pbe/react-yandex-maps";
+import YandexMap from "../YandexMap/YandexMap";
+import MapHint from "../MapHint/MapHint";
 
 import s from './MainMap.module.scss'
 
@@ -8,31 +8,25 @@ interface MainMapProps { }
 
 const MainMap: FC<MainMapProps> = ({ }) => {
     return (
-        <>
-            <div className={s.map} style={{ width: width, height: height }}>
-                <div className="container">
-                    <div className={s.wrap}>
-                        <div className={s.onlyMap}>
-                            <YMaps>
-                                <Map defaultState={defaultState} style={{ width: width, height: height }}>
-                                    {
-                                        shops?.map((shop, ind) => <Placemark geometry={[shop.lat, shop.long]} key={ind} />)
-                                    }
-                                </Map>
-                            </YMaps>
-                        </div>
-                        {
-                            hintVisible && (
-                                <div className={s.hint}>
-                                    <ContactHint phoneNumber={hintPhoneNumber} workDays={hintWorkDays} email={hintEmail} />
-                                </div>
-                            )
-                        }
-                    </div>
-                </div>
-            </div>
-
-        </>
+        <YandexMap
+            defaultState={{
+                center: [51.670554, 39.192204],
+                zoom: 13
+            }}
+            points={[{
+                name: 'ул. Революции 1905 года, 80',
+                lat: 51.667596,
+                long: 39.185905,
+            }]}
+            height={'500px'}
+            hint={
+                <MapHint
+                    phoneNumber={'+7 (906) 678-65-99'}
+                    workDays={'Пн-Сб: 8:00–20:00 Вс: 9:00–20:00'}
+                    email={'info@lavkaroz.ru'}
+                />
+            }
+        />
     )
 }
 

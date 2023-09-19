@@ -6,18 +6,18 @@ import { IMapStateDefault, IPoint } from "../../interfaces/map.interface";
 import s from './YandexMap.module.scss'
 
 interface YandexMapProps {
-    defaultState: IMapStateDefault
-    points?: IPoint[]
     width?: string
     height?: string
+    defaultState: IMapStateDefault
+    points?: IPoint[]
     hint: React.ReactNode
 }
 
 const YandexMap: FC<YandexMapProps> = ({
-    points,
-    defaultState,
     width = '100%',
     height = '240px',
+    points,
+    defaultState,
     hint   
  }) => {
     return (
