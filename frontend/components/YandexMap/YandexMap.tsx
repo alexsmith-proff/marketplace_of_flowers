@@ -3,9 +3,9 @@ import { FC } from "react"
 import { YMaps, Map, Placemark } from "@pbe/react-yandex-maps";
 import { IMapStateDefault, IPoint } from "../../interfaces/map.interface";
 
-import s from './MainMap.module.scss'
+import s from './YandexMap.module.scss'
 
-interface MainMapProps {
+interface YandexMapProps {
     defaultState: IMapStateDefault
     points?: IPoint[]
     width?: string
@@ -13,7 +13,7 @@ interface MainMapProps {
     hint: React.ReactNode
 }
 
-const MainMap: FC<MainMapProps> = ({
+const YandexMap: FC<YandexMapProps> = ({
     points,
     defaultState,
     width = '100%',
@@ -42,4 +42,4 @@ const MainMap: FC<MainMapProps> = ({
     )
 }
 
-export default MainMap
+export default YandexMap

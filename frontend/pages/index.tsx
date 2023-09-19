@@ -5,7 +5,6 @@ import MainSlider from '../components/MainSlider/MainSlider';
 import News from '../components/News/News';
 import Partitions from '../components/Partitions/Partitions';
 import Privileges from '../components/Privileges/Privileges';
-import Reviews from '../components/Reviews/Reviews';
 import SeoOne from '../components/SeoOne/SeoOne';
 import SeoTwo from '../components/SeoTwo/SeoTwo';
 import { IMenu } from '../interfaces/menu.interface';
