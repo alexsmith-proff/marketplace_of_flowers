@@ -1,6 +1,7 @@
 import React, { FC } from 'react'
-import { ISection } from '../../interfaces/section.interface';
+import SeoOneContent from './SeoOneContent/SeoOneContent';
 import { getTextInTextBlockFromSection } from '../../services/core/parse';
+import { ISection } from '../../interfaces/section.interface';
 
 import s from './SeoOne.module.scss'
 
@@ -11,24 +12,19 @@ interface SeoOneProps {
 const SeoOne: FC<SeoOneProps> = ({ seoSection }) => {
 
     return (
-        <>
-            {/* { */}
-                {/* seoSection && */}
-                <section className={s.seoOne}>
-                    <div className="container">
-                        <div className={s.seoOne__mainTitle}>{getTextInTextBlockFromSection(seoSection, 'seo', 'title')}</div>
-                        <div className={s.seoOne__block}>
-                            <p className={s.seoOne__text}>{getTextInTextBlockFromSection(seoSection, 'seo', 'text1')}<br/><br/></p>
-                            <p className={s.seoOne__text}>{getTextInTextBlockFromSection(seoSection, 'seo', 'text2')}<br/><br/></p>
-                            <p className={s.seoOne__text}>{getTextInTextBlockFromSection(seoSection, 'seo', 'text3')}<br/><br/></p>
-                            <p className={s.seoOne__text}>{getTextInTextBlockFromSection(seoSection, 'seo', 'text4')}<br/><br/></p>
-                        </div>
-                    </div>
-                    <img className={s.seoOne__bgLeft} src="../../../img/seo1-left-bg.png" alt="seo1-left-bg" />
-                    <img className={s.seoOne__bgRight} src="../../../img/seo1-right-bg.png" alt="seo1-right-bg" />
-                </section>
-            {/* } */}
-        </>
+        <section className={s.seoOne}>
+            <div className="container">
+                <SeoOneContent
+                    title={getTextInTextBlockFromSection(seoSection, 'seo', 'title')}
+                    text={[
+                        getTextInTextBlockFromSection(seoSection, 'seo', 'text1'),
+                        getTextInTextBlockFromSection(seoSection, 'seo', 'text2'),
+                        getTextInTextBlockFromSection(seoSection, 'seo', 'text3'),
+                        getTextInTextBlockFromSection(seoSection, 'seo', 'text4')
+                    ]}
+                />
+            </div>
+        </section>
     )
 };
 
