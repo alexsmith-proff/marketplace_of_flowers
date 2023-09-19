@@ -1,5 +1,5 @@
 import { FC } from "react"
-import PhoneBtn from "../Elements/Buttons/PhoneBtn/PhoneBtn"
+import PhoneBtn from "../../UI/Buttons/PhoneBtn/PhoneBtn"
 import Image from "next/image"
 import Link from "next/link"
 

@@ -2,17 +2,20 @@ import React, { FC } from "react";
 import Image from "next/image";
 import ProductReviews from "../ProductReviews/ProductReviews";
 import DeliveryTime from "../DeliveryTime/DeliveryTime";
-import CardPrice from "../Elements/CardPrice/CardPrice";
-import ToCartBtn from "../Elements/Buttons/ToCartBtn/ToCartBtn";
-import FavoriteBtn from "../Elements/Buttons/FavoriteBtn/FavoriteBtn";
+// import CardPrice from "../Elements/CardPrice/CardPrice";
+// import ToCartBtn from "../Elements/Buttons/ToCartBtn/ToCartBtn";
+// import FavoriteBtn from "../Elements/Buttons/FavoriteBtn/FavoriteBtn";
 import { useRouter } from "next/router";
 import { useDispatch } from "react-redux";
 import { addCartProduct, deleteCartProduct } from "../../redux/product/cartProductSlice";
 import { addFavoriteProduct, deleteFavoriteProduct } from "../../redux/product/favoriteProductSlice";
-import { IProduct, IProductCart } from "../../interfaces/products.interface";
+import { IProduct } from "../../interfaces/products.interface";
 
 import s from './CatalogProduct.module.scss'
 import { addViewedProduct } from "../../redux/product/viewedProductSlice";
+import CardPrice from "../../UI/CardPrice/CardPrice";
+import ToCartBtn from "../../UI/Buttons/ToCartBtn/ToCartBtn";
+import FavoriteBtn from "../../UI/Buttons/FavoriteBtn/FavoriteBtn";
 
 interface CatalogProductProps {
     // product: ICatalogProduct
@@ -46,10 +49,6 @@ const CatalogProduct: FC<CatalogProductProps> = ({ product, isBuyProduct = false
         //Добавление товара в избранное
         !isEnable ? dispatch(addFavoriteProduct(product)) : dispatch(deleteFavoriteProduct(product.id))
     }
-
-    console.log('prprprpr', isBuyProduct);
-
-
 
     return (
         <li className={s.product} onClick={() => handleClickProduct(product.id)}>

@@ -1,15 +1,15 @@
 ﻿import React, { FC } from 'react'
 import MainLayout from '../layouts/MainLayout/MainLayout'
-import Gallery from '../components/Gallery/Gallery';
-import MainCards from '../components/MainCards/MainCards';
-import MainSlider from '../components/MainSlider/MainSlider';
-import ReviewsMainPage from '../components/ReviewsMainPage/ReviewsMainPage';
-import News from '../components/News/News';
-import Partitions from '../components/Partitions/Partitions';
-import Privileges from '../components/Privileges/Privileges';
-import SeoOne from '../components/SeoOne/SeoOne';
-import SeoTwo from '../components/SeoTwo/SeoTwo';
-import MainMap from '../components/MainMap/MainMap';
+import MainSlider from '../modules/MainSlider/MainSlider';
+import Privileges from '../modules/Privileges/Privileges';
+import MainCards from '../modules/MainCards/MainCards';
+import Partitions from '../modules/Partitions/Partitions';
+import Gallery from '../modules/Gallery/Gallery';
+import ReviewsMainPage from '../modules/ReviewsMainPage/ReviewsMainPage';
+import News from '../modules/News/News';
+import SeoOne from '../modules/SeoOne/SeoOne';
+import SeoTwo from '../modules/SeoTwo/SeoTwo';
+import MainMap from '../modules/MainMap/MainMap';
 import { GetMenu, GetSection } from '../services/core/requests';
 import { IMenu } from '../interfaces/menu.interface';
 import { ISection } from '../interfaces/section.interface';

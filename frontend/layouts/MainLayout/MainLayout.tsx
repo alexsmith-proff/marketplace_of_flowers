@@ -1,8 +1,8 @@
 ﻿import React from 'react';
-import Footer from '../../components/Footer/Footer';
-import Header from '../../components/Header/Header';
-import TopInfo from '../../components/TopInfo/TopInfo';
-import TopMenu from '../../components/TopMenu/TopMenu';
+import TopInfo from '../../modules/TopInfo/TopInfo';
+import Header from '../../modules/Header/Header';
+import TopMenu from '../../modules/TopMenu/TopMenu';
+import Footer from '../../modules/Footer/Footer';
 import { IMenu } from '../../interfaces/menu.interface';
 import { ISection } from '../../interfaces/section.interface';
 
