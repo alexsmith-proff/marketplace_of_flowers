@@ -3,7 +3,7 @@ export interface IMapStateDefault {
     zoom: number
 };
 
-export interface IShop {
+export interface IPoint {
     name?: string,
     lat?: number,
     long?: number
