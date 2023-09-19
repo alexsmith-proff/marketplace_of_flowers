@@ -1,29 +1,37 @@
 import { FC } from "react"
 import YandexMap from "../YandexMap/YandexMap";
 import MapHint from "../MapHint/MapHint";
+import { getTextInTextBlockFromSection } from "../../services/core/parse";
+import { ISection } from "../../interfaces/section.interface";
 
 import s from './MainMap.module.scss'
 
-interface MainMapProps { }
+interface MainMapProps {
+    mainMap: ISection,
+}
 
-const MainMap: FC<MainMapProps> = ({ }) => {
+const MainMap: FC<MainMapProps> = ({ mainMap }) => {
     return (
         <YandexMap
             defaultState={{
-                center: [51.670554, 39.192204],
-                zoom: 13
+                center: [
+                    getTextInTextBlockFromSection(mainMap, 'defaultstate', 'center-lat'),
+                    getTextInTextBlockFromSection(mainMap, 'defaultstate', 'center-long')
+                ],
+                zoom: getTextInTextBlockFromSection(mainMap, 'defaultstate', 'zoom')
+                
             }}
             points={[{
-                name: 'ул. Революции 1905 года, 80',
-                lat: 51.667596,
-                long: 39.185905,
+                name: getTextInTextBlockFromSection(mainMap, 'points', 'name'),
+                lat: getTextInTextBlockFromSection(mainMap, 'points', 'lat'),
+                long: getTextInTextBlockFromSection(mainMap, 'points', 'long'),
             }]}
             height={'500px'}
             hint={
                 <MapHint
-                    phoneNumber={'+7 (906) 678-65-99'}
-                    workDays={'Пн-Сб: 8:00–20:00 Вс: 9:00–20:00'}
-                    email={'info@lavkaroz.ru'}
+                    phoneNumber={getTextInTextBlockFromSection(mainMap, 'hint', 'phonenumber')}
+                    workDays={getTextInTextBlockFromSection(mainMap, 'hint', 'workdays')}
+                    email={getTextInTextBlockFromSection(mainMap, 'hint', 'email')}
                 />
             }
         />

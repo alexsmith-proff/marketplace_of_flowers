@@ -6,7 +6,7 @@ import { AdminSectionRadioButtons } from "../../../enums/AdminSections.enum";
 import { AdminWindowMode } from "../../../enums/Mode.enum";
 import { IAdminProduct } from "../../../interfaces/products.interface";
 import { ICreateBlockTextInput, IElement } from "../../../interfaces/section.interface";
-import { isJSONString } from "../../../services/core/util";
+import { isJSONString } from "../../../util/helpers/main";
 import ButtonAdmin from "../Buttons/ButtonAdmin/ButtonAdmin";
 
 import s from "./WindowCreateBlock.module.scss";

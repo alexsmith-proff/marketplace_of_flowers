@@ -1,18 +1,18 @@
 ﻿import React, { FC } from 'react'
+import MainLayout from '../layouts/MainLayout/MainLayout'
 import Gallery from '../components/Gallery/Gallery';
 import MainCards from '../components/MainCards/MainCards';
 import MainSlider from '../components/MainSlider/MainSlider';
+import ReviewsMainPage from '../components/ReviewsMainPage/ReviewsMainPage';
 import News from '../components/News/News';
 import Partitions from '../components/Partitions/Partitions';
 import Privileges from '../components/Privileges/Privileges';
 import SeoOne from '../components/SeoOne/SeoOne';
 import SeoTwo from '../components/SeoTwo/SeoTwo';
+import MainMap from '../components/MainMap/MainMap';
+import { GetMenu, GetSection } from '../services/core/requests';
 import { IMenu } from '../interfaces/menu.interface';
 import { ISection } from '../interfaces/section.interface';
-import MainLayout from '../layouts/MainLayout/MainLayout'
-import { GetMenu, GetSection } from '../services/core/requests';
-import ReviewsMainPage from '../components/ReviewsMainPage/ReviewsMainPage';
-import MainMap from '../components/MainMap/MainMap';
 
 interface IndexProps {
   topMenu: IMenu,
@@ -28,12 +28,13 @@ interface IndexProps {
   news: ISection,
   seoOne: ISection,
   seoTwo: ISection,
+  mainMap: ISection,
   footerMenuInfo: IMenu,
   footerMenuCoordinates: ISection,
   footerMenuEmail: ISection
 }
 
-const Index: FC<IndexProps> = ({ topMenu, headerMenu, bigSlider, smallSlider, privilege, mainCards, partition, gallery, reviews, news, seoOne, seoTwo, footerMenu, footerMenuInfo, footerMenuCoordinates, footerMenuEmail }) => {
+const Index: FC<IndexProps> = ({ topMenu, headerMenu, bigSlider, smallSlider, privilege, mainCards, partition, gallery, reviews, news, seoOne, seoTwo, mainMap, footerMenu, footerMenuInfo, footerMenuCoordinates, footerMenuEmail }) => {
 
   return (
     <div>
@@ -47,7 +48,7 @@ const Index: FC<IndexProps> = ({ topMenu, headerMenu, bigSlider, smallSlider, pr
         <News newsSection={news} />
         <SeoOne seoSection={seoOne} />
         <SeoTwo seoSection={seoTwo} />
-        <MainMap />
+        <MainMap mainMap={mainMap} />
       </MainLayout>
     </div >
   )
@@ -66,13 +67,16 @@ export async function getServerSideProps() {
   const news = await GetSection('novosti')
   const seoOne = await GetSection('seo-1')
   const seoTwo = await GetSection('seo-2')
+  const mainMap = await GetSection('mainmap')
+  
   const footerMenu = await GetMenu('menyu-v-futere')
   const footerMenuInfo = await GetMenu('menyu-informaciya')
   const footerMenuCoordinates = await GetSection('nashi-koordinaty')
   const footerMenuEmail = await GetSection('e-mail')
+  
 
   return {
-    props: { topMenu, headerMenu, bigSlider, smallSlider, privilege, mainCards, partition, gallery, reviews, news, seoOne, seoTwo, footerMenu, footerMenuInfo, footerMenuCoordinates, footerMenuEmail }
+    props: { topMenu, headerMenu, bigSlider, smallSlider, privilege, mainCards, partition, gallery, reviews, news, seoOne, seoTwo, mainMap, footerMenu, footerMenuInfo, footerMenuCoordinates, footerMenuEmail }
   }
 }
 
