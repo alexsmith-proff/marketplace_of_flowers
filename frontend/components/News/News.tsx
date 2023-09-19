@@ -4,6 +4,7 @@ import { getFileNameInImgBlockFromElement, getTextInTextBlockFromElement } from 
 
 import s from './News.module.scss'
 import NewsList from './NewsList/NewsList';
+import ArrowRightText from '../Elements/Arrows/ArrowRightText/ArrowRightText';
 
 interface NewsProps {
     newsSection: ISection
@@ -17,10 +18,7 @@ const News: FC<NewsProps> = ({ newsSection }) => {
                 <div className="container">
                     <div className={s.news__top}>
                         <div className={s.news__mainTitle}>Новости</div>
-                        <div className={s.news__allNews}>
-                            <div className={s.allNews__text}>Все новости</div>
-                            <img src="../../../img/arrow-next.png" alt="arrow-next" />
-                        </div>
+                        <ArrowRightText text='Все новости' />
                     </div>
                     <NewsList news={newsSection.elements} />
                 </div>
