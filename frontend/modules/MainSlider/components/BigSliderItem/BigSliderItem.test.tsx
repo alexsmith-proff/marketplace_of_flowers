@@ -1,5 +1,5 @@
-import { render, screen } from "@testing-library/react"
 import '@testing-library/jest-dom'
+import { render, screen } from "@testing-library/react"
 import BigSliderItem from "./BigSliderItem"
 import { IElement } from "../../../../interfaces/section.interface"
 
@@ -13,7 +13,6 @@ const data: IElement = {
             name: 'изображение',
             slug: 'background',
             filename: '1.png',
-
         }
     ],
     text_elements: [
@@ -38,9 +37,18 @@ const data: IElement = {
     ],
     product_ref: null
 }
-test('BigSliderItem текст вверху', () => {
-    process.env.API_URI_DOCKER = 'http://localhost'
-    render(<BigSliderItem slider={data} />)
-    const  el = screen.getByText(/верхний текст/i)
-    expect(el).toBeInTheDocument()
+describe('BigSliderItem', () => {
+    it('BigSliderItem текст', () => {
+        process.env.API_URI_DOCKER = 'http://localhost'
+        render(<BigSliderItem slider={data} />)
+        expect(screen.getByText(/верхний текст/i)).toBeInTheDocument()
+        expect(screen.getByText(/средний текст/i)).toBeInTheDocument()
+        expect(screen.getByText(/промокод/i)).toBeInTheDocument()
+    })
+    it('BigSliderItem snapshot', () => {
+        process.env.API_URI_DOCKER = 'http://localhost'
+        const value = render(<BigSliderItem slider={data} />)
+        expect(value).toMatchSnapshot()
+    })
+
 })
