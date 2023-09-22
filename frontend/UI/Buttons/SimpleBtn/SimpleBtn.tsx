@@ -12,9 +12,8 @@ interface SimpleBtnProps {
     paddingRight?: number
     fontSize?: number,
     color?: string,
-    hoverColor?: string,
     backgroundColor?: string,
-    border?: string 
+    border?: string
     borderRadius?: number,
     click: () => void
 }
@@ -29,7 +28,6 @@ const SimpleBtn: FC<SimpleBtnProps> = ({
     paddingRight = 0,
     fontSize = 14,
     color = null,
-    hoverColor = null,
     backgroundColor = null,
     border = null,
     borderRadius = null,
@@ -37,6 +35,7 @@ const SimpleBtn: FC<SimpleBtnProps> = ({
 }) => {
     return (
         <div
+            data-testid="comp"
             className={isMaxWidth ? (s.btn + ' ' + s.max) : s.btn}
             style={
                 {
