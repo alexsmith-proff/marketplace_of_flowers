@@ -1,7 +1,5 @@
 import React, { FC } from 'react';
-import 'slick-carousel/slick/slick.css';
-import 'slick-carousel/slick/slick-theme.css';
-import Slider, { Settings } from "react-slick";
+import Image from 'next/image';
 
 import s from './ReviewsStar.module.scss'
 
@@ -15,10 +13,9 @@ const ReviewsStar: FC<ReviewsStarProps> = ({ stars }) => {
             {
                 stars && Array.from({ length: stars }).map((_, index) => (
                     <li className={s.star} key={index}>
-                        <img src="../../img/star.png" alt="star" />
+                        <Image src='/img/star.png' width={16} height={16} alt='star-img' />
                     </li>
-                )
-                )
+                ))
             }
         </ul>
     );
