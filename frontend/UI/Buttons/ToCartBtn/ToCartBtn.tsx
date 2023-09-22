@@ -18,8 +18,6 @@ const ToCartBtn: FC<ToCartBtnProps> = ({ dark = false, textAfterClick, isBuyProd
         setIsBuy(!isBuy)
         if (onClick) onClick(e, isBuy)
     }
-    // console.log('darkdarkdark');
-
 
     return (
         <div>
@@ -29,7 +27,7 @@ const ToCartBtn: FC<ToCartBtnProps> = ({ dark = false, textAfterClick, isBuyProd
                 onClick={handleClickBtn}
             >
                 <BsFillBasket3Fill size={18} className={s.ico} />
-                <div className={s.text}>{isBuy ? (textAfterClick ? textAfterClick : 'В корзину') : 'В корзину'}</div>
+                <div className={s.text}>{isBuy ? (textAfterClick ? textAfterClick : 'В корзине') : 'В корзину'}</div>
             </div>
         </div>
     )
