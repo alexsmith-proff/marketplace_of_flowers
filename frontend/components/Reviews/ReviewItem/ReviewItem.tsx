@@ -17,7 +17,7 @@ const ReviewItem: FC<ReviewItemProps> = ({ review, imgSrc, imgAlt }) => {
         <div className={s.review}>
             <div className={s.wrap}>
                 <div className={s.left}>
-                    <ReviewsStar stars={getTextInTextBlockFromElement(review, 'ocenka')} />
+                    <ReviewsStar stars={Number(getTextInTextBlockFromElement(review, 'ocenka'))} />
                     <div className={s.name}>{getTextInTextBlockFromElement(review, 'name')}</div>
                     <div className={s.text}>{getTextInTextBlockFromElement(review, 'otzyv')}</div>
                     <div className={s.bouquet}>Отзыв к букету: <span>{getTextInTextBlockFromElement(review, 'otzyv-k-buketu')}</span></div>
