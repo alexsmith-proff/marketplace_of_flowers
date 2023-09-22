@@ -46,21 +46,13 @@ const data: ISection = {
 }
 describe('Partitions test', () => {
     process.env.API_URI_DOCKER = 'http://localhost'
-    it('Render Header', () => {
+    it('Render Partitions', () => {
         render(<Partitions partitionSection={data} />)
-        const el = screen.getByText(/Разделы/)
-        expect(el).toBeInTheDocument()
+        expect(screen.getByText(/Разделы/)).toBeInTheDocument()
+        expect(screen.getByText('text1')).toBeInTheDocument()
+        expect(screen.getByText('500')).toBeInTheDocument()
     })
-    it('Render text1', () => {
-        // process.env.API_URI_DOCKER = 'http://localhost'
-        render(<Partitions partitionSection={data} />)
-        const el = screen.getByText('text1')
-        expect(el).toBeInTheDocument()
-    })
-    it('Render price', () => {
-        // process.env.API_URI_DOCKER = 'http://localhost'
-        render(<Partitions partitionSection={data} />)
-        const el = screen.getByText('500')
-        expect(el).toBeInTheDocument()
+    it('Partitions snapshot', () => {
+        expect(render(<Partitions partitionSection={data} />)).toMatchSnapshot()
     })
 })
