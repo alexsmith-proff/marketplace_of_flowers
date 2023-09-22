@@ -20,4 +20,8 @@ describe('ToCartBtn', () => {
         const boxes = container.getElementsByClassName('dark')
         expect(boxes.length).toBe(1)
     })
+    it('ToCartBtn snapshot', ()=>{
+        const el = render(<ToCartBtn />)
+        expect(el).toMatchSnapshot()
+    })
 })
