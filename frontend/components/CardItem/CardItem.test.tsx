@@ -27,4 +27,23 @@ describe('CardItem', () => {
         expect(screen.getByText(/Заголовок/)).toBeInTheDocument()
         expect(screen.getByText(/Подзаголовок/)).toBeInTheDocument()
     })
+    it('CardItem snapshot', () => {
+        const el = render(
+            <CardItem
+                productID={1}
+                imgSrc={'/file.png'}
+                alt={'altImg'}
+                title={'Заголовок'}
+                subtitle={'Подзаголовок'}
+                price={500}
+                crossPrice={300}
+                isBuyProduct={true}
+                isActive={true}
+                onClickProduct={onClickProduct}
+                onClickAddToCart={onClickAddToCart}
+                onClickAddToFavorite={onClickAddToFavorite}
+            />
+        )
+        expect(el).toMatchSnapshot()
+    })
 })
