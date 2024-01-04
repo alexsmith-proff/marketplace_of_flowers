@@ -3,7 +3,6 @@ import MainLayout from '../../layouts/MainLayout/MainLayout'
 import { GetAllCatalog, GetCatalogByParent, GetCatalogNameBySlug, GetFilterBySlug, GetMenu, GetMinMaxPriceProduct, GetProductsByFilterData, GetSection } from '../../services/core/requests'
 import { IMenu } from '../../interfaces/menu.interface'
 import { ISection } from '../../interfaces/section.interface'
-import CatalogCards from '../../components/CatalogCards/CatalogCards'
 import { ICatalogCards } from '../../interfaces/catalog.interface'
 import CatalogSeo from '../../components/CatalogSeo/CatalogSeo'
 import BreadCrumbs from '../../components/BreadCrumbs/BreadCrumbs'
@@ -12,6 +11,7 @@ import { getBreadCrumbsFromCatalog } from '../../services/core/parse'
 import { IProductMinMaxPrice } from '../../interfaces/products.interface'
 import { IFilter, IFilterData } from '../../interfaces/filter.interface'
 import Catalog from '../../components/Catalog/Catalog'
+import CatalogCards from '../../modules/CatalogCards/CatalogCards'
 
 import s from './category.slug.module.scss'
 
@@ -36,11 +36,9 @@ const Index: FC<IndexProps> = ({ topMenu, headerMenu, breadCrumbsArr, minMaxPric
         <div>
             <MainLayout topMenu={topMenu} headerMenu={headerMenu} footerMenu={footerMenu} footerMenuInfo={footerMenuInfo} footerMenuCoordinates={footerMenuCoordinates} footerMenuEmail={footerMenuEmail}>
                 <BreadCrumbs breadCrumbsArr={breadCrumbsArr} />
-                <CatalogCards title={catalogCards.title} catalogCards={catalogCards.cards} />
-
-                <Catalog filter={filter} minMaxPriceProduct={minMaxPriceProduct} />
-
-                <CatalogSeo catalogSeoSection={catalogSeo} />
+                <CatalogCards catalogCards={catalogCards} />
+                 {/* <Catalog filter={filter} minMaxPriceProduct={minMaxPriceProduct} /> */}
+                 {/* <CatalogSeo catalogSeoSection={catalogSeo} /> */}
             </MainLayout>
         </div >
     )
@@ -64,7 +62,7 @@ export async function getServerSideProps(context) {
     }
 
     const minMaxPriceProduct = await GetMinMaxPriceProduct()
-    console.log(minMaxPriceProduct);
+    // console.log(minMaxPriceProduct);
 
     const filter = await GetFilterBySlug('filtr-osnovnoi')
     // console.log('filterrrrrrr', filter);
