@@ -1,20 +1,15 @@
-import { FC, useContext, useEffect, useState } from "react"
-import FilterContext from "../../../context/filter-context"
-import RadioButton from "../../Elements/RadioButton/RadioButton"
-import FilterSeparateLine from "../FilterSeparateLine/FilterSeparateLine"
+import { FC } from "react"
+import RadioButton from "../../../UI/RadioButton/RadioButton"
 import FilterTitle from "../FilterTitle/FilterTitle"
+import SeparateLine from "../../../UI/SeparateLine/SeparateLine"
+import { useFilterColor } from "./hooks/useFilterColor"
+
 import s from './FilterColor.module.scss'
-import { IFilterActiveColor, IFilterContext } from "../../../interfaces/filter.interface"
 
 interface FilterColorProps {}
 
 const FilterColor: FC<FilterColorProps> = ({ }) => {
-    const valueContext: IFilterContext = useContext(FilterContext)
-
-    const HandleClickRadioButton = (item: IFilterActiveColor) => {
-        valueContext.setFilterActiveColor(item)
-        valueContext.setShowBtn({isVisible: true, top: 220})
-    }
+    const {valueContext, HandleClickRadioButton} = useFilterColor()
 
     return (
         <div className={s.block}>
@@ -24,9 +19,7 @@ const FilterColor: FC<FilterColorProps> = ({ }) => {
                     valueContext.color?.values.map((item, index) => <RadioButton color={item.value} active={index === valueContext.activeColor?.index ? true : false} key={item.id} onClickBut={() => HandleClickRadioButton({...item, index})} />)
                 }
             </ul>
-
-            <FilterSeparateLine />
-
+            <SeparateLine />
         </div>
     )
 }
