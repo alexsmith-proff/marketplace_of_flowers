@@ -1,35 +1,13 @@
-import { FC, useContext } from 'react'
-import FilterContext from '../../../context/filter-context'
-import { IFilterContext, IFilterValue } from '../../../interfaces/filter.interface'
-import CheckBox from '../../Elements/CheckBoxs/CheckBox/CheckBox'
-import FilterSeparateLine from '../FilterSeparateLine/FilterSeparateLine'
+import { FC } from 'react'
 import FilterTitle from '../FilterTitle/FilterTitle'
+import CheckBox from '../../../UI/CheckBoxs/CheckBox/CheckBox'
+import SeparateLine from '../../../UI/SeparateLine/SeparateLine'
+import { useFilterSize } from './hooks/useFilterSize'
 
 import s from './FilterSize.module.scss'
 
-interface FilterSizeProps { }
-
-const FilterSize: FC<FilterSizeProps> = ({ }) => {
-    const valueContext: IFilterContext = useContext(FilterContext)
-
-    const handleChangeCheckBoxDiametrFlavor = (itemValue: IFilterValue) => {
-        const d = {...valueContext.diametrFlavor, values: valueContext.diametrFlavor.values.map((item) => (
-            item.id === itemValue.id ? (item.value == '0' ? {...item, value: '1'} : {...item, value: '0'}) : item
-        )
-        )}
-        
-        valueContext.setFilterDiametrFlavor(d)  
-        valueContext.setShowBtn({isVisible: true, top: 470})               
-    }
-    const handleChangeCheckBoxHeightFlavor = (itemValue: IFilterValue) => {
-        const h = {...valueContext.heightFlavor, values: valueContext.heightFlavor.values.map((item) => (
-            item.id === itemValue.id ? (item.value == '0' ? {...item, value: '1'} : {...item, value: '0'}) : item
-        )
-        )}
-        valueContext.setFilterHeightFlavor(h)    
-        valueContext.setShowBtn({isVisible: true, top: 470})                         
-    }
-
+const FilterSize: FC = ({ }) => {
+    const { valueContext, handleChangeCheckBoxDiametrFlavor, handleChangeCheckBoxHeightFlavor } = useFilterSize()
 
     return (
         <div className={s.block}>
@@ -46,7 +24,7 @@ const FilterSize: FC<FilterSizeProps> = ({ }) => {
                     valueContext.heightFlavor?.values.map((item) => <CheckBox id={item.id} name={item.name} key={item.id} checked={item.value === '1' ? true : false} onChangeCheckBox={() => handleChangeCheckBoxHeightFlavor(item)} />)
                 }
             </ul>
-            <FilterSeparateLine />
+            <SeparateLine />
         </div>
     )
 }
