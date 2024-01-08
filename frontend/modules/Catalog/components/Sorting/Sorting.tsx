@@ -1,5 +1,5 @@
 import { FC } from "react";
-import ComboBoxSorting from "../Elements/ComboBoxs/ComboBoxSorting/ComboBoxSorting";
+import ComboBoxSorting from "../../../../UI/ComboBoxs/ComboBoxSorting/ComboBoxSorting";
 
 import s from './Sorting.module.scss'
 

@@ -1,15 +1,13 @@
-import { FC, ReactEventHandler, useState } from "react";
+import { FC } from "react";
+import { SortingsList } from "../../../constants/sorting.conts";
 
 import s from './ComboBoxSorting.module.scss'
-import { SortingsList } from "../../../../constants/sorting.conts";
 
 type ComboBoxSortingProps = {
     sortItem: string
     setSortItem: (sort: string) => void
 }
 const ComboBoxSorting: FC<ComboBoxSortingProps> = ({ sortItem, setSortItem }) => {
-    // const [sortItem, setSortItem] = useState<string>(list[0])
-
     const handleChangeComboBox = (e) => {
         setSortItem(e.target.value)
     }

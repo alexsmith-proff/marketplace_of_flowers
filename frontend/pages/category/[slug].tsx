@@ -1,20 +1,17 @@
 import React, { FC } from 'react'
 import MainLayout from '../../layouts/MainLayout/MainLayout'
-import { GetAllCatalog, GetCatalogByParent, GetCatalogNameBySlug, GetFilterBySlug, GetMenu, GetMinMaxPriceProduct, GetProductsByFilterData, GetSection } from '../../services/core/requests'
+import BreadCrumbs from '../../components/BreadCrumbs/BreadCrumbs'
+import CatalogCards from '../../modules/CatalogCards/CatalogCards'
+import Catalog from '../../modules/Catalog/Catalog'
+import CatalogSeo from '../../components/CatalogSeo/CatalogSeo'
+import { getBreadCrumbsFromCatalog } from '../../services/core/parse'
+import { GetAllCatalog, GetCatalogByParent, GetCatalogNameBySlug, GetFilterBySlug, GetMenu, GetMinMaxPriceProduct, GetSection } from '../../services/core/requests'
 import { IMenu } from '../../interfaces/menu.interface'
 import { ISection } from '../../interfaces/section.interface'
 import { ICatalogCards } from '../../interfaces/catalog.interface'
-import CatalogSeo from '../../components/CatalogSeo/CatalogSeo'
-import BreadCrumbs from '../../components/BreadCrumbs/BreadCrumbs'
 import { IBreadCrumbs } from '../../interfaces/breadCrumbs.interface'
-import { getBreadCrumbsFromCatalog } from '../../services/core/parse'
 import { IProductMinMaxPrice } from '../../interfaces/products.interface'
-import { IFilter, IFilterData } from '../../interfaces/filter.interface'
-import Catalog from '../../components/Catalog/Catalog'
-import CatalogCards from '../../modules/CatalogCards/CatalogCards'
-
-import s from './category.slug.module.scss'
-
+import { IFilter } from '../../interfaces/filter.interface'
 
 interface IndexProps {
     topMenu: IMenu,
@@ -37,13 +34,12 @@ const Index: FC<IndexProps> = ({ topMenu, headerMenu, breadCrumbsArr, minMaxPric
             <MainLayout topMenu={topMenu} headerMenu={headerMenu} footerMenu={footerMenu} footerMenuInfo={footerMenuInfo} footerMenuCoordinates={footerMenuCoordinates} footerMenuEmail={footerMenuEmail}>
                 <BreadCrumbs breadCrumbsArr={breadCrumbsArr} />
                 <CatalogCards catalogCards={catalogCards} />
-                 {/* <Catalog filter={filter} minMaxPriceProduct={minMaxPriceProduct} /> */}
-                 <CatalogSeo catalogSeoSection={catalogSeo} />
+                <Catalog filter={filter} minMaxPriceProduct={minMaxPriceProduct} />
+                <CatalogSeo catalogSeoSection={catalogSeo} />
             </MainLayout>
         </div >
     )
 }
-
 
 export async function getServerSideProps(context) {
     const { query } = context
@@ -53,7 +49,6 @@ export async function getServerSideProps(context) {
 
     // Получить весь каталог
     const catalogArr = await GetAllCatalog()
-
     const breadCrumbsArr = getBreadCrumbsFromCatalog(catalogArr, query.slug)
 
     const catalogCards: ICatalogCards = {
@@ -62,25 +57,16 @@ export async function getServerSideProps(context) {
     }
 
     const minMaxPriceProduct = await GetMinMaxPriceProduct()
-    // console.log(minMaxPriceProduct);
-
     const filter = await GetFilterBySlug('filtr-osnovnoi')
-    // console.log('filterrrrrrr', filter);
-
-
-
     const catalogSeo = await GetSection('catalog-seo')
-
 
     const footerMenuInfo = await GetMenu('menyu-informaciya')
     const footerMenuCoordinates = await GetSection('nashi-koordinaty')
     const footerMenuEmail = await GetSection('e-mail')
 
-
     return {
         props: { topMenu, headerMenu, footerMenu, breadCrumbsArr, minMaxPriceProduct, catalogCards, filter, catalogSeo, footerMenuInfo, footerMenuCoordinates, footerMenuEmail }
     }
 }
-
 
 export default Index

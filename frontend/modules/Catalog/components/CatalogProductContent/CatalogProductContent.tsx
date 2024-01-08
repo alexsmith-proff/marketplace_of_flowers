@@ -1,52 +1,20 @@
-import { FC, useState, useEffect } from "react";
-import CatalogProductList from "../../../../components/CatalogProductList/CatalogProductList";
-import Sorting from "../../../../components/Sorting/Sorting";
+import { FC } from "react";
+import CatalogProductList from "../CatalogProductList/CatalogProductList";
 import Pagination from "../../../../components/Pagination/Pagination";
+import Sorting from "../Sorting/Sorting";
+import { useCatalogProductContent } from "./hooks/useCatalogProductContent";
+import { IProduct } from "../../../../interfaces/products.interface";
 
 import s from './CatalogProductContent.module.scss'
-import { IProduct } from "../../../../interfaces/products.interface";
 
 type CatalogProductContentProps = {
     sortItem: string
     setSortItem: (sort: string) => void
-
-    // products: ICatalogProduct[]
     products: IProduct[]
 }
 
 const CatalogProductContent: FC<CatalogProductContentProps> = ({ sortItem, setSortItem, products }) => {
-    // Вырезает из products товары на странице
-    function getProductsOnPage(): IProduct[] {
-        return products.slice(currentPagePagination * countPerPagePagination, currentPagePagination * countPerPagePagination + countPerPagePagination)
-    }
-
-    // Массив товаров на странице
-    const [productsOnPage, setProductsOnPage] = useState<IProduct[]>([])
-
-    // Текущая страница пагинации
-    const [currentPagePagination, setCurrentPagePagination] = useState<number>(0)
-
-    // Количество продуктов на странице
-    const countPerPagePagination = 9
-
-    // Количество страниц пагинации
-    const countPagination = Math.ceil(products.length / countPerPagePagination)
-
-    const handleClickPagiation = (pageNum) => {
-        setCurrentPagePagination(pageNum)
-    }
-
-
-    useEffect(() => {
-        // При изменении products и соответственно значения сортировки - 1 страница пагинации
-        setCurrentPagePagination(0)
-    }, [products])
-    useEffect(() => {
-        if (products) {
-            setProductsOnPage(() => getProductsOnPage())
-        }
-    }, [products, currentPagePagination])
-
+    const { countPagination, productsOnPage, handleClickPagiation, currentPagePagination} = useCatalogProductContent(products)
 
     return (
         <div className={s.wrap}>
@@ -58,7 +26,6 @@ const CatalogProductContent: FC<CatalogProductContentProps> = ({ sortItem, setSo
                     :
                     <></>
             }
-
             <CatalogProductList products={productsOnPage} />
             <div className={s.pagination}>
                 <Pagination pageCount={countPagination} onClickPagination={handleClickPagiation} forcePage={currentPagePagination} />

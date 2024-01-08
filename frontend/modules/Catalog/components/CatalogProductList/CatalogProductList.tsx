@@ -1,10 +1,10 @@
 import React, { FC } from "react";
-import CatalogProduct from "../CatalogProduct/CatalogProduct";
-import { IProduct } from "../../interfaces/products.interface";
+import CatalogProduct from "../../../../components/CatalogProduct/CatalogProduct";
+import { IProduct } from "../../../../interfaces/products.interface";
 
 import s from './CatalogProductList.module.scss'
 import { useSelector } from "react-redux";
-import { RootState } from "../../redux/store";
+import { RootState } from "../../../../redux/store";
 
 interface CatalogProductListProps {
     products: IProduct[]
@@ -13,9 +13,6 @@ interface CatalogProductListProps {
 const CatalogProductList: FC<CatalogProductListProps> = ({ products }) => {
     const buyProducts = useSelector((state: RootState) => state.cartProduct.products)
     const favoriteProduct = useSelector((state: RootState) => state.favoriteProduct.products)
-    console.log('buyProducts', buyProducts)
-    console.log('favoriteProduct', favoriteProduct)
-    
 
     return (
         <div className={s.wrap}>
