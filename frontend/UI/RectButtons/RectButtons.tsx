@@ -1,7 +1,7 @@
 import { FC, useState } from 'react'
 
 import s from './RectButtons.module.scss'
-import { IRectButton } from '../../../interfaces/elements'
+import { IRectButton } from '../../interfaces/elements'
 
 type TRectButtons = {
     buttons?: IRectButton[],
