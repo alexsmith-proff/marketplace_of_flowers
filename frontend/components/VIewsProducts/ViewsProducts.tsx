@@ -1,13 +1,10 @@
 import { FC } from 'react'
 import Image from 'next/image'
-import CardPrice from '../Elements/CardPrice/CardPrice'
-import ToCartBtn from '../Elements/Buttons/ToCartBtn/ToCartBtn'
-import FavoriteBtn from '../Elements/Buttons/FavoriteBtn/FavoriteBtn'
-import { useDispatch, useSelector } from 'react-redux'
-import { addFavoriteProduct, deleteFavoriteProduct } from '../../redux/product/favoriteProductSlice'
-import { addCartProduct, deleteCartProduct } from '../../redux/product/cartProductSlice'
+import { useViewsProducts } from './hooks/useViewsProducts'
+import CardPrice from '../../UI/CardPrice/CardPrice'
+import ToCartBtn from '../../UI/Buttons/ToCartBtn/ToCartBtn'
+import FavoriteBtn from '../../UI/Buttons/FavoriteBtn/FavoriteBtn'
 import { IProduct } from '../../interfaces/products.interface'
-import { RootState } from '../../redux/store'
 
 import s from './ViewsProducts.module.scss'
 
@@ -16,25 +13,8 @@ interface ViewsProductsProps {
 }
 
 const ViewsProducts: FC<ViewsProductsProps> = ({ products }) => {
-    const dispatch = useDispatch()
-    const productFavorite = useSelector((state: RootState) => state.favoriteProduct.products)
-    const productToCart = useSelector((state: RootState) => state.cartProduct.products)
-
-    const handleClickFavorite = (e, isActive: boolean, product: IProduct) => {
-        // Прервем передачу события клика родительскому элементу <li>, т.е. не сработает handleClickProduct 
-        e.stopPropagation()
-        //Добавление товара в избранное
-        !isActive ? dispatch(addFavoriteProduct(product)) : dispatch(deleteFavoriteProduct(product.id))
-    }
-
-    const handleClickToCart = (e, isActiveBtn: boolean, product: IProduct) => {
-        // Прервем передачу события клика родительскому элементу <li>, т.е. не сработает handleClickProduct 
-        e.stopPropagation()
-        //Добавление товара в избранное
-        !isActiveBtn ? dispatch(addCartProduct({ ...product, count: 1 })) : dispatch(deleteCartProduct(product.id))
-    }
-
-
+    const { productToCart, productFavorite, handleClickToCart, handleClickFavorite } = useViewsProducts()
+    
     return (
         <>
             <section className={s.mainCards}>

@@ -1,17 +1,18 @@
 import React, { FC } from 'react'
+import { RootState } from '../../redux/store'
 import MainLayout from '../../layouts/MainLayout/MainLayout'
 import BreadCrumbs from '../../components/BreadCrumbs/BreadCrumbs'
+import ProductCard from '../../modules/ProductCard/ProductCard'
+import ReviewsMainPage from '../../modules/ReviewsMainPage/ReviewsMainPage'
+import Privileges from '../../modules/Privileges/Privileges'
+import ViewsProducts from '../../components/VIewsProducts/ViewsProducts'
+import { useSelector } from 'react-redux'
 import { GetAllCatalog, GetMenu, GetProductsById, GetSection } from '../../services/core/requests'
 import { getBreadCrumbsFromCatalog } from '../../services/core/parse'
 import { IMenu } from '../../interfaces/menu.interface'
 import { ISection } from '../../interfaces/section.interface'
 import { IProduct } from '../../interfaces/products.interface'
 import { IBreadCrumbs } from '../../interfaces/breadCrumbs.interface'
-import ProductCard from '../../modules/ProductCard/ProductCard'
-import ReviewsMainPage from '../../modules/ReviewsMainPage/ReviewsMainPage'
-import Privileges from '../../modules/Privileges/Privileges'
-import { useSelector } from 'react-redux'
-import { RootState } from '../../redux/store'
 
 interface IndexProps {
     topMenu: IMenu,
@@ -35,15 +36,14 @@ const Index: FC<IndexProps> = ({ topMenu, headerMenu, footerMenu, footerMenuInfo
                 <BreadCrumbs breadCrumbsArr={breadCrumbsArr} />
                 <ProductCard product={product} />
                 <ReviewsMainPage reviewSection={reviews} />
-                {/* {
+                {
                     viewedProducts.length > 1 ? <ViewsProducts products={viewedProducts}/> : <></>
-                } */}
+                }
                 <Privileges privilegeSection={privilege} />
             </MainLayout>
         </div >
     )
 }
-
 
 export async function getServerSideProps(context) {
     const { query } = context
@@ -51,7 +51,6 @@ export async function getServerSideProps(context) {
     const topMenu = await GetMenu('verkhnee-menyu')
     const headerMenu = await GetMenu('menyu-v-khedere')
     const footerMenu = await GetMenu('menyu-v-futere')
-
     const footerMenuInfo = await GetMenu('menyu-informaciya')
     const footerMenuCoordinates = await GetSection('nashi-koordinaty')
     const footerMenuEmail = await GetSection('e-mail')
@@ -61,9 +60,7 @@ export async function getServerSideProps(context) {
 
     // Получить весь каталог
     const catalogArr = await GetAllCatalog()
-
     const breadCrumbsArr = getBreadCrumbsFromCatalog(catalogArr, product.catalog.slug)
-
     const reviews = await GetSection('reviews')
     const privilege = await GetSection('privilegii')
 
