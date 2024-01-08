@@ -31,7 +31,7 @@ const BreadCrumbs: FC<BreadCrumbsProps> = ({ breadCrumbsArr }) => {
                             {
                                 index !== 0 &&
                                 <div className={st.img}>
-                                    <Image src="/img/arrow-breadcrumbs.png" width={14} height={10} />
+                                    <Image src="/img/arrow-breadcrumbs.png" width={14} height={10} alt="arrow-breadcrumbs" />
                                 </div>
                             }
 

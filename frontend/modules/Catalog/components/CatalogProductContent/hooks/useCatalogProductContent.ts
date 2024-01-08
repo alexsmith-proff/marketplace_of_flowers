@@ -31,6 +31,7 @@ export const useCatalogProductContent = (products: IProduct[]) => {
         if (products) {
             setProductsOnPage(() => getProductsOnPage())
         }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [products, currentPagePagination])
 
     return { countPagination, productsOnPage, handleClickPagiation, currentPagePagination}

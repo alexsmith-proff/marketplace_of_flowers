@@ -1,0 +1,45 @@
+.block {
+    width: 234px;
+    padding: 20px;
+    background: #FFFFFF;
+    border-left: 1px solid #E2E4EB;
+    border-right: 1px solid #E2E4EB;
+    border-top: 1px solid #E2E4EB;
+    &:last-child{
+        border-bottom: 1px solid #E2E4EB;        
+    }
+
+    li {
+        font-family: 'TT Norms';
+        font-weight: 400;
+        font-size: 14px;
+        line-height: 20px;
+        color: #1B1C21;
+    }
+}
+
+.title {
+    font-family: 'TT Norms';
+    font-weight: bold;
+    font-size: 16px;
+    line-height: 22px;
+    margin-bottom: 5px;
+
+}
+
+.link {
+    font-family: 'TT Norms';
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 20px;
+    text-decoration-line: underline;
+    color: #0093A2;
+}
+
+.text {
+    font-family: 'TT Norms';
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 20px;
+    color: #505567;
+}

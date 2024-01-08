@@ -1,6 +1,6 @@
 import { FC } from "react"
 import FilterTitle from "../FilterTitle/FilterTitle"
-import FilterSeparateLine from "../FilterSeparateLine/FilterSeparateLine"
+import SeparateLine from "../../../UI/SeparateLine/SeparateLine"
 import RangeSlider from "../../../UI/RangeSlider/RangeSlider"
 import { useFilterPrice } from "./hooks/useFilterPrice"
 
@@ -42,7 +42,7 @@ const FilterPrice: FC<FilterPriceProps> = ({ }) => {
                 <div className={s.labelItem}>от <span>{valueContext.price.limitMin} ₽</span></div>
                 <div className={s.labelItem}>от <span>{valueContext.price.limitMax} ₽</span></div>
             </div>
-            <FilterSeparateLine />
+            <SeparateLine />
 
         </div>
     )

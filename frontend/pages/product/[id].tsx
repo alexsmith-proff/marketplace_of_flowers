@@ -5,14 +5,13 @@ import { GetAllCatalog, GetMenu, GetProductsById, GetSection } from '../../servi
 import { getBreadCrumbsFromCatalog } from '../../services/core/parse'
 import { IMenu } from '../../interfaces/menu.interface'
 import { ISection } from '../../interfaces/section.interface'
-import { IProduct, IProductFilter } from '../../interfaces/products.interface'
+import { IProduct } from '../../interfaces/products.interface'
 import { IBreadCrumbs } from '../../interfaces/breadCrumbs.interface'
-import ProductCard from '../../components/ProductCard/ProductCard'
-import Reviews from '../../components/Reviews/Reviews'
-import Privileges from '../../components/Privileges/Privileges'
+import ProductCard from '../../modules/ProductCard/ProductCard'
+import ReviewsMainPage from '../../modules/ReviewsMainPage/ReviewsMainPage'
+import Privileges from '../../modules/Privileges/Privileges'
 import { useSelector } from 'react-redux'
 import { RootState } from '../../redux/store'
-import ViewsProducts from '../../components/VIewsProducts/ViewsProducts'
 
 interface IndexProps {
     topMenu: IMenu,
@@ -29,18 +28,16 @@ interface IndexProps {
 
 const Index: FC<IndexProps> = ({ topMenu, headerMenu, footerMenu, footerMenuInfo, footerMenuCoordinates, footerMenuEmail, breadCrumbsArr, product, reviews, privilege }) => {
     const viewedProducts = useSelector((state: RootState ) => state.viewedProduct.products)
-    console.log('viewedProductsviewedProductsviewedProducts', viewedProducts);
-    
     
     return (
         <div>
             <MainLayout topMenu={topMenu} headerMenu={headerMenu} footerMenu={footerMenu} footerMenuInfo={footerMenuInfo} footerMenuCoordinates={footerMenuCoordinates} footerMenuEmail={footerMenuEmail}>
                 <BreadCrumbs breadCrumbsArr={breadCrumbsArr} />
                 <ProductCard product={product} />
-                <Reviews reviewSection={reviews} />
-                {
+                <ReviewsMainPage reviewSection={reviews} />
+                {/* {
                     viewedProducts.length > 1 ? <ViewsProducts products={viewedProducts}/> : <></>
-                }
+                } */}
                 <Privileges privilegeSection={privilege} />
             </MainLayout>
         </div >
@@ -61,7 +58,6 @@ export async function getServerSideProps(context) {
 
     // Получить весь каталог
     const product: IProduct = await GetProductsById(query.id)
-
 
     // Получить весь каталог
     const catalogArr = await GetAllCatalog()

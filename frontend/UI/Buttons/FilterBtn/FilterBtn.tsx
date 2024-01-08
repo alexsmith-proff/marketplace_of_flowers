@@ -1,6 +1,6 @@
 import { FC, useContext } from "react"
-import FilterContext from "../../../../context/filter-context"
-import { IFilterContext } from "../../../../interfaces/filter.interface"
+import FilterContext from "../../../context/filter-context"
+import { IFilterContext } from "../../../interfaces/filter.interface"
 
 import st from './FilterBtn.module.scss'
 

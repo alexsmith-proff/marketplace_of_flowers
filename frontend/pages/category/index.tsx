@@ -21,7 +21,8 @@ const Index: FC<IndexProps> = ({ topMenu, headerMenu, footerMenu, catalogCards, 
     return (
         <div>
             <MainLayout topMenu={topMenu} headerMenu={headerMenu} footerMenu={footerMenu} footerMenuInfo={footerMenuInfo} footerMenuCoordinates={footerMenuCoordinates} footerMenuEmail={footerMenuEmail}>
-                <CatalogCards title={"Букеты из роз"} catalogCards={catalogCards} />
+                <></>
+                {/* <CatalogCards title={"Букеты из роз"} catalogCards={catalogCards} /> */}
             </MainLayout>
         </div >
     )

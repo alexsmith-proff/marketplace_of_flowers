@@ -7,31 +7,31 @@ import { isJSONString } from '../../util/helpers/main';
 
 // Menus
 export const getMenuItemBySlugFromMenu = (menu: IMenu, menuItemSlug: string): IMenuItem => {
-    if(menu) {
+    if (menu) {
         const menuItem = menu.items.find(item => item.slug === menuItemSlug)
-        if(menuItem) return menuItem
+        if (menuItem) return menuItem
         return null
     }
 }
 
 export const getMenuItemNameBySlugFromMenu = (menu: IMenu, menuItemSlug: string): string => {
     const menuItem = getMenuItemBySlugFromMenu(menu, menuItemSlug)
-    if(menuItem) return menuItem.name
+    if (menuItem) return menuItem.name
     return null
 }
 
 export const getSubMenuItemBySlugFromMenu = (menu: IMenu, menuItemSlug: string, subMenuItemSlug: string): ISubMenu => {
     const menuItem = getMenuItemBySlugFromMenu(menu, menuItemSlug)
-    if(menuItem) {
+    if (menuItem) {
         const subMenuItem = menuItem.submenuitems.find(subItem => subItem.slug === subMenuItemSlug)
-        if(subMenuItem) return subMenuItem
+        if (subMenuItem) return subMenuItem
     }
-        return null
+    return null
 }
 
 export const getSubMenuItemsArrBySlugFromMenu = (menu: IMenu, menuItemSlug: string): ISubMenu[] => {
     const menuItem = getMenuItemBySlugFromMenu(menu, menuItemSlug)
-    if(menuItem) return menuItem.submenuitems
+    if (menuItem) return menuItem.submenuitems
     return null
 }
 ///////////////////////////////////////
@@ -51,14 +51,14 @@ export const getTextInTextBlockFromSection = (section: ISection, elementSlug: st
 export const getTextInTextBlockFromElement = (element: IElement, textSlug: string) => {
     const textElement = element.text_elements.find(t_el => t_el.slug == textSlug)
     // console.log('wwwww', textElement);
-    
-    if (textElement){
-        if(isJSONString(textElement.text)){
+
+    if (textElement) {
+        if (isJSONString(textElement.text)) {
             const JSONObj = JSON.parse(textElement.text)
-            if(JSONObj.name == 'product'){
+            if (JSONObj.name == 'product') {
                 return element.product_ref[JSONObj.field]
-            }else return textElement.text
-        }else return textElement.text        
+            } else return textElement.text
+        } else return textElement.text
     }
     else return ''
 
@@ -79,23 +79,25 @@ export const getElementBySlug = (section: ISection, slug: string): IElement => {
 export const getBreadCrumbsFromCatalog = (catalogArr: ICatalog[], slug: string) => {
     const breadCrumbs: IBreadCrumbs[] = []
     const findEl = (slug: string) => {
-        const bc = catalogArr.find(item => item.slug === slug)  
-        breadCrumbs.unshift({
-            text: bc.name,
-            slug: bc.slug
-        }) 
-        if (bc.parent) {          
-            findEl(bc.parent.slug)
-        } else {
+        const bc = catalogArr.find(item => item.slug === slug)
+        if (bc) {
             breadCrumbs.unshift({
-                text: 'Главная',
-                slug: ''
-            })            
+                text: bc.name,
+                slug: bc.slug
+            })
+            if (bc.parent) {
+                findEl(bc.parent.slug)
+            } else {
+                breadCrumbs.unshift({
+                    text: 'Главная',
+                    slug: ''
+                })
+            }
         }
     }
     findEl(slug)
-    
-    return breadCrumbs    
+
+    return breadCrumbs
 }
 ///////////////////////////////////////
 

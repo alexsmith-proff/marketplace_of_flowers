@@ -1,7 +1,7 @@
 import React, { FC } from 'react'
 import MainLayout from '../../layouts/MainLayout/MainLayout'
 import BreadCrumbs from '../../components/BreadCrumbs/BreadCrumbs'
-import CatalogCards from '../../modules/CatalogCards/CatalogCards'
+import CatalogCards from '../../components/CatalogCards/CatalogCards'
 import Catalog from '../../modules/Catalog/Catalog'
 import CatalogSeo from '../../components/CatalogSeo/CatalogSeo'
 import { getBreadCrumbsFromCatalog } from '../../services/core/parse'
@@ -50,6 +50,7 @@ export async function getServerSideProps(context) {
     // Получить весь каталог
     const catalogArr = await GetAllCatalog()
     const breadCrumbsArr = getBreadCrumbsFromCatalog(catalogArr, query.slug)
+    console.log('breadCrumbsArrbreadCrumbsArrbreadCrumbsArr', breadCrumbsArr);    
 
     const catalogCards: ICatalogCards = {
         title: await GetCatalogNameBySlug(query.slug),
