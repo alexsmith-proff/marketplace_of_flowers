@@ -1,16 +1,12 @@
-import { FC, useContext } from "react"
-import FilterContext from "../../../context/filter-context"
-import { IFilterContext, IFilterElement } from "../../../interfaces/filter.interface"
+import { FC } from "react"
 import FilterCheckBox from "../FilterCheckBox/FilterCheckBox"
+import { useFilterPurpose } from "./hooks/useFilterPurpose"
 
 interface FilterPurposeProps {}
 
 const FilterPurpose: FC<FilterPurposeProps> = ({  }) => {
-    const valueContext: IFilterContext = useContext(FilterContext)
-    const handleChangeFilterPurpose = (val: IFilterElement) => {
-        valueContext.setFilterPurpose(val)
-        valueContext.setShowBtn({isVisible: true, top: 960})
-    }
+    const { valueContext, handleChangeFilterPurpose } = useFilterPurpose()
+    
     return (
         <div>
             <FilterCheckBox filterName="Кому" filter={valueContext.purpose} separateLine={false} changeCheckBox={handleChangeFilterPurpose} />
