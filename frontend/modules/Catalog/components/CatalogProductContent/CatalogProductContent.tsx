@@ -1,10 +1,10 @@
 import { FC, useState, useEffect } from "react";
-import CatalogProductList from "../../CatalogProductList/CatalogProductList";
-import Sorting from "../../Sorting/Sorting";
-import Pagination from "../../Pagination/Pagination";
+import CatalogProductList from "../../../../components/CatalogProductList/CatalogProductList";
+import Sorting from "../../../../components/Sorting/Sorting";
+import Pagination from "../../../../components/Pagination/Pagination";
 
 import s from './CatalogProductContent.module.scss'
-import { IProduct } from "../../../interfaces/products.interface";
+import { IProduct } from "../../../../interfaces/products.interface";
 
 type CatalogProductContentProps = {
     sortItem: string

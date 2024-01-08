@@ -4,7 +4,7 @@ import { IFilter, IFilterData, IFilterOrderData } from "../../interfaces/filter.
 import { GetProductsByFilterData } from "../../services/core/requests";
 import { IProduct, IProductMinMaxPrice } from "../../interfaces/products.interface";
 import { SortingsList } from "../../constants/sorting.conts";
-import CatalogProductContent from "./CatalogProductContent/CatalogProductContent";
+import CatalogProductContent from "../../modules/Catalog/components/CatalogProductContent/CatalogProductContent";
 
 import s from './Catalog.module.scss'
 
