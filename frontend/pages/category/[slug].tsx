@@ -38,7 +38,7 @@ const Index: FC<IndexProps> = ({ topMenu, headerMenu, breadCrumbsArr, minMaxPric
                 <BreadCrumbs breadCrumbsArr={breadCrumbsArr} />
                 <CatalogCards catalogCards={catalogCards} />
                  {/* <Catalog filter={filter} minMaxPriceProduct={minMaxPriceProduct} /> */}
-                 {/* <CatalogSeo catalogSeoSection={catalogSeo} /> */}
+                 <CatalogSeo catalogSeoSection={catalogSeo} />
             </MainLayout>
         </div >
     )
