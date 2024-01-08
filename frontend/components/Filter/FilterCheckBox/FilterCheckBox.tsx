@@ -1,12 +1,10 @@
+import { FC } from 'react'
 import Image from 'next/image'
-import { FC, useContext, useState, useEffect } from 'react'
-import FilterContext from '../../../context/filter-context'
-import { IFilterElement, IFilterValue } from '../../../interfaces/filter.interface'
-import { getFilterElementFromFilterBySlug } from '../../../services/core/parse'
-import CheckBox from '../../Elements/CheckBoxs/CheckBox/CheckBox'
-import { IFilterContext } from '../Filter'
-import FilterSeparateLine from '../FilterSeparateLine/FilterSeparateLine'
 import FilterTitle from '../FilterTitle/FilterTitle'
+import CheckBox from '../../../UI/CheckBoxs/CheckBox/CheckBox'
+import SeparateLine from '../../../UI/SeparateLine/SeparateLine'
+import { IFilterElement } from '../../../interfaces/filter.interface'
+import { useFilterCheckBox } from './hooks/useFilterCheckBox'
 
 import s from './FilterCheckBox.module.scss'
 
@@ -18,19 +16,8 @@ interface FilterCheckBoxProps {
 }
 
 const FilterCheckBox: FC<FilterCheckBoxProps> = ({ filterName, filter, changeCheckBox, separateLine = true }) => {
-    const [isExpand, setIsExpand] = useState<boolean>(false)
-
-    const handleChangeCheckBoxFilterElement = (itemValue: IFilterValue) => {
-        changeCheckBox({...filter, values: filter.values.map((item) => (
-            item.id === itemValue.id ? (item.value == '0' ? { ...item, value: '1' } : { ...item, value: '0' }) : item
-        ))
-    })
-    }
-
-    const HandleExpand = () => {
-        setIsExpand(!isExpand)
-    }
-
+    const { isExpand, handleChangeCheckBoxFilterElement, HandleExpand } = useFilterCheckBox(filter, changeCheckBox)
+   
     return (
         <div className={s.block}>
             <FilterTitle title={filterName} />
@@ -64,7 +51,7 @@ const FilterCheckBox: FC<FilterCheckBoxProps> = ({ filterName, filter, changeChe
             }
 
             {
-                separateLine && <FilterSeparateLine />
+                separateLine && <SeparateLine />
             }
         </div>
     )
