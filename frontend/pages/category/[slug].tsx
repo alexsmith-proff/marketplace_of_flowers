@@ -50,7 +50,7 @@ export async function getServerSideProps(context) {
     // Получить весь каталог
     const catalogArr = await GetAllCatalog()
     const breadCrumbsArr = getBreadCrumbsFromCatalog(catalogArr, query.slug)
-    console.log('breadCrumbsArrbreadCrumbsArrbreadCrumbsArr', breadCrumbsArr);    
+    // console.log('breadCrumbsArrbreadCrumbsArrbreadCrumbsArr', breadCrumbsArr);    
 
     const catalogCards: ICatalogCards = {
         title: await GetCatalogNameBySlug(query.slug),
