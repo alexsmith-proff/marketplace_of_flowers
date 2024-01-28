@@ -1,0 +1,32 @@
+.list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(367px, 1fr));
+    grid-gap: 120px 0px;
+}
+
+.btn {
+    padding-top: 50px;
+
+    &Wrap {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        border-radius: 3px;
+        border: 1px solid #D7D9DC;
+        padding: 10px;
+        cursor: pointer;
+        transition: border .3s;
+
+        &:hover {
+            border: 1px solid #afb1b4;
+        }
+    }
+
+    &Text {
+        color: #353949;
+        font-size: 14px;
+        font-weight: 400;
+        line-height: 20px;
+        margin-left: 10px;
+    }
+}
