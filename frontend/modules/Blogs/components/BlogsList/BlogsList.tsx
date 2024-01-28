@@ -4,7 +4,7 @@ import BlogsItem from "../BlogsItem/BlogsItem"
 import { useBlogList } from "../../hooks/useBlogList"
 import { ISection } from "../../../../interfaces/section.interface"
 
-import s from './Blogs.module.scss'
+import s from './BlogsList.module.scss'
 
 interface BlogsListProps {
     blogs: ISection

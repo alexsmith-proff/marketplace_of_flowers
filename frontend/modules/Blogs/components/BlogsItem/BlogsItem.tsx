@@ -1,7 +1,7 @@
 import Image from "next/image"
 import React from "react"
 
-import s from './Blogs.module.scss'
+import s from './BlogsItem.module.scss'
 
 interface BlogsItemProps {
     fileName: string
