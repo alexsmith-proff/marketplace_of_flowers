@@ -6,8 +6,7 @@ import { IMenu } from '../../interfaces/menu.interface'
 import { ISection } from '../../interfaces/section.interface'
 import { ICatalog } from '../../interfaces/catalog.interface'
 import { IBreadCrumbs } from '../../interfaces/breadCrumbs.interface'
-import Contacts from '../../components/Contacts/Contacts'
-import MapYandex from '../../components/MapYandex/MapYandex'
+import Contacts from '../../modules/Contacts/Contacts'
 
 interface IndexProps {
     topMenu: IMenu,
@@ -43,7 +42,6 @@ export async function getServerSideProps() {
     const footerMenuCoordinates = await GetSection('nashi-koordinaty')
     const footerMenuEmail = await GetSection('e-mail')
 
-    // const breadCrumbsArr = getBreadCrumbsFromCatalog(catalogArr, query.slug)
     const breadCrumbsArr: IBreadCrumbs[] = [
         {
             slug: '',

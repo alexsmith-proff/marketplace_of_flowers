@@ -3,19 +3,10 @@ import { FC, useEffect, useState } from "react";
 import s from './Contacts.module.scss'
 import { IElement, ISection } from "../../interfaces/section.interface";
 import { getElementBySlug, getFileNameInImgBlockFromElement, getTextInTextBlockFromElement, getTextInTextBlockFromSection } from "../../services/core/parse";
-import Image from "next/image";
-import MapYandex from "../MapYandex/MapYandex";
+// import MapYandex from "../MapYandex/MapYandex";
 import Link from "next/link";
-
-interface IShopObj {
-    name: string
-    address: string
-    number: string
-    GPS: string
-    filenameImg: string
-    lat: number
-    long: number
-}
+import ContactList from "./components/ContactList/ContactList";
+import { IShopObj } from "../../interfaces/shop.interface";
 
 interface ContactsProps {
     contactsSection: ISection
@@ -56,43 +47,9 @@ const Contacts: FC<ContactsProps> = ({ contactsSection }) => {
                                 </div>
                             </a>
                         </Link>
-                        {/* <div className={s.telephoneTabNumber}>{getTextInTextBlockFromSection(contactsSection, 'telefon', 'nomer')}</div> */}
                     </div>
                 </div>
-                <ul className={s.list}>
-                    {
-                        shops?.map((shop, ind) => (
-                            <li className={s.item} key={ind}>
-                                <Image className={s.img} src={`${process.env.API_URI_DOCKER}/${shop.filenameImg}`} width={520} height={390} alt="phone-ico" />
-                                <div className={s.content}>
-                                    <p className={s.name}>{shop.name}</p>
-                                    <p className={s.address}>{shop.address}</p>
-                                    <div className={s.info}>
-                                        <div className={s.infoItem}>
-                                            <Image src={'/img/phone-btn.png'} width={24} height={24} alt="phone-ico" />
-                                            <div className={s.infoContent}>
-                                                <p className={s.infoTitle}>Телефон:</p>
-                                                <Link href={`tel:${shop.number.replace(/[()-+-' ']/g, '')}`}>
-                                                    <a>
-                                                        <p className={s.infoText}>{shop.number}</p>
-                                                    </a>
-                                                </Link>
-                                            </div>
-                                        </div>
-                                        <div className={s.infoItem}>
-                                            <Image src={'/img/map-point.png'} width={32} height={32} alt="phone-ico" />
-                                            <div className={s.infoContent}>
-                                                <p className={s.infoTitle}>GPS:</p>
-                                                <p className={s.infoText}>{shop.GPS}</p>
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                </div>
-                            </li>
-                        ))
-                    }
-                </ul>
+                <ContactList shops={shops} />
                 <MapYandex
                     defaultState={{
                         center: [51.670554, 39.192204],
@@ -102,7 +59,6 @@ const Contacts: FC<ContactsProps> = ({ contactsSection }) => {
                         return { lat: Number(shop.lat), long: Number(shop.long) }
                     })}
                     height={'500px'}
-
                 />
             </div >
         </section >
