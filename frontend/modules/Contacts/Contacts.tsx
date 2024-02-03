@@ -1,12 +1,12 @@
 import { FC, useEffect, useState } from "react";
-
-import s from './Contacts.module.scss'
-import { IElement, ISection } from "../../interfaces/section.interface";
-import { getElementBySlug, getFileNameInImgBlockFromElement, getTextInTextBlockFromElement, getTextInTextBlockFromSection } from "../../services/core/parse";
-// import MapYandex from "../MapYandex/MapYandex";
 import Link from "next/link";
 import ContactList from "./components/ContactList/ContactList";
+import YandexMap from "../../components/YandexMap/YandexMap";
+import { getElementBySlug, getFileNameInImgBlockFromElement, getTextInTextBlockFromElement, getTextInTextBlockFromSection } from "../../services/core/parse";
+import { IElement, ISection } from "../../interfaces/section.interface";
 import { IShopObj } from "../../interfaces/shop.interface";
+
+import s from './Contacts.module.scss'
 
 interface ContactsProps {
     contactsSection: ISection
@@ -50,14 +50,12 @@ const Contacts: FC<ContactsProps> = ({ contactsSection }) => {
                     </div>
                 </div>
                 <ContactList shops={shops} />
-                <MapYandex
+                <YandexMap
                     defaultState={{
                         center: [51.670554, 39.192204],
                         zoom: 12
                     }}
-                    shops={shops.map(shop => {
-                        return { lat: Number(shop.lat), long: Number(shop.long) }
-                    })}
+                    points={shops.map(shop => ({ name: shop.name, lat: Number(shop.lat), long: Number(shop.long) }))}
                     height={'500px'}
                 />
             </div >

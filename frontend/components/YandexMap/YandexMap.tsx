@@ -10,7 +10,7 @@ interface YandexMapProps {
     height?: string
     defaultState: IMapStateDefault
     points?: IPoint[]
-    hint: React.ReactNode
+    hint?: React.ReactNode
 }
 
 const YandexMap: FC<YandexMapProps> = ({
