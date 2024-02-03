@@ -22,10 +22,10 @@ const ContactItem: FC<ContactItemProps> = ({ filenameImg, name, address, imgUrl,
                 <p className={s.address}>{address}</p>
                 <div className={s.info}>
                     <div className={s.infoItem}>
-                        <Image src={imgUrl} width={24} height={24} alt="phone-ico" />
+                        <Image src={'/img/phone-btn.png'} width={24} height={24} alt="phone-ico" />
                         <div className={s.infoContent}>
                             <p className={s.infoTitle}>Телефон:</p>
-                            <Link href={`tel:${phoneNumber.replace(/[()-+-' ']/g, '')}`}>
+                            <Link href={imgUrl}>
                                 <a>
                                     <p className={s.infoText}>{phoneNumber}</p>
                                 </a>

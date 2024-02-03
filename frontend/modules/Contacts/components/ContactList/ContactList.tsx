@@ -17,7 +17,7 @@ const ContactList: FC<ContactListProps> = ({ shops }) => {
                         filenameImg={`${process.env.API_URI_DOCKER}/${shop.filenameImg}`}
                         name={shop.name}
                         address={shop.address}
-                        imgUrl={`tel:${shop.number.replace(/[()-+-' ']/g, '')}`}
+                        imgUrl={`tel:${shop?.number.replace(/[()-+-' ']/g, '')}`}
                         phoneNumber={shop.number}
                         gps={shop.GPS}
                         key={ind}
