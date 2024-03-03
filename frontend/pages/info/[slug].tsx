@@ -1,7 +1,7 @@
 import React, { FC, useState } from 'react'
 import MainLayout from '../../layouts/MainLayout/MainLayout'
 import InfoLayout from '../../layouts/InfoLayout/InfoLayout'
-import InfoAbout from '../../components/InfoAbout/InfoAbout'
+import InfoAbout from '../../modules/InfoAbout/InfoAbout'
 import InfoPay from '../../components/InfoPay/InfoPay'
 import InfoDelivery from '../../components/InfoDelivery/InfoDelivery'
 import { GetMenu, GetSection } from '../../services/core/requests'
@@ -31,8 +31,8 @@ const Index: FC<IndexProps> = ({ topMenu, headerMenu, footerMenu, footerMenuInfo
             <MainLayout topMenu={topMenu} headerMenu={headerMenu} footerMenu={footerMenu} footerMenuInfo={footerMenuInfo} footerMenuCoordinates={footerMenuCoordinates} footerMenuEmail={footerMenuEmail}>
                 <InfoLayout sideMenuSlug={slugUrl}>
                     { slugUrl === 'about' && <InfoAbout about={about} employee={employee} /> }
-                    { slugUrl === 'pay' && <InfoPay /> }
-                    { slugUrl === 'delivery' && <InfoDelivery /> }
+                    {/* { slugUrl === 'pay' && <InfoPay /> } */}
+                    {/* { slugUrl === 'delivery' && <InfoDelivery /> } */}
                 </InfoLayout>
             </MainLayout>
         </div >
