@@ -1,0 +1,16 @@
+.employee {
+    margin-bottom: 80px;
+}
+
+.title {
+    font-size: 30px;
+    font-weight: 700;
+    line-height: 40px;
+    margin-bottom: 30px;
+}
+
+.list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    grid-gap: 37px;
+}
